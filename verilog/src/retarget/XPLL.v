@@ -1,0 +1,206 @@
+///////////////////////////////////////////////////////////////////////////////
+//  Copyright (c) 1995/2023 Xilinx, Inc.
+//  All Right Reserved.
+///////////////////////////////////////////////////////////////////////////////
+//   ____  ____
+//  /   /\/   /
+// /___/  \  /     Vendor      : Xilinx
+// \   \   \/      Version     : 2024.1
+//  \   \          Description : Xilinx Retarget Simulation Library Component
+//  /   /                        XPLL
+// /___/   /\      Filename    : XPLL.v
+// \   \  /  \
+//  \___\/\___\
+//
+///////////////////////////////////////////////////////////////////////////////
+//  Revision:
+//
+//  End Revision:
+///////////////////////////////////////////////////////////////////////////////
+
+`timescale 1 ps / 1 ps
+
+module XPLL #(
+  parameter integer CLKFBOUT_MULT = 42,
+  parameter real CLKFBOUT_PHASE = 0.000,
+  parameter real CLKIN_PERIOD = 0.000,
+  parameter integer CLKOUT0_DIVIDE = 2,
+  parameter real CLKOUT0_DUTY_CYCLE = 0.500,
+  parameter real CLKOUT0_PHASE = 0.000,
+  parameter [1:0] CLKOUT0_PHASE_CTRL = 2'b00,
+  parameter integer CLKOUT1_DIVIDE = 2,
+  parameter real CLKOUT1_DUTY_CYCLE = 0.500,
+  parameter real CLKOUT1_PHASE = 0.000,
+  parameter [1:0] CLKOUT1_PHASE_CTRL = 2'b00,
+  parameter integer CLKOUT2_DIVIDE = 2,
+  parameter real CLKOUT2_DUTY_CYCLE = 0.500,
+  parameter real CLKOUT2_PHASE = 0.000,
+  parameter [1:0] CLKOUT2_PHASE_CTRL = 2'b00,
+  parameter integer CLKOUT3_DIVIDE = 2,
+  parameter real CLKOUT3_DUTY_CYCLE = 0.500,
+  parameter real CLKOUT3_PHASE = 0.000,
+  parameter [1:0] CLKOUT3_PHASE_CTRL = 2'b00,
+  parameter [0:0] CLKOUTPHY_CASCIN_EN = 1'b0,
+  parameter [0:0] CLKOUTPHY_CASCOUT_EN = 1'b0,
+  parameter CLKOUTPHY_DIVIDE = "DIV8",
+  parameter [0:0] DESKEW2_MUXIN_SEL = 1'b0,
+  parameter integer DESKEW_DELAY1 = 0,
+  parameter integer DESKEW_DELAY2 = 0,
+  parameter DESKEW_DELAY_EN1 = "FALSE",
+  parameter DESKEW_DELAY_EN2 = "FALSE",
+  parameter DESKEW_DELAY_PATH1 = "FALSE",
+  parameter DESKEW_DELAY_PATH2 = "FALSE",
+  parameter [0:0] DESKEW_MUXIN_SEL = 1'b0,
+  parameter [0:0] DIV4_CLKOUT012 = 1'b0,
+  parameter [0:0] DIV4_CLKOUT3 = 1'b0,
+  parameter integer DIVCLK_DIVIDE = 1,
+  parameter [0:0] IS_CLKFB1_DESKEW_INVERTED = 1'b0,
+  parameter [0:0] IS_CLKFB2_DESKEW_INVERTED = 1'b0,
+  parameter [0:0] IS_CLKIN1_DESKEW_INVERTED = 1'b0,
+  parameter [0:0] IS_CLKIN2_DESKEW_INVERTED = 1'b0,
+  parameter [0:0] IS_CLKIN_INVERTED = 1'b0,
+  parameter [0:0] IS_PSEN_INVERTED = 1'b0,
+  parameter [0:0] IS_PSINCDEC_INVERTED = 1'b0,
+  parameter [0:0] IS_PWRDWN_INVERTED = 1'b0,
+  parameter [0:0] IS_RST_INVERTED = 1'b0,
+  parameter LOCK_WAIT = "FALSE",
+  parameter real REF_JITTER = 0.010,
+  parameter SIM_ADJ_CLK0_CASCADE = "FALSE",
+  parameter XPLL_CONNECT_TO_NOCMC = "NONE"
+)(
+  output CLKOUT0,
+  output CLKOUT1,
+  output CLKOUT2,
+  output CLKOUT3,
+  output CLKOUTPHY,
+  output CLKOUTPHY_CASC_OUT,
+  output [15:0] DO,
+  output DRDY,
+  output LOCKED,
+  output LOCKED1_DESKEW,
+  output LOCKED2_DESKEW,
+  output LOCKED_FB,
+  output PSDONE,
+  output [15:0] RIU_RD_DATA,
+  output RIU_VALID,
+
+  input CLKFB1_DESKEW,
+  input CLKFB2_DESKEW,
+  input CLKIN,
+  input CLKIN1_DESKEW,
+  input CLKIN2_DESKEW,
+  input CLKOUTPHYEN,
+  input CLKOUTPHY_CASC_IN,
+  input [6:0] DADDR,
+  input DCLK,
+  input DEN,
+  input [15:0] DI,
+  input DWE,
+  input PSCLK,
+  input PSEN,
+  input PSINCDEC,
+  input PWRDWN,
+  input [7:0] RIU_ADDR,
+  input RIU_CLK,
+  input RIU_NIBBLE_SEL,
+  input [15:0] RIU_WR_DATA,
+  input RIU_WR_EN,
+  input RST
+);
+
+
+
+X5PLL #(
+   .CLKFBOUT_MULT(CLKFBOUT_MULT),
+   .CLKFBOUT_PHASE(CLKFBOUT_PHASE),
+   .CLKIN_PERIOD(CLKIN_PERIOD),
+   .CLKOUT0_DIVIDE(CLKOUT0_DIVIDE),
+   .CLKOUT0_DUTY_CYCLE(CLKOUT0_DUTY_CYCLE),
+   .CLKOUT0_PHASE(CLKOUT0_PHASE),
+   .CLKOUT0_PHASE_CTRL(CLKOUT0_PHASE_CTRL),
+   .CLKOUT1_DIVIDE(CLKOUT1_DIVIDE),
+   .CLKOUT1_DUTY_CYCLE(CLKOUT1_DUTY_CYCLE),
+   .CLKOUT1_PHASE(CLKOUT1_PHASE),
+   .CLKOUT1_PHASE_CTRL(CLKOUT1_PHASE_CTRL),
+   .CLKOUT2_DIVIDE(CLKOUT2_DIVIDE),
+   .CLKOUT2_DUTY_CYCLE(CLKOUT2_DUTY_CYCLE),
+   .CLKOUT2_PHASE(CLKOUT2_PHASE),
+   .CLKOUT2_PHASE_CTRL(CLKOUT2_PHASE_CTRL),
+   .CLKOUT3_DIVIDE(CLKOUT3_DIVIDE),
+   .CLKOUT3_DUTY_CYCLE(CLKOUT3_DUTY_CYCLE),
+   .CLKOUT3_PHASE(CLKOUT3_PHASE),
+   .CLKOUT3_PHASE_CTRL(CLKOUT3_PHASE_CTRL),
+   .CLKOUTPHY_CASCIN_EN(CLKOUTPHY_CASCIN_EN),
+   .CLKOUTPHY_CASCOUT_EN(CLKOUTPHY_CASCOUT_EN),
+   .CLKOUTPHY_DIVIDE(CLKOUTPHY_DIVIDE),
+   .DESKEW2_MUXIN_SEL(DESKEW2_MUXIN_SEL),
+   .DESKEW_DELAY1(DESKEW_DELAY1),
+   .DESKEW_DELAY2(DESKEW_DELAY2),
+   .DESKEW_DELAY_EN1(DESKEW_DELAY_EN1),
+   .DESKEW_DELAY_EN2(DESKEW_DELAY_EN2),
+   .DESKEW_DELAY_PATH1(DESKEW_DELAY_PATH1),
+   .DESKEW_DELAY_PATH2(DESKEW_DELAY_PATH2),
+   .DESKEW_MUXIN_SEL(DESKEW_MUXIN_SEL),
+   .DIV4_CLKOUT012(DIV4_CLKOUT012),
+   .DIV4_CLKOUT3(DIV4_CLKOUT3),
+   .DIVCLK_DIVIDE(DIVCLK_DIVIDE),
+   .IS_CLKFB1_DESKEW_INVERTED(IS_CLKFB1_DESKEW_INVERTED),
+   .IS_CLKFB2_DESKEW_INVERTED(IS_CLKFB2_DESKEW_INVERTED),
+   .IS_CLKIN1_DESKEW_INVERTED(IS_CLKIN1_DESKEW_INVERTED),
+   .IS_CLKIN2_DESKEW_INVERTED(IS_CLKIN2_DESKEW_INVERTED),
+   .IS_CLKIN_INVERTED(IS_CLKIN_INVERTED),
+   .IS_PSEN_INVERTED(IS_PSEN_INVERTED),
+   .IS_PSINCDEC_INVERTED(IS_PSINCDEC_INVERTED),
+   .IS_PWRDWN_INVERTED(IS_PWRDWN_INVERTED),
+   .IS_RST_INVERTED(IS_RST_INVERTED),
+   .LOCK_WAIT(LOCK_WAIT),
+   .REF_JITTER(REF_JITTER),
+   .SIM_ADJ_CLK0_CASCADE(SIM_ADJ_CLK0_CASCADE),
+   .XPLL_CONNECT_TO_NOCMC(XPLL_CONNECT_TO_NOCMC)
+    )
+    x5pll_1 (
+  .CLKOUT0 (CLKOUT0),
+  .CLKOUT1 (CLKOUT1),
+  .CLKOUT2 (CLKOUT2),
+  .CLKOUT3 (CLKOUT3),
+  .CLKOUTPHY_0 (CLKOUTPHY),
+//  .CLKOUTPHY_90 (CLKOUTPHY_90),
+  .CLKOUTPHY_CASC_OUT_0 (CLKOUTPHY_CASC_OUT),
+//  .CLKOUTPHY_CASC_OUT_90 (CLKOUTPHY_CASC_OUT_90),
+  .DO (DO),
+  .DRDY (DRDY),
+  .LOCKED (LOCKED),
+  .LOCKED1_DESKEW (LOCKED1_DESKEW),
+  .LOCKED2_DESKEW (LOCKED2_DESKEW),
+  .LOCKED_FB (LOCKED_FB),
+  .PSDONE (PSDONE),
+  .RIU_RD_DATA (RIU_RD_DATA),
+  .RIU_VALID (RIU_VALID),
+
+  .CLKFB1_DESKEW (CLKFB1_DESKEW),
+  .CLKFB2_DESKEW (CLKFB2_DESKEW),
+  .CLKIN (CLKIN),
+  .CLKIN1_DESKEW (CLKIN1_DESKEW),
+  .CLKIN2_DESKEW (CLKIN2_DESKEW),
+  .CLKOUTPHYEN (CLKOUTPHYEN),
+  .CLKOUTPHY_CASC_IN_0 (CLKOUTPHY_CASC_IN),
+//  .CLKOUTPHY_CASC_IN_90 (CLKOUTPHY_CASC_IN_90),
+  .DADDR (DADDR),
+  .DCLK (DCLK),
+  .DEN (DEN),
+  .DI (DI),
+  .DWE (DWE),
+  .PSCLK (PSCLK),
+  .PSEN (PSEN),
+  .PSINCDEC (PSINCDEC),
+  .PWRDWN (PWRDWN),
+  .RIU_ADDR (RIU_ADDR),
+  .RIU_CLK (RIU_CLK),
+  .RIU_NIBBLE_SEL (RIU_NIBBLE_SEL),
+  .RIU_WR_DATA (RIU_WR_DATA),
+  .RIU_WR_EN (RIU_WR_EN),
+  .RST (RST)
+);
+
+
+endmodule

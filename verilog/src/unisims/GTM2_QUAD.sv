@@ -1,0 +1,9525 @@
+///////////////////////////////////////////////////////////////////////////////
+//  Copyright (c) 1995/2025 Xilinx, Inc.
+//  All Right Reserved.
+///////////////////////////////////////////////////////////////////////////////
+//   ____  ____
+//  /   /\/   /
+// /___/  \  /     Vendor      : Xilinx
+// \   \   \/      Version     : 2025.2
+//  \   \          Description : Xilinx Unified Simulation Library Component
+//  /   /                        GTM2_QUAD
+// /___/   /\      Filename    : GTM2_QUAD.sv
+// \   \  /  \
+//  \___\/\___\
+//
+///////////////////////////////////////////////////////////////////////////////
+//  Revision:
+//
+//  End Revision:
+///////////////////////////////////////////////////////////////////////////////
+
+`timescale 1 ps / 1 ps
+
+`celldefine
+
+(* hier_bypass_ports="in:integer:CH0_GTM2RXN:CH0_GTM2RXN_integer in:integer:CH0_GTM2RXP:CH0_GTM2RXP_integer in:integer:CH1_GTM2RXN:CH1_GTM2RXN_integer in:integer:CH1_GTM2RXP:CH1_GTM2RXP_integer in:integer:CH2_GTM2RXN:CH2_GTM2RXN_integer in:integer:CH2_GTM2RXP:CH2_GTM2RXP_integer in:integer:CH3_GTM2RXN:CH3_GTM2RXN_integer in:integer:CH3_GTM2RXP:CH3_GTM2RXP_integer out:integer:CH0_GTM2TXN:CH0_GTM2TXN_integer out:integer:CH0_GTM2TXP:CH0_GTM2TXP_integer out:integer:CH1_GTM2TXN:CH1_GTM2TXN_integer out:integer:CH1_GTM2TXP:CH1_GTM2TXP_integer out:integer:CH2_GTM2TXN:CH2_GTM2TXN_integer out:integer:CH2_GTM2TXP:CH2_GTM2TXP_integer out:integer:CH3_GTM2TXN:CH3_GTM2TXN_integer out:integer:CH3_GTM2TXP:CH3_GTM2TXP_integer" *)
+
+
+module GTM2_QUAD #(
+`ifdef XIL_TIMING
+  parameter LOC = "UNPLACED",
+`endif
+  parameter real CH0_RXOUTCLK_FREQ = 322.2656250,
+  parameter real CH0_RXOUTCLK_REF_FREQ = 156.2500000,
+  parameter CH0_RXOUTCLK_REF_SOURCE = "HSCLK0_LCPLLGTGREFCLK",
+  parameter real CH0_TXOUTCLK_FREQ = 322.2656250,
+  parameter real CH0_TXOUTCLK_REF_FREQ = 156.2500000,
+  parameter CH0_TXOUTCLK_REF_SOURCE = "HSCLK0_LCPLLGTGREFCLK",
+  parameter real CH1_RXOUTCLK_FREQ = 322.2656250,
+  parameter real CH1_RXOUTCLK_REF_FREQ = 156.2500000,
+  parameter CH1_RXOUTCLK_REF_SOURCE = "HSCLK0_LCPLLGTGREFCLK",
+  parameter real CH1_TXOUTCLK_FREQ = 322.2656250,
+  parameter real CH1_TXOUTCLK_REF_FREQ = 156.2500000,
+  parameter CH1_TXOUTCLK_REF_SOURCE = "HSCLK0_LCPLLGTGREFCLK",
+  parameter real CH2_RXOUTCLK_FREQ = 322.2656250,
+  parameter real CH2_RXOUTCLK_REF_FREQ = 156.2500000,
+  parameter CH2_RXOUTCLK_REF_SOURCE = "HSCLK0_LCPLLGTGREFCLK",
+  parameter real CH2_TXOUTCLK_FREQ = 322.2656250,
+  parameter real CH2_TXOUTCLK_REF_FREQ = 156.2500000,
+  parameter CH2_TXOUTCLK_REF_SOURCE = "HSCLK0_LCPLLGTGREFCLK",
+  parameter real CH3_RXOUTCLK_FREQ = 322.2656250,
+  parameter real CH3_RXOUTCLK_REF_FREQ = 156.2500000,
+  parameter CH3_RXOUTCLK_REF_SOURCE = "HSCLK0_LCPLLGTGREFCLK",
+  parameter real CH3_TXOUTCLK_FREQ = 322.2656250,
+  parameter real CH3_TXOUTCLK_REF_FREQ = 156.2500000,
+  parameter CH3_TXOUTCLK_REF_SOURCE = "HSCLK0_LCPLLGTGREFCLK",
+  parameter CHANNEL_CONNECTIVITY = "NONE",
+  parameter MEMORY_INIT_FILE = "NONE",
+  parameter STAT_NPI_REG_LIST = "NONE"
+)(
+  output BUFG_GT_RSVD,
+  output CH0_BUFGTCE,
+  output [3:0] CH0_BUFGTCEMASK,
+  output [11:0] CH0_BUFGTDIV,
+  output CH0_BUFGTRST,
+  output [3:0] CH0_BUFGTRSTMASK,
+  output [31:0] CH0_DMONITOROUT,
+  output CH0_DMONITOROUTCLK,
+  output CH0_GTM2TXN,
+  output CH0_GTM2TXP,
+  output CH0_MNGPWRTOKENOUT,
+  output CH0_PHYREADY,
+  output CH0_PHYSTATUS,
+  output [2:0] CH0_RXBUFSTATUS,
+  output CH0_RXBYTEISALIGNED,
+  output CH0_RXBYTEREALIGN,
+  output CH0_RXCHANBONDSEQ,
+  output [4:0] CH0_RXCHBONDO,
+  output CH0_RXCOMMADET,
+  output [319:0] CH0_RXDATA,
+  output CH0_RXELECIDLE,
+  output CH0_RXOUTCLK,
+  output CH0_RXOUTCLKVALID,
+  output CH0_RXRESETDONE,
+  output CH0_RXSLIDERDY,
+  output CH0_RXSLIPDONE,
+  output CH0_RXSSCLK,
+  output [2:0] CH0_RXSTATUS,
+  output CH0_RXVALID,
+  output CH0_SCANCNTRLOUT,
+  output [3:0] CH0_SCANOUT,
+  output [1:0] CH0_TXBUFSTATUS,
+  output CH0_TXCOMFINISH,
+  output CH0_TXOUTCLK,
+  output CH0_TXRESETDONE,
+  output CH0_UPI2CMDERROR,
+  output CH0_UPI2CMDREADY,
+  output [31:0] CH0_UPI2CMDRESP,
+  output CH0_UPI2MSGREQ,
+  output CH1_BUFGTCE,
+  output [3:0] CH1_BUFGTCEMASK,
+  output [11:0] CH1_BUFGTDIV,
+  output CH1_BUFGTRST,
+  output [3:0] CH1_BUFGTRSTMASK,
+  output [31:0] CH1_DMONITOROUT,
+  output CH1_DMONITOROUTCLK,
+  output CH1_GTM2TXN,
+  output CH1_GTM2TXP,
+  output CH1_MNGPWRTOKENOUT,
+  output CH1_PHYREADY,
+  output CH1_PHYSTATUS,
+  output [2:0] CH1_RXBUFSTATUS,
+  output CH1_RXBYTEISALIGNED,
+  output CH1_RXBYTEREALIGN,
+  output CH1_RXCHANBONDSEQ,
+  output [4:0] CH1_RXCHBONDO,
+  output CH1_RXCOMMADET,
+  output [319:0] CH1_RXDATA,
+  output CH1_RXELECIDLE,
+  output CH1_RXOUTCLK,
+  output CH1_RXOUTCLKVALID,
+  output CH1_RXRESETDONE,
+  output CH1_RXSLIDERDY,
+  output CH1_RXSLIPDONE,
+  output CH1_RXSSCLK,
+  output [2:0] CH1_RXSTATUS,
+  output CH1_RXVALID,
+  output CH1_SCANCNTRLOUT,
+  output [3:0] CH1_SCANOUT,
+  output [1:0] CH1_TXBUFSTATUS,
+  output CH1_TXCOMFINISH,
+  output CH1_TXOUTCLK,
+  output CH1_TXRESETDONE,
+  output CH1_UPI2CMDERROR,
+  output CH1_UPI2CMDREADY,
+  output [31:0] CH1_UPI2CMDRESP,
+  output CH1_UPI2MSGREQ,
+  output CH2_BUFGTCE,
+  output [3:0] CH2_BUFGTCEMASK,
+  output [11:0] CH2_BUFGTDIV,
+  output CH2_BUFGTRST,
+  output [3:0] CH2_BUFGTRSTMASK,
+  output [31:0] CH2_DMONITOROUT,
+  output CH2_DMONITOROUTCLK,
+  output CH2_GTM2TXN,
+  output CH2_GTM2TXP,
+  output CH2_MNGPWRTOKENOUT,
+  output CH2_PHYREADY,
+  output CH2_PHYSTATUS,
+  output [2:0] CH2_RXBUFSTATUS,
+  output CH2_RXBYTEISALIGNED,
+  output CH2_RXBYTEREALIGN,
+  output CH2_RXCHANBONDSEQ,
+  output [4:0] CH2_RXCHBONDO,
+  output CH2_RXCOMMADET,
+  output [319:0] CH2_RXDATA,
+  output CH2_RXELECIDLE,
+  output CH2_RXOUTCLK,
+  output CH2_RXOUTCLKVALID,
+  output CH2_RXRESETDONE,
+  output CH2_RXSLIDERDY,
+  output CH2_RXSLIPDONE,
+  output CH2_RXSSCLK,
+  output [2:0] CH2_RXSTATUS,
+  output CH2_RXVALID,
+  output CH2_SCANCNTRLOUT,
+  output [3:0] CH2_SCANOUT,
+  output [1:0] CH2_TXBUFSTATUS,
+  output CH2_TXCOMFINISH,
+  output CH2_TXOUTCLK,
+  output CH2_TXRESETDONE,
+  output CH2_UPI2CMDERROR,
+  output CH2_UPI2CMDREADY,
+  output [31:0] CH2_UPI2CMDRESP,
+  output CH2_UPI2MSGREQ,
+  output CH3_BUFGTCE,
+  output [3:0] CH3_BUFGTCEMASK,
+  output [11:0] CH3_BUFGTDIV,
+  output CH3_BUFGTRST,
+  output [3:0] CH3_BUFGTRSTMASK,
+  output [31:0] CH3_DMONITOROUT,
+  output CH3_DMONITOROUTCLK,
+  output CH3_GTM2TXN,
+  output CH3_GTM2TXP,
+  output CH3_MNGPWRTOKENOUT,
+  output CH3_PHYREADY,
+  output CH3_PHYSTATUS,
+  output [2:0] CH3_RXBUFSTATUS,
+  output CH3_RXBYTEISALIGNED,
+  output CH3_RXBYTEREALIGN,
+  output CH3_RXCHANBONDSEQ,
+  output [4:0] CH3_RXCHBONDO,
+  output CH3_RXCOMMADET,
+  output [319:0] CH3_RXDATA,
+  output CH3_RXELECIDLE,
+  output CH3_RXOUTCLK,
+  output CH3_RXOUTCLKVALID,
+  output CH3_RXRESETDONE,
+  output CH3_RXSLIDERDY,
+  output CH3_RXSLIPDONE,
+  output CH3_RXSSCLK,
+  output [2:0] CH3_RXSTATUS,
+  output CH3_RXVALID,
+  output CH3_SCANCNTRLOUT,
+  output [3:0] CH3_SCANOUT,
+  output [1:0] CH3_TXBUFSTATUS,
+  output CH3_TXCOMFINISH,
+  output CH3_TXOUTCLK,
+  output CH3_TXRESETDONE,
+  output CH3_UPI2CMDERROR,
+  output CH3_UPI2CMDREADY,
+  output [31:0] CH3_UPI2CMDRESP,
+  output CH3_UPI2MSGREQ,
+  output [31:0] GPO,
+  output GTPOWERGOOD,
+  output HSCLK0_LCPLLFREQLOCK,
+  output HSCLK0_LCPLLREFCLKMONITOR,
+  output HSCLK0_RPLLFREQLOCK,
+  output HSCLK0_RPLLREFCLKMONITOR,
+  output HSCLK0_RXRECCLKOUT0,
+  output HSCLK0_RXRECCLKOUT1,
+  output HSCLK1_LCPLLFREQLOCK,
+  output HSCLK1_LCPLLREFCLKMONITOR,
+  output HSCLK1_RPLLFREQLOCK,
+  output HSCLK1_RPLLREFCLKMONITOR,
+  output HSCLK1_RXRECCLKOUT0,
+  output HSCLK1_RXRECCLKOUT1,
+  output [15:0] MCAEVENT,
+  output MCAEVENTVAL,
+  output [1:0] REFCLK0_CLKOUT_SEL,
+  output REFCLK0_CLKTESTSIGINT,
+  output [4:0] REFCLK0_CTL_DRV_EN_CAL,
+  output [2:0] REFCLK0_CTL_DRV_SWING,
+  output REFCLK0_ENB_VCM_STRONG,
+  output REFCLK0_EN_BLD,
+  output REFCLK0_EN_DC_COUP,
+  output REFCLK0_EN_DRV,
+  output REFCLK0_EN_FABRIC_CK,
+  output REFCLK0_EN_TX_PATH,
+  output REFCLK0_GTREFCLKPDBINT,
+  output [1:0] REFCLK0_HROW_CK_SEL,
+  output [1:0] REFCLK0_ICNTL_RX,
+  output REFCLK0_ODIV2,
+  output REFCLK0_RCAL_OFFSET_SIGN,
+  output REFCLK0_RPLL_CLK_SEL_EN,
+  output [1:0] REFCLK0_RXRECCLKSEL,
+  output REFCLK0_VCM_HIGH,
+  output REFCLK0_VCM_LOW,
+  output [1:0] REFCLK1_CLKOUT_SEL,
+  output REFCLK1_CLKTESTSIGINT,
+  output [4:0] REFCLK1_CTL_DRV_EN_CAL,
+  output [2:0] REFCLK1_CTL_DRV_SWING,
+  output REFCLK1_ENB_VCM_STRONG,
+  output REFCLK1_EN_BLD,
+  output REFCLK1_EN_DC_COUP,
+  output REFCLK1_EN_DRV,
+  output REFCLK1_EN_FABRIC_CK,
+  output REFCLK1_EN_TX_PATH,
+  output REFCLK1_GTREFCLKPDBINT,
+  output [1:0] REFCLK1_HROW_CK_SEL,
+  output [1:0] REFCLK1_ICNTL_RX,
+  output REFCLK1_ODIV2,
+  output REFCLK1_RCAL_OFFSET_SIGN,
+  output REFCLK1_RPLL_CLK_SEL_EN,
+  output [1:0] REFCLK1_RXRECCLKSEL,
+  output REFCLK1_VCM_HIGH,
+  output REFCLK1_VCM_LOW,
+  output RXMARGINREQACK,
+  output [3:0] RXMARGINRESCMD,
+  output [1:0] RXMARGINRESLANENUM,
+  output [7:0] RXMARGINRESPAYLOAD,
+  output RXMARGINRESREQ,
+  output SCANCNTRLOUT,
+  output [3:0] SCANOUT,
+
+  input CH0_BSR_SERIAL,
+  input CH0_CSSDSTOPCLKB,
+  input CH0_DMONFIFORESET,
+  input CH0_DMONITORCLK,
+  input CH0_EDTUPDATEB,
+  input CH0_GTM2RXN,
+  input CH0_GTM2RXP,
+  input CH0_GTRXRESET,
+  input CH0_GTTXRESET,
+  input CH0_HSDPPCSRESET,
+  input CH0_MNGPWRTOKENIN,
+  input [7:0] CH0_PCIE_LTSSM_STATE,
+  input CH0_RXCDRHOLD,
+  input [4:0] CH0_RXCHBONDI,
+  input CH0_RXGEARBOXSLIP,
+  input CH0_RXLATCLK,
+  input CH0_RXPOLARITY,
+  input CH0_RXSLIDE,
+  input CH0_RXTERMINATION,
+  input CH0_RXUSRCLK,
+  input [3:0] CH0_SCANCHNLMASKIN,
+  input CH0_SCANCLKB,
+  input CH0_SCANCNTRLIN,
+  input CH0_SCANENB,
+  input [3:0] CH0_SCANIN,
+  input CH0_SCANODCCCHNLMASK,
+  input CH0_SCANRSTB,
+  input CH0_TSTCLK0,
+  input CH0_TSTCLK1,
+  input [319:0] CH0_TXDATA,
+  input CH0_TXDETECTRXLOOPBACK,
+  input CH0_TXELECIDLE,
+  input [5:0] CH0_TXEMPMAIN,
+  input [5:0] CH0_TXEMPPOS,
+  input [5:0] CH0_TXEMPPRE,
+  input CH0_TXLATCLK,
+  input [1:0] CH0_TXPOWERDOWN,
+  input [7:0] CH0_TXRATE,
+  input CH0_TXUSRCLK,
+  input [19:0] CH0_UPI2CMDCODE,
+  input CH0_UPI2CMDREQ,
+  input CH1_BSR_SERIAL,
+  input CH1_CSSDSTOPCLKB,
+  input CH1_DMONFIFORESET,
+  input CH1_DMONITORCLK,
+  input CH1_EDTUPDATEB,
+  input CH1_GTM2RXN,
+  input CH1_GTM2RXP,
+  input CH1_GTRXRESET,
+  input CH1_GTTXRESET,
+  input CH1_HSDPPCSRESET,
+  input CH1_MNGPWRTOKENIN,
+  input [7:0] CH1_PCIE_LTSSM_STATE,
+  input CH1_RXCDRHOLD,
+  input [4:0] CH1_RXCHBONDI,
+  input CH1_RXGEARBOXSLIP,
+  input CH1_RXLATCLK,
+  input CH1_RXPOLARITY,
+  input CH1_RXSLIDE,
+  input CH1_RXTERMINATION,
+  input CH1_RXUSRCLK,
+  input [3:0] CH1_SCANCHNLMASKIN,
+  input CH1_SCANCLKB,
+  input CH1_SCANCNTRLIN,
+  input CH1_SCANENB,
+  input [3:0] CH1_SCANIN,
+  input CH1_SCANODCCCHNLMASK,
+  input CH1_SCANRSTB,
+  input CH1_TSTCLK0,
+  input CH1_TSTCLK1,
+  input [319:0] CH1_TXDATA,
+  input CH1_TXDETECTRXLOOPBACK,
+  input CH1_TXELECIDLE,
+  input [5:0] CH1_TXEMPMAIN,
+  input [5:0] CH1_TXEMPPOS,
+  input [5:0] CH1_TXEMPPRE,
+  input CH1_TXLATCLK,
+  input [1:0] CH1_TXPOWERDOWN,
+  input [7:0] CH1_TXRATE,
+  input CH1_TXUSRCLK,
+  input [19:0] CH1_UPI2CMDCODE,
+  input CH1_UPI2CMDREQ,
+  input CH2_BSR_SERIAL,
+  input CH2_CSSDSTOPCLKB,
+  input CH2_DMONFIFORESET,
+  input CH2_DMONITORCLK,
+  input CH2_EDTUPDATEB,
+  input CH2_GTM2RXN,
+  input CH2_GTM2RXP,
+  input CH2_GTRXRESET,
+  input CH2_GTTXRESET,
+  input CH2_HSDPPCSRESET,
+  input CH2_MNGPWRTOKENIN,
+  input [7:0] CH2_PCIE_LTSSM_STATE,
+  input CH2_RXCDRHOLD,
+  input [4:0] CH2_RXCHBONDI,
+  input CH2_RXGEARBOXSLIP,
+  input CH2_RXLATCLK,
+  input CH2_RXPOLARITY,
+  input CH2_RXSLIDE,
+  input CH2_RXTERMINATION,
+  input CH2_RXUSRCLK,
+  input [3:0] CH2_SCANCHNLMASKIN,
+  input CH2_SCANCLKB,
+  input CH2_SCANCNTRLIN,
+  input CH2_SCANENB,
+  input [3:0] CH2_SCANIN,
+  input CH2_SCANODCCCHNLMASK,
+  input CH2_SCANRSTB,
+  input CH2_TSTCLK0,
+  input CH2_TSTCLK1,
+  input [319:0] CH2_TXDATA,
+  input CH2_TXDETECTRXLOOPBACK,
+  input CH2_TXELECIDLE,
+  input [5:0] CH2_TXEMPMAIN,
+  input [5:0] CH2_TXEMPPOS,
+  input [5:0] CH2_TXEMPPRE,
+  input CH2_TXLATCLK,
+  input [1:0] CH2_TXPOWERDOWN,
+  input [7:0] CH2_TXRATE,
+  input CH2_TXUSRCLK,
+  input [19:0] CH2_UPI2CMDCODE,
+  input CH2_UPI2CMDREQ,
+  input CH3_BSR_SERIAL,
+  input CH3_CSSDSTOPCLKB,
+  input CH3_DMONFIFORESET,
+  input CH3_DMONITORCLK,
+  input CH3_EDTUPDATEB,
+  input CH3_GTM2RXN,
+  input CH3_GTM2RXP,
+  input CH3_GTRXRESET,
+  input CH3_GTTXRESET,
+  input CH3_HSDPPCSRESET,
+  input CH3_MNGPWRTOKENIN,
+  input [7:0] CH3_PCIE_LTSSM_STATE,
+  input CH3_RXCDRHOLD,
+  input [4:0] CH3_RXCHBONDI,
+  input CH3_RXGEARBOXSLIP,
+  input CH3_RXLATCLK,
+  input CH3_RXPOLARITY,
+  input CH3_RXSLIDE,
+  input CH3_RXTERMINATION,
+  input CH3_RXUSRCLK,
+  input [3:0] CH3_SCANCHNLMASKIN,
+  input CH3_SCANCLKB,
+  input CH3_SCANCNTRLIN,
+  input CH3_SCANENB,
+  input [3:0] CH3_SCANIN,
+  input CH3_SCANODCCCHNLMASK,
+  input CH3_SCANRSTB,
+  input CH3_TSTCLK0,
+  input CH3_TSTCLK1,
+  input [319:0] CH3_TXDATA,
+  input CH3_TXDETECTRXLOOPBACK,
+  input CH3_TXELECIDLE,
+  input [5:0] CH3_TXEMPMAIN,
+  input [5:0] CH3_TXEMPPOS,
+  input [5:0] CH3_TXEMPPRE,
+  input CH3_TXLATCLK,
+  input [1:0] CH3_TXPOWERDOWN,
+  input [7:0] CH3_TXRATE,
+  input CH3_TXUSRCLK,
+  input [19:0] CH3_UPI2CMDCODE,
+  input CH3_UPI2CMDREQ,
+  input CSSDSTOPCLKB,
+  input [31:0] GPI,
+  input HSCLK0_LCPLLGTGREFCLK,
+  input HSCLK0_LCPLLGTREFCLK0,
+  input HSCLK0_LCPLLGTREFCLK1,
+  input HSCLK0_LCPLLNORTHREFCLK0,
+  input HSCLK0_LCPLLNORTHREFCLK1,
+  input [25:0] HSCLK0_LCPLLSDMDATA,
+  input HSCLK0_LCPLLSDMTOGGLE,
+  input HSCLK0_LCPLLSOUTHREFCLK0,
+  input HSCLK0_LCPLLSOUTHREFCLK1,
+  input HSCLK0_RPLLGTGREFCLK,
+  input HSCLK0_RPLLGTREFCLK0,
+  input HSCLK0_RPLLGTREFCLK1,
+  input HSCLK0_RPLLNORTHREFCLK0,
+  input HSCLK0_RPLLNORTHREFCLK1,
+  input HSCLK0_RPLLSOUTHREFCLK0,
+  input HSCLK0_RPLLSOUTHREFCLK1,
+  input HSCLK1_LCPLLGTGREFCLK,
+  input HSCLK1_LCPLLGTREFCLK0,
+  input HSCLK1_LCPLLGTREFCLK1,
+  input HSCLK1_LCPLLNORTHREFCLK0,
+  input HSCLK1_LCPLLNORTHREFCLK1,
+  input [25:0] HSCLK1_LCPLLSDMDATA,
+  input HSCLK1_LCPLLSDMTOGGLE,
+  input HSCLK1_LCPLLSOUTHREFCLK0,
+  input HSCLK1_LCPLLSOUTHREFCLK1,
+  input HSCLK1_RPLLGTGREFCLK,
+  input HSCLK1_RPLLGTREFCLK0,
+  input HSCLK1_RPLLGTREFCLK1,
+  input HSCLK1_RPLLNORTHREFCLK0,
+  input HSCLK1_RPLLNORTHREFCLK1,
+  input HSCLK1_RPLLSOUTHREFCLK0,
+  input HSCLK1_RPLLSOUTHREFCLK1,
+  input PCIELINKREACHTARGET,
+  input REFCLK0_CLKTESTSIG,
+  input REFCLK0_ODIV2INT,
+  input REFCLK1_CLKTESTSIG,
+  input REFCLK1_ODIV2INT,
+  input RXMARGINCLK,
+  input [3:0] RXMARGINREQCMD,
+  input [1:0] RXMARGINREQLANENUM,
+  input [7:0] RXMARGINREQPAYLOAD,
+  input RXMARGINREQREQ,
+  input RXMARGINRESACK,
+  input [3:0] SCANCHNLMASKIN,
+  input SCANCLKB,
+  input SCANCNTRLIN,
+  input SCANEDTUPDTB,
+  input SCANENB,
+  input [3:0] SCANIN,
+  input SCANODCCCHNLMASKIN,
+  input SCANRSTB
+);
+
+// define constants
+  localparam MODULE_NAME = "GTM2_QUAD";
+  
+  reg trig_attr;
+// include dynamic registers - XILINX test only
+`ifdef XIL_DR
+  `include "GTM2_QUAD_dr.v"
+`else
+  real CH0_RXOUTCLK_FREQ_REG = CH0_RXOUTCLK_FREQ;
+  real CH0_RXOUTCLK_REF_FREQ_REG = CH0_RXOUTCLK_REF_FREQ;
+  reg [192:1] CH0_RXOUTCLK_REF_SOURCE_REG = CH0_RXOUTCLK_REF_SOURCE;
+  real CH0_TXOUTCLK_FREQ_REG = CH0_TXOUTCLK_FREQ;
+  real CH0_TXOUTCLK_REF_FREQ_REG = CH0_TXOUTCLK_REF_FREQ;
+  reg [192:1] CH0_TXOUTCLK_REF_SOURCE_REG = CH0_TXOUTCLK_REF_SOURCE;
+  real CH1_RXOUTCLK_FREQ_REG = CH1_RXOUTCLK_FREQ;
+  real CH1_RXOUTCLK_REF_FREQ_REG = CH1_RXOUTCLK_REF_FREQ;
+  reg [192:1] CH1_RXOUTCLK_REF_SOURCE_REG = CH1_RXOUTCLK_REF_SOURCE;
+  real CH1_TXOUTCLK_FREQ_REG = CH1_TXOUTCLK_FREQ;
+  real CH1_TXOUTCLK_REF_FREQ_REG = CH1_TXOUTCLK_REF_FREQ;
+  reg [192:1] CH1_TXOUTCLK_REF_SOURCE_REG = CH1_TXOUTCLK_REF_SOURCE;
+  real CH2_RXOUTCLK_FREQ_REG = CH2_RXOUTCLK_FREQ;
+  real CH2_RXOUTCLK_REF_FREQ_REG = CH2_RXOUTCLK_REF_FREQ;
+  reg [192:1] CH2_RXOUTCLK_REF_SOURCE_REG = CH2_RXOUTCLK_REF_SOURCE;
+  real CH2_TXOUTCLK_FREQ_REG = CH2_TXOUTCLK_FREQ;
+  real CH2_TXOUTCLK_REF_FREQ_REG = CH2_TXOUTCLK_REF_FREQ;
+  reg [192:1] CH2_TXOUTCLK_REF_SOURCE_REG = CH2_TXOUTCLK_REF_SOURCE;
+  real CH3_RXOUTCLK_FREQ_REG = CH3_RXOUTCLK_FREQ;
+  real CH3_RXOUTCLK_REF_FREQ_REG = CH3_RXOUTCLK_REF_FREQ;
+  reg [192:1] CH3_RXOUTCLK_REF_SOURCE_REG = CH3_RXOUTCLK_REF_SOURCE;
+  real CH3_TXOUTCLK_FREQ_REG = CH3_TXOUTCLK_FREQ;
+  real CH3_TXOUTCLK_REF_FREQ_REG = CH3_TXOUTCLK_REF_FREQ;
+  reg [192:1] CH3_TXOUTCLK_REF_SOURCE_REG = CH3_TXOUTCLK_REF_SOURCE;
+  reg [32:1] CHANNEL_CONNECTIVITY_REG = CHANNEL_CONNECTIVITY;
+  reg [32:1] MEMORY_INIT_FILE_REG = MEMORY_INIT_FILE;
+  reg [32:1] STAT_NPI_REG_LIST_REG = STAT_NPI_REG_LIST;
+`endif
+
+`ifdef XIL_XECLIB
+  wire [63:0] CH0_RXOUTCLK_FREQ_BIN;
+  wire [63:0] CH0_RXOUTCLK_REF_FREQ_BIN;
+  wire [63:0] CH0_TXOUTCLK_FREQ_BIN;
+  wire [63:0] CH0_TXOUTCLK_REF_FREQ_BIN;
+  wire [63:0] CH1_RXOUTCLK_FREQ_BIN;
+  wire [63:0] CH1_RXOUTCLK_REF_FREQ_BIN;
+  wire [63:0] CH1_TXOUTCLK_FREQ_BIN;
+  wire [63:0] CH1_TXOUTCLK_REF_FREQ_BIN;
+  wire [63:0] CH2_RXOUTCLK_FREQ_BIN;
+  wire [63:0] CH2_RXOUTCLK_REF_FREQ_BIN;
+  wire [63:0] CH2_TXOUTCLK_FREQ_BIN;
+  wire [63:0] CH2_TXOUTCLK_REF_FREQ_BIN;
+  wire [63:0] CH3_RXOUTCLK_FREQ_BIN;
+  wire [63:0] CH3_RXOUTCLK_REF_FREQ_BIN;
+  wire [63:0] CH3_TXOUTCLK_FREQ_BIN;
+  wire [63:0] CH3_TXOUTCLK_REF_FREQ_BIN;
+`else
+  reg [63:0] CH0_RXOUTCLK_FREQ_BIN;
+  reg [63:0] CH0_RXOUTCLK_REF_FREQ_BIN;
+  reg [63:0] CH0_TXOUTCLK_FREQ_BIN;
+  reg [63:0] CH0_TXOUTCLK_REF_FREQ_BIN;
+  reg [63:0] CH1_RXOUTCLK_FREQ_BIN;
+  reg [63:0] CH1_RXOUTCLK_REF_FREQ_BIN;
+  reg [63:0] CH1_TXOUTCLK_FREQ_BIN;
+  reg [63:0] CH1_TXOUTCLK_REF_FREQ_BIN;
+  reg [63:0] CH2_RXOUTCLK_FREQ_BIN;
+  reg [63:0] CH2_RXOUTCLK_REF_FREQ_BIN;
+  reg [63:0] CH2_TXOUTCLK_FREQ_BIN;
+  reg [63:0] CH2_TXOUTCLK_REF_FREQ_BIN;
+  reg [63:0] CH3_RXOUTCLK_FREQ_BIN;
+  reg [63:0] CH3_RXOUTCLK_REF_FREQ_BIN;
+  reg [63:0] CH3_TXOUTCLK_FREQ_BIN;
+  reg [63:0] CH3_TXOUTCLK_REF_FREQ_BIN;
+`endif
+
+/*
+`ifdef XIL_XECLIB
+reg glblGSR = 1'b0;
+`else
+tri0 glblGSR = glbl.GSR;
+`endif
+*/
+  wire BUFG_GT_RSVD_out;
+  wire CH0_BUFGTCE_out;
+  wire CH0_BUFGTRST_out;
+  wire CH0_DMONITOROUTCLK_out;
+  wire CH0_GTM2TXN_out;
+  wire CH0_GTM2TXP_out;
+  wire CH0_MNGPWRTOKENOUT_out;
+  wire CH0_PHYREADY_out;
+  wire CH0_PHYSTATUS_out;
+  wire CH0_RXBYTEISALIGNED_out;
+  wire CH0_RXBYTEREALIGN_out;
+  wire CH0_RXCHANBONDSEQ_out;
+  wire CH0_RXCOMMADET_out;
+  wire CH0_RXELECIDLE_out;
+  wire CH0_RXOUTCLKVALID_out;
+  wire CH0_RXOUTCLK_out;
+  wire CH0_RXRESETDONE_out;
+  wire CH0_RXSLIDERDY_out;
+  wire CH0_RXSLIPDONE_out;
+  wire CH0_RXSSCLK_out;
+  wire CH0_RXVALID_out;
+  wire CH0_SCANCNTRLOUT_out;
+  wire CH0_TXCOMFINISH_out;
+  wire CH0_TXOUTCLK_out;
+  wire CH0_TXRESETDONE_out;
+  wire CH0_UPI2CMDERROR_out;
+  wire CH0_UPI2CMDREADY_out;
+  wire CH0_UPI2MSGREQ_out;
+  wire CH1_BUFGTCE_out;
+  wire CH1_BUFGTRST_out;
+  wire CH1_DMONITOROUTCLK_out;
+  wire CH1_GTM2TXN_out;
+  wire CH1_GTM2TXP_out;
+  wire CH1_MNGPWRTOKENOUT_out;
+  wire CH1_PHYREADY_out;
+  wire CH1_PHYSTATUS_out;
+  wire CH1_RXBYTEISALIGNED_out;
+  wire CH1_RXBYTEREALIGN_out;
+  wire CH1_RXCHANBONDSEQ_out;
+  wire CH1_RXCOMMADET_out;
+  wire CH1_RXELECIDLE_out;
+  wire CH1_RXOUTCLKVALID_out;
+  wire CH1_RXOUTCLK_out;
+  wire CH1_RXRESETDONE_out;
+  wire CH1_RXSLIDERDY_out;
+  wire CH1_RXSLIPDONE_out;
+  wire CH1_RXSSCLK_out;
+  wire CH1_RXVALID_out;
+  wire CH1_SCANCNTRLOUT_out;
+  wire CH1_TXCOMFINISH_out;
+  wire CH1_TXOUTCLK_out;
+  wire CH1_TXRESETDONE_out;
+  wire CH1_UPI2CMDERROR_out;
+  wire CH1_UPI2CMDREADY_out;
+  wire CH1_UPI2MSGREQ_out;
+  wire CH2_BUFGTCE_out;
+  wire CH2_BUFGTRST_out;
+  wire CH2_DMONITOROUTCLK_out;
+  wire CH2_GTM2TXN_out;
+  wire CH2_GTM2TXP_out;
+  wire CH2_MNGPWRTOKENOUT_out;
+  wire CH2_PHYREADY_out;
+  wire CH2_PHYSTATUS_out;
+  wire CH2_RXBYTEISALIGNED_out;
+  wire CH2_RXBYTEREALIGN_out;
+  wire CH2_RXCHANBONDSEQ_out;
+  wire CH2_RXCOMMADET_out;
+  wire CH2_RXELECIDLE_out;
+  wire CH2_RXOUTCLKVALID_out;
+  wire CH2_RXOUTCLK_out;
+  wire CH2_RXRESETDONE_out;
+  wire CH2_RXSLIDERDY_out;
+  wire CH2_RXSLIPDONE_out;
+  wire CH2_RXSSCLK_out;
+  wire CH2_RXVALID_out;
+  wire CH2_SCANCNTRLOUT_out;
+  wire CH2_TXCOMFINISH_out;
+  wire CH2_TXOUTCLK_out;
+  wire CH2_TXRESETDONE_out;
+  wire CH2_UPI2CMDERROR_out;
+  wire CH2_UPI2CMDREADY_out;
+  wire CH2_UPI2MSGREQ_out;
+  wire CH3_BUFGTCE_out;
+  wire CH3_BUFGTRST_out;
+  wire CH3_DMONITOROUTCLK_out;
+  wire CH3_GTM2TXN_out;
+  wire CH3_GTM2TXP_out;
+  wire CH3_MNGPWRTOKENOUT_out;
+  wire CH3_PHYREADY_out;
+  wire CH3_PHYSTATUS_out;
+  wire CH3_RXBYTEISALIGNED_out;
+  wire CH3_RXBYTEREALIGN_out;
+  wire CH3_RXCHANBONDSEQ_out;
+  wire CH3_RXCOMMADET_out;
+  wire CH3_RXELECIDLE_out;
+  wire CH3_RXOUTCLKVALID_out;
+  wire CH3_RXOUTCLK_out;
+  wire CH3_RXRESETDONE_out;
+  wire CH3_RXSLIDERDY_out;
+  wire CH3_RXSLIPDONE_out;
+  wire CH3_RXSSCLK_out;
+  wire CH3_RXVALID_out;
+  wire CH3_SCANCNTRLOUT_out;
+  wire CH3_TXCOMFINISH_out;
+  wire CH3_TXOUTCLK_out;
+  wire CH3_TXRESETDONE_out;
+  wire CH3_UPI2CMDERROR_out;
+  wire CH3_UPI2CMDREADY_out;
+  wire CH3_UPI2MSGREQ_out;
+  wire GTPOWERGOOD_out;
+  wire HSCLK0_LCPLLFREQLOCK_out;
+  wire HSCLK0_LCPLLREFCLKMONITOR_out;
+  wire HSCLK0_RPLLFREQLOCK_out;
+  wire HSCLK0_RPLLREFCLKMONITOR_out;
+  wire HSCLK0_RXRECCLKOUT0_out;
+  wire HSCLK0_RXRECCLKOUT1_out;
+  wire HSCLK1_LCPLLFREQLOCK_out;
+  wire HSCLK1_LCPLLREFCLKMONITOR_out;
+  wire HSCLK1_RPLLFREQLOCK_out;
+  wire HSCLK1_RPLLREFCLKMONITOR_out;
+  wire HSCLK1_RXRECCLKOUT0_out;
+  wire HSCLK1_RXRECCLKOUT1_out;
+  wire MCAEVENTVAL_out;
+  wire REFCLK0_CLKTESTSIGINT_out;
+  wire REFCLK0_ENB_VCM_STRONG_out;
+  wire REFCLK0_EN_BLD_out;
+  wire REFCLK0_EN_DC_COUP_out;
+  wire REFCLK0_EN_DRV_out;
+  wire REFCLK0_EN_FABRIC_CK_out;
+  wire REFCLK0_EN_TX_PATH_out;
+  wire REFCLK0_GTREFCLKPDBINT_out;
+  wire REFCLK0_ODIV2_out;
+  wire REFCLK0_RCAL_OFFSET_SIGN_out;
+  wire REFCLK0_RPLL_CLK_SEL_EN_out;
+  wire REFCLK0_VCM_HIGH_out;
+  wire REFCLK0_VCM_LOW_out;
+  wire REFCLK1_CLKTESTSIGINT_out;
+  wire REFCLK1_ENB_VCM_STRONG_out;
+  wire REFCLK1_EN_BLD_out;
+  wire REFCLK1_EN_DC_COUP_out;
+  wire REFCLK1_EN_DRV_out;
+  wire REFCLK1_EN_FABRIC_CK_out;
+  wire REFCLK1_EN_TX_PATH_out;
+  wire REFCLK1_GTREFCLKPDBINT_out;
+  wire REFCLK1_ODIV2_out;
+  wire REFCLK1_RCAL_OFFSET_SIGN_out;
+  wire REFCLK1_RPLL_CLK_SEL_EN_out;
+  wire REFCLK1_VCM_HIGH_out;
+  wire REFCLK1_VCM_LOW_out;
+  wire RXMARGINREQACK_out;
+  wire RXMARGINRESREQ_out;
+  wire SCANCNTRLOUT_out;
+  wire [11:0] CH0_BUFGTDIV_out;
+  wire [11:0] CH1_BUFGTDIV_out;
+  wire [11:0] CH2_BUFGTDIV_out;
+  wire [11:0] CH3_BUFGTDIV_out;
+  wire [15:0] MCAEVENT_out;
+  wire [1:0] CH0_TXBUFSTATUS_out;
+  wire [1:0] CH1_TXBUFSTATUS_out;
+  wire [1:0] CH2_TXBUFSTATUS_out;
+  wire [1:0] CH3_TXBUFSTATUS_out;
+  wire [1:0] REFCLK0_CLKOUT_SEL_out;
+  wire [1:0] REFCLK0_HROW_CK_SEL_out;
+  wire [1:0] REFCLK0_ICNTL_RX_out;
+  wire [1:0] REFCLK0_RXRECCLKSEL_out;
+  wire [1:0] REFCLK1_CLKOUT_SEL_out;
+  wire [1:0] REFCLK1_HROW_CK_SEL_out;
+  wire [1:0] REFCLK1_ICNTL_RX_out;
+  wire [1:0] REFCLK1_RXRECCLKSEL_out;
+  wire [1:0] RXMARGINRESLANENUM_out;
+  wire [2:0] CH0_RXBUFSTATUS_out;
+  wire [2:0] CH0_RXSTATUS_out;
+  wire [2:0] CH1_RXBUFSTATUS_out;
+  wire [2:0] CH1_RXSTATUS_out;
+  wire [2:0] CH2_RXBUFSTATUS_out;
+  wire [2:0] CH2_RXSTATUS_out;
+  wire [2:0] CH3_RXBUFSTATUS_out;
+  wire [2:0] CH3_RXSTATUS_out;
+  wire [2:0] REFCLK0_CTL_DRV_SWING_out;
+  wire [2:0] REFCLK1_CTL_DRV_SWING_out;
+  wire [319:0] CH0_RXDATA_out;
+  wire [319:0] CH1_RXDATA_out;
+  wire [319:0] CH2_RXDATA_out;
+  wire [319:0] CH3_RXDATA_out;
+  wire [31:0] CH0_DMONITOROUT_out;
+  wire [31:0] CH0_UPI2CMDRESP_out;
+  wire [31:0] CH1_DMONITOROUT_out;
+  wire [31:0] CH1_UPI2CMDRESP_out;
+  wire [31:0] CH2_DMONITOROUT_out;
+  wire [31:0] CH2_UPI2CMDRESP_out;
+  wire [31:0] CH3_DMONITOROUT_out;
+  wire [31:0] CH3_UPI2CMDRESP_out;
+  wire [31:0] GPO_out;
+  wire [3:0] CH0_BUFGTCEMASK_out;
+  wire [3:0] CH0_BUFGTRSTMASK_out;
+  wire [3:0] CH0_SCANOUT_out;
+  wire [3:0] CH1_BUFGTCEMASK_out;
+  wire [3:0] CH1_BUFGTRSTMASK_out;
+  wire [3:0] CH1_SCANOUT_out;
+  wire [3:0] CH2_BUFGTCEMASK_out;
+  wire [3:0] CH2_BUFGTRSTMASK_out;
+  wire [3:0] CH2_SCANOUT_out;
+  wire [3:0] CH3_BUFGTCEMASK_out;
+  wire [3:0] CH3_BUFGTRSTMASK_out;
+  wire [3:0] CH3_SCANOUT_out;
+  wire [3:0] RXMARGINRESCMD_out;
+  wire [3:0] SCANOUT_out;
+  wire [4:0] CH0_RXCHBONDO_out;
+  wire [4:0] CH1_RXCHBONDO_out;
+  wire [4:0] CH2_RXCHBONDO_out;
+  wire [4:0] CH3_RXCHBONDO_out;
+  wire [4:0] REFCLK0_CTL_DRV_EN_CAL_out;
+  wire [4:0] REFCLK1_CTL_DRV_EN_CAL_out;
+  wire [7:0] RXMARGINRESPAYLOAD_out;
+
+//declare internal signals
+
+	integer CH0_GTM2TXN_integer;
+  integer CH0_GTM2TXP_integer;
+  integer CH1_GTM2TXN_integer;
+  integer CH1_GTM2TXP_integer;
+  integer CH2_GTM2TXN_integer;
+  integer CH2_GTM2TXP_integer;
+  integer CH3_GTM2TXN_integer;
+  integer CH3_GTM2TXP_integer;
+  integer CH0_GTM2RXN_integer;
+  integer CH0_GTM2RXP_integer;
+  integer CH1_GTM2RXN_integer;
+  integer CH1_GTM2RXP_integer;
+  integer CH2_GTM2RXN_integer;
+  integer CH2_GTM2RXP_integer;
+  integer CH3_GTM2RXN_integer;
+  integer CH3_GTM2RXP_integer;
+
+
+
+  wire CH0_BSR_SERIAL_in;
+  wire CH0_CSSDSTOPCLKB_in;
+  wire CH0_DMONFIFORESET_in;
+  wire CH0_DMONITORCLK_in;
+  wire CH0_EDTUPDATEB_in;
+  wire CH0_GTM2RXN_in;
+  wire CH0_GTM2RXP_in;
+  wire CH0_GTRXRESET_in;
+  wire CH0_GTTXRESET_in;
+  wire CH0_HSDPPCSRESET_in;
+  wire CH0_MNGPWRTOKENIN_in;
+  wire CH0_RXCDRHOLD_in;
+  wire CH0_RXGEARBOXSLIP_in;
+  wire CH0_RXLATCLK_in;
+  wire CH0_RXPOLARITY_in;
+  wire CH0_RXSLIDE_in;
+  wire CH0_RXTERMINATION_in;
+  wire CH0_RXUSRCLK_in;
+  wire CH0_SCANCLKB_in;
+  wire CH0_SCANCNTRLIN_in;
+  wire CH0_SCANENB_in;
+  wire CH0_SCANODCCCHNLMASK_in;
+  wire CH0_SCANRSTB_in;
+  wire CH0_TSTCLK0_in;
+  wire CH0_TSTCLK1_in;
+  wire CH0_TXDETECTRXLOOPBACK_in;
+  wire CH0_TXELECIDLE_in;
+  wire CH0_TXLATCLK_in;
+  wire CH0_TXUSRCLK_in;
+  wire CH0_UPI2CMDREQ_in;
+  wire CH1_BSR_SERIAL_in;
+  wire CH1_CSSDSTOPCLKB_in;
+  wire CH1_DMONFIFORESET_in;
+  wire CH1_DMONITORCLK_in;
+  wire CH1_EDTUPDATEB_in;
+  wire CH1_GTM2RXN_in;
+  wire CH1_GTM2RXP_in;
+  wire CH1_GTRXRESET_in;
+  wire CH1_GTTXRESET_in;
+  wire CH1_HSDPPCSRESET_in;
+  wire CH1_MNGPWRTOKENIN_in;
+  wire CH1_RXCDRHOLD_in;
+  wire CH1_RXGEARBOXSLIP_in;
+  wire CH1_RXLATCLK_in;
+  wire CH1_RXPOLARITY_in;
+  wire CH1_RXSLIDE_in;
+  wire CH1_RXTERMINATION_in;
+  wire CH1_RXUSRCLK_in;
+  wire CH1_SCANCLKB_in;
+  wire CH1_SCANCNTRLIN_in;
+  wire CH1_SCANENB_in;
+  wire CH1_SCANODCCCHNLMASK_in;
+  wire CH1_SCANRSTB_in;
+  wire CH1_TSTCLK0_in;
+  wire CH1_TSTCLK1_in;
+  wire CH1_TXDETECTRXLOOPBACK_in;
+  wire CH1_TXELECIDLE_in;
+  wire CH1_TXLATCLK_in;
+  wire CH1_TXUSRCLK_in;
+  wire CH1_UPI2CMDREQ_in;
+  wire CH2_BSR_SERIAL_in;
+  wire CH2_CSSDSTOPCLKB_in;
+  wire CH2_DMONFIFORESET_in;
+  wire CH2_DMONITORCLK_in;
+  wire CH2_EDTUPDATEB_in;
+  wire CH2_GTM2RXN_in;
+  wire CH2_GTM2RXP_in;
+  wire CH2_GTRXRESET_in;
+  wire CH2_GTTXRESET_in;
+  wire CH2_HSDPPCSRESET_in;
+  wire CH2_MNGPWRTOKENIN_in;
+  wire CH2_RXCDRHOLD_in;
+  wire CH2_RXGEARBOXSLIP_in;
+  wire CH2_RXLATCLK_in;
+  wire CH2_RXPOLARITY_in;
+  wire CH2_RXSLIDE_in;
+  wire CH2_RXTERMINATION_in;
+  wire CH2_RXUSRCLK_in;
+  wire CH2_SCANCLKB_in;
+  wire CH2_SCANCNTRLIN_in;
+  wire CH2_SCANENB_in;
+  wire CH2_SCANODCCCHNLMASK_in;
+  wire CH2_SCANRSTB_in;
+  wire CH2_TSTCLK0_in;
+  wire CH2_TSTCLK1_in;
+  wire CH2_TXDETECTRXLOOPBACK_in;
+  wire CH2_TXELECIDLE_in;
+  wire CH2_TXLATCLK_in;
+  wire CH2_TXUSRCLK_in;
+  wire CH2_UPI2CMDREQ_in;
+  wire CH3_BSR_SERIAL_in;
+  wire CH3_CSSDSTOPCLKB_in;
+  wire CH3_DMONFIFORESET_in;
+  wire CH3_DMONITORCLK_in;
+  wire CH3_EDTUPDATEB_in;
+  wire CH3_GTM2RXN_in;
+  wire CH3_GTM2RXP_in;
+  wire CH3_GTRXRESET_in;
+  wire CH3_GTTXRESET_in;
+  wire CH3_HSDPPCSRESET_in;
+  wire CH3_MNGPWRTOKENIN_in;
+  wire CH3_RXCDRHOLD_in;
+  wire CH3_RXGEARBOXSLIP_in;
+  wire CH3_RXLATCLK_in;
+  wire CH3_RXPOLARITY_in;
+  wire CH3_RXSLIDE_in;
+  wire CH3_RXTERMINATION_in;
+  wire CH3_RXUSRCLK_in;
+  wire CH3_SCANCLKB_in;
+  wire CH3_SCANCNTRLIN_in;
+  wire CH3_SCANENB_in;
+  wire CH3_SCANODCCCHNLMASK_in;
+  wire CH3_SCANRSTB_in;
+  wire CH3_TSTCLK0_in;
+  wire CH3_TSTCLK1_in;
+  wire CH3_TXDETECTRXLOOPBACK_in;
+  wire CH3_TXELECIDLE_in;
+  wire CH3_TXLATCLK_in;
+  wire CH3_TXUSRCLK_in;
+  wire CH3_UPI2CMDREQ_in;
+  wire CSSDSTOPCLKB_in;
+  wire HSCLK0_LCPLLGTGREFCLK_in;
+  wire HSCLK0_LCPLLGTREFCLK0_in;
+  wire HSCLK0_LCPLLGTREFCLK1_in;
+  wire HSCLK0_LCPLLNORTHREFCLK0_in;
+  wire HSCLK0_LCPLLNORTHREFCLK1_in;
+  wire HSCLK0_LCPLLSDMTOGGLE_in;
+  wire HSCLK0_LCPLLSOUTHREFCLK0_in;
+  wire HSCLK0_LCPLLSOUTHREFCLK1_in;
+  wire HSCLK0_RPLLGTGREFCLK_in;
+  wire HSCLK0_RPLLGTREFCLK0_in;
+  wire HSCLK0_RPLLGTREFCLK1_in;
+  wire HSCLK0_RPLLNORTHREFCLK0_in;
+  wire HSCLK0_RPLLNORTHREFCLK1_in;
+  wire HSCLK0_RPLLSOUTHREFCLK0_in;
+  wire HSCLK0_RPLLSOUTHREFCLK1_in;
+  wire HSCLK1_LCPLLGTGREFCLK_in;
+  wire HSCLK1_LCPLLGTREFCLK0_in;
+  wire HSCLK1_LCPLLGTREFCLK1_in;
+  wire HSCLK1_LCPLLNORTHREFCLK0_in;
+  wire HSCLK1_LCPLLNORTHREFCLK1_in;
+  wire HSCLK1_LCPLLSDMTOGGLE_in;
+  wire HSCLK1_LCPLLSOUTHREFCLK0_in;
+  wire HSCLK1_LCPLLSOUTHREFCLK1_in;
+  wire HSCLK1_RPLLGTGREFCLK_in;
+  wire HSCLK1_RPLLGTREFCLK0_in;
+  wire HSCLK1_RPLLGTREFCLK1_in;
+  wire HSCLK1_RPLLNORTHREFCLK0_in;
+  wire HSCLK1_RPLLNORTHREFCLK1_in;
+  wire HSCLK1_RPLLSOUTHREFCLK0_in;
+  wire HSCLK1_RPLLSOUTHREFCLK1_in;
+  wire PCIELINKREACHTARGET_in;
+  wire REFCLK0_CLKTESTSIG_in;
+  wire REFCLK0_ODIV2INT_in;
+  wire REFCLK1_CLKTESTSIG_in;
+  wire REFCLK1_ODIV2INT_in;
+  wire RXMARGINCLK_in;
+  wire RXMARGINREQREQ_in;
+  wire RXMARGINRESACK_in;
+  wire SCANCLKB_in;
+  wire SCANCNTRLIN_in;
+  wire SCANEDTUPDTB_in;
+  wire SCANENB_in;
+  wire SCANODCCCHNLMASKIN_in;
+  wire SCANRSTB_in;
+  wire [19:0] CH0_UPI2CMDCODE_in;
+  wire [19:0] CH1_UPI2CMDCODE_in;
+  wire [19:0] CH2_UPI2CMDCODE_in;
+  wire [19:0] CH3_UPI2CMDCODE_in;
+  wire [1:0] CH0_TXPOWERDOWN_in;
+  wire [1:0] CH1_TXPOWERDOWN_in;
+  wire [1:0] CH2_TXPOWERDOWN_in;
+  wire [1:0] CH3_TXPOWERDOWN_in;
+  wire [1:0] RXMARGINREQLANENUM_in;
+  wire [25:0] HSCLK0_LCPLLSDMDATA_in;
+  wire [25:0] HSCLK1_LCPLLSDMDATA_in;
+  wire [319:0] CH0_TXDATA_in;
+  wire [319:0] CH1_TXDATA_in;
+  wire [319:0] CH2_TXDATA_in;
+  wire [319:0] CH3_TXDATA_in;
+  wire [31:0] GPI_in;
+  wire [3:0] CH0_SCANCHNLMASKIN_in;
+  wire [3:0] CH0_SCANIN_in;
+  wire [3:0] CH1_SCANCHNLMASKIN_in;
+  wire [3:0] CH1_SCANIN_in;
+  wire [3:0] CH2_SCANCHNLMASKIN_in;
+  wire [3:0] CH2_SCANIN_in;
+  wire [3:0] CH3_SCANCHNLMASKIN_in;
+  wire [3:0] CH3_SCANIN_in;
+  wire [3:0] RXMARGINREQCMD_in;
+  wire [3:0] SCANCHNLMASKIN_in;
+  wire [3:0] SCANIN_in;
+  wire [4:0] CH0_RXCHBONDI_in;
+  wire [4:0] CH1_RXCHBONDI_in;
+  wire [4:0] CH2_RXCHBONDI_in;
+  wire [4:0] CH3_RXCHBONDI_in;
+  wire [5:0] CH0_TXEMPMAIN_in;
+  wire [5:0] CH0_TXEMPPOS_in;
+  wire [5:0] CH0_TXEMPPRE_in;
+  wire [5:0] CH1_TXEMPMAIN_in;
+  wire [5:0] CH1_TXEMPPOS_in;
+  wire [5:0] CH1_TXEMPPRE_in;
+  wire [5:0] CH2_TXEMPMAIN_in;
+  wire [5:0] CH2_TXEMPPOS_in;
+  wire [5:0] CH2_TXEMPPRE_in;
+  wire [5:0] CH3_TXEMPMAIN_in;
+  wire [5:0] CH3_TXEMPPOS_in;
+  wire [5:0] CH3_TXEMPPRE_in;
+  wire [7:0] CH0_PCIE_LTSSM_STATE_in;
+  wire [7:0] CH0_TXRATE_in;
+  wire [7:0] CH1_PCIE_LTSSM_STATE_in;
+  wire [7:0] CH1_TXRATE_in;
+  wire [7:0] CH2_PCIE_LTSSM_STATE_in;
+  wire [7:0] CH2_TXRATE_in;
+  wire [7:0] CH3_PCIE_LTSSM_STATE_in;
+  wire [7:0] CH3_TXRATE_in;
+  wire [7:0] RXMARGINREQPAYLOAD_in;
+
+`ifdef XIL_TIMING
+  wire CH0_RXGEARBOXSLIP_delay;
+  wire CH0_RXUSRCLK_delay;
+  wire CH0_SCANCLKB_delay;
+  wire CH0_SCANCNTRLIN_delay;
+  wire CH0_SCANODCCCHNLMASK_delay;
+  wire CH0_TXDETECTRXLOOPBACK_delay;
+  wire CH0_TXELECIDLE_delay;
+  wire CH0_TXUSRCLK_delay;
+  wire CH1_RXGEARBOXSLIP_delay;
+  wire CH1_RXUSRCLK_delay;
+  wire CH1_SCANCLKB_delay;
+  wire CH1_SCANCNTRLIN_delay;
+  wire CH1_SCANODCCCHNLMASK_delay;
+  wire CH1_TXDETECTRXLOOPBACK_delay;
+  wire CH1_TXELECIDLE_delay;
+  wire CH1_TXUSRCLK_delay;
+  wire CH2_RXGEARBOXSLIP_delay;
+  wire CH2_RXUSRCLK_delay;
+  wire CH2_SCANCLKB_delay;
+  wire CH2_SCANCNTRLIN_delay;
+  wire CH2_SCANODCCCHNLMASK_delay;
+  wire CH2_TXDETECTRXLOOPBACK_delay;
+  wire CH2_TXELECIDLE_delay;
+  wire CH2_TXUSRCLK_delay;
+  wire CH3_RXGEARBOXSLIP_delay;
+  wire CH3_RXUSRCLK_delay;
+  wire CH3_SCANCLKB_delay;
+  wire CH3_SCANCNTRLIN_delay;
+  wire CH3_SCANODCCCHNLMASK_delay;
+  wire CH3_TXDETECTRXLOOPBACK_delay;
+  wire CH3_TXELECIDLE_delay;
+  wire CH3_TXUSRCLK_delay;
+  wire RXMARGINCLK_delay;
+  wire RXMARGINREQREQ_delay;
+  wire RXMARGINRESACK_delay;
+  wire SCANCLKB_delay;
+  wire SCANCNTRLIN_delay;
+  wire SCANODCCCHNLMASKIN_delay;
+  wire [1:0] CH0_TXPOWERDOWN_delay;
+  wire [1:0] CH1_TXPOWERDOWN_delay;
+  wire [1:0] CH2_TXPOWERDOWN_delay;
+  wire [1:0] CH3_TXPOWERDOWN_delay;
+  wire [1:0] RXMARGINREQLANENUM_delay;
+  wire [319:0] CH0_TXDATA_delay;
+  wire [319:0] CH1_TXDATA_delay;
+  wire [319:0] CH2_TXDATA_delay;
+  wire [319:0] CH3_TXDATA_delay;
+  wire [3:0] CH0_SCANCHNLMASKIN_delay;
+  wire [3:0] CH0_SCANIN_delay;
+  wire [3:0] CH1_SCANCHNLMASKIN_delay;
+  wire [3:0] CH1_SCANIN_delay;
+  wire [3:0] CH2_SCANCHNLMASKIN_delay;
+  wire [3:0] CH2_SCANIN_delay;
+  wire [3:0] CH3_SCANCHNLMASKIN_delay;
+  wire [3:0] CH3_SCANIN_delay;
+  wire [3:0] RXMARGINREQCMD_delay;
+  wire [3:0] SCANCHNLMASKIN_delay;
+  wire [3:0] SCANIN_delay;
+  wire [7:0] CH0_TXRATE_delay;
+  wire [7:0] CH1_TXRATE_delay;
+  wire [7:0] CH2_TXRATE_delay;
+  wire [7:0] CH3_TXRATE_delay;
+  wire [7:0] RXMARGINREQPAYLOAD_delay;
+`endif
+
+  
+  assign BUFG_GT_RSVD = BUFG_GT_RSVD_out;
+  assign CH0_BUFGTCE = CH0_BUFGTCE_out;
+  assign CH0_BUFGTCEMASK = CH0_BUFGTCEMASK_out;
+  assign CH0_BUFGTDIV = CH0_BUFGTDIV_out;
+  assign CH0_BUFGTRST = CH0_BUFGTRST_out;
+  assign CH0_BUFGTRSTMASK = CH0_BUFGTRSTMASK_out;
+  assign CH0_DMONITOROUT = CH0_DMONITOROUT_out;
+  assign CH0_DMONITOROUTCLK = CH0_DMONITOROUTCLK_out;
+  assign CH0_GTM2TXN = CH0_GTM2TXN_out;
+  assign CH0_GTM2TXP = CH0_GTM2TXP_out;
+  assign CH0_MNGPWRTOKENOUT = CH0_MNGPWRTOKENOUT_out;
+  assign CH0_PHYREADY = CH0_PHYREADY_out;
+  assign CH0_PHYSTATUS = CH0_PHYSTATUS_out;
+  assign CH0_RXBUFSTATUS = CH0_RXBUFSTATUS_out;
+  assign CH0_RXBYTEISALIGNED = CH0_RXBYTEISALIGNED_out;
+  assign CH0_RXBYTEREALIGN = CH0_RXBYTEREALIGN_out;
+  assign CH0_RXCHANBONDSEQ = CH0_RXCHANBONDSEQ_out;
+  assign CH0_RXCHBONDO = CH0_RXCHBONDO_out;
+  assign CH0_RXCOMMADET = CH0_RXCOMMADET_out;
+  assign CH0_RXDATA = CH0_RXDATA_out;
+  assign CH0_RXELECIDLE = CH0_RXELECIDLE_out;
+  assign CH0_RXOUTCLK = CH0_RXOUTCLK_out;
+  assign CH0_RXOUTCLKVALID = CH0_RXOUTCLKVALID_out;
+  assign CH0_RXRESETDONE = CH0_RXRESETDONE_out;
+  assign CH0_RXSLIDERDY = CH0_RXSLIDERDY_out;
+  assign CH0_RXSLIPDONE = CH0_RXSLIPDONE_out;
+  assign CH0_RXSSCLK = CH0_RXSSCLK_out;
+  assign CH0_RXSTATUS = CH0_RXSTATUS_out;
+  assign CH0_RXVALID = CH0_RXVALID_out;
+  assign CH0_SCANCNTRLOUT = CH0_SCANCNTRLOUT_out;
+  assign CH0_SCANOUT = CH0_SCANOUT_out;
+  assign CH0_TXBUFSTATUS = CH0_TXBUFSTATUS_out;
+  assign CH0_TXCOMFINISH = CH0_TXCOMFINISH_out;
+  assign CH0_TXOUTCLK = CH0_TXOUTCLK_out;
+  assign CH0_TXRESETDONE = CH0_TXRESETDONE_out;
+  assign CH0_UPI2CMDERROR = CH0_UPI2CMDERROR_out;
+  assign CH0_UPI2CMDREADY = CH0_UPI2CMDREADY_out;
+  assign CH0_UPI2CMDRESP = CH0_UPI2CMDRESP_out;
+  assign CH0_UPI2MSGREQ = CH0_UPI2MSGREQ_out;
+  assign CH1_BUFGTCE = CH1_BUFGTCE_out;
+  assign CH1_BUFGTCEMASK = CH1_BUFGTCEMASK_out;
+  assign CH1_BUFGTDIV = CH1_BUFGTDIV_out;
+  assign CH1_BUFGTRST = CH1_BUFGTRST_out;
+  assign CH1_BUFGTRSTMASK = CH1_BUFGTRSTMASK_out;
+  assign CH1_DMONITOROUT = CH1_DMONITOROUT_out;
+  assign CH1_DMONITOROUTCLK = CH1_DMONITOROUTCLK_out;
+  assign CH1_GTM2TXN = CH1_GTM2TXN_out;
+  assign CH1_GTM2TXP = CH1_GTM2TXP_out;
+  assign CH1_MNGPWRTOKENOUT = CH1_MNGPWRTOKENOUT_out;
+  assign CH1_PHYREADY = CH1_PHYREADY_out;
+  assign CH1_PHYSTATUS = CH1_PHYSTATUS_out;
+  assign CH1_RXBUFSTATUS = CH1_RXBUFSTATUS_out;
+  assign CH1_RXBYTEISALIGNED = CH1_RXBYTEISALIGNED_out;
+  assign CH1_RXBYTEREALIGN = CH1_RXBYTEREALIGN_out;
+  assign CH1_RXCHANBONDSEQ = CH1_RXCHANBONDSEQ_out;
+  assign CH1_RXCHBONDO = CH1_RXCHBONDO_out;
+  assign CH1_RXCOMMADET = CH1_RXCOMMADET_out;
+  assign CH1_RXDATA = CH1_RXDATA_out;
+  assign CH1_RXELECIDLE = CH1_RXELECIDLE_out;
+  assign CH1_RXOUTCLK = CH1_RXOUTCLK_out;
+  assign CH1_RXOUTCLKVALID = CH1_RXOUTCLKVALID_out;
+  assign CH1_RXRESETDONE = CH1_RXRESETDONE_out;
+  assign CH1_RXSLIDERDY = CH1_RXSLIDERDY_out;
+  assign CH1_RXSLIPDONE = CH1_RXSLIPDONE_out;
+  assign CH1_RXSSCLK = CH1_RXSSCLK_out;
+  assign CH1_RXSTATUS = CH1_RXSTATUS_out;
+  assign CH1_RXVALID = CH1_RXVALID_out;
+  assign CH1_SCANCNTRLOUT = CH1_SCANCNTRLOUT_out;
+  assign CH1_SCANOUT = CH1_SCANOUT_out;
+  assign CH1_TXBUFSTATUS = CH1_TXBUFSTATUS_out;
+  assign CH1_TXCOMFINISH = CH1_TXCOMFINISH_out;
+  assign CH1_TXOUTCLK = CH1_TXOUTCLK_out;
+  assign CH1_TXRESETDONE = CH1_TXRESETDONE_out;
+  assign CH1_UPI2CMDERROR = CH1_UPI2CMDERROR_out;
+  assign CH1_UPI2CMDREADY = CH1_UPI2CMDREADY_out;
+  assign CH1_UPI2CMDRESP = CH1_UPI2CMDRESP_out;
+  assign CH1_UPI2MSGREQ = CH1_UPI2MSGREQ_out;
+  assign CH2_BUFGTCE = CH2_BUFGTCE_out;
+  assign CH2_BUFGTCEMASK = CH2_BUFGTCEMASK_out;
+  assign CH2_BUFGTDIV = CH2_BUFGTDIV_out;
+  assign CH2_BUFGTRST = CH2_BUFGTRST_out;
+  assign CH2_BUFGTRSTMASK = CH2_BUFGTRSTMASK_out;
+  assign CH2_DMONITOROUT = CH2_DMONITOROUT_out;
+  assign CH2_DMONITOROUTCLK = CH2_DMONITOROUTCLK_out;
+  assign CH2_GTM2TXN = CH2_GTM2TXN_out;
+  assign CH2_GTM2TXP = CH2_GTM2TXP_out;
+  assign CH2_MNGPWRTOKENOUT = CH2_MNGPWRTOKENOUT_out;
+  assign CH2_PHYREADY = CH2_PHYREADY_out;
+  assign CH2_PHYSTATUS = CH2_PHYSTATUS_out;
+  assign CH2_RXBUFSTATUS = CH2_RXBUFSTATUS_out;
+  assign CH2_RXBYTEISALIGNED = CH2_RXBYTEISALIGNED_out;
+  assign CH2_RXBYTEREALIGN = CH2_RXBYTEREALIGN_out;
+  assign CH2_RXCHANBONDSEQ = CH2_RXCHANBONDSEQ_out;
+  assign CH2_RXCHBONDO = CH2_RXCHBONDO_out;
+  assign CH2_RXCOMMADET = CH2_RXCOMMADET_out;
+  assign CH2_RXDATA = CH2_RXDATA_out;
+  assign CH2_RXELECIDLE = CH2_RXELECIDLE_out;
+  assign CH2_RXOUTCLK = CH2_RXOUTCLK_out;
+  assign CH2_RXOUTCLKVALID = CH2_RXOUTCLKVALID_out;
+  assign CH2_RXRESETDONE = CH2_RXRESETDONE_out;
+  assign CH2_RXSLIDERDY = CH2_RXSLIDERDY_out;
+  assign CH2_RXSLIPDONE = CH2_RXSLIPDONE_out;
+  assign CH2_RXSSCLK = CH2_RXSSCLK_out;
+  assign CH2_RXSTATUS = CH2_RXSTATUS_out;
+  assign CH2_RXVALID = CH2_RXVALID_out;
+  assign CH2_SCANCNTRLOUT = CH2_SCANCNTRLOUT_out;
+  assign CH2_SCANOUT = CH2_SCANOUT_out;
+  assign CH2_TXBUFSTATUS = CH2_TXBUFSTATUS_out;
+  assign CH2_TXCOMFINISH = CH2_TXCOMFINISH_out;
+  assign CH2_TXOUTCLK = CH2_TXOUTCLK_out;
+  assign CH2_TXRESETDONE = CH2_TXRESETDONE_out;
+  assign CH2_UPI2CMDERROR = CH2_UPI2CMDERROR_out;
+  assign CH2_UPI2CMDREADY = CH2_UPI2CMDREADY_out;
+  assign CH2_UPI2CMDRESP = CH2_UPI2CMDRESP_out;
+  assign CH2_UPI2MSGREQ = CH2_UPI2MSGREQ_out;
+  assign CH3_BUFGTCE = CH3_BUFGTCE_out;
+  assign CH3_BUFGTCEMASK = CH3_BUFGTCEMASK_out;
+  assign CH3_BUFGTDIV = CH3_BUFGTDIV_out;
+  assign CH3_BUFGTRST = CH3_BUFGTRST_out;
+  assign CH3_BUFGTRSTMASK = CH3_BUFGTRSTMASK_out;
+  assign CH3_DMONITOROUT = CH3_DMONITOROUT_out;
+  assign CH3_DMONITOROUTCLK = CH3_DMONITOROUTCLK_out;
+  assign CH3_GTM2TXN = CH3_GTM2TXN_out;
+  assign CH3_GTM2TXP = CH3_GTM2TXP_out;
+  assign CH3_MNGPWRTOKENOUT = CH3_MNGPWRTOKENOUT_out;
+  assign CH3_PHYREADY = CH3_PHYREADY_out;
+  assign CH3_PHYSTATUS = CH3_PHYSTATUS_out;
+  assign CH3_RXBUFSTATUS = CH3_RXBUFSTATUS_out;
+  assign CH3_RXBYTEISALIGNED = CH3_RXBYTEISALIGNED_out;
+  assign CH3_RXBYTEREALIGN = CH3_RXBYTEREALIGN_out;
+  assign CH3_RXCHANBONDSEQ = CH3_RXCHANBONDSEQ_out;
+  assign CH3_RXCHBONDO = CH3_RXCHBONDO_out;
+  assign CH3_RXCOMMADET = CH3_RXCOMMADET_out;
+  assign CH3_RXDATA = CH3_RXDATA_out;
+  assign CH3_RXELECIDLE = CH3_RXELECIDLE_out;
+  assign CH3_RXOUTCLK = CH3_RXOUTCLK_out;
+  assign CH3_RXOUTCLKVALID = CH3_RXOUTCLKVALID_out;
+  assign CH3_RXRESETDONE = CH3_RXRESETDONE_out;
+  assign CH3_RXSLIDERDY = CH3_RXSLIDERDY_out;
+  assign CH3_RXSLIPDONE = CH3_RXSLIPDONE_out;
+  assign CH3_RXSSCLK = CH3_RXSSCLK_out;
+  assign CH3_RXSTATUS = CH3_RXSTATUS_out;
+  assign CH3_RXVALID = CH3_RXVALID_out;
+  assign CH3_SCANCNTRLOUT = CH3_SCANCNTRLOUT_out;
+  assign CH3_SCANOUT = CH3_SCANOUT_out;
+  assign CH3_TXBUFSTATUS = CH3_TXBUFSTATUS_out;
+  assign CH3_TXCOMFINISH = CH3_TXCOMFINISH_out;
+  assign CH3_TXOUTCLK = CH3_TXOUTCLK_out;
+  assign CH3_TXRESETDONE = CH3_TXRESETDONE_out;
+  assign CH3_UPI2CMDERROR = CH3_UPI2CMDERROR_out;
+  assign CH3_UPI2CMDREADY = CH3_UPI2CMDREADY_out;
+  assign CH3_UPI2CMDRESP = CH3_UPI2CMDRESP_out;
+  assign CH3_UPI2MSGREQ = CH3_UPI2MSGREQ_out;
+  assign GPO = GPO_out;
+  assign GTPOWERGOOD = GTPOWERGOOD_out;
+  assign HSCLK0_LCPLLFREQLOCK = HSCLK0_LCPLLFREQLOCK_out;
+  assign HSCLK0_LCPLLREFCLKMONITOR = HSCLK0_LCPLLREFCLKMONITOR_out;
+  assign HSCLK0_RPLLFREQLOCK = HSCLK0_RPLLFREQLOCK_out;
+  assign HSCLK0_RPLLREFCLKMONITOR = HSCLK0_RPLLREFCLKMONITOR_out;
+  assign HSCLK0_RXRECCLKOUT0 = HSCLK0_RXRECCLKOUT0_out;
+  assign HSCLK0_RXRECCLKOUT1 = HSCLK0_RXRECCLKOUT1_out;
+  assign HSCLK1_LCPLLFREQLOCK = HSCLK1_LCPLLFREQLOCK_out;
+  assign HSCLK1_LCPLLREFCLKMONITOR = HSCLK1_LCPLLREFCLKMONITOR_out;
+  assign HSCLK1_RPLLFREQLOCK = HSCLK1_RPLLFREQLOCK_out;
+  assign HSCLK1_RPLLREFCLKMONITOR = HSCLK1_RPLLREFCLKMONITOR_out;
+  assign HSCLK1_RXRECCLKOUT0 = HSCLK1_RXRECCLKOUT0_out;
+  assign HSCLK1_RXRECCLKOUT1 = HSCLK1_RXRECCLKOUT1_out;
+  assign MCAEVENT = MCAEVENT_out;
+  assign MCAEVENTVAL = MCAEVENTVAL_out;
+  assign REFCLK0_CLKOUT_SEL = REFCLK0_CLKOUT_SEL_out;
+  assign REFCLK0_CLKTESTSIGINT = REFCLK0_CLKTESTSIGINT_out;
+  assign REFCLK0_CTL_DRV_EN_CAL = REFCLK0_CTL_DRV_EN_CAL_out;
+  assign REFCLK0_CTL_DRV_SWING = REFCLK0_CTL_DRV_SWING_out;
+  assign REFCLK0_ENB_VCM_STRONG = REFCLK0_ENB_VCM_STRONG_out;
+  assign REFCLK0_EN_BLD = REFCLK0_EN_BLD_out;
+  assign REFCLK0_EN_DC_COUP = REFCLK0_EN_DC_COUP_out;
+  assign REFCLK0_EN_DRV = REFCLK0_EN_DRV_out;
+  assign REFCLK0_EN_FABRIC_CK = REFCLK0_EN_FABRIC_CK_out;
+  assign REFCLK0_EN_TX_PATH = REFCLK0_EN_TX_PATH_out;
+  assign REFCLK0_GTREFCLKPDBINT = REFCLK0_GTREFCLKPDBINT_out;
+  assign REFCLK0_HROW_CK_SEL = REFCLK0_HROW_CK_SEL_out;
+  assign REFCLK0_ICNTL_RX = REFCLK0_ICNTL_RX_out;
+  assign REFCLK0_ODIV2 = REFCLK0_ODIV2_out;
+  assign REFCLK0_RCAL_OFFSET_SIGN = REFCLK0_RCAL_OFFSET_SIGN_out;
+  assign REFCLK0_RPLL_CLK_SEL_EN = REFCLK0_RPLL_CLK_SEL_EN_out;
+  assign REFCLK0_RXRECCLKSEL = REFCLK0_RXRECCLKSEL_out;
+  assign REFCLK0_VCM_HIGH = REFCLK0_VCM_HIGH_out;
+  assign REFCLK0_VCM_LOW = REFCLK0_VCM_LOW_out;
+  assign REFCLK1_CLKOUT_SEL = REFCLK1_CLKOUT_SEL_out;
+  assign REFCLK1_CLKTESTSIGINT = REFCLK1_CLKTESTSIGINT_out;
+  assign REFCLK1_CTL_DRV_EN_CAL = REFCLK1_CTL_DRV_EN_CAL_out;
+  assign REFCLK1_CTL_DRV_SWING = REFCLK1_CTL_DRV_SWING_out;
+  assign REFCLK1_ENB_VCM_STRONG = REFCLK1_ENB_VCM_STRONG_out;
+  assign REFCLK1_EN_BLD = REFCLK1_EN_BLD_out;
+  assign REFCLK1_EN_DC_COUP = REFCLK1_EN_DC_COUP_out;
+  assign REFCLK1_EN_DRV = REFCLK1_EN_DRV_out;
+  assign REFCLK1_EN_FABRIC_CK = REFCLK1_EN_FABRIC_CK_out;
+  assign REFCLK1_EN_TX_PATH = REFCLK1_EN_TX_PATH_out;
+  assign REFCLK1_GTREFCLKPDBINT = REFCLK1_GTREFCLKPDBINT_out;
+  assign REFCLK1_HROW_CK_SEL = REFCLK1_HROW_CK_SEL_out;
+  assign REFCLK1_ICNTL_RX = REFCLK1_ICNTL_RX_out;
+  assign REFCLK1_ODIV2 = REFCLK1_ODIV2_out;
+  assign REFCLK1_RCAL_OFFSET_SIGN = REFCLK1_RCAL_OFFSET_SIGN_out;
+  assign REFCLK1_RPLL_CLK_SEL_EN = REFCLK1_RPLL_CLK_SEL_EN_out;
+  assign REFCLK1_RXRECCLKSEL = REFCLK1_RXRECCLKSEL_out;
+  assign REFCLK1_VCM_HIGH = REFCLK1_VCM_HIGH_out;
+  assign REFCLK1_VCM_LOW = REFCLK1_VCM_LOW_out;
+  assign RXMARGINREQACK = RXMARGINREQACK_out;
+  assign RXMARGINRESCMD = RXMARGINRESCMD_out;
+  assign RXMARGINRESLANENUM = RXMARGINRESLANENUM_out;
+  assign RXMARGINRESPAYLOAD = RXMARGINRESPAYLOAD_out;
+  assign RXMARGINRESREQ = RXMARGINRESREQ_out;
+  assign SCANCNTRLOUT = SCANCNTRLOUT_out;
+  assign SCANOUT = SCANOUT_out;
+
+`ifdef XIL_TIMING
+  assign CH0_RXGEARBOXSLIP_in = CH0_RXGEARBOXSLIP_delay;
+  assign CH0_RXUSRCLK_in = (CH0_RXUSRCLK === 1'bz) || CH0_RXUSRCLK_delay; // rv 1
+  assign CH0_SCANCHNLMASKIN_in = CH0_SCANCHNLMASKIN_delay;
+  assign CH0_SCANCLKB_in = CH0_SCANCLKB_delay;
+  assign CH0_SCANCNTRLIN_in = CH0_SCANCNTRLIN_delay;
+  assign CH0_SCANIN_in = CH0_SCANIN_delay;
+  assign CH0_SCANODCCCHNLMASK_in = CH0_SCANODCCCHNLMASK_delay;
+  assign CH0_TXDATA_in[0] = (CH0_TXDATA[0] !== 1'bz) && CH0_TXDATA_delay[0]; // rv MustConnect
+  assign CH0_TXDATA_in[100] = (CH0_TXDATA[100] !== 1'bz) && CH0_TXDATA_delay[100]; // rv MustConnect
+  assign CH0_TXDATA_in[101] = (CH0_TXDATA[101] !== 1'bz) && CH0_TXDATA_delay[101]; // rv MustConnect
+  assign CH0_TXDATA_in[102] = (CH0_TXDATA[102] !== 1'bz) && CH0_TXDATA_delay[102]; // rv MustConnect
+  assign CH0_TXDATA_in[103] = (CH0_TXDATA[103] !== 1'bz) && CH0_TXDATA_delay[103]; // rv MustConnect
+  assign CH0_TXDATA_in[104] = (CH0_TXDATA[104] !== 1'bz) && CH0_TXDATA_delay[104]; // rv MustConnect
+  assign CH0_TXDATA_in[105] = (CH0_TXDATA[105] !== 1'bz) && CH0_TXDATA_delay[105]; // rv MustConnect
+  assign CH0_TXDATA_in[106] = (CH0_TXDATA[106] !== 1'bz) && CH0_TXDATA_delay[106]; // rv MustConnect
+  assign CH0_TXDATA_in[107] = (CH0_TXDATA[107] !== 1'bz) && CH0_TXDATA_delay[107]; // rv MustConnect
+  assign CH0_TXDATA_in[108] = (CH0_TXDATA[108] !== 1'bz) && CH0_TXDATA_delay[108]; // rv MustConnect
+  assign CH0_TXDATA_in[109] = (CH0_TXDATA[109] !== 1'bz) && CH0_TXDATA_delay[109]; // rv MustConnect
+  assign CH0_TXDATA_in[10] = (CH0_TXDATA[10] !== 1'bz) && CH0_TXDATA_delay[10]; // rv MustConnect
+  assign CH0_TXDATA_in[110] = (CH0_TXDATA[110] !== 1'bz) && CH0_TXDATA_delay[110]; // rv MustConnect
+  assign CH0_TXDATA_in[111] = (CH0_TXDATA[111] !== 1'bz) && CH0_TXDATA_delay[111]; // rv MustConnect
+  assign CH0_TXDATA_in[112] = (CH0_TXDATA[112] !== 1'bz) && CH0_TXDATA_delay[112]; // rv MustConnect
+  assign CH0_TXDATA_in[113] = (CH0_TXDATA[113] !== 1'bz) && CH0_TXDATA_delay[113]; // rv MustConnect
+  assign CH0_TXDATA_in[114] = (CH0_TXDATA[114] !== 1'bz) && CH0_TXDATA_delay[114]; // rv MustConnect
+  assign CH0_TXDATA_in[115] = (CH0_TXDATA[115] !== 1'bz) && CH0_TXDATA_delay[115]; // rv MustConnect
+  assign CH0_TXDATA_in[116] = (CH0_TXDATA[116] !== 1'bz) && CH0_TXDATA_delay[116]; // rv MustConnect
+  assign CH0_TXDATA_in[117] = (CH0_TXDATA[117] !== 1'bz) && CH0_TXDATA_delay[117]; // rv MustConnect
+  assign CH0_TXDATA_in[118] = (CH0_TXDATA[118] !== 1'bz) && CH0_TXDATA_delay[118]; // rv MustConnect
+  assign CH0_TXDATA_in[119] = (CH0_TXDATA[119] !== 1'bz) && CH0_TXDATA_delay[119]; // rv MustConnect
+  assign CH0_TXDATA_in[11] = (CH0_TXDATA[11] !== 1'bz) && CH0_TXDATA_delay[11]; // rv MustConnect
+  assign CH0_TXDATA_in[120] = (CH0_TXDATA[120] !== 1'bz) && CH0_TXDATA_delay[120]; // rv MustConnect
+  assign CH0_TXDATA_in[121] = (CH0_TXDATA[121] !== 1'bz) && CH0_TXDATA_delay[121]; // rv MustConnect
+  assign CH0_TXDATA_in[122] = (CH0_TXDATA[122] !== 1'bz) && CH0_TXDATA_delay[122]; // rv MustConnect
+  assign CH0_TXDATA_in[123] = (CH0_TXDATA[123] !== 1'bz) && CH0_TXDATA_delay[123]; // rv MustConnect
+  assign CH0_TXDATA_in[124] = (CH0_TXDATA[124] !== 1'bz) && CH0_TXDATA_delay[124]; // rv MustConnect
+  assign CH0_TXDATA_in[125] = (CH0_TXDATA[125] !== 1'bz) && CH0_TXDATA_delay[125]; // rv MustConnect
+  assign CH0_TXDATA_in[126] = (CH0_TXDATA[126] !== 1'bz) && CH0_TXDATA_delay[126]; // rv MustConnect
+  assign CH0_TXDATA_in[127] = (CH0_TXDATA[127] !== 1'bz) && CH0_TXDATA_delay[127]; // rv MustConnect
+  assign CH0_TXDATA_in[128] = (CH0_TXDATA[128] !== 1'bz) && CH0_TXDATA_delay[128]; // rv MustConnect
+  assign CH0_TXDATA_in[129] = (CH0_TXDATA[129] !== 1'bz) && CH0_TXDATA_delay[129]; // rv MustConnect
+  assign CH0_TXDATA_in[12] = (CH0_TXDATA[12] !== 1'bz) && CH0_TXDATA_delay[12]; // rv MustConnect
+  assign CH0_TXDATA_in[130] = (CH0_TXDATA[130] !== 1'bz) && CH0_TXDATA_delay[130]; // rv MustConnect
+  assign CH0_TXDATA_in[131] = (CH0_TXDATA[131] !== 1'bz) && CH0_TXDATA_delay[131]; // rv MustConnect
+  assign CH0_TXDATA_in[132] = (CH0_TXDATA[132] !== 1'bz) && CH0_TXDATA_delay[132]; // rv MustConnect
+  assign CH0_TXDATA_in[133] = (CH0_TXDATA[133] !== 1'bz) && CH0_TXDATA_delay[133]; // rv MustConnect
+  assign CH0_TXDATA_in[134] = (CH0_TXDATA[134] !== 1'bz) && CH0_TXDATA_delay[134]; // rv MustConnect
+  assign CH0_TXDATA_in[135] = (CH0_TXDATA[135] !== 1'bz) && CH0_TXDATA_delay[135]; // rv MustConnect
+  assign CH0_TXDATA_in[136] = (CH0_TXDATA[136] !== 1'bz) && CH0_TXDATA_delay[136]; // rv MustConnect
+  assign CH0_TXDATA_in[137] = (CH0_TXDATA[137] !== 1'bz) && CH0_TXDATA_delay[137]; // rv MustConnect
+  assign CH0_TXDATA_in[138] = (CH0_TXDATA[138] !== 1'bz) && CH0_TXDATA_delay[138]; // rv MustConnect
+  assign CH0_TXDATA_in[139] = (CH0_TXDATA[139] !== 1'bz) && CH0_TXDATA_delay[139]; // rv MustConnect
+  assign CH0_TXDATA_in[13] = (CH0_TXDATA[13] !== 1'bz) && CH0_TXDATA_delay[13]; // rv MustConnect
+  assign CH0_TXDATA_in[140] = (CH0_TXDATA[140] !== 1'bz) && CH0_TXDATA_delay[140]; // rv MustConnect
+  assign CH0_TXDATA_in[141] = (CH0_TXDATA[141] !== 1'bz) && CH0_TXDATA_delay[141]; // rv MustConnect
+  assign CH0_TXDATA_in[142] = (CH0_TXDATA[142] !== 1'bz) && CH0_TXDATA_delay[142]; // rv MustConnect
+  assign CH0_TXDATA_in[143] = (CH0_TXDATA[143] !== 1'bz) && CH0_TXDATA_delay[143]; // rv MustConnect
+  assign CH0_TXDATA_in[144] = (CH0_TXDATA[144] !== 1'bz) && CH0_TXDATA_delay[144]; // rv MustConnect
+  assign CH0_TXDATA_in[145] = (CH0_TXDATA[145] !== 1'bz) && CH0_TXDATA_delay[145]; // rv MustConnect
+  assign CH0_TXDATA_in[146] = (CH0_TXDATA[146] !== 1'bz) && CH0_TXDATA_delay[146]; // rv MustConnect
+  assign CH0_TXDATA_in[147] = (CH0_TXDATA[147] !== 1'bz) && CH0_TXDATA_delay[147]; // rv MustConnect
+  assign CH0_TXDATA_in[148] = (CH0_TXDATA[148] !== 1'bz) && CH0_TXDATA_delay[148]; // rv MustConnect
+  assign CH0_TXDATA_in[149] = (CH0_TXDATA[149] !== 1'bz) && CH0_TXDATA_delay[149]; // rv MustConnect
+  assign CH0_TXDATA_in[14] = (CH0_TXDATA[14] !== 1'bz) && CH0_TXDATA_delay[14]; // rv MustConnect
+  assign CH0_TXDATA_in[150] = (CH0_TXDATA[150] !== 1'bz) && CH0_TXDATA_delay[150]; // rv MustConnect
+  assign CH0_TXDATA_in[151] = (CH0_TXDATA[151] !== 1'bz) && CH0_TXDATA_delay[151]; // rv MustConnect
+  assign CH0_TXDATA_in[152] = (CH0_TXDATA[152] !== 1'bz) && CH0_TXDATA_delay[152]; // rv MustConnect
+  assign CH0_TXDATA_in[153] = (CH0_TXDATA[153] !== 1'bz) && CH0_TXDATA_delay[153]; // rv MustConnect
+  assign CH0_TXDATA_in[154] = (CH0_TXDATA[154] !== 1'bz) && CH0_TXDATA_delay[154]; // rv MustConnect
+  assign CH0_TXDATA_in[155] = (CH0_TXDATA[155] !== 1'bz) && CH0_TXDATA_delay[155]; // rv MustConnect
+  assign CH0_TXDATA_in[156] = (CH0_TXDATA[156] !== 1'bz) && CH0_TXDATA_delay[156]; // rv MustConnect
+  assign CH0_TXDATA_in[157] = (CH0_TXDATA[157] !== 1'bz) && CH0_TXDATA_delay[157]; // rv MustConnect
+  assign CH0_TXDATA_in[158] = (CH0_TXDATA[158] !== 1'bz) && CH0_TXDATA_delay[158]; // rv MustConnect
+  assign CH0_TXDATA_in[159] = (CH0_TXDATA[159] !== 1'bz) && CH0_TXDATA_delay[159]; // rv MustConnect
+  assign CH0_TXDATA_in[15] = (CH0_TXDATA[15] !== 1'bz) && CH0_TXDATA_delay[15]; // rv MustConnect
+  assign CH0_TXDATA_in[160] = (CH0_TXDATA[160] !== 1'bz) && CH0_TXDATA_delay[160]; // rv MustConnect
+  assign CH0_TXDATA_in[161] = (CH0_TXDATA[161] !== 1'bz) && CH0_TXDATA_delay[161]; // rv MustConnect
+  assign CH0_TXDATA_in[162] = (CH0_TXDATA[162] !== 1'bz) && CH0_TXDATA_delay[162]; // rv MustConnect
+  assign CH0_TXDATA_in[163] = (CH0_TXDATA[163] !== 1'bz) && CH0_TXDATA_delay[163]; // rv MustConnect
+  assign CH0_TXDATA_in[164] = (CH0_TXDATA[164] !== 1'bz) && CH0_TXDATA_delay[164]; // rv MustConnect
+  assign CH0_TXDATA_in[165] = (CH0_TXDATA[165] !== 1'bz) && CH0_TXDATA_delay[165]; // rv MustConnect
+  assign CH0_TXDATA_in[166] = (CH0_TXDATA[166] !== 1'bz) && CH0_TXDATA_delay[166]; // rv MustConnect
+  assign CH0_TXDATA_in[167] = (CH0_TXDATA[167] !== 1'bz) && CH0_TXDATA_delay[167]; // rv MustConnect
+  assign CH0_TXDATA_in[168] = (CH0_TXDATA[168] !== 1'bz) && CH0_TXDATA_delay[168]; // rv MustConnect
+  assign CH0_TXDATA_in[169] = (CH0_TXDATA[169] !== 1'bz) && CH0_TXDATA_delay[169]; // rv MustConnect
+  assign CH0_TXDATA_in[16] = (CH0_TXDATA[16] !== 1'bz) && CH0_TXDATA_delay[16]; // rv MustConnect
+  assign CH0_TXDATA_in[170] = (CH0_TXDATA[170] !== 1'bz) && CH0_TXDATA_delay[170]; // rv MustConnect
+  assign CH0_TXDATA_in[171] = (CH0_TXDATA[171] !== 1'bz) && CH0_TXDATA_delay[171]; // rv MustConnect
+  assign CH0_TXDATA_in[172] = (CH0_TXDATA[172] !== 1'bz) && CH0_TXDATA_delay[172]; // rv MustConnect
+  assign CH0_TXDATA_in[173] = (CH0_TXDATA[173] !== 1'bz) && CH0_TXDATA_delay[173]; // rv MustConnect
+  assign CH0_TXDATA_in[174] = (CH0_TXDATA[174] !== 1'bz) && CH0_TXDATA_delay[174]; // rv MustConnect
+  assign CH0_TXDATA_in[175] = (CH0_TXDATA[175] !== 1'bz) && CH0_TXDATA_delay[175]; // rv MustConnect
+  assign CH0_TXDATA_in[176] = (CH0_TXDATA[176] !== 1'bz) && CH0_TXDATA_delay[176]; // rv MustConnect
+  assign CH0_TXDATA_in[177] = (CH0_TXDATA[177] !== 1'bz) && CH0_TXDATA_delay[177]; // rv MustConnect
+  assign CH0_TXDATA_in[178] = (CH0_TXDATA[178] !== 1'bz) && CH0_TXDATA_delay[178]; // rv MustConnect
+  assign CH0_TXDATA_in[179] = (CH0_TXDATA[179] !== 1'bz) && CH0_TXDATA_delay[179]; // rv MustConnect
+  assign CH0_TXDATA_in[17] = (CH0_TXDATA[17] !== 1'bz) && CH0_TXDATA_delay[17]; // rv MustConnect
+  assign CH0_TXDATA_in[180] = (CH0_TXDATA[180] !== 1'bz) && CH0_TXDATA_delay[180]; // rv MustConnect
+  assign CH0_TXDATA_in[181] = (CH0_TXDATA[181] !== 1'bz) && CH0_TXDATA_delay[181]; // rv MustConnect
+  assign CH0_TXDATA_in[182] = (CH0_TXDATA[182] !== 1'bz) && CH0_TXDATA_delay[182]; // rv MustConnect
+  assign CH0_TXDATA_in[183] = (CH0_TXDATA[183] !== 1'bz) && CH0_TXDATA_delay[183]; // rv MustConnect
+  assign CH0_TXDATA_in[184] = (CH0_TXDATA[184] !== 1'bz) && CH0_TXDATA_delay[184]; // rv MustConnect
+  assign CH0_TXDATA_in[185] = (CH0_TXDATA[185] !== 1'bz) && CH0_TXDATA_delay[185]; // rv MustConnect
+  assign CH0_TXDATA_in[186] = (CH0_TXDATA[186] !== 1'bz) && CH0_TXDATA_delay[186]; // rv MustConnect
+  assign CH0_TXDATA_in[187] = (CH0_TXDATA[187] !== 1'bz) && CH0_TXDATA_delay[187]; // rv MustConnect
+  assign CH0_TXDATA_in[188] = (CH0_TXDATA[188] !== 1'bz) && CH0_TXDATA_delay[188]; // rv MustConnect
+  assign CH0_TXDATA_in[189] = (CH0_TXDATA[189] !== 1'bz) && CH0_TXDATA_delay[189]; // rv MustConnect
+  assign CH0_TXDATA_in[18] = (CH0_TXDATA[18] !== 1'bz) && CH0_TXDATA_delay[18]; // rv MustConnect
+  assign CH0_TXDATA_in[190] = (CH0_TXDATA[190] !== 1'bz) && CH0_TXDATA_delay[190]; // rv MustConnect
+  assign CH0_TXDATA_in[191] = (CH0_TXDATA[191] !== 1'bz) && CH0_TXDATA_delay[191]; // rv MustConnect
+  assign CH0_TXDATA_in[192] = (CH0_TXDATA[192] !== 1'bz) && CH0_TXDATA_delay[192]; // rv MustConnect
+  assign CH0_TXDATA_in[193] = (CH0_TXDATA[193] !== 1'bz) && CH0_TXDATA_delay[193]; // rv MustConnect
+  assign CH0_TXDATA_in[194] = (CH0_TXDATA[194] !== 1'bz) && CH0_TXDATA_delay[194]; // rv MustConnect
+  assign CH0_TXDATA_in[195] = (CH0_TXDATA[195] !== 1'bz) && CH0_TXDATA_delay[195]; // rv MustConnect
+  assign CH0_TXDATA_in[196] = (CH0_TXDATA[196] !== 1'bz) && CH0_TXDATA_delay[196]; // rv MustConnect
+  assign CH0_TXDATA_in[197] = (CH0_TXDATA[197] !== 1'bz) && CH0_TXDATA_delay[197]; // rv MustConnect
+  assign CH0_TXDATA_in[198] = (CH0_TXDATA[198] !== 1'bz) && CH0_TXDATA_delay[198]; // rv MustConnect
+  assign CH0_TXDATA_in[199] = (CH0_TXDATA[199] !== 1'bz) && CH0_TXDATA_delay[199]; // rv MustConnect
+  assign CH0_TXDATA_in[19] = (CH0_TXDATA[19] !== 1'bz) && CH0_TXDATA_delay[19]; // rv MustConnect
+  assign CH0_TXDATA_in[1] = (CH0_TXDATA[1] !== 1'bz) && CH0_TXDATA_delay[1]; // rv MustConnect
+  assign CH0_TXDATA_in[200] = (CH0_TXDATA[200] !== 1'bz) && CH0_TXDATA_delay[200]; // rv MustConnect
+  assign CH0_TXDATA_in[201] = (CH0_TXDATA[201] !== 1'bz) && CH0_TXDATA_delay[201]; // rv MustConnect
+  assign CH0_TXDATA_in[202] = (CH0_TXDATA[202] !== 1'bz) && CH0_TXDATA_delay[202]; // rv MustConnect
+  assign CH0_TXDATA_in[203] = (CH0_TXDATA[203] !== 1'bz) && CH0_TXDATA_delay[203]; // rv MustConnect
+  assign CH0_TXDATA_in[204] = (CH0_TXDATA[204] !== 1'bz) && CH0_TXDATA_delay[204]; // rv MustConnect
+  assign CH0_TXDATA_in[205] = (CH0_TXDATA[205] !== 1'bz) && CH0_TXDATA_delay[205]; // rv MustConnect
+  assign CH0_TXDATA_in[206] = (CH0_TXDATA[206] !== 1'bz) && CH0_TXDATA_delay[206]; // rv MustConnect
+  assign CH0_TXDATA_in[207] = (CH0_TXDATA[207] !== 1'bz) && CH0_TXDATA_delay[207]; // rv MustConnect
+  assign CH0_TXDATA_in[208] = (CH0_TXDATA[208] !== 1'bz) && CH0_TXDATA_delay[208]; // rv MustConnect
+  assign CH0_TXDATA_in[209] = (CH0_TXDATA[209] !== 1'bz) && CH0_TXDATA_delay[209]; // rv MustConnect
+  assign CH0_TXDATA_in[20] = (CH0_TXDATA[20] !== 1'bz) && CH0_TXDATA_delay[20]; // rv MustConnect
+  assign CH0_TXDATA_in[210] = (CH0_TXDATA[210] !== 1'bz) && CH0_TXDATA_delay[210]; // rv MustConnect
+  assign CH0_TXDATA_in[211] = (CH0_TXDATA[211] !== 1'bz) && CH0_TXDATA_delay[211]; // rv MustConnect
+  assign CH0_TXDATA_in[212] = (CH0_TXDATA[212] !== 1'bz) && CH0_TXDATA_delay[212]; // rv MustConnect
+  assign CH0_TXDATA_in[213] = (CH0_TXDATA[213] !== 1'bz) && CH0_TXDATA_delay[213]; // rv MustConnect
+  assign CH0_TXDATA_in[214] = (CH0_TXDATA[214] !== 1'bz) && CH0_TXDATA_delay[214]; // rv MustConnect
+  assign CH0_TXDATA_in[215] = (CH0_TXDATA[215] !== 1'bz) && CH0_TXDATA_delay[215]; // rv MustConnect
+  assign CH0_TXDATA_in[216] = (CH0_TXDATA[216] !== 1'bz) && CH0_TXDATA_delay[216]; // rv MustConnect
+  assign CH0_TXDATA_in[217] = (CH0_TXDATA[217] !== 1'bz) && CH0_TXDATA_delay[217]; // rv MustConnect
+  assign CH0_TXDATA_in[218] = (CH0_TXDATA[218] !== 1'bz) && CH0_TXDATA_delay[218]; // rv MustConnect
+  assign CH0_TXDATA_in[219] = (CH0_TXDATA[219] !== 1'bz) && CH0_TXDATA_delay[219]; // rv MustConnect
+  assign CH0_TXDATA_in[21] = (CH0_TXDATA[21] !== 1'bz) && CH0_TXDATA_delay[21]; // rv MustConnect
+  assign CH0_TXDATA_in[220] = (CH0_TXDATA[220] !== 1'bz) && CH0_TXDATA_delay[220]; // rv MustConnect
+  assign CH0_TXDATA_in[221] = (CH0_TXDATA[221] !== 1'bz) && CH0_TXDATA_delay[221]; // rv MustConnect
+  assign CH0_TXDATA_in[222] = (CH0_TXDATA[222] !== 1'bz) && CH0_TXDATA_delay[222]; // rv MustConnect
+  assign CH0_TXDATA_in[223] = (CH0_TXDATA[223] !== 1'bz) && CH0_TXDATA_delay[223]; // rv MustConnect
+  assign CH0_TXDATA_in[224] = (CH0_TXDATA[224] !== 1'bz) && CH0_TXDATA_delay[224]; // rv MustConnect
+  assign CH0_TXDATA_in[225] = (CH0_TXDATA[225] !== 1'bz) && CH0_TXDATA_delay[225]; // rv MustConnect
+  assign CH0_TXDATA_in[226] = (CH0_TXDATA[226] !== 1'bz) && CH0_TXDATA_delay[226]; // rv MustConnect
+  assign CH0_TXDATA_in[227] = (CH0_TXDATA[227] !== 1'bz) && CH0_TXDATA_delay[227]; // rv MustConnect
+  assign CH0_TXDATA_in[228] = (CH0_TXDATA[228] !== 1'bz) && CH0_TXDATA_delay[228]; // rv MustConnect
+  assign CH0_TXDATA_in[229] = (CH0_TXDATA[229] !== 1'bz) && CH0_TXDATA_delay[229]; // rv MustConnect
+  assign CH0_TXDATA_in[22] = (CH0_TXDATA[22] !== 1'bz) && CH0_TXDATA_delay[22]; // rv MustConnect
+  assign CH0_TXDATA_in[230] = (CH0_TXDATA[230] !== 1'bz) && CH0_TXDATA_delay[230]; // rv MustConnect
+  assign CH0_TXDATA_in[231] = (CH0_TXDATA[231] !== 1'bz) && CH0_TXDATA_delay[231]; // rv MustConnect
+  assign CH0_TXDATA_in[232] = (CH0_TXDATA[232] !== 1'bz) && CH0_TXDATA_delay[232]; // rv MustConnect
+  assign CH0_TXDATA_in[233] = (CH0_TXDATA[233] !== 1'bz) && CH0_TXDATA_delay[233]; // rv MustConnect
+  assign CH0_TXDATA_in[234] = (CH0_TXDATA[234] !== 1'bz) && CH0_TXDATA_delay[234]; // rv MustConnect
+  assign CH0_TXDATA_in[235] = (CH0_TXDATA[235] !== 1'bz) && CH0_TXDATA_delay[235]; // rv MustConnect
+  assign CH0_TXDATA_in[236] = (CH0_TXDATA[236] !== 1'bz) && CH0_TXDATA_delay[236]; // rv MustConnect
+  assign CH0_TXDATA_in[237] = (CH0_TXDATA[237] !== 1'bz) && CH0_TXDATA_delay[237]; // rv MustConnect
+  assign CH0_TXDATA_in[238] = (CH0_TXDATA[238] !== 1'bz) && CH0_TXDATA_delay[238]; // rv MustConnect
+  assign CH0_TXDATA_in[239] = (CH0_TXDATA[239] !== 1'bz) && CH0_TXDATA_delay[239]; // rv MustConnect
+  assign CH0_TXDATA_in[23] = (CH0_TXDATA[23] !== 1'bz) && CH0_TXDATA_delay[23]; // rv MustConnect
+  assign CH0_TXDATA_in[240] = (CH0_TXDATA[240] !== 1'bz) && CH0_TXDATA_delay[240]; // rv MustConnect
+  assign CH0_TXDATA_in[241] = (CH0_TXDATA[241] !== 1'bz) && CH0_TXDATA_delay[241]; // rv MustConnect
+  assign CH0_TXDATA_in[242] = (CH0_TXDATA[242] !== 1'bz) && CH0_TXDATA_delay[242]; // rv MustConnect
+  assign CH0_TXDATA_in[243] = (CH0_TXDATA[243] !== 1'bz) && CH0_TXDATA_delay[243]; // rv MustConnect
+  assign CH0_TXDATA_in[244] = (CH0_TXDATA[244] !== 1'bz) && CH0_TXDATA_delay[244]; // rv MustConnect
+  assign CH0_TXDATA_in[245] = (CH0_TXDATA[245] !== 1'bz) && CH0_TXDATA_delay[245]; // rv MustConnect
+  assign CH0_TXDATA_in[246] = (CH0_TXDATA[246] !== 1'bz) && CH0_TXDATA_delay[246]; // rv MustConnect
+  assign CH0_TXDATA_in[247] = (CH0_TXDATA[247] !== 1'bz) && CH0_TXDATA_delay[247]; // rv MustConnect
+  assign CH0_TXDATA_in[248] = (CH0_TXDATA[248] !== 1'bz) && CH0_TXDATA_delay[248]; // rv MustConnect
+  assign CH0_TXDATA_in[249] = (CH0_TXDATA[249] !== 1'bz) && CH0_TXDATA_delay[249]; // rv MustConnect
+  assign CH0_TXDATA_in[24] = (CH0_TXDATA[24] !== 1'bz) && CH0_TXDATA_delay[24]; // rv MustConnect
+  assign CH0_TXDATA_in[250] = (CH0_TXDATA[250] !== 1'bz) && CH0_TXDATA_delay[250]; // rv MustConnect
+  assign CH0_TXDATA_in[251] = (CH0_TXDATA[251] !== 1'bz) && CH0_TXDATA_delay[251]; // rv MustConnect
+  assign CH0_TXDATA_in[252] = (CH0_TXDATA[252] !== 1'bz) && CH0_TXDATA_delay[252]; // rv MustConnect
+  assign CH0_TXDATA_in[253] = (CH0_TXDATA[253] !== 1'bz) && CH0_TXDATA_delay[253]; // rv MustConnect
+  assign CH0_TXDATA_in[254] = (CH0_TXDATA[254] !== 1'bz) && CH0_TXDATA_delay[254]; // rv MustConnect
+  assign CH0_TXDATA_in[255] = (CH0_TXDATA[255] !== 1'bz) && CH0_TXDATA_delay[255]; // rv MustConnect
+  assign CH0_TXDATA_in[256] = (CH0_TXDATA[256] !== 1'bz) && CH0_TXDATA_delay[256]; // rv MustConnect
+  assign CH0_TXDATA_in[257] = (CH0_TXDATA[257] !== 1'bz) && CH0_TXDATA_delay[257]; // rv MustConnect
+  assign CH0_TXDATA_in[258] = (CH0_TXDATA[258] !== 1'bz) && CH0_TXDATA_delay[258]; // rv MustConnect
+  assign CH0_TXDATA_in[259] = (CH0_TXDATA[259] !== 1'bz) && CH0_TXDATA_delay[259]; // rv MustConnect
+  assign CH0_TXDATA_in[25] = (CH0_TXDATA[25] !== 1'bz) && CH0_TXDATA_delay[25]; // rv MustConnect
+  assign CH0_TXDATA_in[260] = (CH0_TXDATA[260] !== 1'bz) && CH0_TXDATA_delay[260]; // rv MustConnect
+  assign CH0_TXDATA_in[261] = (CH0_TXDATA[261] !== 1'bz) && CH0_TXDATA_delay[261]; // rv MustConnect
+  assign CH0_TXDATA_in[262] = (CH0_TXDATA[262] !== 1'bz) && CH0_TXDATA_delay[262]; // rv MustConnect
+  assign CH0_TXDATA_in[263] = (CH0_TXDATA[263] !== 1'bz) && CH0_TXDATA_delay[263]; // rv MustConnect
+  assign CH0_TXDATA_in[264] = (CH0_TXDATA[264] !== 1'bz) && CH0_TXDATA_delay[264]; // rv MustConnect
+  assign CH0_TXDATA_in[265] = (CH0_TXDATA[265] !== 1'bz) && CH0_TXDATA_delay[265]; // rv MustConnect
+  assign CH0_TXDATA_in[266] = (CH0_TXDATA[266] !== 1'bz) && CH0_TXDATA_delay[266]; // rv MustConnect
+  assign CH0_TXDATA_in[267] = (CH0_TXDATA[267] !== 1'bz) && CH0_TXDATA_delay[267]; // rv MustConnect
+  assign CH0_TXDATA_in[268] = (CH0_TXDATA[268] !== 1'bz) && CH0_TXDATA_delay[268]; // rv MustConnect
+  assign CH0_TXDATA_in[269] = (CH0_TXDATA[269] !== 1'bz) && CH0_TXDATA_delay[269]; // rv MustConnect
+  assign CH0_TXDATA_in[26] = (CH0_TXDATA[26] !== 1'bz) && CH0_TXDATA_delay[26]; // rv MustConnect
+  assign CH0_TXDATA_in[270] = (CH0_TXDATA[270] !== 1'bz) && CH0_TXDATA_delay[270]; // rv MustConnect
+  assign CH0_TXDATA_in[271] = (CH0_TXDATA[271] !== 1'bz) && CH0_TXDATA_delay[271]; // rv MustConnect
+  assign CH0_TXDATA_in[272] = (CH0_TXDATA[272] !== 1'bz) && CH0_TXDATA_delay[272]; // rv MustConnect
+  assign CH0_TXDATA_in[273] = (CH0_TXDATA[273] !== 1'bz) && CH0_TXDATA_delay[273]; // rv MustConnect
+  assign CH0_TXDATA_in[274] = (CH0_TXDATA[274] !== 1'bz) && CH0_TXDATA_delay[274]; // rv MustConnect
+  assign CH0_TXDATA_in[275] = (CH0_TXDATA[275] !== 1'bz) && CH0_TXDATA_delay[275]; // rv MustConnect
+  assign CH0_TXDATA_in[276] = (CH0_TXDATA[276] !== 1'bz) && CH0_TXDATA_delay[276]; // rv MustConnect
+  assign CH0_TXDATA_in[277] = (CH0_TXDATA[277] !== 1'bz) && CH0_TXDATA_delay[277]; // rv MustConnect
+  assign CH0_TXDATA_in[278] = (CH0_TXDATA[278] !== 1'bz) && CH0_TXDATA_delay[278]; // rv MustConnect
+  assign CH0_TXDATA_in[279] = (CH0_TXDATA[279] !== 1'bz) && CH0_TXDATA_delay[279]; // rv MustConnect
+  assign CH0_TXDATA_in[27] = (CH0_TXDATA[27] !== 1'bz) && CH0_TXDATA_delay[27]; // rv MustConnect
+  assign CH0_TXDATA_in[280] = (CH0_TXDATA[280] !== 1'bz) && CH0_TXDATA_delay[280]; // rv MustConnect
+  assign CH0_TXDATA_in[281] = (CH0_TXDATA[281] !== 1'bz) && CH0_TXDATA_delay[281]; // rv MustConnect
+  assign CH0_TXDATA_in[282] = (CH0_TXDATA[282] !== 1'bz) && CH0_TXDATA_delay[282]; // rv MustConnect
+  assign CH0_TXDATA_in[283] = (CH0_TXDATA[283] !== 1'bz) && CH0_TXDATA_delay[283]; // rv MustConnect
+  assign CH0_TXDATA_in[284] = (CH0_TXDATA[284] !== 1'bz) && CH0_TXDATA_delay[284]; // rv MustConnect
+  assign CH0_TXDATA_in[285] = (CH0_TXDATA[285] !== 1'bz) && CH0_TXDATA_delay[285]; // rv MustConnect
+  assign CH0_TXDATA_in[286] = (CH0_TXDATA[286] !== 1'bz) && CH0_TXDATA_delay[286]; // rv MustConnect
+  assign CH0_TXDATA_in[287] = (CH0_TXDATA[287] !== 1'bz) && CH0_TXDATA_delay[287]; // rv MustConnect
+  assign CH0_TXDATA_in[288] = (CH0_TXDATA[288] !== 1'bz) && CH0_TXDATA_delay[288]; // rv MustConnect
+  assign CH0_TXDATA_in[289] = (CH0_TXDATA[289] !== 1'bz) && CH0_TXDATA_delay[289]; // rv MustConnect
+  assign CH0_TXDATA_in[28] = (CH0_TXDATA[28] !== 1'bz) && CH0_TXDATA_delay[28]; // rv MustConnect
+  assign CH0_TXDATA_in[290] = (CH0_TXDATA[290] !== 1'bz) && CH0_TXDATA_delay[290]; // rv MustConnect
+  assign CH0_TXDATA_in[291] = (CH0_TXDATA[291] !== 1'bz) && CH0_TXDATA_delay[291]; // rv MustConnect
+  assign CH0_TXDATA_in[292] = (CH0_TXDATA[292] !== 1'bz) && CH0_TXDATA_delay[292]; // rv MustConnect
+  assign CH0_TXDATA_in[293] = (CH0_TXDATA[293] !== 1'bz) && CH0_TXDATA_delay[293]; // rv MustConnect
+  assign CH0_TXDATA_in[294] = (CH0_TXDATA[294] !== 1'bz) && CH0_TXDATA_delay[294]; // rv MustConnect
+  assign CH0_TXDATA_in[295] = (CH0_TXDATA[295] !== 1'bz) && CH0_TXDATA_delay[295]; // rv MustConnect
+  assign CH0_TXDATA_in[296] = (CH0_TXDATA[296] !== 1'bz) && CH0_TXDATA_delay[296]; // rv MustConnect
+  assign CH0_TXDATA_in[297] = (CH0_TXDATA[297] !== 1'bz) && CH0_TXDATA_delay[297]; // rv MustConnect
+  assign CH0_TXDATA_in[298] = (CH0_TXDATA[298] !== 1'bz) && CH0_TXDATA_delay[298]; // rv MustConnect
+  assign CH0_TXDATA_in[299] = (CH0_TXDATA[299] !== 1'bz) && CH0_TXDATA_delay[299]; // rv MustConnect
+  assign CH0_TXDATA_in[29] = (CH0_TXDATA[29] !== 1'bz) && CH0_TXDATA_delay[29]; // rv MustConnect
+  assign CH0_TXDATA_in[2] = (CH0_TXDATA[2] !== 1'bz) && CH0_TXDATA_delay[2]; // rv MustConnect
+  assign CH0_TXDATA_in[300] = (CH0_TXDATA[300] !== 1'bz) && CH0_TXDATA_delay[300]; // rv MustConnect
+  assign CH0_TXDATA_in[301] = (CH0_TXDATA[301] !== 1'bz) && CH0_TXDATA_delay[301]; // rv MustConnect
+  assign CH0_TXDATA_in[302] = (CH0_TXDATA[302] !== 1'bz) && CH0_TXDATA_delay[302]; // rv MustConnect
+  assign CH0_TXDATA_in[303] = (CH0_TXDATA[303] !== 1'bz) && CH0_TXDATA_delay[303]; // rv MustConnect
+  assign CH0_TXDATA_in[304] = (CH0_TXDATA[304] !== 1'bz) && CH0_TXDATA_delay[304]; // rv MustConnect
+  assign CH0_TXDATA_in[305] = (CH0_TXDATA[305] !== 1'bz) && CH0_TXDATA_delay[305]; // rv MustConnect
+  assign CH0_TXDATA_in[306] = (CH0_TXDATA[306] !== 1'bz) && CH0_TXDATA_delay[306]; // rv MustConnect
+  assign CH0_TXDATA_in[307] = (CH0_TXDATA[307] !== 1'bz) && CH0_TXDATA_delay[307]; // rv MustConnect
+  assign CH0_TXDATA_in[308] = (CH0_TXDATA[308] !== 1'bz) && CH0_TXDATA_delay[308]; // rv MustConnect
+  assign CH0_TXDATA_in[309] = (CH0_TXDATA[309] !== 1'bz) && CH0_TXDATA_delay[309]; // rv MustConnect
+  assign CH0_TXDATA_in[30] = (CH0_TXDATA[30] !== 1'bz) && CH0_TXDATA_delay[30]; // rv MustConnect
+  assign CH0_TXDATA_in[310] = (CH0_TXDATA[310] !== 1'bz) && CH0_TXDATA_delay[310]; // rv MustConnect
+  assign CH0_TXDATA_in[311] = (CH0_TXDATA[311] !== 1'bz) && CH0_TXDATA_delay[311]; // rv MustConnect
+  assign CH0_TXDATA_in[312] = (CH0_TXDATA[312] !== 1'bz) && CH0_TXDATA_delay[312]; // rv MustConnect
+  assign CH0_TXDATA_in[313] = (CH0_TXDATA[313] !== 1'bz) && CH0_TXDATA_delay[313]; // rv MustConnect
+  assign CH0_TXDATA_in[314] = (CH0_TXDATA[314] !== 1'bz) && CH0_TXDATA_delay[314]; // rv MustConnect
+  assign CH0_TXDATA_in[315] = (CH0_TXDATA[315] !== 1'bz) && CH0_TXDATA_delay[315]; // rv MustConnect
+  assign CH0_TXDATA_in[316] = (CH0_TXDATA[316] !== 1'bz) && CH0_TXDATA_delay[316]; // rv MustConnect
+  assign CH0_TXDATA_in[317] = (CH0_TXDATA[317] !== 1'bz) && CH0_TXDATA_delay[317]; // rv MustConnect
+  assign CH0_TXDATA_in[318] = (CH0_TXDATA[318] !== 1'bz) && CH0_TXDATA_delay[318]; // rv MustConnect
+  assign CH0_TXDATA_in[319] = (CH0_TXDATA[319] !== 1'bz) && CH0_TXDATA_delay[319]; // rv MustConnect
+  assign CH0_TXDATA_in[31] = (CH0_TXDATA[31] !== 1'bz) && CH0_TXDATA_delay[31]; // rv MustConnect
+  assign CH0_TXDATA_in[32] = (CH0_TXDATA[32] !== 1'bz) && CH0_TXDATA_delay[32]; // rv MustConnect
+  assign CH0_TXDATA_in[33] = (CH0_TXDATA[33] !== 1'bz) && CH0_TXDATA_delay[33]; // rv MustConnect
+  assign CH0_TXDATA_in[34] = (CH0_TXDATA[34] !== 1'bz) && CH0_TXDATA_delay[34]; // rv MustConnect
+  assign CH0_TXDATA_in[35] = (CH0_TXDATA[35] !== 1'bz) && CH0_TXDATA_delay[35]; // rv MustConnect
+  assign CH0_TXDATA_in[36] = (CH0_TXDATA[36] !== 1'bz) && CH0_TXDATA_delay[36]; // rv MustConnect
+  assign CH0_TXDATA_in[37] = (CH0_TXDATA[37] !== 1'bz) && CH0_TXDATA_delay[37]; // rv MustConnect
+  assign CH0_TXDATA_in[38] = (CH0_TXDATA[38] !== 1'bz) && CH0_TXDATA_delay[38]; // rv MustConnect
+  assign CH0_TXDATA_in[39] = (CH0_TXDATA[39] !== 1'bz) && CH0_TXDATA_delay[39]; // rv MustConnect
+  assign CH0_TXDATA_in[3] = (CH0_TXDATA[3] !== 1'bz) && CH0_TXDATA_delay[3]; // rv MustConnect
+  assign CH0_TXDATA_in[40] = (CH0_TXDATA[40] !== 1'bz) && CH0_TXDATA_delay[40]; // rv MustConnect
+  assign CH0_TXDATA_in[41] = (CH0_TXDATA[41] !== 1'bz) && CH0_TXDATA_delay[41]; // rv MustConnect
+  assign CH0_TXDATA_in[42] = (CH0_TXDATA[42] !== 1'bz) && CH0_TXDATA_delay[42]; // rv MustConnect
+  assign CH0_TXDATA_in[43] = (CH0_TXDATA[43] !== 1'bz) && CH0_TXDATA_delay[43]; // rv MustConnect
+  assign CH0_TXDATA_in[44] = (CH0_TXDATA[44] !== 1'bz) && CH0_TXDATA_delay[44]; // rv MustConnect
+  assign CH0_TXDATA_in[45] = (CH0_TXDATA[45] !== 1'bz) && CH0_TXDATA_delay[45]; // rv MustConnect
+  assign CH0_TXDATA_in[46] = (CH0_TXDATA[46] !== 1'bz) && CH0_TXDATA_delay[46]; // rv MustConnect
+  assign CH0_TXDATA_in[47] = (CH0_TXDATA[47] !== 1'bz) && CH0_TXDATA_delay[47]; // rv MustConnect
+  assign CH0_TXDATA_in[48] = (CH0_TXDATA[48] !== 1'bz) && CH0_TXDATA_delay[48]; // rv MustConnect
+  assign CH0_TXDATA_in[49] = (CH0_TXDATA[49] !== 1'bz) && CH0_TXDATA_delay[49]; // rv MustConnect
+  assign CH0_TXDATA_in[4] = (CH0_TXDATA[4] !== 1'bz) && CH0_TXDATA_delay[4]; // rv MustConnect
+  assign CH0_TXDATA_in[50] = (CH0_TXDATA[50] !== 1'bz) && CH0_TXDATA_delay[50]; // rv MustConnect
+  assign CH0_TXDATA_in[51] = (CH0_TXDATA[51] !== 1'bz) && CH0_TXDATA_delay[51]; // rv MustConnect
+  assign CH0_TXDATA_in[52] = (CH0_TXDATA[52] !== 1'bz) && CH0_TXDATA_delay[52]; // rv MustConnect
+  assign CH0_TXDATA_in[53] = (CH0_TXDATA[53] !== 1'bz) && CH0_TXDATA_delay[53]; // rv MustConnect
+  assign CH0_TXDATA_in[54] = (CH0_TXDATA[54] !== 1'bz) && CH0_TXDATA_delay[54]; // rv MustConnect
+  assign CH0_TXDATA_in[55] = (CH0_TXDATA[55] !== 1'bz) && CH0_TXDATA_delay[55]; // rv MustConnect
+  assign CH0_TXDATA_in[56] = (CH0_TXDATA[56] !== 1'bz) && CH0_TXDATA_delay[56]; // rv MustConnect
+  assign CH0_TXDATA_in[57] = (CH0_TXDATA[57] !== 1'bz) && CH0_TXDATA_delay[57]; // rv MustConnect
+  assign CH0_TXDATA_in[58] = (CH0_TXDATA[58] !== 1'bz) && CH0_TXDATA_delay[58]; // rv MustConnect
+  assign CH0_TXDATA_in[59] = (CH0_TXDATA[59] !== 1'bz) && CH0_TXDATA_delay[59]; // rv MustConnect
+  assign CH0_TXDATA_in[5] = (CH0_TXDATA[5] !== 1'bz) && CH0_TXDATA_delay[5]; // rv MustConnect
+  assign CH0_TXDATA_in[60] = (CH0_TXDATA[60] !== 1'bz) && CH0_TXDATA_delay[60]; // rv MustConnect
+  assign CH0_TXDATA_in[61] = (CH0_TXDATA[61] !== 1'bz) && CH0_TXDATA_delay[61]; // rv MustConnect
+  assign CH0_TXDATA_in[62] = (CH0_TXDATA[62] !== 1'bz) && CH0_TXDATA_delay[62]; // rv MustConnect
+  assign CH0_TXDATA_in[63] = (CH0_TXDATA[63] !== 1'bz) && CH0_TXDATA_delay[63]; // rv MustConnect
+  assign CH0_TXDATA_in[64] = (CH0_TXDATA[64] !== 1'bz) && CH0_TXDATA_delay[64]; // rv MustConnect
+  assign CH0_TXDATA_in[65] = (CH0_TXDATA[65] !== 1'bz) && CH0_TXDATA_delay[65]; // rv MustConnect
+  assign CH0_TXDATA_in[66] = (CH0_TXDATA[66] !== 1'bz) && CH0_TXDATA_delay[66]; // rv MustConnect
+  assign CH0_TXDATA_in[67] = (CH0_TXDATA[67] !== 1'bz) && CH0_TXDATA_delay[67]; // rv MustConnect
+  assign CH0_TXDATA_in[68] = (CH0_TXDATA[68] !== 1'bz) && CH0_TXDATA_delay[68]; // rv MustConnect
+  assign CH0_TXDATA_in[69] = (CH0_TXDATA[69] !== 1'bz) && CH0_TXDATA_delay[69]; // rv MustConnect
+  assign CH0_TXDATA_in[6] = (CH0_TXDATA[6] !== 1'bz) && CH0_TXDATA_delay[6]; // rv MustConnect
+  assign CH0_TXDATA_in[70] = (CH0_TXDATA[70] !== 1'bz) && CH0_TXDATA_delay[70]; // rv MustConnect
+  assign CH0_TXDATA_in[71] = (CH0_TXDATA[71] !== 1'bz) && CH0_TXDATA_delay[71]; // rv MustConnect
+  assign CH0_TXDATA_in[72] = (CH0_TXDATA[72] !== 1'bz) && CH0_TXDATA_delay[72]; // rv MustConnect
+  assign CH0_TXDATA_in[73] = (CH0_TXDATA[73] !== 1'bz) && CH0_TXDATA_delay[73]; // rv MustConnect
+  assign CH0_TXDATA_in[74] = (CH0_TXDATA[74] !== 1'bz) && CH0_TXDATA_delay[74]; // rv MustConnect
+  assign CH0_TXDATA_in[75] = (CH0_TXDATA[75] !== 1'bz) && CH0_TXDATA_delay[75]; // rv MustConnect
+  assign CH0_TXDATA_in[76] = (CH0_TXDATA[76] !== 1'bz) && CH0_TXDATA_delay[76]; // rv MustConnect
+  assign CH0_TXDATA_in[77] = (CH0_TXDATA[77] !== 1'bz) && CH0_TXDATA_delay[77]; // rv MustConnect
+  assign CH0_TXDATA_in[78] = (CH0_TXDATA[78] !== 1'bz) && CH0_TXDATA_delay[78]; // rv MustConnect
+  assign CH0_TXDATA_in[79] = (CH0_TXDATA[79] !== 1'bz) && CH0_TXDATA_delay[79]; // rv MustConnect
+  assign CH0_TXDATA_in[7] = (CH0_TXDATA[7] !== 1'bz) && CH0_TXDATA_delay[7]; // rv MustConnect
+  assign CH0_TXDATA_in[80] = (CH0_TXDATA[80] !== 1'bz) && CH0_TXDATA_delay[80]; // rv MustConnect
+  assign CH0_TXDATA_in[81] = (CH0_TXDATA[81] !== 1'bz) && CH0_TXDATA_delay[81]; // rv MustConnect
+  assign CH0_TXDATA_in[82] = (CH0_TXDATA[82] !== 1'bz) && CH0_TXDATA_delay[82]; // rv MustConnect
+  assign CH0_TXDATA_in[83] = (CH0_TXDATA[83] !== 1'bz) && CH0_TXDATA_delay[83]; // rv MustConnect
+  assign CH0_TXDATA_in[84] = (CH0_TXDATA[84] !== 1'bz) && CH0_TXDATA_delay[84]; // rv MustConnect
+  assign CH0_TXDATA_in[85] = (CH0_TXDATA[85] !== 1'bz) && CH0_TXDATA_delay[85]; // rv MustConnect
+  assign CH0_TXDATA_in[86] = (CH0_TXDATA[86] !== 1'bz) && CH0_TXDATA_delay[86]; // rv MustConnect
+  assign CH0_TXDATA_in[87] = (CH0_TXDATA[87] !== 1'bz) && CH0_TXDATA_delay[87]; // rv MustConnect
+  assign CH0_TXDATA_in[88] = (CH0_TXDATA[88] !== 1'bz) && CH0_TXDATA_delay[88]; // rv MustConnect
+  assign CH0_TXDATA_in[89] = (CH0_TXDATA[89] !== 1'bz) && CH0_TXDATA_delay[89]; // rv MustConnect
+  assign CH0_TXDATA_in[8] = (CH0_TXDATA[8] !== 1'bz) && CH0_TXDATA_delay[8]; // rv MustConnect
+  assign CH0_TXDATA_in[90] = (CH0_TXDATA[90] !== 1'bz) && CH0_TXDATA_delay[90]; // rv MustConnect
+  assign CH0_TXDATA_in[91] = (CH0_TXDATA[91] !== 1'bz) && CH0_TXDATA_delay[91]; // rv MustConnect
+  assign CH0_TXDATA_in[92] = (CH0_TXDATA[92] !== 1'bz) && CH0_TXDATA_delay[92]; // rv MustConnect
+  assign CH0_TXDATA_in[93] = (CH0_TXDATA[93] !== 1'bz) && CH0_TXDATA_delay[93]; // rv MustConnect
+  assign CH0_TXDATA_in[94] = (CH0_TXDATA[94] !== 1'bz) && CH0_TXDATA_delay[94]; // rv MustConnect
+  assign CH0_TXDATA_in[95] = (CH0_TXDATA[95] !== 1'bz) && CH0_TXDATA_delay[95]; // rv MustConnect
+  assign CH0_TXDATA_in[96] = (CH0_TXDATA[96] !== 1'bz) && CH0_TXDATA_delay[96]; // rv MustConnect
+  assign CH0_TXDATA_in[97] = (CH0_TXDATA[97] !== 1'bz) && CH0_TXDATA_delay[97]; // rv MustConnect
+  assign CH0_TXDATA_in[98] = (CH0_TXDATA[98] !== 1'bz) && CH0_TXDATA_delay[98]; // rv MustConnect
+  assign CH0_TXDATA_in[99] = (CH0_TXDATA[99] !== 1'bz) && CH0_TXDATA_delay[99]; // rv MustConnect
+  assign CH0_TXDATA_in[9] = (CH0_TXDATA[9] !== 1'bz) && CH0_TXDATA_delay[9]; // rv MustConnect
+  assign CH0_TXDETECTRXLOOPBACK_in = CH0_TXDETECTRXLOOPBACK_delay;
+  assign CH0_TXELECIDLE_in = (CH0_TXELECIDLE === 1'bz) || CH0_TXELECIDLE_delay; // rv 1
+  assign CH0_TXPOWERDOWN_in = CH0_TXPOWERDOWN_delay;
+  assign CH0_TXRATE_in = CH0_TXRATE_delay;
+  assign CH0_TXUSRCLK_in = (CH0_TXUSRCLK === 1'bz) || CH0_TXUSRCLK_delay; // rv 1
+  assign CH1_RXGEARBOXSLIP_in = CH1_RXGEARBOXSLIP_delay;
+  assign CH1_RXUSRCLK_in = (CH1_RXUSRCLK === 1'bz) || CH1_RXUSRCLK_delay; // rv 1
+  assign CH1_SCANCHNLMASKIN_in = CH1_SCANCHNLMASKIN_delay;
+  assign CH1_SCANCLKB_in = CH1_SCANCLKB_delay;
+  assign CH1_SCANCNTRLIN_in = CH1_SCANCNTRLIN_delay;
+  assign CH1_SCANIN_in = CH1_SCANIN_delay;
+  assign CH1_SCANODCCCHNLMASK_in = CH1_SCANODCCCHNLMASK_delay;
+  assign CH1_TXDATA_in[0] = (CH1_TXDATA[0] !== 1'bz) && CH1_TXDATA_delay[0]; // rv MustConnect
+  assign CH1_TXDATA_in[100] = (CH1_TXDATA[100] !== 1'bz) && CH1_TXDATA_delay[100]; // rv MustConnect
+  assign CH1_TXDATA_in[101] = (CH1_TXDATA[101] !== 1'bz) && CH1_TXDATA_delay[101]; // rv MustConnect
+  assign CH1_TXDATA_in[102] = (CH1_TXDATA[102] !== 1'bz) && CH1_TXDATA_delay[102]; // rv MustConnect
+  assign CH1_TXDATA_in[103] = (CH1_TXDATA[103] !== 1'bz) && CH1_TXDATA_delay[103]; // rv MustConnect
+  assign CH1_TXDATA_in[104] = (CH1_TXDATA[104] !== 1'bz) && CH1_TXDATA_delay[104]; // rv MustConnect
+  assign CH1_TXDATA_in[105] = (CH1_TXDATA[105] !== 1'bz) && CH1_TXDATA_delay[105]; // rv MustConnect
+  assign CH1_TXDATA_in[106] = (CH1_TXDATA[106] !== 1'bz) && CH1_TXDATA_delay[106]; // rv MustConnect
+  assign CH1_TXDATA_in[107] = (CH1_TXDATA[107] !== 1'bz) && CH1_TXDATA_delay[107]; // rv MustConnect
+  assign CH1_TXDATA_in[108] = (CH1_TXDATA[108] !== 1'bz) && CH1_TXDATA_delay[108]; // rv MustConnect
+  assign CH1_TXDATA_in[109] = (CH1_TXDATA[109] !== 1'bz) && CH1_TXDATA_delay[109]; // rv MustConnect
+  assign CH1_TXDATA_in[10] = (CH1_TXDATA[10] !== 1'bz) && CH1_TXDATA_delay[10]; // rv MustConnect
+  assign CH1_TXDATA_in[110] = (CH1_TXDATA[110] !== 1'bz) && CH1_TXDATA_delay[110]; // rv MustConnect
+  assign CH1_TXDATA_in[111] = (CH1_TXDATA[111] !== 1'bz) && CH1_TXDATA_delay[111]; // rv MustConnect
+  assign CH1_TXDATA_in[112] = (CH1_TXDATA[112] !== 1'bz) && CH1_TXDATA_delay[112]; // rv MustConnect
+  assign CH1_TXDATA_in[113] = (CH1_TXDATA[113] !== 1'bz) && CH1_TXDATA_delay[113]; // rv MustConnect
+  assign CH1_TXDATA_in[114] = (CH1_TXDATA[114] !== 1'bz) && CH1_TXDATA_delay[114]; // rv MustConnect
+  assign CH1_TXDATA_in[115] = (CH1_TXDATA[115] !== 1'bz) && CH1_TXDATA_delay[115]; // rv MustConnect
+  assign CH1_TXDATA_in[116] = (CH1_TXDATA[116] !== 1'bz) && CH1_TXDATA_delay[116]; // rv MustConnect
+  assign CH1_TXDATA_in[117] = (CH1_TXDATA[117] !== 1'bz) && CH1_TXDATA_delay[117]; // rv MustConnect
+  assign CH1_TXDATA_in[118] = (CH1_TXDATA[118] !== 1'bz) && CH1_TXDATA_delay[118]; // rv MustConnect
+  assign CH1_TXDATA_in[119] = (CH1_TXDATA[119] !== 1'bz) && CH1_TXDATA_delay[119]; // rv MustConnect
+  assign CH1_TXDATA_in[11] = (CH1_TXDATA[11] !== 1'bz) && CH1_TXDATA_delay[11]; // rv MustConnect
+  assign CH1_TXDATA_in[120] = (CH1_TXDATA[120] !== 1'bz) && CH1_TXDATA_delay[120]; // rv MustConnect
+  assign CH1_TXDATA_in[121] = (CH1_TXDATA[121] !== 1'bz) && CH1_TXDATA_delay[121]; // rv MustConnect
+  assign CH1_TXDATA_in[122] = (CH1_TXDATA[122] !== 1'bz) && CH1_TXDATA_delay[122]; // rv MustConnect
+  assign CH1_TXDATA_in[123] = (CH1_TXDATA[123] !== 1'bz) && CH1_TXDATA_delay[123]; // rv MustConnect
+  assign CH1_TXDATA_in[124] = (CH1_TXDATA[124] !== 1'bz) && CH1_TXDATA_delay[124]; // rv MustConnect
+  assign CH1_TXDATA_in[125] = (CH1_TXDATA[125] !== 1'bz) && CH1_TXDATA_delay[125]; // rv MustConnect
+  assign CH1_TXDATA_in[126] = (CH1_TXDATA[126] !== 1'bz) && CH1_TXDATA_delay[126]; // rv MustConnect
+  assign CH1_TXDATA_in[127] = (CH1_TXDATA[127] !== 1'bz) && CH1_TXDATA_delay[127]; // rv MustConnect
+  assign CH1_TXDATA_in[128] = (CH1_TXDATA[128] !== 1'bz) && CH1_TXDATA_delay[128]; // rv MustConnect
+  assign CH1_TXDATA_in[129] = (CH1_TXDATA[129] !== 1'bz) && CH1_TXDATA_delay[129]; // rv MustConnect
+  assign CH1_TXDATA_in[12] = (CH1_TXDATA[12] !== 1'bz) && CH1_TXDATA_delay[12]; // rv MustConnect
+  assign CH1_TXDATA_in[130] = (CH1_TXDATA[130] !== 1'bz) && CH1_TXDATA_delay[130]; // rv MustConnect
+  assign CH1_TXDATA_in[131] = (CH1_TXDATA[131] !== 1'bz) && CH1_TXDATA_delay[131]; // rv MustConnect
+  assign CH1_TXDATA_in[132] = (CH1_TXDATA[132] !== 1'bz) && CH1_TXDATA_delay[132]; // rv MustConnect
+  assign CH1_TXDATA_in[133] = (CH1_TXDATA[133] !== 1'bz) && CH1_TXDATA_delay[133]; // rv MustConnect
+  assign CH1_TXDATA_in[134] = (CH1_TXDATA[134] !== 1'bz) && CH1_TXDATA_delay[134]; // rv MustConnect
+  assign CH1_TXDATA_in[135] = (CH1_TXDATA[135] !== 1'bz) && CH1_TXDATA_delay[135]; // rv MustConnect
+  assign CH1_TXDATA_in[136] = (CH1_TXDATA[136] !== 1'bz) && CH1_TXDATA_delay[136]; // rv MustConnect
+  assign CH1_TXDATA_in[137] = (CH1_TXDATA[137] !== 1'bz) && CH1_TXDATA_delay[137]; // rv MustConnect
+  assign CH1_TXDATA_in[138] = (CH1_TXDATA[138] !== 1'bz) && CH1_TXDATA_delay[138]; // rv MustConnect
+  assign CH1_TXDATA_in[139] = (CH1_TXDATA[139] !== 1'bz) && CH1_TXDATA_delay[139]; // rv MustConnect
+  assign CH1_TXDATA_in[13] = (CH1_TXDATA[13] !== 1'bz) && CH1_TXDATA_delay[13]; // rv MustConnect
+  assign CH1_TXDATA_in[140] = (CH1_TXDATA[140] !== 1'bz) && CH1_TXDATA_delay[140]; // rv MustConnect
+  assign CH1_TXDATA_in[141] = (CH1_TXDATA[141] !== 1'bz) && CH1_TXDATA_delay[141]; // rv MustConnect
+  assign CH1_TXDATA_in[142] = (CH1_TXDATA[142] !== 1'bz) && CH1_TXDATA_delay[142]; // rv MustConnect
+  assign CH1_TXDATA_in[143] = (CH1_TXDATA[143] !== 1'bz) && CH1_TXDATA_delay[143]; // rv MustConnect
+  assign CH1_TXDATA_in[144] = (CH1_TXDATA[144] !== 1'bz) && CH1_TXDATA_delay[144]; // rv MustConnect
+  assign CH1_TXDATA_in[145] = (CH1_TXDATA[145] !== 1'bz) && CH1_TXDATA_delay[145]; // rv MustConnect
+  assign CH1_TXDATA_in[146] = (CH1_TXDATA[146] !== 1'bz) && CH1_TXDATA_delay[146]; // rv MustConnect
+  assign CH1_TXDATA_in[147] = (CH1_TXDATA[147] !== 1'bz) && CH1_TXDATA_delay[147]; // rv MustConnect
+  assign CH1_TXDATA_in[148] = (CH1_TXDATA[148] !== 1'bz) && CH1_TXDATA_delay[148]; // rv MustConnect
+  assign CH1_TXDATA_in[149] = (CH1_TXDATA[149] !== 1'bz) && CH1_TXDATA_delay[149]; // rv MustConnect
+  assign CH1_TXDATA_in[14] = (CH1_TXDATA[14] !== 1'bz) && CH1_TXDATA_delay[14]; // rv MustConnect
+  assign CH1_TXDATA_in[150] = (CH1_TXDATA[150] !== 1'bz) && CH1_TXDATA_delay[150]; // rv MustConnect
+  assign CH1_TXDATA_in[151] = (CH1_TXDATA[151] !== 1'bz) && CH1_TXDATA_delay[151]; // rv MustConnect
+  assign CH1_TXDATA_in[152] = (CH1_TXDATA[152] !== 1'bz) && CH1_TXDATA_delay[152]; // rv MustConnect
+  assign CH1_TXDATA_in[153] = (CH1_TXDATA[153] !== 1'bz) && CH1_TXDATA_delay[153]; // rv MustConnect
+  assign CH1_TXDATA_in[154] = (CH1_TXDATA[154] !== 1'bz) && CH1_TXDATA_delay[154]; // rv MustConnect
+  assign CH1_TXDATA_in[155] = (CH1_TXDATA[155] !== 1'bz) && CH1_TXDATA_delay[155]; // rv MustConnect
+  assign CH1_TXDATA_in[156] = (CH1_TXDATA[156] !== 1'bz) && CH1_TXDATA_delay[156]; // rv MustConnect
+  assign CH1_TXDATA_in[157] = (CH1_TXDATA[157] !== 1'bz) && CH1_TXDATA_delay[157]; // rv MustConnect
+  assign CH1_TXDATA_in[158] = (CH1_TXDATA[158] !== 1'bz) && CH1_TXDATA_delay[158]; // rv MustConnect
+  assign CH1_TXDATA_in[159] = (CH1_TXDATA[159] !== 1'bz) && CH1_TXDATA_delay[159]; // rv MustConnect
+  assign CH1_TXDATA_in[15] = (CH1_TXDATA[15] !== 1'bz) && CH1_TXDATA_delay[15]; // rv MustConnect
+  assign CH1_TXDATA_in[160] = (CH1_TXDATA[160] !== 1'bz) && CH1_TXDATA_delay[160]; // rv MustConnect
+  assign CH1_TXDATA_in[161] = (CH1_TXDATA[161] !== 1'bz) && CH1_TXDATA_delay[161]; // rv MustConnect
+  assign CH1_TXDATA_in[162] = (CH1_TXDATA[162] !== 1'bz) && CH1_TXDATA_delay[162]; // rv MustConnect
+  assign CH1_TXDATA_in[163] = (CH1_TXDATA[163] !== 1'bz) && CH1_TXDATA_delay[163]; // rv MustConnect
+  assign CH1_TXDATA_in[164] = (CH1_TXDATA[164] !== 1'bz) && CH1_TXDATA_delay[164]; // rv MustConnect
+  assign CH1_TXDATA_in[165] = (CH1_TXDATA[165] !== 1'bz) && CH1_TXDATA_delay[165]; // rv MustConnect
+  assign CH1_TXDATA_in[166] = (CH1_TXDATA[166] !== 1'bz) && CH1_TXDATA_delay[166]; // rv MustConnect
+  assign CH1_TXDATA_in[167] = (CH1_TXDATA[167] !== 1'bz) && CH1_TXDATA_delay[167]; // rv MustConnect
+  assign CH1_TXDATA_in[168] = (CH1_TXDATA[168] !== 1'bz) && CH1_TXDATA_delay[168]; // rv MustConnect
+  assign CH1_TXDATA_in[169] = (CH1_TXDATA[169] !== 1'bz) && CH1_TXDATA_delay[169]; // rv MustConnect
+  assign CH1_TXDATA_in[16] = (CH1_TXDATA[16] !== 1'bz) && CH1_TXDATA_delay[16]; // rv MustConnect
+  assign CH1_TXDATA_in[170] = (CH1_TXDATA[170] !== 1'bz) && CH1_TXDATA_delay[170]; // rv MustConnect
+  assign CH1_TXDATA_in[171] = (CH1_TXDATA[171] !== 1'bz) && CH1_TXDATA_delay[171]; // rv MustConnect
+  assign CH1_TXDATA_in[172] = (CH1_TXDATA[172] !== 1'bz) && CH1_TXDATA_delay[172]; // rv MustConnect
+  assign CH1_TXDATA_in[173] = (CH1_TXDATA[173] !== 1'bz) && CH1_TXDATA_delay[173]; // rv MustConnect
+  assign CH1_TXDATA_in[174] = (CH1_TXDATA[174] !== 1'bz) && CH1_TXDATA_delay[174]; // rv MustConnect
+  assign CH1_TXDATA_in[175] = (CH1_TXDATA[175] !== 1'bz) && CH1_TXDATA_delay[175]; // rv MustConnect
+  assign CH1_TXDATA_in[176] = (CH1_TXDATA[176] !== 1'bz) && CH1_TXDATA_delay[176]; // rv MustConnect
+  assign CH1_TXDATA_in[177] = (CH1_TXDATA[177] !== 1'bz) && CH1_TXDATA_delay[177]; // rv MustConnect
+  assign CH1_TXDATA_in[178] = (CH1_TXDATA[178] !== 1'bz) && CH1_TXDATA_delay[178]; // rv MustConnect
+  assign CH1_TXDATA_in[179] = (CH1_TXDATA[179] !== 1'bz) && CH1_TXDATA_delay[179]; // rv MustConnect
+  assign CH1_TXDATA_in[17] = (CH1_TXDATA[17] !== 1'bz) && CH1_TXDATA_delay[17]; // rv MustConnect
+  assign CH1_TXDATA_in[180] = (CH1_TXDATA[180] !== 1'bz) && CH1_TXDATA_delay[180]; // rv MustConnect
+  assign CH1_TXDATA_in[181] = (CH1_TXDATA[181] !== 1'bz) && CH1_TXDATA_delay[181]; // rv MustConnect
+  assign CH1_TXDATA_in[182] = (CH1_TXDATA[182] !== 1'bz) && CH1_TXDATA_delay[182]; // rv MustConnect
+  assign CH1_TXDATA_in[183] = (CH1_TXDATA[183] !== 1'bz) && CH1_TXDATA_delay[183]; // rv MustConnect
+  assign CH1_TXDATA_in[184] = (CH1_TXDATA[184] !== 1'bz) && CH1_TXDATA_delay[184]; // rv MustConnect
+  assign CH1_TXDATA_in[185] = (CH1_TXDATA[185] !== 1'bz) && CH1_TXDATA_delay[185]; // rv MustConnect
+  assign CH1_TXDATA_in[186] = (CH1_TXDATA[186] !== 1'bz) && CH1_TXDATA_delay[186]; // rv MustConnect
+  assign CH1_TXDATA_in[187] = (CH1_TXDATA[187] !== 1'bz) && CH1_TXDATA_delay[187]; // rv MustConnect
+  assign CH1_TXDATA_in[188] = (CH1_TXDATA[188] !== 1'bz) && CH1_TXDATA_delay[188]; // rv MustConnect
+  assign CH1_TXDATA_in[189] = (CH1_TXDATA[189] !== 1'bz) && CH1_TXDATA_delay[189]; // rv MustConnect
+  assign CH1_TXDATA_in[18] = (CH1_TXDATA[18] !== 1'bz) && CH1_TXDATA_delay[18]; // rv MustConnect
+  assign CH1_TXDATA_in[190] = (CH1_TXDATA[190] !== 1'bz) && CH1_TXDATA_delay[190]; // rv MustConnect
+  assign CH1_TXDATA_in[191] = (CH1_TXDATA[191] !== 1'bz) && CH1_TXDATA_delay[191]; // rv MustConnect
+  assign CH1_TXDATA_in[192] = (CH1_TXDATA[192] !== 1'bz) && CH1_TXDATA_delay[192]; // rv MustConnect
+  assign CH1_TXDATA_in[193] = (CH1_TXDATA[193] !== 1'bz) && CH1_TXDATA_delay[193]; // rv MustConnect
+  assign CH1_TXDATA_in[194] = (CH1_TXDATA[194] !== 1'bz) && CH1_TXDATA_delay[194]; // rv MustConnect
+  assign CH1_TXDATA_in[195] = (CH1_TXDATA[195] !== 1'bz) && CH1_TXDATA_delay[195]; // rv MustConnect
+  assign CH1_TXDATA_in[196] = (CH1_TXDATA[196] !== 1'bz) && CH1_TXDATA_delay[196]; // rv MustConnect
+  assign CH1_TXDATA_in[197] = (CH1_TXDATA[197] !== 1'bz) && CH1_TXDATA_delay[197]; // rv MustConnect
+  assign CH1_TXDATA_in[198] = (CH1_TXDATA[198] !== 1'bz) && CH1_TXDATA_delay[198]; // rv MustConnect
+  assign CH1_TXDATA_in[199] = (CH1_TXDATA[199] !== 1'bz) && CH1_TXDATA_delay[199]; // rv MustConnect
+  assign CH1_TXDATA_in[19] = (CH1_TXDATA[19] !== 1'bz) && CH1_TXDATA_delay[19]; // rv MustConnect
+  assign CH1_TXDATA_in[1] = (CH1_TXDATA[1] !== 1'bz) && CH1_TXDATA_delay[1]; // rv MustConnect
+  assign CH1_TXDATA_in[200] = (CH1_TXDATA[200] !== 1'bz) && CH1_TXDATA_delay[200]; // rv MustConnect
+  assign CH1_TXDATA_in[201] = (CH1_TXDATA[201] !== 1'bz) && CH1_TXDATA_delay[201]; // rv MustConnect
+  assign CH1_TXDATA_in[202] = (CH1_TXDATA[202] !== 1'bz) && CH1_TXDATA_delay[202]; // rv MustConnect
+  assign CH1_TXDATA_in[203] = (CH1_TXDATA[203] !== 1'bz) && CH1_TXDATA_delay[203]; // rv MustConnect
+  assign CH1_TXDATA_in[204] = (CH1_TXDATA[204] !== 1'bz) && CH1_TXDATA_delay[204]; // rv MustConnect
+  assign CH1_TXDATA_in[205] = (CH1_TXDATA[205] !== 1'bz) && CH1_TXDATA_delay[205]; // rv MustConnect
+  assign CH1_TXDATA_in[206] = (CH1_TXDATA[206] !== 1'bz) && CH1_TXDATA_delay[206]; // rv MustConnect
+  assign CH1_TXDATA_in[207] = (CH1_TXDATA[207] !== 1'bz) && CH1_TXDATA_delay[207]; // rv MustConnect
+  assign CH1_TXDATA_in[208] = (CH1_TXDATA[208] !== 1'bz) && CH1_TXDATA_delay[208]; // rv MustConnect
+  assign CH1_TXDATA_in[209] = (CH1_TXDATA[209] !== 1'bz) && CH1_TXDATA_delay[209]; // rv MustConnect
+  assign CH1_TXDATA_in[20] = (CH1_TXDATA[20] !== 1'bz) && CH1_TXDATA_delay[20]; // rv MustConnect
+  assign CH1_TXDATA_in[210] = (CH1_TXDATA[210] !== 1'bz) && CH1_TXDATA_delay[210]; // rv MustConnect
+  assign CH1_TXDATA_in[211] = (CH1_TXDATA[211] !== 1'bz) && CH1_TXDATA_delay[211]; // rv MustConnect
+  assign CH1_TXDATA_in[212] = (CH1_TXDATA[212] !== 1'bz) && CH1_TXDATA_delay[212]; // rv MustConnect
+  assign CH1_TXDATA_in[213] = (CH1_TXDATA[213] !== 1'bz) && CH1_TXDATA_delay[213]; // rv MustConnect
+  assign CH1_TXDATA_in[214] = (CH1_TXDATA[214] !== 1'bz) && CH1_TXDATA_delay[214]; // rv MustConnect
+  assign CH1_TXDATA_in[215] = (CH1_TXDATA[215] !== 1'bz) && CH1_TXDATA_delay[215]; // rv MustConnect
+  assign CH1_TXDATA_in[216] = (CH1_TXDATA[216] !== 1'bz) && CH1_TXDATA_delay[216]; // rv MustConnect
+  assign CH1_TXDATA_in[217] = (CH1_TXDATA[217] !== 1'bz) && CH1_TXDATA_delay[217]; // rv MustConnect
+  assign CH1_TXDATA_in[218] = (CH1_TXDATA[218] !== 1'bz) && CH1_TXDATA_delay[218]; // rv MustConnect
+  assign CH1_TXDATA_in[219] = (CH1_TXDATA[219] !== 1'bz) && CH1_TXDATA_delay[219]; // rv MustConnect
+  assign CH1_TXDATA_in[21] = (CH1_TXDATA[21] !== 1'bz) && CH1_TXDATA_delay[21]; // rv MustConnect
+  assign CH1_TXDATA_in[220] = (CH1_TXDATA[220] !== 1'bz) && CH1_TXDATA_delay[220]; // rv MustConnect
+  assign CH1_TXDATA_in[221] = (CH1_TXDATA[221] !== 1'bz) && CH1_TXDATA_delay[221]; // rv MustConnect
+  assign CH1_TXDATA_in[222] = (CH1_TXDATA[222] !== 1'bz) && CH1_TXDATA_delay[222]; // rv MustConnect
+  assign CH1_TXDATA_in[223] = (CH1_TXDATA[223] !== 1'bz) && CH1_TXDATA_delay[223]; // rv MustConnect
+  assign CH1_TXDATA_in[224] = (CH1_TXDATA[224] !== 1'bz) && CH1_TXDATA_delay[224]; // rv MustConnect
+  assign CH1_TXDATA_in[225] = (CH1_TXDATA[225] !== 1'bz) && CH1_TXDATA_delay[225]; // rv MustConnect
+  assign CH1_TXDATA_in[226] = (CH1_TXDATA[226] !== 1'bz) && CH1_TXDATA_delay[226]; // rv MustConnect
+  assign CH1_TXDATA_in[227] = (CH1_TXDATA[227] !== 1'bz) && CH1_TXDATA_delay[227]; // rv MustConnect
+  assign CH1_TXDATA_in[228] = (CH1_TXDATA[228] !== 1'bz) && CH1_TXDATA_delay[228]; // rv MustConnect
+  assign CH1_TXDATA_in[229] = (CH1_TXDATA[229] !== 1'bz) && CH1_TXDATA_delay[229]; // rv MustConnect
+  assign CH1_TXDATA_in[22] = (CH1_TXDATA[22] !== 1'bz) && CH1_TXDATA_delay[22]; // rv MustConnect
+  assign CH1_TXDATA_in[230] = (CH1_TXDATA[230] !== 1'bz) && CH1_TXDATA_delay[230]; // rv MustConnect
+  assign CH1_TXDATA_in[231] = (CH1_TXDATA[231] !== 1'bz) && CH1_TXDATA_delay[231]; // rv MustConnect
+  assign CH1_TXDATA_in[232] = (CH1_TXDATA[232] !== 1'bz) && CH1_TXDATA_delay[232]; // rv MustConnect
+  assign CH1_TXDATA_in[233] = (CH1_TXDATA[233] !== 1'bz) && CH1_TXDATA_delay[233]; // rv MustConnect
+  assign CH1_TXDATA_in[234] = (CH1_TXDATA[234] !== 1'bz) && CH1_TXDATA_delay[234]; // rv MustConnect
+  assign CH1_TXDATA_in[235] = (CH1_TXDATA[235] !== 1'bz) && CH1_TXDATA_delay[235]; // rv MustConnect
+  assign CH1_TXDATA_in[236] = (CH1_TXDATA[236] !== 1'bz) && CH1_TXDATA_delay[236]; // rv MustConnect
+  assign CH1_TXDATA_in[237] = (CH1_TXDATA[237] !== 1'bz) && CH1_TXDATA_delay[237]; // rv MustConnect
+  assign CH1_TXDATA_in[238] = (CH1_TXDATA[238] !== 1'bz) && CH1_TXDATA_delay[238]; // rv MustConnect
+  assign CH1_TXDATA_in[239] = (CH1_TXDATA[239] !== 1'bz) && CH1_TXDATA_delay[239]; // rv MustConnect
+  assign CH1_TXDATA_in[23] = (CH1_TXDATA[23] !== 1'bz) && CH1_TXDATA_delay[23]; // rv MustConnect
+  assign CH1_TXDATA_in[240] = (CH1_TXDATA[240] !== 1'bz) && CH1_TXDATA_delay[240]; // rv MustConnect
+  assign CH1_TXDATA_in[241] = (CH1_TXDATA[241] !== 1'bz) && CH1_TXDATA_delay[241]; // rv MustConnect
+  assign CH1_TXDATA_in[242] = (CH1_TXDATA[242] !== 1'bz) && CH1_TXDATA_delay[242]; // rv MustConnect
+  assign CH1_TXDATA_in[243] = (CH1_TXDATA[243] !== 1'bz) && CH1_TXDATA_delay[243]; // rv MustConnect
+  assign CH1_TXDATA_in[244] = (CH1_TXDATA[244] !== 1'bz) && CH1_TXDATA_delay[244]; // rv MustConnect
+  assign CH1_TXDATA_in[245] = (CH1_TXDATA[245] !== 1'bz) && CH1_TXDATA_delay[245]; // rv MustConnect
+  assign CH1_TXDATA_in[246] = (CH1_TXDATA[246] !== 1'bz) && CH1_TXDATA_delay[246]; // rv MustConnect
+  assign CH1_TXDATA_in[247] = (CH1_TXDATA[247] !== 1'bz) && CH1_TXDATA_delay[247]; // rv MustConnect
+  assign CH1_TXDATA_in[248] = (CH1_TXDATA[248] !== 1'bz) && CH1_TXDATA_delay[248]; // rv MustConnect
+  assign CH1_TXDATA_in[249] = (CH1_TXDATA[249] !== 1'bz) && CH1_TXDATA_delay[249]; // rv MustConnect
+  assign CH1_TXDATA_in[24] = (CH1_TXDATA[24] !== 1'bz) && CH1_TXDATA_delay[24]; // rv MustConnect
+  assign CH1_TXDATA_in[250] = (CH1_TXDATA[250] !== 1'bz) && CH1_TXDATA_delay[250]; // rv MustConnect
+  assign CH1_TXDATA_in[251] = (CH1_TXDATA[251] !== 1'bz) && CH1_TXDATA_delay[251]; // rv MustConnect
+  assign CH1_TXDATA_in[252] = (CH1_TXDATA[252] !== 1'bz) && CH1_TXDATA_delay[252]; // rv MustConnect
+  assign CH1_TXDATA_in[253] = (CH1_TXDATA[253] !== 1'bz) && CH1_TXDATA_delay[253]; // rv MustConnect
+  assign CH1_TXDATA_in[254] = (CH1_TXDATA[254] !== 1'bz) && CH1_TXDATA_delay[254]; // rv MustConnect
+  assign CH1_TXDATA_in[255] = (CH1_TXDATA[255] !== 1'bz) && CH1_TXDATA_delay[255]; // rv MustConnect
+  assign CH1_TXDATA_in[256] = (CH1_TXDATA[256] !== 1'bz) && CH1_TXDATA_delay[256]; // rv MustConnect
+  assign CH1_TXDATA_in[257] = (CH1_TXDATA[257] !== 1'bz) && CH1_TXDATA_delay[257]; // rv MustConnect
+  assign CH1_TXDATA_in[258] = (CH1_TXDATA[258] !== 1'bz) && CH1_TXDATA_delay[258]; // rv MustConnect
+  assign CH1_TXDATA_in[259] = (CH1_TXDATA[259] !== 1'bz) && CH1_TXDATA_delay[259]; // rv MustConnect
+  assign CH1_TXDATA_in[25] = (CH1_TXDATA[25] !== 1'bz) && CH1_TXDATA_delay[25]; // rv MustConnect
+  assign CH1_TXDATA_in[260] = (CH1_TXDATA[260] !== 1'bz) && CH1_TXDATA_delay[260]; // rv MustConnect
+  assign CH1_TXDATA_in[261] = (CH1_TXDATA[261] !== 1'bz) && CH1_TXDATA_delay[261]; // rv MustConnect
+  assign CH1_TXDATA_in[262] = (CH1_TXDATA[262] !== 1'bz) && CH1_TXDATA_delay[262]; // rv MustConnect
+  assign CH1_TXDATA_in[263] = (CH1_TXDATA[263] !== 1'bz) && CH1_TXDATA_delay[263]; // rv MustConnect
+  assign CH1_TXDATA_in[264] = (CH1_TXDATA[264] !== 1'bz) && CH1_TXDATA_delay[264]; // rv MustConnect
+  assign CH1_TXDATA_in[265] = (CH1_TXDATA[265] !== 1'bz) && CH1_TXDATA_delay[265]; // rv MustConnect
+  assign CH1_TXDATA_in[266] = (CH1_TXDATA[266] !== 1'bz) && CH1_TXDATA_delay[266]; // rv MustConnect
+  assign CH1_TXDATA_in[267] = (CH1_TXDATA[267] !== 1'bz) && CH1_TXDATA_delay[267]; // rv MustConnect
+  assign CH1_TXDATA_in[268] = (CH1_TXDATA[268] !== 1'bz) && CH1_TXDATA_delay[268]; // rv MustConnect
+  assign CH1_TXDATA_in[269] = (CH1_TXDATA[269] !== 1'bz) && CH1_TXDATA_delay[269]; // rv MustConnect
+  assign CH1_TXDATA_in[26] = (CH1_TXDATA[26] !== 1'bz) && CH1_TXDATA_delay[26]; // rv MustConnect
+  assign CH1_TXDATA_in[270] = (CH1_TXDATA[270] !== 1'bz) && CH1_TXDATA_delay[270]; // rv MustConnect
+  assign CH1_TXDATA_in[271] = (CH1_TXDATA[271] !== 1'bz) && CH1_TXDATA_delay[271]; // rv MustConnect
+  assign CH1_TXDATA_in[272] = (CH1_TXDATA[272] !== 1'bz) && CH1_TXDATA_delay[272]; // rv MustConnect
+  assign CH1_TXDATA_in[273] = (CH1_TXDATA[273] !== 1'bz) && CH1_TXDATA_delay[273]; // rv MustConnect
+  assign CH1_TXDATA_in[274] = (CH1_TXDATA[274] !== 1'bz) && CH1_TXDATA_delay[274]; // rv MustConnect
+  assign CH1_TXDATA_in[275] = (CH1_TXDATA[275] !== 1'bz) && CH1_TXDATA_delay[275]; // rv MustConnect
+  assign CH1_TXDATA_in[276] = (CH1_TXDATA[276] !== 1'bz) && CH1_TXDATA_delay[276]; // rv MustConnect
+  assign CH1_TXDATA_in[277] = (CH1_TXDATA[277] !== 1'bz) && CH1_TXDATA_delay[277]; // rv MustConnect
+  assign CH1_TXDATA_in[278] = (CH1_TXDATA[278] !== 1'bz) && CH1_TXDATA_delay[278]; // rv MustConnect
+  assign CH1_TXDATA_in[279] = (CH1_TXDATA[279] !== 1'bz) && CH1_TXDATA_delay[279]; // rv MustConnect
+  assign CH1_TXDATA_in[27] = (CH1_TXDATA[27] !== 1'bz) && CH1_TXDATA_delay[27]; // rv MustConnect
+  assign CH1_TXDATA_in[280] = (CH1_TXDATA[280] !== 1'bz) && CH1_TXDATA_delay[280]; // rv MustConnect
+  assign CH1_TXDATA_in[281] = (CH1_TXDATA[281] !== 1'bz) && CH1_TXDATA_delay[281]; // rv MustConnect
+  assign CH1_TXDATA_in[282] = (CH1_TXDATA[282] !== 1'bz) && CH1_TXDATA_delay[282]; // rv MustConnect
+  assign CH1_TXDATA_in[283] = (CH1_TXDATA[283] !== 1'bz) && CH1_TXDATA_delay[283]; // rv MustConnect
+  assign CH1_TXDATA_in[284] = (CH1_TXDATA[284] !== 1'bz) && CH1_TXDATA_delay[284]; // rv MustConnect
+  assign CH1_TXDATA_in[285] = (CH1_TXDATA[285] !== 1'bz) && CH1_TXDATA_delay[285]; // rv MustConnect
+  assign CH1_TXDATA_in[286] = (CH1_TXDATA[286] !== 1'bz) && CH1_TXDATA_delay[286]; // rv MustConnect
+  assign CH1_TXDATA_in[287] = (CH1_TXDATA[287] !== 1'bz) && CH1_TXDATA_delay[287]; // rv MustConnect
+  assign CH1_TXDATA_in[288] = (CH1_TXDATA[288] !== 1'bz) && CH1_TXDATA_delay[288]; // rv MustConnect
+  assign CH1_TXDATA_in[289] = (CH1_TXDATA[289] !== 1'bz) && CH1_TXDATA_delay[289]; // rv MustConnect
+  assign CH1_TXDATA_in[28] = (CH1_TXDATA[28] !== 1'bz) && CH1_TXDATA_delay[28]; // rv MustConnect
+  assign CH1_TXDATA_in[290] = (CH1_TXDATA[290] !== 1'bz) && CH1_TXDATA_delay[290]; // rv MustConnect
+  assign CH1_TXDATA_in[291] = (CH1_TXDATA[291] !== 1'bz) && CH1_TXDATA_delay[291]; // rv MustConnect
+  assign CH1_TXDATA_in[292] = (CH1_TXDATA[292] !== 1'bz) && CH1_TXDATA_delay[292]; // rv MustConnect
+  assign CH1_TXDATA_in[293] = (CH1_TXDATA[293] !== 1'bz) && CH1_TXDATA_delay[293]; // rv MustConnect
+  assign CH1_TXDATA_in[294] = (CH1_TXDATA[294] !== 1'bz) && CH1_TXDATA_delay[294]; // rv MustConnect
+  assign CH1_TXDATA_in[295] = (CH1_TXDATA[295] !== 1'bz) && CH1_TXDATA_delay[295]; // rv MustConnect
+  assign CH1_TXDATA_in[296] = (CH1_TXDATA[296] !== 1'bz) && CH1_TXDATA_delay[296]; // rv MustConnect
+  assign CH1_TXDATA_in[297] = (CH1_TXDATA[297] !== 1'bz) && CH1_TXDATA_delay[297]; // rv MustConnect
+  assign CH1_TXDATA_in[298] = (CH1_TXDATA[298] !== 1'bz) && CH1_TXDATA_delay[298]; // rv MustConnect
+  assign CH1_TXDATA_in[299] = (CH1_TXDATA[299] !== 1'bz) && CH1_TXDATA_delay[299]; // rv MustConnect
+  assign CH1_TXDATA_in[29] = (CH1_TXDATA[29] !== 1'bz) && CH1_TXDATA_delay[29]; // rv MustConnect
+  assign CH1_TXDATA_in[2] = (CH1_TXDATA[2] !== 1'bz) && CH1_TXDATA_delay[2]; // rv MustConnect
+  assign CH1_TXDATA_in[300] = (CH1_TXDATA[300] !== 1'bz) && CH1_TXDATA_delay[300]; // rv MustConnect
+  assign CH1_TXDATA_in[301] = (CH1_TXDATA[301] !== 1'bz) && CH1_TXDATA_delay[301]; // rv MustConnect
+  assign CH1_TXDATA_in[302] = (CH1_TXDATA[302] !== 1'bz) && CH1_TXDATA_delay[302]; // rv MustConnect
+  assign CH1_TXDATA_in[303] = (CH1_TXDATA[303] !== 1'bz) && CH1_TXDATA_delay[303]; // rv MustConnect
+  assign CH1_TXDATA_in[304] = (CH1_TXDATA[304] !== 1'bz) && CH1_TXDATA_delay[304]; // rv MustConnect
+  assign CH1_TXDATA_in[305] = (CH1_TXDATA[305] !== 1'bz) && CH1_TXDATA_delay[305]; // rv MustConnect
+  assign CH1_TXDATA_in[306] = (CH1_TXDATA[306] !== 1'bz) && CH1_TXDATA_delay[306]; // rv MustConnect
+  assign CH1_TXDATA_in[307] = (CH1_TXDATA[307] !== 1'bz) && CH1_TXDATA_delay[307]; // rv MustConnect
+  assign CH1_TXDATA_in[308] = (CH1_TXDATA[308] !== 1'bz) && CH1_TXDATA_delay[308]; // rv MustConnect
+  assign CH1_TXDATA_in[309] = (CH1_TXDATA[309] !== 1'bz) && CH1_TXDATA_delay[309]; // rv MustConnect
+  assign CH1_TXDATA_in[30] = (CH1_TXDATA[30] !== 1'bz) && CH1_TXDATA_delay[30]; // rv MustConnect
+  assign CH1_TXDATA_in[310] = (CH1_TXDATA[310] !== 1'bz) && CH1_TXDATA_delay[310]; // rv MustConnect
+  assign CH1_TXDATA_in[311] = (CH1_TXDATA[311] !== 1'bz) && CH1_TXDATA_delay[311]; // rv MustConnect
+  assign CH1_TXDATA_in[312] = (CH1_TXDATA[312] !== 1'bz) && CH1_TXDATA_delay[312]; // rv MustConnect
+  assign CH1_TXDATA_in[313] = (CH1_TXDATA[313] !== 1'bz) && CH1_TXDATA_delay[313]; // rv MustConnect
+  assign CH1_TXDATA_in[314] = (CH1_TXDATA[314] !== 1'bz) && CH1_TXDATA_delay[314]; // rv MustConnect
+  assign CH1_TXDATA_in[315] = (CH1_TXDATA[315] !== 1'bz) && CH1_TXDATA_delay[315]; // rv MustConnect
+  assign CH1_TXDATA_in[316] = (CH1_TXDATA[316] !== 1'bz) && CH1_TXDATA_delay[316]; // rv MustConnect
+  assign CH1_TXDATA_in[317] = (CH1_TXDATA[317] !== 1'bz) && CH1_TXDATA_delay[317]; // rv MustConnect
+  assign CH1_TXDATA_in[318] = (CH1_TXDATA[318] !== 1'bz) && CH1_TXDATA_delay[318]; // rv MustConnect
+  assign CH1_TXDATA_in[319] = (CH1_TXDATA[319] !== 1'bz) && CH1_TXDATA_delay[319]; // rv MustConnect
+  assign CH1_TXDATA_in[31] = (CH1_TXDATA[31] !== 1'bz) && CH1_TXDATA_delay[31]; // rv MustConnect
+  assign CH1_TXDATA_in[32] = (CH1_TXDATA[32] !== 1'bz) && CH1_TXDATA_delay[32]; // rv MustConnect
+  assign CH1_TXDATA_in[33] = (CH1_TXDATA[33] !== 1'bz) && CH1_TXDATA_delay[33]; // rv MustConnect
+  assign CH1_TXDATA_in[34] = (CH1_TXDATA[34] !== 1'bz) && CH1_TXDATA_delay[34]; // rv MustConnect
+  assign CH1_TXDATA_in[35] = (CH1_TXDATA[35] !== 1'bz) && CH1_TXDATA_delay[35]; // rv MustConnect
+  assign CH1_TXDATA_in[36] = (CH1_TXDATA[36] !== 1'bz) && CH1_TXDATA_delay[36]; // rv MustConnect
+  assign CH1_TXDATA_in[37] = (CH1_TXDATA[37] !== 1'bz) && CH1_TXDATA_delay[37]; // rv MustConnect
+  assign CH1_TXDATA_in[38] = (CH1_TXDATA[38] !== 1'bz) && CH1_TXDATA_delay[38]; // rv MustConnect
+  assign CH1_TXDATA_in[39] = (CH1_TXDATA[39] !== 1'bz) && CH1_TXDATA_delay[39]; // rv MustConnect
+  assign CH1_TXDATA_in[3] = (CH1_TXDATA[3] !== 1'bz) && CH1_TXDATA_delay[3]; // rv MustConnect
+  assign CH1_TXDATA_in[40] = (CH1_TXDATA[40] !== 1'bz) && CH1_TXDATA_delay[40]; // rv MustConnect
+  assign CH1_TXDATA_in[41] = (CH1_TXDATA[41] !== 1'bz) && CH1_TXDATA_delay[41]; // rv MustConnect
+  assign CH1_TXDATA_in[42] = (CH1_TXDATA[42] !== 1'bz) && CH1_TXDATA_delay[42]; // rv MustConnect
+  assign CH1_TXDATA_in[43] = (CH1_TXDATA[43] !== 1'bz) && CH1_TXDATA_delay[43]; // rv MustConnect
+  assign CH1_TXDATA_in[44] = (CH1_TXDATA[44] !== 1'bz) && CH1_TXDATA_delay[44]; // rv MustConnect
+  assign CH1_TXDATA_in[45] = (CH1_TXDATA[45] !== 1'bz) && CH1_TXDATA_delay[45]; // rv MustConnect
+  assign CH1_TXDATA_in[46] = (CH1_TXDATA[46] !== 1'bz) && CH1_TXDATA_delay[46]; // rv MustConnect
+  assign CH1_TXDATA_in[47] = (CH1_TXDATA[47] !== 1'bz) && CH1_TXDATA_delay[47]; // rv MustConnect
+  assign CH1_TXDATA_in[48] = (CH1_TXDATA[48] !== 1'bz) && CH1_TXDATA_delay[48]; // rv MustConnect
+  assign CH1_TXDATA_in[49] = (CH1_TXDATA[49] !== 1'bz) && CH1_TXDATA_delay[49]; // rv MustConnect
+  assign CH1_TXDATA_in[4] = (CH1_TXDATA[4] !== 1'bz) && CH1_TXDATA_delay[4]; // rv MustConnect
+  assign CH1_TXDATA_in[50] = (CH1_TXDATA[50] !== 1'bz) && CH1_TXDATA_delay[50]; // rv MustConnect
+  assign CH1_TXDATA_in[51] = (CH1_TXDATA[51] !== 1'bz) && CH1_TXDATA_delay[51]; // rv MustConnect
+  assign CH1_TXDATA_in[52] = (CH1_TXDATA[52] !== 1'bz) && CH1_TXDATA_delay[52]; // rv MustConnect
+  assign CH1_TXDATA_in[53] = (CH1_TXDATA[53] !== 1'bz) && CH1_TXDATA_delay[53]; // rv MustConnect
+  assign CH1_TXDATA_in[54] = (CH1_TXDATA[54] !== 1'bz) && CH1_TXDATA_delay[54]; // rv MustConnect
+  assign CH1_TXDATA_in[55] = (CH1_TXDATA[55] !== 1'bz) && CH1_TXDATA_delay[55]; // rv MustConnect
+  assign CH1_TXDATA_in[56] = (CH1_TXDATA[56] !== 1'bz) && CH1_TXDATA_delay[56]; // rv MustConnect
+  assign CH1_TXDATA_in[57] = (CH1_TXDATA[57] !== 1'bz) && CH1_TXDATA_delay[57]; // rv MustConnect
+  assign CH1_TXDATA_in[58] = (CH1_TXDATA[58] !== 1'bz) && CH1_TXDATA_delay[58]; // rv MustConnect
+  assign CH1_TXDATA_in[59] = (CH1_TXDATA[59] !== 1'bz) && CH1_TXDATA_delay[59]; // rv MustConnect
+  assign CH1_TXDATA_in[5] = (CH1_TXDATA[5] !== 1'bz) && CH1_TXDATA_delay[5]; // rv MustConnect
+  assign CH1_TXDATA_in[60] = (CH1_TXDATA[60] !== 1'bz) && CH1_TXDATA_delay[60]; // rv MustConnect
+  assign CH1_TXDATA_in[61] = (CH1_TXDATA[61] !== 1'bz) && CH1_TXDATA_delay[61]; // rv MustConnect
+  assign CH1_TXDATA_in[62] = (CH1_TXDATA[62] !== 1'bz) && CH1_TXDATA_delay[62]; // rv MustConnect
+  assign CH1_TXDATA_in[63] = (CH1_TXDATA[63] !== 1'bz) && CH1_TXDATA_delay[63]; // rv MustConnect
+  assign CH1_TXDATA_in[64] = (CH1_TXDATA[64] !== 1'bz) && CH1_TXDATA_delay[64]; // rv MustConnect
+  assign CH1_TXDATA_in[65] = (CH1_TXDATA[65] !== 1'bz) && CH1_TXDATA_delay[65]; // rv MustConnect
+  assign CH1_TXDATA_in[66] = (CH1_TXDATA[66] !== 1'bz) && CH1_TXDATA_delay[66]; // rv MustConnect
+  assign CH1_TXDATA_in[67] = (CH1_TXDATA[67] !== 1'bz) && CH1_TXDATA_delay[67]; // rv MustConnect
+  assign CH1_TXDATA_in[68] = (CH1_TXDATA[68] !== 1'bz) && CH1_TXDATA_delay[68]; // rv MustConnect
+  assign CH1_TXDATA_in[69] = (CH1_TXDATA[69] !== 1'bz) && CH1_TXDATA_delay[69]; // rv MustConnect
+  assign CH1_TXDATA_in[6] = (CH1_TXDATA[6] !== 1'bz) && CH1_TXDATA_delay[6]; // rv MustConnect
+  assign CH1_TXDATA_in[70] = (CH1_TXDATA[70] !== 1'bz) && CH1_TXDATA_delay[70]; // rv MustConnect
+  assign CH1_TXDATA_in[71] = (CH1_TXDATA[71] !== 1'bz) && CH1_TXDATA_delay[71]; // rv MustConnect
+  assign CH1_TXDATA_in[72] = (CH1_TXDATA[72] !== 1'bz) && CH1_TXDATA_delay[72]; // rv MustConnect
+  assign CH1_TXDATA_in[73] = (CH1_TXDATA[73] !== 1'bz) && CH1_TXDATA_delay[73]; // rv MustConnect
+  assign CH1_TXDATA_in[74] = (CH1_TXDATA[74] !== 1'bz) && CH1_TXDATA_delay[74]; // rv MustConnect
+  assign CH1_TXDATA_in[75] = (CH1_TXDATA[75] !== 1'bz) && CH1_TXDATA_delay[75]; // rv MustConnect
+  assign CH1_TXDATA_in[76] = (CH1_TXDATA[76] !== 1'bz) && CH1_TXDATA_delay[76]; // rv MustConnect
+  assign CH1_TXDATA_in[77] = (CH1_TXDATA[77] !== 1'bz) && CH1_TXDATA_delay[77]; // rv MustConnect
+  assign CH1_TXDATA_in[78] = (CH1_TXDATA[78] !== 1'bz) && CH1_TXDATA_delay[78]; // rv MustConnect
+  assign CH1_TXDATA_in[79] = (CH1_TXDATA[79] !== 1'bz) && CH1_TXDATA_delay[79]; // rv MustConnect
+  assign CH1_TXDATA_in[7] = (CH1_TXDATA[7] !== 1'bz) && CH1_TXDATA_delay[7]; // rv MustConnect
+  assign CH1_TXDATA_in[80] = (CH1_TXDATA[80] !== 1'bz) && CH1_TXDATA_delay[80]; // rv MustConnect
+  assign CH1_TXDATA_in[81] = (CH1_TXDATA[81] !== 1'bz) && CH1_TXDATA_delay[81]; // rv MustConnect
+  assign CH1_TXDATA_in[82] = (CH1_TXDATA[82] !== 1'bz) && CH1_TXDATA_delay[82]; // rv MustConnect
+  assign CH1_TXDATA_in[83] = (CH1_TXDATA[83] !== 1'bz) && CH1_TXDATA_delay[83]; // rv MustConnect
+  assign CH1_TXDATA_in[84] = (CH1_TXDATA[84] !== 1'bz) && CH1_TXDATA_delay[84]; // rv MustConnect
+  assign CH1_TXDATA_in[85] = (CH1_TXDATA[85] !== 1'bz) && CH1_TXDATA_delay[85]; // rv MustConnect
+  assign CH1_TXDATA_in[86] = (CH1_TXDATA[86] !== 1'bz) && CH1_TXDATA_delay[86]; // rv MustConnect
+  assign CH1_TXDATA_in[87] = (CH1_TXDATA[87] !== 1'bz) && CH1_TXDATA_delay[87]; // rv MustConnect
+  assign CH1_TXDATA_in[88] = (CH1_TXDATA[88] !== 1'bz) && CH1_TXDATA_delay[88]; // rv MustConnect
+  assign CH1_TXDATA_in[89] = (CH1_TXDATA[89] !== 1'bz) && CH1_TXDATA_delay[89]; // rv MustConnect
+  assign CH1_TXDATA_in[8] = (CH1_TXDATA[8] !== 1'bz) && CH1_TXDATA_delay[8]; // rv MustConnect
+  assign CH1_TXDATA_in[90] = (CH1_TXDATA[90] !== 1'bz) && CH1_TXDATA_delay[90]; // rv MustConnect
+  assign CH1_TXDATA_in[91] = (CH1_TXDATA[91] !== 1'bz) && CH1_TXDATA_delay[91]; // rv MustConnect
+  assign CH1_TXDATA_in[92] = (CH1_TXDATA[92] !== 1'bz) && CH1_TXDATA_delay[92]; // rv MustConnect
+  assign CH1_TXDATA_in[93] = (CH1_TXDATA[93] !== 1'bz) && CH1_TXDATA_delay[93]; // rv MustConnect
+  assign CH1_TXDATA_in[94] = (CH1_TXDATA[94] !== 1'bz) && CH1_TXDATA_delay[94]; // rv MustConnect
+  assign CH1_TXDATA_in[95] = (CH1_TXDATA[95] !== 1'bz) && CH1_TXDATA_delay[95]; // rv MustConnect
+  assign CH1_TXDATA_in[96] = (CH1_TXDATA[96] !== 1'bz) && CH1_TXDATA_delay[96]; // rv MustConnect
+  assign CH1_TXDATA_in[97] = (CH1_TXDATA[97] !== 1'bz) && CH1_TXDATA_delay[97]; // rv MustConnect
+  assign CH1_TXDATA_in[98] = (CH1_TXDATA[98] !== 1'bz) && CH1_TXDATA_delay[98]; // rv MustConnect
+  assign CH1_TXDATA_in[99] = (CH1_TXDATA[99] !== 1'bz) && CH1_TXDATA_delay[99]; // rv MustConnect
+  assign CH1_TXDATA_in[9] = (CH1_TXDATA[9] !== 1'bz) && CH1_TXDATA_delay[9]; // rv MustConnect
+  assign CH1_TXDETECTRXLOOPBACK_in = CH1_TXDETECTRXLOOPBACK_delay;
+  assign CH1_TXELECIDLE_in = (CH1_TXELECIDLE === 1'bz) || CH1_TXELECIDLE_delay; // rv 1
+  assign CH1_TXPOWERDOWN_in = CH1_TXPOWERDOWN_delay;
+  assign CH1_TXRATE_in = CH1_TXRATE_delay;
+  assign CH1_TXUSRCLK_in = (CH1_TXUSRCLK === 1'bz) || CH1_TXUSRCLK_delay; // rv 1
+  assign CH2_RXGEARBOXSLIP_in = CH2_RXGEARBOXSLIP_delay;
+  assign CH2_RXUSRCLK_in = (CH2_RXUSRCLK === 1'bz) || CH2_RXUSRCLK_delay; // rv 1
+  assign CH2_SCANCHNLMASKIN_in = CH2_SCANCHNLMASKIN_delay;
+  assign CH2_SCANCLKB_in = CH2_SCANCLKB_delay;
+  assign CH2_SCANCNTRLIN_in = CH2_SCANCNTRLIN_delay;
+  assign CH2_SCANIN_in = CH2_SCANIN_delay;
+  assign CH2_SCANODCCCHNLMASK_in = CH2_SCANODCCCHNLMASK_delay;
+  assign CH2_TXDATA_in[0] = (CH2_TXDATA[0] !== 1'bz) && CH2_TXDATA_delay[0]; // rv MustConnect
+  assign CH2_TXDATA_in[100] = (CH2_TXDATA[100] !== 1'bz) && CH2_TXDATA_delay[100]; // rv MustConnect
+  assign CH2_TXDATA_in[101] = (CH2_TXDATA[101] !== 1'bz) && CH2_TXDATA_delay[101]; // rv MustConnect
+  assign CH2_TXDATA_in[102] = (CH2_TXDATA[102] !== 1'bz) && CH2_TXDATA_delay[102]; // rv MustConnect
+  assign CH2_TXDATA_in[103] = (CH2_TXDATA[103] !== 1'bz) && CH2_TXDATA_delay[103]; // rv MustConnect
+  assign CH2_TXDATA_in[104] = (CH2_TXDATA[104] !== 1'bz) && CH2_TXDATA_delay[104]; // rv MustConnect
+  assign CH2_TXDATA_in[105] = (CH2_TXDATA[105] !== 1'bz) && CH2_TXDATA_delay[105]; // rv MustConnect
+  assign CH2_TXDATA_in[106] = (CH2_TXDATA[106] !== 1'bz) && CH2_TXDATA_delay[106]; // rv MustConnect
+  assign CH2_TXDATA_in[107] = (CH2_TXDATA[107] !== 1'bz) && CH2_TXDATA_delay[107]; // rv MustConnect
+  assign CH2_TXDATA_in[108] = (CH2_TXDATA[108] !== 1'bz) && CH2_TXDATA_delay[108]; // rv MustConnect
+  assign CH2_TXDATA_in[109] = (CH2_TXDATA[109] !== 1'bz) && CH2_TXDATA_delay[109]; // rv MustConnect
+  assign CH2_TXDATA_in[10] = (CH2_TXDATA[10] !== 1'bz) && CH2_TXDATA_delay[10]; // rv MustConnect
+  assign CH2_TXDATA_in[110] = (CH2_TXDATA[110] !== 1'bz) && CH2_TXDATA_delay[110]; // rv MustConnect
+  assign CH2_TXDATA_in[111] = (CH2_TXDATA[111] !== 1'bz) && CH2_TXDATA_delay[111]; // rv MustConnect
+  assign CH2_TXDATA_in[112] = (CH2_TXDATA[112] !== 1'bz) && CH2_TXDATA_delay[112]; // rv MustConnect
+  assign CH2_TXDATA_in[113] = (CH2_TXDATA[113] !== 1'bz) && CH2_TXDATA_delay[113]; // rv MustConnect
+  assign CH2_TXDATA_in[114] = (CH2_TXDATA[114] !== 1'bz) && CH2_TXDATA_delay[114]; // rv MustConnect
+  assign CH2_TXDATA_in[115] = (CH2_TXDATA[115] !== 1'bz) && CH2_TXDATA_delay[115]; // rv MustConnect
+  assign CH2_TXDATA_in[116] = (CH2_TXDATA[116] !== 1'bz) && CH2_TXDATA_delay[116]; // rv MustConnect
+  assign CH2_TXDATA_in[117] = (CH2_TXDATA[117] !== 1'bz) && CH2_TXDATA_delay[117]; // rv MustConnect
+  assign CH2_TXDATA_in[118] = (CH2_TXDATA[118] !== 1'bz) && CH2_TXDATA_delay[118]; // rv MustConnect
+  assign CH2_TXDATA_in[119] = (CH2_TXDATA[119] !== 1'bz) && CH2_TXDATA_delay[119]; // rv MustConnect
+  assign CH2_TXDATA_in[11] = (CH2_TXDATA[11] !== 1'bz) && CH2_TXDATA_delay[11]; // rv MustConnect
+  assign CH2_TXDATA_in[120] = (CH2_TXDATA[120] !== 1'bz) && CH2_TXDATA_delay[120]; // rv MustConnect
+  assign CH2_TXDATA_in[121] = (CH2_TXDATA[121] !== 1'bz) && CH2_TXDATA_delay[121]; // rv MustConnect
+  assign CH2_TXDATA_in[122] = (CH2_TXDATA[122] !== 1'bz) && CH2_TXDATA_delay[122]; // rv MustConnect
+  assign CH2_TXDATA_in[123] = (CH2_TXDATA[123] !== 1'bz) && CH2_TXDATA_delay[123]; // rv MustConnect
+  assign CH2_TXDATA_in[124] = (CH2_TXDATA[124] !== 1'bz) && CH2_TXDATA_delay[124]; // rv MustConnect
+  assign CH2_TXDATA_in[125] = (CH2_TXDATA[125] !== 1'bz) && CH2_TXDATA_delay[125]; // rv MustConnect
+  assign CH2_TXDATA_in[126] = (CH2_TXDATA[126] !== 1'bz) && CH2_TXDATA_delay[126]; // rv MustConnect
+  assign CH2_TXDATA_in[127] = (CH2_TXDATA[127] !== 1'bz) && CH2_TXDATA_delay[127]; // rv MustConnect
+  assign CH2_TXDATA_in[128] = (CH2_TXDATA[128] !== 1'bz) && CH2_TXDATA_delay[128]; // rv MustConnect
+  assign CH2_TXDATA_in[129] = (CH2_TXDATA[129] !== 1'bz) && CH2_TXDATA_delay[129]; // rv MustConnect
+  assign CH2_TXDATA_in[12] = (CH2_TXDATA[12] !== 1'bz) && CH2_TXDATA_delay[12]; // rv MustConnect
+  assign CH2_TXDATA_in[130] = (CH2_TXDATA[130] !== 1'bz) && CH2_TXDATA_delay[130]; // rv MustConnect
+  assign CH2_TXDATA_in[131] = (CH2_TXDATA[131] !== 1'bz) && CH2_TXDATA_delay[131]; // rv MustConnect
+  assign CH2_TXDATA_in[132] = (CH2_TXDATA[132] !== 1'bz) && CH2_TXDATA_delay[132]; // rv MustConnect
+  assign CH2_TXDATA_in[133] = (CH2_TXDATA[133] !== 1'bz) && CH2_TXDATA_delay[133]; // rv MustConnect
+  assign CH2_TXDATA_in[134] = (CH2_TXDATA[134] !== 1'bz) && CH2_TXDATA_delay[134]; // rv MustConnect
+  assign CH2_TXDATA_in[135] = (CH2_TXDATA[135] !== 1'bz) && CH2_TXDATA_delay[135]; // rv MustConnect
+  assign CH2_TXDATA_in[136] = (CH2_TXDATA[136] !== 1'bz) && CH2_TXDATA_delay[136]; // rv MustConnect
+  assign CH2_TXDATA_in[137] = (CH2_TXDATA[137] !== 1'bz) && CH2_TXDATA_delay[137]; // rv MustConnect
+  assign CH2_TXDATA_in[138] = (CH2_TXDATA[138] !== 1'bz) && CH2_TXDATA_delay[138]; // rv MustConnect
+  assign CH2_TXDATA_in[139] = (CH2_TXDATA[139] !== 1'bz) && CH2_TXDATA_delay[139]; // rv MustConnect
+  assign CH2_TXDATA_in[13] = (CH2_TXDATA[13] !== 1'bz) && CH2_TXDATA_delay[13]; // rv MustConnect
+  assign CH2_TXDATA_in[140] = (CH2_TXDATA[140] !== 1'bz) && CH2_TXDATA_delay[140]; // rv MustConnect
+  assign CH2_TXDATA_in[141] = (CH2_TXDATA[141] !== 1'bz) && CH2_TXDATA_delay[141]; // rv MustConnect
+  assign CH2_TXDATA_in[142] = (CH2_TXDATA[142] !== 1'bz) && CH2_TXDATA_delay[142]; // rv MustConnect
+  assign CH2_TXDATA_in[143] = (CH2_TXDATA[143] !== 1'bz) && CH2_TXDATA_delay[143]; // rv MustConnect
+  assign CH2_TXDATA_in[144] = (CH2_TXDATA[144] !== 1'bz) && CH2_TXDATA_delay[144]; // rv MustConnect
+  assign CH2_TXDATA_in[145] = (CH2_TXDATA[145] !== 1'bz) && CH2_TXDATA_delay[145]; // rv MustConnect
+  assign CH2_TXDATA_in[146] = (CH2_TXDATA[146] !== 1'bz) && CH2_TXDATA_delay[146]; // rv MustConnect
+  assign CH2_TXDATA_in[147] = (CH2_TXDATA[147] !== 1'bz) && CH2_TXDATA_delay[147]; // rv MustConnect
+  assign CH2_TXDATA_in[148] = (CH2_TXDATA[148] !== 1'bz) && CH2_TXDATA_delay[148]; // rv MustConnect
+  assign CH2_TXDATA_in[149] = (CH2_TXDATA[149] !== 1'bz) && CH2_TXDATA_delay[149]; // rv MustConnect
+  assign CH2_TXDATA_in[14] = (CH2_TXDATA[14] !== 1'bz) && CH2_TXDATA_delay[14]; // rv MustConnect
+  assign CH2_TXDATA_in[150] = (CH2_TXDATA[150] !== 1'bz) && CH2_TXDATA_delay[150]; // rv MustConnect
+  assign CH2_TXDATA_in[151] = (CH2_TXDATA[151] !== 1'bz) && CH2_TXDATA_delay[151]; // rv MustConnect
+  assign CH2_TXDATA_in[152] = (CH2_TXDATA[152] !== 1'bz) && CH2_TXDATA_delay[152]; // rv MustConnect
+  assign CH2_TXDATA_in[153] = (CH2_TXDATA[153] !== 1'bz) && CH2_TXDATA_delay[153]; // rv MustConnect
+  assign CH2_TXDATA_in[154] = (CH2_TXDATA[154] !== 1'bz) && CH2_TXDATA_delay[154]; // rv MustConnect
+  assign CH2_TXDATA_in[155] = (CH2_TXDATA[155] !== 1'bz) && CH2_TXDATA_delay[155]; // rv MustConnect
+  assign CH2_TXDATA_in[156] = (CH2_TXDATA[156] !== 1'bz) && CH2_TXDATA_delay[156]; // rv MustConnect
+  assign CH2_TXDATA_in[157] = (CH2_TXDATA[157] !== 1'bz) && CH2_TXDATA_delay[157]; // rv MustConnect
+  assign CH2_TXDATA_in[158] = (CH2_TXDATA[158] !== 1'bz) && CH2_TXDATA_delay[158]; // rv MustConnect
+  assign CH2_TXDATA_in[159] = (CH2_TXDATA[159] !== 1'bz) && CH2_TXDATA_delay[159]; // rv MustConnect
+  assign CH2_TXDATA_in[15] = (CH2_TXDATA[15] !== 1'bz) && CH2_TXDATA_delay[15]; // rv MustConnect
+  assign CH2_TXDATA_in[160] = (CH2_TXDATA[160] !== 1'bz) && CH2_TXDATA_delay[160]; // rv MustConnect
+  assign CH2_TXDATA_in[161] = (CH2_TXDATA[161] !== 1'bz) && CH2_TXDATA_delay[161]; // rv MustConnect
+  assign CH2_TXDATA_in[162] = (CH2_TXDATA[162] !== 1'bz) && CH2_TXDATA_delay[162]; // rv MustConnect
+  assign CH2_TXDATA_in[163] = (CH2_TXDATA[163] !== 1'bz) && CH2_TXDATA_delay[163]; // rv MustConnect
+  assign CH2_TXDATA_in[164] = (CH2_TXDATA[164] !== 1'bz) && CH2_TXDATA_delay[164]; // rv MustConnect
+  assign CH2_TXDATA_in[165] = (CH2_TXDATA[165] !== 1'bz) && CH2_TXDATA_delay[165]; // rv MustConnect
+  assign CH2_TXDATA_in[166] = (CH2_TXDATA[166] !== 1'bz) && CH2_TXDATA_delay[166]; // rv MustConnect
+  assign CH2_TXDATA_in[167] = (CH2_TXDATA[167] !== 1'bz) && CH2_TXDATA_delay[167]; // rv MustConnect
+  assign CH2_TXDATA_in[168] = (CH2_TXDATA[168] !== 1'bz) && CH2_TXDATA_delay[168]; // rv MustConnect
+  assign CH2_TXDATA_in[169] = (CH2_TXDATA[169] !== 1'bz) && CH2_TXDATA_delay[169]; // rv MustConnect
+  assign CH2_TXDATA_in[16] = (CH2_TXDATA[16] !== 1'bz) && CH2_TXDATA_delay[16]; // rv MustConnect
+  assign CH2_TXDATA_in[170] = (CH2_TXDATA[170] !== 1'bz) && CH2_TXDATA_delay[170]; // rv MustConnect
+  assign CH2_TXDATA_in[171] = (CH2_TXDATA[171] !== 1'bz) && CH2_TXDATA_delay[171]; // rv MustConnect
+  assign CH2_TXDATA_in[172] = (CH2_TXDATA[172] !== 1'bz) && CH2_TXDATA_delay[172]; // rv MustConnect
+  assign CH2_TXDATA_in[173] = (CH2_TXDATA[173] !== 1'bz) && CH2_TXDATA_delay[173]; // rv MustConnect
+  assign CH2_TXDATA_in[174] = (CH2_TXDATA[174] !== 1'bz) && CH2_TXDATA_delay[174]; // rv MustConnect
+  assign CH2_TXDATA_in[175] = (CH2_TXDATA[175] !== 1'bz) && CH2_TXDATA_delay[175]; // rv MustConnect
+  assign CH2_TXDATA_in[176] = (CH2_TXDATA[176] !== 1'bz) && CH2_TXDATA_delay[176]; // rv MustConnect
+  assign CH2_TXDATA_in[177] = (CH2_TXDATA[177] !== 1'bz) && CH2_TXDATA_delay[177]; // rv MustConnect
+  assign CH2_TXDATA_in[178] = (CH2_TXDATA[178] !== 1'bz) && CH2_TXDATA_delay[178]; // rv MustConnect
+  assign CH2_TXDATA_in[179] = (CH2_TXDATA[179] !== 1'bz) && CH2_TXDATA_delay[179]; // rv MustConnect
+  assign CH2_TXDATA_in[17] = (CH2_TXDATA[17] !== 1'bz) && CH2_TXDATA_delay[17]; // rv MustConnect
+  assign CH2_TXDATA_in[180] = (CH2_TXDATA[180] !== 1'bz) && CH2_TXDATA_delay[180]; // rv MustConnect
+  assign CH2_TXDATA_in[181] = (CH2_TXDATA[181] !== 1'bz) && CH2_TXDATA_delay[181]; // rv MustConnect
+  assign CH2_TXDATA_in[182] = (CH2_TXDATA[182] !== 1'bz) && CH2_TXDATA_delay[182]; // rv MustConnect
+  assign CH2_TXDATA_in[183] = (CH2_TXDATA[183] !== 1'bz) && CH2_TXDATA_delay[183]; // rv MustConnect
+  assign CH2_TXDATA_in[184] = (CH2_TXDATA[184] !== 1'bz) && CH2_TXDATA_delay[184]; // rv MustConnect
+  assign CH2_TXDATA_in[185] = (CH2_TXDATA[185] !== 1'bz) && CH2_TXDATA_delay[185]; // rv MustConnect
+  assign CH2_TXDATA_in[186] = (CH2_TXDATA[186] !== 1'bz) && CH2_TXDATA_delay[186]; // rv MustConnect
+  assign CH2_TXDATA_in[187] = (CH2_TXDATA[187] !== 1'bz) && CH2_TXDATA_delay[187]; // rv MustConnect
+  assign CH2_TXDATA_in[188] = (CH2_TXDATA[188] !== 1'bz) && CH2_TXDATA_delay[188]; // rv MustConnect
+  assign CH2_TXDATA_in[189] = (CH2_TXDATA[189] !== 1'bz) && CH2_TXDATA_delay[189]; // rv MustConnect
+  assign CH2_TXDATA_in[18] = (CH2_TXDATA[18] !== 1'bz) && CH2_TXDATA_delay[18]; // rv MustConnect
+  assign CH2_TXDATA_in[190] = (CH2_TXDATA[190] !== 1'bz) && CH2_TXDATA_delay[190]; // rv MustConnect
+  assign CH2_TXDATA_in[191] = (CH2_TXDATA[191] !== 1'bz) && CH2_TXDATA_delay[191]; // rv MustConnect
+  assign CH2_TXDATA_in[192] = (CH2_TXDATA[192] !== 1'bz) && CH2_TXDATA_delay[192]; // rv MustConnect
+  assign CH2_TXDATA_in[193] = (CH2_TXDATA[193] !== 1'bz) && CH2_TXDATA_delay[193]; // rv MustConnect
+  assign CH2_TXDATA_in[194] = (CH2_TXDATA[194] !== 1'bz) && CH2_TXDATA_delay[194]; // rv MustConnect
+  assign CH2_TXDATA_in[195] = (CH2_TXDATA[195] !== 1'bz) && CH2_TXDATA_delay[195]; // rv MustConnect
+  assign CH2_TXDATA_in[196] = (CH2_TXDATA[196] !== 1'bz) && CH2_TXDATA_delay[196]; // rv MustConnect
+  assign CH2_TXDATA_in[197] = (CH2_TXDATA[197] !== 1'bz) && CH2_TXDATA_delay[197]; // rv MustConnect
+  assign CH2_TXDATA_in[198] = (CH2_TXDATA[198] !== 1'bz) && CH2_TXDATA_delay[198]; // rv MustConnect
+  assign CH2_TXDATA_in[199] = (CH2_TXDATA[199] !== 1'bz) && CH2_TXDATA_delay[199]; // rv MustConnect
+  assign CH2_TXDATA_in[19] = (CH2_TXDATA[19] !== 1'bz) && CH2_TXDATA_delay[19]; // rv MustConnect
+  assign CH2_TXDATA_in[1] = (CH2_TXDATA[1] !== 1'bz) && CH2_TXDATA_delay[1]; // rv MustConnect
+  assign CH2_TXDATA_in[200] = (CH2_TXDATA[200] !== 1'bz) && CH2_TXDATA_delay[200]; // rv MustConnect
+  assign CH2_TXDATA_in[201] = (CH2_TXDATA[201] !== 1'bz) && CH2_TXDATA_delay[201]; // rv MustConnect
+  assign CH2_TXDATA_in[202] = (CH2_TXDATA[202] !== 1'bz) && CH2_TXDATA_delay[202]; // rv MustConnect
+  assign CH2_TXDATA_in[203] = (CH2_TXDATA[203] !== 1'bz) && CH2_TXDATA_delay[203]; // rv MustConnect
+  assign CH2_TXDATA_in[204] = (CH2_TXDATA[204] !== 1'bz) && CH2_TXDATA_delay[204]; // rv MustConnect
+  assign CH2_TXDATA_in[205] = (CH2_TXDATA[205] !== 1'bz) && CH2_TXDATA_delay[205]; // rv MustConnect
+  assign CH2_TXDATA_in[206] = (CH2_TXDATA[206] !== 1'bz) && CH2_TXDATA_delay[206]; // rv MustConnect
+  assign CH2_TXDATA_in[207] = (CH2_TXDATA[207] !== 1'bz) && CH2_TXDATA_delay[207]; // rv MustConnect
+  assign CH2_TXDATA_in[208] = (CH2_TXDATA[208] !== 1'bz) && CH2_TXDATA_delay[208]; // rv MustConnect
+  assign CH2_TXDATA_in[209] = (CH2_TXDATA[209] !== 1'bz) && CH2_TXDATA_delay[209]; // rv MustConnect
+  assign CH2_TXDATA_in[20] = (CH2_TXDATA[20] !== 1'bz) && CH2_TXDATA_delay[20]; // rv MustConnect
+  assign CH2_TXDATA_in[210] = (CH2_TXDATA[210] !== 1'bz) && CH2_TXDATA_delay[210]; // rv MustConnect
+  assign CH2_TXDATA_in[211] = (CH2_TXDATA[211] !== 1'bz) && CH2_TXDATA_delay[211]; // rv MustConnect
+  assign CH2_TXDATA_in[212] = (CH2_TXDATA[212] !== 1'bz) && CH2_TXDATA_delay[212]; // rv MustConnect
+  assign CH2_TXDATA_in[213] = (CH2_TXDATA[213] !== 1'bz) && CH2_TXDATA_delay[213]; // rv MustConnect
+  assign CH2_TXDATA_in[214] = (CH2_TXDATA[214] !== 1'bz) && CH2_TXDATA_delay[214]; // rv MustConnect
+  assign CH2_TXDATA_in[215] = (CH2_TXDATA[215] !== 1'bz) && CH2_TXDATA_delay[215]; // rv MustConnect
+  assign CH2_TXDATA_in[216] = (CH2_TXDATA[216] !== 1'bz) && CH2_TXDATA_delay[216]; // rv MustConnect
+  assign CH2_TXDATA_in[217] = (CH2_TXDATA[217] !== 1'bz) && CH2_TXDATA_delay[217]; // rv MustConnect
+  assign CH2_TXDATA_in[218] = (CH2_TXDATA[218] !== 1'bz) && CH2_TXDATA_delay[218]; // rv MustConnect
+  assign CH2_TXDATA_in[219] = (CH2_TXDATA[219] !== 1'bz) && CH2_TXDATA_delay[219]; // rv MustConnect
+  assign CH2_TXDATA_in[21] = (CH2_TXDATA[21] !== 1'bz) && CH2_TXDATA_delay[21]; // rv MustConnect
+  assign CH2_TXDATA_in[220] = (CH2_TXDATA[220] !== 1'bz) && CH2_TXDATA_delay[220]; // rv MustConnect
+  assign CH2_TXDATA_in[221] = (CH2_TXDATA[221] !== 1'bz) && CH2_TXDATA_delay[221]; // rv MustConnect
+  assign CH2_TXDATA_in[222] = (CH2_TXDATA[222] !== 1'bz) && CH2_TXDATA_delay[222]; // rv MustConnect
+  assign CH2_TXDATA_in[223] = (CH2_TXDATA[223] !== 1'bz) && CH2_TXDATA_delay[223]; // rv MustConnect
+  assign CH2_TXDATA_in[224] = (CH2_TXDATA[224] !== 1'bz) && CH2_TXDATA_delay[224]; // rv MustConnect
+  assign CH2_TXDATA_in[225] = (CH2_TXDATA[225] !== 1'bz) && CH2_TXDATA_delay[225]; // rv MustConnect
+  assign CH2_TXDATA_in[226] = (CH2_TXDATA[226] !== 1'bz) && CH2_TXDATA_delay[226]; // rv MustConnect
+  assign CH2_TXDATA_in[227] = (CH2_TXDATA[227] !== 1'bz) && CH2_TXDATA_delay[227]; // rv MustConnect
+  assign CH2_TXDATA_in[228] = (CH2_TXDATA[228] !== 1'bz) && CH2_TXDATA_delay[228]; // rv MustConnect
+  assign CH2_TXDATA_in[229] = (CH2_TXDATA[229] !== 1'bz) && CH2_TXDATA_delay[229]; // rv MustConnect
+  assign CH2_TXDATA_in[22] = (CH2_TXDATA[22] !== 1'bz) && CH2_TXDATA_delay[22]; // rv MustConnect
+  assign CH2_TXDATA_in[230] = (CH2_TXDATA[230] !== 1'bz) && CH2_TXDATA_delay[230]; // rv MustConnect
+  assign CH2_TXDATA_in[231] = (CH2_TXDATA[231] !== 1'bz) && CH2_TXDATA_delay[231]; // rv MustConnect
+  assign CH2_TXDATA_in[232] = (CH2_TXDATA[232] !== 1'bz) && CH2_TXDATA_delay[232]; // rv MustConnect
+  assign CH2_TXDATA_in[233] = (CH2_TXDATA[233] !== 1'bz) && CH2_TXDATA_delay[233]; // rv MustConnect
+  assign CH2_TXDATA_in[234] = (CH2_TXDATA[234] !== 1'bz) && CH2_TXDATA_delay[234]; // rv MustConnect
+  assign CH2_TXDATA_in[235] = (CH2_TXDATA[235] !== 1'bz) && CH2_TXDATA_delay[235]; // rv MustConnect
+  assign CH2_TXDATA_in[236] = (CH2_TXDATA[236] !== 1'bz) && CH2_TXDATA_delay[236]; // rv MustConnect
+  assign CH2_TXDATA_in[237] = (CH2_TXDATA[237] !== 1'bz) && CH2_TXDATA_delay[237]; // rv MustConnect
+  assign CH2_TXDATA_in[238] = (CH2_TXDATA[238] !== 1'bz) && CH2_TXDATA_delay[238]; // rv MustConnect
+  assign CH2_TXDATA_in[239] = (CH2_TXDATA[239] !== 1'bz) && CH2_TXDATA_delay[239]; // rv MustConnect
+  assign CH2_TXDATA_in[23] = (CH2_TXDATA[23] !== 1'bz) && CH2_TXDATA_delay[23]; // rv MustConnect
+  assign CH2_TXDATA_in[240] = (CH2_TXDATA[240] !== 1'bz) && CH2_TXDATA_delay[240]; // rv MustConnect
+  assign CH2_TXDATA_in[241] = (CH2_TXDATA[241] !== 1'bz) && CH2_TXDATA_delay[241]; // rv MustConnect
+  assign CH2_TXDATA_in[242] = (CH2_TXDATA[242] !== 1'bz) && CH2_TXDATA_delay[242]; // rv MustConnect
+  assign CH2_TXDATA_in[243] = (CH2_TXDATA[243] !== 1'bz) && CH2_TXDATA_delay[243]; // rv MustConnect
+  assign CH2_TXDATA_in[244] = (CH2_TXDATA[244] !== 1'bz) && CH2_TXDATA_delay[244]; // rv MustConnect
+  assign CH2_TXDATA_in[245] = (CH2_TXDATA[245] !== 1'bz) && CH2_TXDATA_delay[245]; // rv MustConnect
+  assign CH2_TXDATA_in[246] = (CH2_TXDATA[246] !== 1'bz) && CH2_TXDATA_delay[246]; // rv MustConnect
+  assign CH2_TXDATA_in[247] = (CH2_TXDATA[247] !== 1'bz) && CH2_TXDATA_delay[247]; // rv MustConnect
+  assign CH2_TXDATA_in[248] = (CH2_TXDATA[248] !== 1'bz) && CH2_TXDATA_delay[248]; // rv MustConnect
+  assign CH2_TXDATA_in[249] = (CH2_TXDATA[249] !== 1'bz) && CH2_TXDATA_delay[249]; // rv MustConnect
+  assign CH2_TXDATA_in[24] = (CH2_TXDATA[24] !== 1'bz) && CH2_TXDATA_delay[24]; // rv MustConnect
+  assign CH2_TXDATA_in[250] = (CH2_TXDATA[250] !== 1'bz) && CH2_TXDATA_delay[250]; // rv MustConnect
+  assign CH2_TXDATA_in[251] = (CH2_TXDATA[251] !== 1'bz) && CH2_TXDATA_delay[251]; // rv MustConnect
+  assign CH2_TXDATA_in[252] = (CH2_TXDATA[252] !== 1'bz) && CH2_TXDATA_delay[252]; // rv MustConnect
+  assign CH2_TXDATA_in[253] = (CH2_TXDATA[253] !== 1'bz) && CH2_TXDATA_delay[253]; // rv MustConnect
+  assign CH2_TXDATA_in[254] = (CH2_TXDATA[254] !== 1'bz) && CH2_TXDATA_delay[254]; // rv MustConnect
+  assign CH2_TXDATA_in[255] = (CH2_TXDATA[255] !== 1'bz) && CH2_TXDATA_delay[255]; // rv MustConnect
+  assign CH2_TXDATA_in[256] = (CH2_TXDATA[256] !== 1'bz) && CH2_TXDATA_delay[256]; // rv MustConnect
+  assign CH2_TXDATA_in[257] = (CH2_TXDATA[257] !== 1'bz) && CH2_TXDATA_delay[257]; // rv MustConnect
+  assign CH2_TXDATA_in[258] = (CH2_TXDATA[258] !== 1'bz) && CH2_TXDATA_delay[258]; // rv MustConnect
+  assign CH2_TXDATA_in[259] = (CH2_TXDATA[259] !== 1'bz) && CH2_TXDATA_delay[259]; // rv MustConnect
+  assign CH2_TXDATA_in[25] = (CH2_TXDATA[25] !== 1'bz) && CH2_TXDATA_delay[25]; // rv MustConnect
+  assign CH2_TXDATA_in[260] = (CH2_TXDATA[260] !== 1'bz) && CH2_TXDATA_delay[260]; // rv MustConnect
+  assign CH2_TXDATA_in[261] = (CH2_TXDATA[261] !== 1'bz) && CH2_TXDATA_delay[261]; // rv MustConnect
+  assign CH2_TXDATA_in[262] = (CH2_TXDATA[262] !== 1'bz) && CH2_TXDATA_delay[262]; // rv MustConnect
+  assign CH2_TXDATA_in[263] = (CH2_TXDATA[263] !== 1'bz) && CH2_TXDATA_delay[263]; // rv MustConnect
+  assign CH2_TXDATA_in[264] = (CH2_TXDATA[264] !== 1'bz) && CH2_TXDATA_delay[264]; // rv MustConnect
+  assign CH2_TXDATA_in[265] = (CH2_TXDATA[265] !== 1'bz) && CH2_TXDATA_delay[265]; // rv MustConnect
+  assign CH2_TXDATA_in[266] = (CH2_TXDATA[266] !== 1'bz) && CH2_TXDATA_delay[266]; // rv MustConnect
+  assign CH2_TXDATA_in[267] = (CH2_TXDATA[267] !== 1'bz) && CH2_TXDATA_delay[267]; // rv MustConnect
+  assign CH2_TXDATA_in[268] = (CH2_TXDATA[268] !== 1'bz) && CH2_TXDATA_delay[268]; // rv MustConnect
+  assign CH2_TXDATA_in[269] = (CH2_TXDATA[269] !== 1'bz) && CH2_TXDATA_delay[269]; // rv MustConnect
+  assign CH2_TXDATA_in[26] = (CH2_TXDATA[26] !== 1'bz) && CH2_TXDATA_delay[26]; // rv MustConnect
+  assign CH2_TXDATA_in[270] = (CH2_TXDATA[270] !== 1'bz) && CH2_TXDATA_delay[270]; // rv MustConnect
+  assign CH2_TXDATA_in[271] = (CH2_TXDATA[271] !== 1'bz) && CH2_TXDATA_delay[271]; // rv MustConnect
+  assign CH2_TXDATA_in[272] = (CH2_TXDATA[272] !== 1'bz) && CH2_TXDATA_delay[272]; // rv MustConnect
+  assign CH2_TXDATA_in[273] = (CH2_TXDATA[273] !== 1'bz) && CH2_TXDATA_delay[273]; // rv MustConnect
+  assign CH2_TXDATA_in[274] = (CH2_TXDATA[274] !== 1'bz) && CH2_TXDATA_delay[274]; // rv MustConnect
+  assign CH2_TXDATA_in[275] = (CH2_TXDATA[275] !== 1'bz) && CH2_TXDATA_delay[275]; // rv MustConnect
+  assign CH2_TXDATA_in[276] = (CH2_TXDATA[276] !== 1'bz) && CH2_TXDATA_delay[276]; // rv MustConnect
+  assign CH2_TXDATA_in[277] = (CH2_TXDATA[277] !== 1'bz) && CH2_TXDATA_delay[277]; // rv MustConnect
+  assign CH2_TXDATA_in[278] = (CH2_TXDATA[278] !== 1'bz) && CH2_TXDATA_delay[278]; // rv MustConnect
+  assign CH2_TXDATA_in[279] = (CH2_TXDATA[279] !== 1'bz) && CH2_TXDATA_delay[279]; // rv MustConnect
+  assign CH2_TXDATA_in[27] = (CH2_TXDATA[27] !== 1'bz) && CH2_TXDATA_delay[27]; // rv MustConnect
+  assign CH2_TXDATA_in[280] = (CH2_TXDATA[280] !== 1'bz) && CH2_TXDATA_delay[280]; // rv MustConnect
+  assign CH2_TXDATA_in[281] = (CH2_TXDATA[281] !== 1'bz) && CH2_TXDATA_delay[281]; // rv MustConnect
+  assign CH2_TXDATA_in[282] = (CH2_TXDATA[282] !== 1'bz) && CH2_TXDATA_delay[282]; // rv MustConnect
+  assign CH2_TXDATA_in[283] = (CH2_TXDATA[283] !== 1'bz) && CH2_TXDATA_delay[283]; // rv MustConnect
+  assign CH2_TXDATA_in[284] = (CH2_TXDATA[284] !== 1'bz) && CH2_TXDATA_delay[284]; // rv MustConnect
+  assign CH2_TXDATA_in[285] = (CH2_TXDATA[285] !== 1'bz) && CH2_TXDATA_delay[285]; // rv MustConnect
+  assign CH2_TXDATA_in[286] = (CH2_TXDATA[286] !== 1'bz) && CH2_TXDATA_delay[286]; // rv MustConnect
+  assign CH2_TXDATA_in[287] = (CH2_TXDATA[287] !== 1'bz) && CH2_TXDATA_delay[287]; // rv MustConnect
+  assign CH2_TXDATA_in[288] = (CH2_TXDATA[288] !== 1'bz) && CH2_TXDATA_delay[288]; // rv MustConnect
+  assign CH2_TXDATA_in[289] = (CH2_TXDATA[289] !== 1'bz) && CH2_TXDATA_delay[289]; // rv MustConnect
+  assign CH2_TXDATA_in[28] = (CH2_TXDATA[28] !== 1'bz) && CH2_TXDATA_delay[28]; // rv MustConnect
+  assign CH2_TXDATA_in[290] = (CH2_TXDATA[290] !== 1'bz) && CH2_TXDATA_delay[290]; // rv MustConnect
+  assign CH2_TXDATA_in[291] = (CH2_TXDATA[291] !== 1'bz) && CH2_TXDATA_delay[291]; // rv MustConnect
+  assign CH2_TXDATA_in[292] = (CH2_TXDATA[292] !== 1'bz) && CH2_TXDATA_delay[292]; // rv MustConnect
+  assign CH2_TXDATA_in[293] = (CH2_TXDATA[293] !== 1'bz) && CH2_TXDATA_delay[293]; // rv MustConnect
+  assign CH2_TXDATA_in[294] = (CH2_TXDATA[294] !== 1'bz) && CH2_TXDATA_delay[294]; // rv MustConnect
+  assign CH2_TXDATA_in[295] = (CH2_TXDATA[295] !== 1'bz) && CH2_TXDATA_delay[295]; // rv MustConnect
+  assign CH2_TXDATA_in[296] = (CH2_TXDATA[296] !== 1'bz) && CH2_TXDATA_delay[296]; // rv MustConnect
+  assign CH2_TXDATA_in[297] = (CH2_TXDATA[297] !== 1'bz) && CH2_TXDATA_delay[297]; // rv MustConnect
+  assign CH2_TXDATA_in[298] = (CH2_TXDATA[298] !== 1'bz) && CH2_TXDATA_delay[298]; // rv MustConnect
+  assign CH2_TXDATA_in[299] = (CH2_TXDATA[299] !== 1'bz) && CH2_TXDATA_delay[299]; // rv MustConnect
+  assign CH2_TXDATA_in[29] = (CH2_TXDATA[29] !== 1'bz) && CH2_TXDATA_delay[29]; // rv MustConnect
+  assign CH2_TXDATA_in[2] = (CH2_TXDATA[2] !== 1'bz) && CH2_TXDATA_delay[2]; // rv MustConnect
+  assign CH2_TXDATA_in[300] = (CH2_TXDATA[300] !== 1'bz) && CH2_TXDATA_delay[300]; // rv MustConnect
+  assign CH2_TXDATA_in[301] = (CH2_TXDATA[301] !== 1'bz) && CH2_TXDATA_delay[301]; // rv MustConnect
+  assign CH2_TXDATA_in[302] = (CH2_TXDATA[302] !== 1'bz) && CH2_TXDATA_delay[302]; // rv MustConnect
+  assign CH2_TXDATA_in[303] = (CH2_TXDATA[303] !== 1'bz) && CH2_TXDATA_delay[303]; // rv MustConnect
+  assign CH2_TXDATA_in[304] = (CH2_TXDATA[304] !== 1'bz) && CH2_TXDATA_delay[304]; // rv MustConnect
+  assign CH2_TXDATA_in[305] = (CH2_TXDATA[305] !== 1'bz) && CH2_TXDATA_delay[305]; // rv MustConnect
+  assign CH2_TXDATA_in[306] = (CH2_TXDATA[306] !== 1'bz) && CH2_TXDATA_delay[306]; // rv MustConnect
+  assign CH2_TXDATA_in[307] = (CH2_TXDATA[307] !== 1'bz) && CH2_TXDATA_delay[307]; // rv MustConnect
+  assign CH2_TXDATA_in[308] = (CH2_TXDATA[308] !== 1'bz) && CH2_TXDATA_delay[308]; // rv MustConnect
+  assign CH2_TXDATA_in[309] = (CH2_TXDATA[309] !== 1'bz) && CH2_TXDATA_delay[309]; // rv MustConnect
+  assign CH2_TXDATA_in[30] = (CH2_TXDATA[30] !== 1'bz) && CH2_TXDATA_delay[30]; // rv MustConnect
+  assign CH2_TXDATA_in[310] = (CH2_TXDATA[310] !== 1'bz) && CH2_TXDATA_delay[310]; // rv MustConnect
+  assign CH2_TXDATA_in[311] = (CH2_TXDATA[311] !== 1'bz) && CH2_TXDATA_delay[311]; // rv MustConnect
+  assign CH2_TXDATA_in[312] = (CH2_TXDATA[312] !== 1'bz) && CH2_TXDATA_delay[312]; // rv MustConnect
+  assign CH2_TXDATA_in[313] = (CH2_TXDATA[313] !== 1'bz) && CH2_TXDATA_delay[313]; // rv MustConnect
+  assign CH2_TXDATA_in[314] = (CH2_TXDATA[314] !== 1'bz) && CH2_TXDATA_delay[314]; // rv MustConnect
+  assign CH2_TXDATA_in[315] = (CH2_TXDATA[315] !== 1'bz) && CH2_TXDATA_delay[315]; // rv MustConnect
+  assign CH2_TXDATA_in[316] = (CH2_TXDATA[316] !== 1'bz) && CH2_TXDATA_delay[316]; // rv MustConnect
+  assign CH2_TXDATA_in[317] = (CH2_TXDATA[317] !== 1'bz) && CH2_TXDATA_delay[317]; // rv MustConnect
+  assign CH2_TXDATA_in[318] = (CH2_TXDATA[318] !== 1'bz) && CH2_TXDATA_delay[318]; // rv MustConnect
+  assign CH2_TXDATA_in[319] = (CH2_TXDATA[319] !== 1'bz) && CH2_TXDATA_delay[319]; // rv MustConnect
+  assign CH2_TXDATA_in[31] = (CH2_TXDATA[31] !== 1'bz) && CH2_TXDATA_delay[31]; // rv MustConnect
+  assign CH2_TXDATA_in[32] = (CH2_TXDATA[32] !== 1'bz) && CH2_TXDATA_delay[32]; // rv MustConnect
+  assign CH2_TXDATA_in[33] = (CH2_TXDATA[33] !== 1'bz) && CH2_TXDATA_delay[33]; // rv MustConnect
+  assign CH2_TXDATA_in[34] = (CH2_TXDATA[34] !== 1'bz) && CH2_TXDATA_delay[34]; // rv MustConnect
+  assign CH2_TXDATA_in[35] = (CH2_TXDATA[35] !== 1'bz) && CH2_TXDATA_delay[35]; // rv MustConnect
+  assign CH2_TXDATA_in[36] = (CH2_TXDATA[36] !== 1'bz) && CH2_TXDATA_delay[36]; // rv MustConnect
+  assign CH2_TXDATA_in[37] = (CH2_TXDATA[37] !== 1'bz) && CH2_TXDATA_delay[37]; // rv MustConnect
+  assign CH2_TXDATA_in[38] = (CH2_TXDATA[38] !== 1'bz) && CH2_TXDATA_delay[38]; // rv MustConnect
+  assign CH2_TXDATA_in[39] = (CH2_TXDATA[39] !== 1'bz) && CH2_TXDATA_delay[39]; // rv MustConnect
+  assign CH2_TXDATA_in[3] = (CH2_TXDATA[3] !== 1'bz) && CH2_TXDATA_delay[3]; // rv MustConnect
+  assign CH2_TXDATA_in[40] = (CH2_TXDATA[40] !== 1'bz) && CH2_TXDATA_delay[40]; // rv MustConnect
+  assign CH2_TXDATA_in[41] = (CH2_TXDATA[41] !== 1'bz) && CH2_TXDATA_delay[41]; // rv MustConnect
+  assign CH2_TXDATA_in[42] = (CH2_TXDATA[42] !== 1'bz) && CH2_TXDATA_delay[42]; // rv MustConnect
+  assign CH2_TXDATA_in[43] = (CH2_TXDATA[43] !== 1'bz) && CH2_TXDATA_delay[43]; // rv MustConnect
+  assign CH2_TXDATA_in[44] = (CH2_TXDATA[44] !== 1'bz) && CH2_TXDATA_delay[44]; // rv MustConnect
+  assign CH2_TXDATA_in[45] = (CH2_TXDATA[45] !== 1'bz) && CH2_TXDATA_delay[45]; // rv MustConnect
+  assign CH2_TXDATA_in[46] = (CH2_TXDATA[46] !== 1'bz) && CH2_TXDATA_delay[46]; // rv MustConnect
+  assign CH2_TXDATA_in[47] = (CH2_TXDATA[47] !== 1'bz) && CH2_TXDATA_delay[47]; // rv MustConnect
+  assign CH2_TXDATA_in[48] = (CH2_TXDATA[48] !== 1'bz) && CH2_TXDATA_delay[48]; // rv MustConnect
+  assign CH2_TXDATA_in[49] = (CH2_TXDATA[49] !== 1'bz) && CH2_TXDATA_delay[49]; // rv MustConnect
+  assign CH2_TXDATA_in[4] = (CH2_TXDATA[4] !== 1'bz) && CH2_TXDATA_delay[4]; // rv MustConnect
+  assign CH2_TXDATA_in[50] = (CH2_TXDATA[50] !== 1'bz) && CH2_TXDATA_delay[50]; // rv MustConnect
+  assign CH2_TXDATA_in[51] = (CH2_TXDATA[51] !== 1'bz) && CH2_TXDATA_delay[51]; // rv MustConnect
+  assign CH2_TXDATA_in[52] = (CH2_TXDATA[52] !== 1'bz) && CH2_TXDATA_delay[52]; // rv MustConnect
+  assign CH2_TXDATA_in[53] = (CH2_TXDATA[53] !== 1'bz) && CH2_TXDATA_delay[53]; // rv MustConnect
+  assign CH2_TXDATA_in[54] = (CH2_TXDATA[54] !== 1'bz) && CH2_TXDATA_delay[54]; // rv MustConnect
+  assign CH2_TXDATA_in[55] = (CH2_TXDATA[55] !== 1'bz) && CH2_TXDATA_delay[55]; // rv MustConnect
+  assign CH2_TXDATA_in[56] = (CH2_TXDATA[56] !== 1'bz) && CH2_TXDATA_delay[56]; // rv MustConnect
+  assign CH2_TXDATA_in[57] = (CH2_TXDATA[57] !== 1'bz) && CH2_TXDATA_delay[57]; // rv MustConnect
+  assign CH2_TXDATA_in[58] = (CH2_TXDATA[58] !== 1'bz) && CH2_TXDATA_delay[58]; // rv MustConnect
+  assign CH2_TXDATA_in[59] = (CH2_TXDATA[59] !== 1'bz) && CH2_TXDATA_delay[59]; // rv MustConnect
+  assign CH2_TXDATA_in[5] = (CH2_TXDATA[5] !== 1'bz) && CH2_TXDATA_delay[5]; // rv MustConnect
+  assign CH2_TXDATA_in[60] = (CH2_TXDATA[60] !== 1'bz) && CH2_TXDATA_delay[60]; // rv MustConnect
+  assign CH2_TXDATA_in[61] = (CH2_TXDATA[61] !== 1'bz) && CH2_TXDATA_delay[61]; // rv MustConnect
+  assign CH2_TXDATA_in[62] = (CH2_TXDATA[62] !== 1'bz) && CH2_TXDATA_delay[62]; // rv MustConnect
+  assign CH2_TXDATA_in[63] = (CH2_TXDATA[63] !== 1'bz) && CH2_TXDATA_delay[63]; // rv MustConnect
+  assign CH2_TXDATA_in[64] = (CH2_TXDATA[64] !== 1'bz) && CH2_TXDATA_delay[64]; // rv MustConnect
+  assign CH2_TXDATA_in[65] = (CH2_TXDATA[65] !== 1'bz) && CH2_TXDATA_delay[65]; // rv MustConnect
+  assign CH2_TXDATA_in[66] = (CH2_TXDATA[66] !== 1'bz) && CH2_TXDATA_delay[66]; // rv MustConnect
+  assign CH2_TXDATA_in[67] = (CH2_TXDATA[67] !== 1'bz) && CH2_TXDATA_delay[67]; // rv MustConnect
+  assign CH2_TXDATA_in[68] = (CH2_TXDATA[68] !== 1'bz) && CH2_TXDATA_delay[68]; // rv MustConnect
+  assign CH2_TXDATA_in[69] = (CH2_TXDATA[69] !== 1'bz) && CH2_TXDATA_delay[69]; // rv MustConnect
+  assign CH2_TXDATA_in[6] = (CH2_TXDATA[6] !== 1'bz) && CH2_TXDATA_delay[6]; // rv MustConnect
+  assign CH2_TXDATA_in[70] = (CH2_TXDATA[70] !== 1'bz) && CH2_TXDATA_delay[70]; // rv MustConnect
+  assign CH2_TXDATA_in[71] = (CH2_TXDATA[71] !== 1'bz) && CH2_TXDATA_delay[71]; // rv MustConnect
+  assign CH2_TXDATA_in[72] = (CH2_TXDATA[72] !== 1'bz) && CH2_TXDATA_delay[72]; // rv MustConnect
+  assign CH2_TXDATA_in[73] = (CH2_TXDATA[73] !== 1'bz) && CH2_TXDATA_delay[73]; // rv MustConnect
+  assign CH2_TXDATA_in[74] = (CH2_TXDATA[74] !== 1'bz) && CH2_TXDATA_delay[74]; // rv MustConnect
+  assign CH2_TXDATA_in[75] = (CH2_TXDATA[75] !== 1'bz) && CH2_TXDATA_delay[75]; // rv MustConnect
+  assign CH2_TXDATA_in[76] = (CH2_TXDATA[76] !== 1'bz) && CH2_TXDATA_delay[76]; // rv MustConnect
+  assign CH2_TXDATA_in[77] = (CH2_TXDATA[77] !== 1'bz) && CH2_TXDATA_delay[77]; // rv MustConnect
+  assign CH2_TXDATA_in[78] = (CH2_TXDATA[78] !== 1'bz) && CH2_TXDATA_delay[78]; // rv MustConnect
+  assign CH2_TXDATA_in[79] = (CH2_TXDATA[79] !== 1'bz) && CH2_TXDATA_delay[79]; // rv MustConnect
+  assign CH2_TXDATA_in[7] = (CH2_TXDATA[7] !== 1'bz) && CH2_TXDATA_delay[7]; // rv MustConnect
+  assign CH2_TXDATA_in[80] = (CH2_TXDATA[80] !== 1'bz) && CH2_TXDATA_delay[80]; // rv MustConnect
+  assign CH2_TXDATA_in[81] = (CH2_TXDATA[81] !== 1'bz) && CH2_TXDATA_delay[81]; // rv MustConnect
+  assign CH2_TXDATA_in[82] = (CH2_TXDATA[82] !== 1'bz) && CH2_TXDATA_delay[82]; // rv MustConnect
+  assign CH2_TXDATA_in[83] = (CH2_TXDATA[83] !== 1'bz) && CH2_TXDATA_delay[83]; // rv MustConnect
+  assign CH2_TXDATA_in[84] = (CH2_TXDATA[84] !== 1'bz) && CH2_TXDATA_delay[84]; // rv MustConnect
+  assign CH2_TXDATA_in[85] = (CH2_TXDATA[85] !== 1'bz) && CH2_TXDATA_delay[85]; // rv MustConnect
+  assign CH2_TXDATA_in[86] = (CH2_TXDATA[86] !== 1'bz) && CH2_TXDATA_delay[86]; // rv MustConnect
+  assign CH2_TXDATA_in[87] = (CH2_TXDATA[87] !== 1'bz) && CH2_TXDATA_delay[87]; // rv MustConnect
+  assign CH2_TXDATA_in[88] = (CH2_TXDATA[88] !== 1'bz) && CH2_TXDATA_delay[88]; // rv MustConnect
+  assign CH2_TXDATA_in[89] = (CH2_TXDATA[89] !== 1'bz) && CH2_TXDATA_delay[89]; // rv MustConnect
+  assign CH2_TXDATA_in[8] = (CH2_TXDATA[8] !== 1'bz) && CH2_TXDATA_delay[8]; // rv MustConnect
+  assign CH2_TXDATA_in[90] = (CH2_TXDATA[90] !== 1'bz) && CH2_TXDATA_delay[90]; // rv MustConnect
+  assign CH2_TXDATA_in[91] = (CH2_TXDATA[91] !== 1'bz) && CH2_TXDATA_delay[91]; // rv MustConnect
+  assign CH2_TXDATA_in[92] = (CH2_TXDATA[92] !== 1'bz) && CH2_TXDATA_delay[92]; // rv MustConnect
+  assign CH2_TXDATA_in[93] = (CH2_TXDATA[93] !== 1'bz) && CH2_TXDATA_delay[93]; // rv MustConnect
+  assign CH2_TXDATA_in[94] = (CH2_TXDATA[94] !== 1'bz) && CH2_TXDATA_delay[94]; // rv MustConnect
+  assign CH2_TXDATA_in[95] = (CH2_TXDATA[95] !== 1'bz) && CH2_TXDATA_delay[95]; // rv MustConnect
+  assign CH2_TXDATA_in[96] = (CH2_TXDATA[96] !== 1'bz) && CH2_TXDATA_delay[96]; // rv MustConnect
+  assign CH2_TXDATA_in[97] = (CH2_TXDATA[97] !== 1'bz) && CH2_TXDATA_delay[97]; // rv MustConnect
+  assign CH2_TXDATA_in[98] = (CH2_TXDATA[98] !== 1'bz) && CH2_TXDATA_delay[98]; // rv MustConnect
+  assign CH2_TXDATA_in[99] = (CH2_TXDATA[99] !== 1'bz) && CH2_TXDATA_delay[99]; // rv MustConnect
+  assign CH2_TXDATA_in[9] = (CH2_TXDATA[9] !== 1'bz) && CH2_TXDATA_delay[9]; // rv MustConnect
+  assign CH2_TXDETECTRXLOOPBACK_in = CH2_TXDETECTRXLOOPBACK_delay;
+  assign CH2_TXELECIDLE_in = (CH2_TXELECIDLE === 1'bz) || CH2_TXELECIDLE_delay; // rv 1
+  assign CH2_TXPOWERDOWN_in = CH2_TXPOWERDOWN_delay;
+  assign CH2_TXRATE_in = CH2_TXRATE_delay;
+  assign CH2_TXUSRCLK_in = (CH2_TXUSRCLK === 1'bz) || CH2_TXUSRCLK_delay; // rv 1
+  assign CH3_RXGEARBOXSLIP_in = CH3_RXGEARBOXSLIP_delay;
+  assign CH3_RXUSRCLK_in = (CH3_RXUSRCLK === 1'bz) || CH3_RXUSRCLK_delay; // rv 1
+  assign CH3_SCANCHNLMASKIN_in = CH3_SCANCHNLMASKIN_delay;
+  assign CH3_SCANCLKB_in = CH3_SCANCLKB_delay;
+  assign CH3_SCANCNTRLIN_in = CH3_SCANCNTRLIN_delay;
+  assign CH3_SCANIN_in = CH3_SCANIN_delay;
+  assign CH3_SCANODCCCHNLMASK_in = CH3_SCANODCCCHNLMASK_delay;
+  assign CH3_TXDATA_in[0] = (CH3_TXDATA[0] !== 1'bz) && CH3_TXDATA_delay[0]; // rv MustConnect
+  assign CH3_TXDATA_in[100] = (CH3_TXDATA[100] !== 1'bz) && CH3_TXDATA_delay[100]; // rv MustConnect
+  assign CH3_TXDATA_in[101] = (CH3_TXDATA[101] !== 1'bz) && CH3_TXDATA_delay[101]; // rv MustConnect
+  assign CH3_TXDATA_in[102] = (CH3_TXDATA[102] !== 1'bz) && CH3_TXDATA_delay[102]; // rv MustConnect
+  assign CH3_TXDATA_in[103] = (CH3_TXDATA[103] !== 1'bz) && CH3_TXDATA_delay[103]; // rv MustConnect
+  assign CH3_TXDATA_in[104] = (CH3_TXDATA[104] !== 1'bz) && CH3_TXDATA_delay[104]; // rv MustConnect
+  assign CH3_TXDATA_in[105] = (CH3_TXDATA[105] !== 1'bz) && CH3_TXDATA_delay[105]; // rv MustConnect
+  assign CH3_TXDATA_in[106] = (CH3_TXDATA[106] !== 1'bz) && CH3_TXDATA_delay[106]; // rv MustConnect
+  assign CH3_TXDATA_in[107] = (CH3_TXDATA[107] !== 1'bz) && CH3_TXDATA_delay[107]; // rv MustConnect
+  assign CH3_TXDATA_in[108] = (CH3_TXDATA[108] !== 1'bz) && CH3_TXDATA_delay[108]; // rv MustConnect
+  assign CH3_TXDATA_in[109] = (CH3_TXDATA[109] !== 1'bz) && CH3_TXDATA_delay[109]; // rv MustConnect
+  assign CH3_TXDATA_in[10] = (CH3_TXDATA[10] !== 1'bz) && CH3_TXDATA_delay[10]; // rv MustConnect
+  assign CH3_TXDATA_in[110] = (CH3_TXDATA[110] !== 1'bz) && CH3_TXDATA_delay[110]; // rv MustConnect
+  assign CH3_TXDATA_in[111] = (CH3_TXDATA[111] !== 1'bz) && CH3_TXDATA_delay[111]; // rv MustConnect
+  assign CH3_TXDATA_in[112] = (CH3_TXDATA[112] !== 1'bz) && CH3_TXDATA_delay[112]; // rv MustConnect
+  assign CH3_TXDATA_in[113] = (CH3_TXDATA[113] !== 1'bz) && CH3_TXDATA_delay[113]; // rv MustConnect
+  assign CH3_TXDATA_in[114] = (CH3_TXDATA[114] !== 1'bz) && CH3_TXDATA_delay[114]; // rv MustConnect
+  assign CH3_TXDATA_in[115] = (CH3_TXDATA[115] !== 1'bz) && CH3_TXDATA_delay[115]; // rv MustConnect
+  assign CH3_TXDATA_in[116] = (CH3_TXDATA[116] !== 1'bz) && CH3_TXDATA_delay[116]; // rv MustConnect
+  assign CH3_TXDATA_in[117] = (CH3_TXDATA[117] !== 1'bz) && CH3_TXDATA_delay[117]; // rv MustConnect
+  assign CH3_TXDATA_in[118] = (CH3_TXDATA[118] !== 1'bz) && CH3_TXDATA_delay[118]; // rv MustConnect
+  assign CH3_TXDATA_in[119] = (CH3_TXDATA[119] !== 1'bz) && CH3_TXDATA_delay[119]; // rv MustConnect
+  assign CH3_TXDATA_in[11] = (CH3_TXDATA[11] !== 1'bz) && CH3_TXDATA_delay[11]; // rv MustConnect
+  assign CH3_TXDATA_in[120] = (CH3_TXDATA[120] !== 1'bz) && CH3_TXDATA_delay[120]; // rv MustConnect
+  assign CH3_TXDATA_in[121] = (CH3_TXDATA[121] !== 1'bz) && CH3_TXDATA_delay[121]; // rv MustConnect
+  assign CH3_TXDATA_in[122] = (CH3_TXDATA[122] !== 1'bz) && CH3_TXDATA_delay[122]; // rv MustConnect
+  assign CH3_TXDATA_in[123] = (CH3_TXDATA[123] !== 1'bz) && CH3_TXDATA_delay[123]; // rv MustConnect
+  assign CH3_TXDATA_in[124] = (CH3_TXDATA[124] !== 1'bz) && CH3_TXDATA_delay[124]; // rv MustConnect
+  assign CH3_TXDATA_in[125] = (CH3_TXDATA[125] !== 1'bz) && CH3_TXDATA_delay[125]; // rv MustConnect
+  assign CH3_TXDATA_in[126] = (CH3_TXDATA[126] !== 1'bz) && CH3_TXDATA_delay[126]; // rv MustConnect
+  assign CH3_TXDATA_in[127] = (CH3_TXDATA[127] !== 1'bz) && CH3_TXDATA_delay[127]; // rv MustConnect
+  assign CH3_TXDATA_in[128] = (CH3_TXDATA[128] !== 1'bz) && CH3_TXDATA_delay[128]; // rv MustConnect
+  assign CH3_TXDATA_in[129] = (CH3_TXDATA[129] !== 1'bz) && CH3_TXDATA_delay[129]; // rv MustConnect
+  assign CH3_TXDATA_in[12] = (CH3_TXDATA[12] !== 1'bz) && CH3_TXDATA_delay[12]; // rv MustConnect
+  assign CH3_TXDATA_in[130] = (CH3_TXDATA[130] !== 1'bz) && CH3_TXDATA_delay[130]; // rv MustConnect
+  assign CH3_TXDATA_in[131] = (CH3_TXDATA[131] !== 1'bz) && CH3_TXDATA_delay[131]; // rv MustConnect
+  assign CH3_TXDATA_in[132] = (CH3_TXDATA[132] !== 1'bz) && CH3_TXDATA_delay[132]; // rv MustConnect
+  assign CH3_TXDATA_in[133] = (CH3_TXDATA[133] !== 1'bz) && CH3_TXDATA_delay[133]; // rv MustConnect
+  assign CH3_TXDATA_in[134] = (CH3_TXDATA[134] !== 1'bz) && CH3_TXDATA_delay[134]; // rv MustConnect
+  assign CH3_TXDATA_in[135] = (CH3_TXDATA[135] !== 1'bz) && CH3_TXDATA_delay[135]; // rv MustConnect
+  assign CH3_TXDATA_in[136] = (CH3_TXDATA[136] !== 1'bz) && CH3_TXDATA_delay[136]; // rv MustConnect
+  assign CH3_TXDATA_in[137] = (CH3_TXDATA[137] !== 1'bz) && CH3_TXDATA_delay[137]; // rv MustConnect
+  assign CH3_TXDATA_in[138] = (CH3_TXDATA[138] !== 1'bz) && CH3_TXDATA_delay[138]; // rv MustConnect
+  assign CH3_TXDATA_in[139] = (CH3_TXDATA[139] !== 1'bz) && CH3_TXDATA_delay[139]; // rv MustConnect
+  assign CH3_TXDATA_in[13] = (CH3_TXDATA[13] !== 1'bz) && CH3_TXDATA_delay[13]; // rv MustConnect
+  assign CH3_TXDATA_in[140] = (CH3_TXDATA[140] !== 1'bz) && CH3_TXDATA_delay[140]; // rv MustConnect
+  assign CH3_TXDATA_in[141] = (CH3_TXDATA[141] !== 1'bz) && CH3_TXDATA_delay[141]; // rv MustConnect
+  assign CH3_TXDATA_in[142] = (CH3_TXDATA[142] !== 1'bz) && CH3_TXDATA_delay[142]; // rv MustConnect
+  assign CH3_TXDATA_in[143] = (CH3_TXDATA[143] !== 1'bz) && CH3_TXDATA_delay[143]; // rv MustConnect
+  assign CH3_TXDATA_in[144] = (CH3_TXDATA[144] !== 1'bz) && CH3_TXDATA_delay[144]; // rv MustConnect
+  assign CH3_TXDATA_in[145] = (CH3_TXDATA[145] !== 1'bz) && CH3_TXDATA_delay[145]; // rv MustConnect
+  assign CH3_TXDATA_in[146] = (CH3_TXDATA[146] !== 1'bz) && CH3_TXDATA_delay[146]; // rv MustConnect
+  assign CH3_TXDATA_in[147] = (CH3_TXDATA[147] !== 1'bz) && CH3_TXDATA_delay[147]; // rv MustConnect
+  assign CH3_TXDATA_in[148] = (CH3_TXDATA[148] !== 1'bz) && CH3_TXDATA_delay[148]; // rv MustConnect
+  assign CH3_TXDATA_in[149] = (CH3_TXDATA[149] !== 1'bz) && CH3_TXDATA_delay[149]; // rv MustConnect
+  assign CH3_TXDATA_in[14] = (CH3_TXDATA[14] !== 1'bz) && CH3_TXDATA_delay[14]; // rv MustConnect
+  assign CH3_TXDATA_in[150] = (CH3_TXDATA[150] !== 1'bz) && CH3_TXDATA_delay[150]; // rv MustConnect
+  assign CH3_TXDATA_in[151] = (CH3_TXDATA[151] !== 1'bz) && CH3_TXDATA_delay[151]; // rv MustConnect
+  assign CH3_TXDATA_in[152] = (CH3_TXDATA[152] !== 1'bz) && CH3_TXDATA_delay[152]; // rv MustConnect
+  assign CH3_TXDATA_in[153] = (CH3_TXDATA[153] !== 1'bz) && CH3_TXDATA_delay[153]; // rv MustConnect
+  assign CH3_TXDATA_in[154] = (CH3_TXDATA[154] !== 1'bz) && CH3_TXDATA_delay[154]; // rv MustConnect
+  assign CH3_TXDATA_in[155] = (CH3_TXDATA[155] !== 1'bz) && CH3_TXDATA_delay[155]; // rv MustConnect
+  assign CH3_TXDATA_in[156] = (CH3_TXDATA[156] !== 1'bz) && CH3_TXDATA_delay[156]; // rv MustConnect
+  assign CH3_TXDATA_in[157] = (CH3_TXDATA[157] !== 1'bz) && CH3_TXDATA_delay[157]; // rv MustConnect
+  assign CH3_TXDATA_in[158] = (CH3_TXDATA[158] !== 1'bz) && CH3_TXDATA_delay[158]; // rv MustConnect
+  assign CH3_TXDATA_in[159] = (CH3_TXDATA[159] !== 1'bz) && CH3_TXDATA_delay[159]; // rv MustConnect
+  assign CH3_TXDATA_in[15] = (CH3_TXDATA[15] !== 1'bz) && CH3_TXDATA_delay[15]; // rv MustConnect
+  assign CH3_TXDATA_in[160] = (CH3_TXDATA[160] !== 1'bz) && CH3_TXDATA_delay[160]; // rv MustConnect
+  assign CH3_TXDATA_in[161] = (CH3_TXDATA[161] !== 1'bz) && CH3_TXDATA_delay[161]; // rv MustConnect
+  assign CH3_TXDATA_in[162] = (CH3_TXDATA[162] !== 1'bz) && CH3_TXDATA_delay[162]; // rv MustConnect
+  assign CH3_TXDATA_in[163] = (CH3_TXDATA[163] !== 1'bz) && CH3_TXDATA_delay[163]; // rv MustConnect
+  assign CH3_TXDATA_in[164] = (CH3_TXDATA[164] !== 1'bz) && CH3_TXDATA_delay[164]; // rv MustConnect
+  assign CH3_TXDATA_in[165] = (CH3_TXDATA[165] !== 1'bz) && CH3_TXDATA_delay[165]; // rv MustConnect
+  assign CH3_TXDATA_in[166] = (CH3_TXDATA[166] !== 1'bz) && CH3_TXDATA_delay[166]; // rv MustConnect
+  assign CH3_TXDATA_in[167] = (CH3_TXDATA[167] !== 1'bz) && CH3_TXDATA_delay[167]; // rv MustConnect
+  assign CH3_TXDATA_in[168] = (CH3_TXDATA[168] !== 1'bz) && CH3_TXDATA_delay[168]; // rv MustConnect
+  assign CH3_TXDATA_in[169] = (CH3_TXDATA[169] !== 1'bz) && CH3_TXDATA_delay[169]; // rv MustConnect
+  assign CH3_TXDATA_in[16] = (CH3_TXDATA[16] !== 1'bz) && CH3_TXDATA_delay[16]; // rv MustConnect
+  assign CH3_TXDATA_in[170] = (CH3_TXDATA[170] !== 1'bz) && CH3_TXDATA_delay[170]; // rv MustConnect
+  assign CH3_TXDATA_in[171] = (CH3_TXDATA[171] !== 1'bz) && CH3_TXDATA_delay[171]; // rv MustConnect
+  assign CH3_TXDATA_in[172] = (CH3_TXDATA[172] !== 1'bz) && CH3_TXDATA_delay[172]; // rv MustConnect
+  assign CH3_TXDATA_in[173] = (CH3_TXDATA[173] !== 1'bz) && CH3_TXDATA_delay[173]; // rv MustConnect
+  assign CH3_TXDATA_in[174] = (CH3_TXDATA[174] !== 1'bz) && CH3_TXDATA_delay[174]; // rv MustConnect
+  assign CH3_TXDATA_in[175] = (CH3_TXDATA[175] !== 1'bz) && CH3_TXDATA_delay[175]; // rv MustConnect
+  assign CH3_TXDATA_in[176] = (CH3_TXDATA[176] !== 1'bz) && CH3_TXDATA_delay[176]; // rv MustConnect
+  assign CH3_TXDATA_in[177] = (CH3_TXDATA[177] !== 1'bz) && CH3_TXDATA_delay[177]; // rv MustConnect
+  assign CH3_TXDATA_in[178] = (CH3_TXDATA[178] !== 1'bz) && CH3_TXDATA_delay[178]; // rv MustConnect
+  assign CH3_TXDATA_in[179] = (CH3_TXDATA[179] !== 1'bz) && CH3_TXDATA_delay[179]; // rv MustConnect
+  assign CH3_TXDATA_in[17] = (CH3_TXDATA[17] !== 1'bz) && CH3_TXDATA_delay[17]; // rv MustConnect
+  assign CH3_TXDATA_in[180] = (CH3_TXDATA[180] !== 1'bz) && CH3_TXDATA_delay[180]; // rv MustConnect
+  assign CH3_TXDATA_in[181] = (CH3_TXDATA[181] !== 1'bz) && CH3_TXDATA_delay[181]; // rv MustConnect
+  assign CH3_TXDATA_in[182] = (CH3_TXDATA[182] !== 1'bz) && CH3_TXDATA_delay[182]; // rv MustConnect
+  assign CH3_TXDATA_in[183] = (CH3_TXDATA[183] !== 1'bz) && CH3_TXDATA_delay[183]; // rv MustConnect
+  assign CH3_TXDATA_in[184] = (CH3_TXDATA[184] !== 1'bz) && CH3_TXDATA_delay[184]; // rv MustConnect
+  assign CH3_TXDATA_in[185] = (CH3_TXDATA[185] !== 1'bz) && CH3_TXDATA_delay[185]; // rv MustConnect
+  assign CH3_TXDATA_in[186] = (CH3_TXDATA[186] !== 1'bz) && CH3_TXDATA_delay[186]; // rv MustConnect
+  assign CH3_TXDATA_in[187] = (CH3_TXDATA[187] !== 1'bz) && CH3_TXDATA_delay[187]; // rv MustConnect
+  assign CH3_TXDATA_in[188] = (CH3_TXDATA[188] !== 1'bz) && CH3_TXDATA_delay[188]; // rv MustConnect
+  assign CH3_TXDATA_in[189] = (CH3_TXDATA[189] !== 1'bz) && CH3_TXDATA_delay[189]; // rv MustConnect
+  assign CH3_TXDATA_in[18] = (CH3_TXDATA[18] !== 1'bz) && CH3_TXDATA_delay[18]; // rv MustConnect
+  assign CH3_TXDATA_in[190] = (CH3_TXDATA[190] !== 1'bz) && CH3_TXDATA_delay[190]; // rv MustConnect
+  assign CH3_TXDATA_in[191] = (CH3_TXDATA[191] !== 1'bz) && CH3_TXDATA_delay[191]; // rv MustConnect
+  assign CH3_TXDATA_in[192] = (CH3_TXDATA[192] !== 1'bz) && CH3_TXDATA_delay[192]; // rv MustConnect
+  assign CH3_TXDATA_in[193] = (CH3_TXDATA[193] !== 1'bz) && CH3_TXDATA_delay[193]; // rv MustConnect
+  assign CH3_TXDATA_in[194] = (CH3_TXDATA[194] !== 1'bz) && CH3_TXDATA_delay[194]; // rv MustConnect
+  assign CH3_TXDATA_in[195] = (CH3_TXDATA[195] !== 1'bz) && CH3_TXDATA_delay[195]; // rv MustConnect
+  assign CH3_TXDATA_in[196] = (CH3_TXDATA[196] !== 1'bz) && CH3_TXDATA_delay[196]; // rv MustConnect
+  assign CH3_TXDATA_in[197] = (CH3_TXDATA[197] !== 1'bz) && CH3_TXDATA_delay[197]; // rv MustConnect
+  assign CH3_TXDATA_in[198] = (CH3_TXDATA[198] !== 1'bz) && CH3_TXDATA_delay[198]; // rv MustConnect
+  assign CH3_TXDATA_in[199] = (CH3_TXDATA[199] !== 1'bz) && CH3_TXDATA_delay[199]; // rv MustConnect
+  assign CH3_TXDATA_in[19] = (CH3_TXDATA[19] !== 1'bz) && CH3_TXDATA_delay[19]; // rv MustConnect
+  assign CH3_TXDATA_in[1] = (CH3_TXDATA[1] !== 1'bz) && CH3_TXDATA_delay[1]; // rv MustConnect
+  assign CH3_TXDATA_in[200] = (CH3_TXDATA[200] !== 1'bz) && CH3_TXDATA_delay[200]; // rv MustConnect
+  assign CH3_TXDATA_in[201] = (CH3_TXDATA[201] !== 1'bz) && CH3_TXDATA_delay[201]; // rv MustConnect
+  assign CH3_TXDATA_in[202] = (CH3_TXDATA[202] !== 1'bz) && CH3_TXDATA_delay[202]; // rv MustConnect
+  assign CH3_TXDATA_in[203] = (CH3_TXDATA[203] !== 1'bz) && CH3_TXDATA_delay[203]; // rv MustConnect
+  assign CH3_TXDATA_in[204] = (CH3_TXDATA[204] !== 1'bz) && CH3_TXDATA_delay[204]; // rv MustConnect
+  assign CH3_TXDATA_in[205] = (CH3_TXDATA[205] !== 1'bz) && CH3_TXDATA_delay[205]; // rv MustConnect
+  assign CH3_TXDATA_in[206] = (CH3_TXDATA[206] !== 1'bz) && CH3_TXDATA_delay[206]; // rv MustConnect
+  assign CH3_TXDATA_in[207] = (CH3_TXDATA[207] !== 1'bz) && CH3_TXDATA_delay[207]; // rv MustConnect
+  assign CH3_TXDATA_in[208] = (CH3_TXDATA[208] !== 1'bz) && CH3_TXDATA_delay[208]; // rv MustConnect
+  assign CH3_TXDATA_in[209] = (CH3_TXDATA[209] !== 1'bz) && CH3_TXDATA_delay[209]; // rv MustConnect
+  assign CH3_TXDATA_in[20] = (CH3_TXDATA[20] !== 1'bz) && CH3_TXDATA_delay[20]; // rv MustConnect
+  assign CH3_TXDATA_in[210] = (CH3_TXDATA[210] !== 1'bz) && CH3_TXDATA_delay[210]; // rv MustConnect
+  assign CH3_TXDATA_in[211] = (CH3_TXDATA[211] !== 1'bz) && CH3_TXDATA_delay[211]; // rv MustConnect
+  assign CH3_TXDATA_in[212] = (CH3_TXDATA[212] !== 1'bz) && CH3_TXDATA_delay[212]; // rv MustConnect
+  assign CH3_TXDATA_in[213] = (CH3_TXDATA[213] !== 1'bz) && CH3_TXDATA_delay[213]; // rv MustConnect
+  assign CH3_TXDATA_in[214] = (CH3_TXDATA[214] !== 1'bz) && CH3_TXDATA_delay[214]; // rv MustConnect
+  assign CH3_TXDATA_in[215] = (CH3_TXDATA[215] !== 1'bz) && CH3_TXDATA_delay[215]; // rv MustConnect
+  assign CH3_TXDATA_in[216] = (CH3_TXDATA[216] !== 1'bz) && CH3_TXDATA_delay[216]; // rv MustConnect
+  assign CH3_TXDATA_in[217] = (CH3_TXDATA[217] !== 1'bz) && CH3_TXDATA_delay[217]; // rv MustConnect
+  assign CH3_TXDATA_in[218] = (CH3_TXDATA[218] !== 1'bz) && CH3_TXDATA_delay[218]; // rv MustConnect
+  assign CH3_TXDATA_in[219] = (CH3_TXDATA[219] !== 1'bz) && CH3_TXDATA_delay[219]; // rv MustConnect
+  assign CH3_TXDATA_in[21] = (CH3_TXDATA[21] !== 1'bz) && CH3_TXDATA_delay[21]; // rv MustConnect
+  assign CH3_TXDATA_in[220] = (CH3_TXDATA[220] !== 1'bz) && CH3_TXDATA_delay[220]; // rv MustConnect
+  assign CH3_TXDATA_in[221] = (CH3_TXDATA[221] !== 1'bz) && CH3_TXDATA_delay[221]; // rv MustConnect
+  assign CH3_TXDATA_in[222] = (CH3_TXDATA[222] !== 1'bz) && CH3_TXDATA_delay[222]; // rv MustConnect
+  assign CH3_TXDATA_in[223] = (CH3_TXDATA[223] !== 1'bz) && CH3_TXDATA_delay[223]; // rv MustConnect
+  assign CH3_TXDATA_in[224] = (CH3_TXDATA[224] !== 1'bz) && CH3_TXDATA_delay[224]; // rv MustConnect
+  assign CH3_TXDATA_in[225] = (CH3_TXDATA[225] !== 1'bz) && CH3_TXDATA_delay[225]; // rv MustConnect
+  assign CH3_TXDATA_in[226] = (CH3_TXDATA[226] !== 1'bz) && CH3_TXDATA_delay[226]; // rv MustConnect
+  assign CH3_TXDATA_in[227] = (CH3_TXDATA[227] !== 1'bz) && CH3_TXDATA_delay[227]; // rv MustConnect
+  assign CH3_TXDATA_in[228] = (CH3_TXDATA[228] !== 1'bz) && CH3_TXDATA_delay[228]; // rv MustConnect
+  assign CH3_TXDATA_in[229] = (CH3_TXDATA[229] !== 1'bz) && CH3_TXDATA_delay[229]; // rv MustConnect
+  assign CH3_TXDATA_in[22] = (CH3_TXDATA[22] !== 1'bz) && CH3_TXDATA_delay[22]; // rv MustConnect
+  assign CH3_TXDATA_in[230] = (CH3_TXDATA[230] !== 1'bz) && CH3_TXDATA_delay[230]; // rv MustConnect
+  assign CH3_TXDATA_in[231] = (CH3_TXDATA[231] !== 1'bz) && CH3_TXDATA_delay[231]; // rv MustConnect
+  assign CH3_TXDATA_in[232] = (CH3_TXDATA[232] !== 1'bz) && CH3_TXDATA_delay[232]; // rv MustConnect
+  assign CH3_TXDATA_in[233] = (CH3_TXDATA[233] !== 1'bz) && CH3_TXDATA_delay[233]; // rv MustConnect
+  assign CH3_TXDATA_in[234] = (CH3_TXDATA[234] !== 1'bz) && CH3_TXDATA_delay[234]; // rv MustConnect
+  assign CH3_TXDATA_in[235] = (CH3_TXDATA[235] !== 1'bz) && CH3_TXDATA_delay[235]; // rv MustConnect
+  assign CH3_TXDATA_in[236] = (CH3_TXDATA[236] !== 1'bz) && CH3_TXDATA_delay[236]; // rv MustConnect
+  assign CH3_TXDATA_in[237] = (CH3_TXDATA[237] !== 1'bz) && CH3_TXDATA_delay[237]; // rv MustConnect
+  assign CH3_TXDATA_in[238] = (CH3_TXDATA[238] !== 1'bz) && CH3_TXDATA_delay[238]; // rv MustConnect
+  assign CH3_TXDATA_in[239] = (CH3_TXDATA[239] !== 1'bz) && CH3_TXDATA_delay[239]; // rv MustConnect
+  assign CH3_TXDATA_in[23] = (CH3_TXDATA[23] !== 1'bz) && CH3_TXDATA_delay[23]; // rv MustConnect
+  assign CH3_TXDATA_in[240] = (CH3_TXDATA[240] !== 1'bz) && CH3_TXDATA_delay[240]; // rv MustConnect
+  assign CH3_TXDATA_in[241] = (CH3_TXDATA[241] !== 1'bz) && CH3_TXDATA_delay[241]; // rv MustConnect
+  assign CH3_TXDATA_in[242] = (CH3_TXDATA[242] !== 1'bz) && CH3_TXDATA_delay[242]; // rv MustConnect
+  assign CH3_TXDATA_in[243] = (CH3_TXDATA[243] !== 1'bz) && CH3_TXDATA_delay[243]; // rv MustConnect
+  assign CH3_TXDATA_in[244] = (CH3_TXDATA[244] !== 1'bz) && CH3_TXDATA_delay[244]; // rv MustConnect
+  assign CH3_TXDATA_in[245] = (CH3_TXDATA[245] !== 1'bz) && CH3_TXDATA_delay[245]; // rv MustConnect
+  assign CH3_TXDATA_in[246] = (CH3_TXDATA[246] !== 1'bz) && CH3_TXDATA_delay[246]; // rv MustConnect
+  assign CH3_TXDATA_in[247] = (CH3_TXDATA[247] !== 1'bz) && CH3_TXDATA_delay[247]; // rv MustConnect
+  assign CH3_TXDATA_in[248] = (CH3_TXDATA[248] !== 1'bz) && CH3_TXDATA_delay[248]; // rv MustConnect
+  assign CH3_TXDATA_in[249] = (CH3_TXDATA[249] !== 1'bz) && CH3_TXDATA_delay[249]; // rv MustConnect
+  assign CH3_TXDATA_in[24] = (CH3_TXDATA[24] !== 1'bz) && CH3_TXDATA_delay[24]; // rv MustConnect
+  assign CH3_TXDATA_in[250] = (CH3_TXDATA[250] !== 1'bz) && CH3_TXDATA_delay[250]; // rv MustConnect
+  assign CH3_TXDATA_in[251] = (CH3_TXDATA[251] !== 1'bz) && CH3_TXDATA_delay[251]; // rv MustConnect
+  assign CH3_TXDATA_in[252] = (CH3_TXDATA[252] !== 1'bz) && CH3_TXDATA_delay[252]; // rv MustConnect
+  assign CH3_TXDATA_in[253] = (CH3_TXDATA[253] !== 1'bz) && CH3_TXDATA_delay[253]; // rv MustConnect
+  assign CH3_TXDATA_in[254] = (CH3_TXDATA[254] !== 1'bz) && CH3_TXDATA_delay[254]; // rv MustConnect
+  assign CH3_TXDATA_in[255] = (CH3_TXDATA[255] !== 1'bz) && CH3_TXDATA_delay[255]; // rv MustConnect
+  assign CH3_TXDATA_in[256] = (CH3_TXDATA[256] !== 1'bz) && CH3_TXDATA_delay[256]; // rv MustConnect
+  assign CH3_TXDATA_in[257] = (CH3_TXDATA[257] !== 1'bz) && CH3_TXDATA_delay[257]; // rv MustConnect
+  assign CH3_TXDATA_in[258] = (CH3_TXDATA[258] !== 1'bz) && CH3_TXDATA_delay[258]; // rv MustConnect
+  assign CH3_TXDATA_in[259] = (CH3_TXDATA[259] !== 1'bz) && CH3_TXDATA_delay[259]; // rv MustConnect
+  assign CH3_TXDATA_in[25] = (CH3_TXDATA[25] !== 1'bz) && CH3_TXDATA_delay[25]; // rv MustConnect
+  assign CH3_TXDATA_in[260] = (CH3_TXDATA[260] !== 1'bz) && CH3_TXDATA_delay[260]; // rv MustConnect
+  assign CH3_TXDATA_in[261] = (CH3_TXDATA[261] !== 1'bz) && CH3_TXDATA_delay[261]; // rv MustConnect
+  assign CH3_TXDATA_in[262] = (CH3_TXDATA[262] !== 1'bz) && CH3_TXDATA_delay[262]; // rv MustConnect
+  assign CH3_TXDATA_in[263] = (CH3_TXDATA[263] !== 1'bz) && CH3_TXDATA_delay[263]; // rv MustConnect
+  assign CH3_TXDATA_in[264] = (CH3_TXDATA[264] !== 1'bz) && CH3_TXDATA_delay[264]; // rv MustConnect
+  assign CH3_TXDATA_in[265] = (CH3_TXDATA[265] !== 1'bz) && CH3_TXDATA_delay[265]; // rv MustConnect
+  assign CH3_TXDATA_in[266] = (CH3_TXDATA[266] !== 1'bz) && CH3_TXDATA_delay[266]; // rv MustConnect
+  assign CH3_TXDATA_in[267] = (CH3_TXDATA[267] !== 1'bz) && CH3_TXDATA_delay[267]; // rv MustConnect
+  assign CH3_TXDATA_in[268] = (CH3_TXDATA[268] !== 1'bz) && CH3_TXDATA_delay[268]; // rv MustConnect
+  assign CH3_TXDATA_in[269] = (CH3_TXDATA[269] !== 1'bz) && CH3_TXDATA_delay[269]; // rv MustConnect
+  assign CH3_TXDATA_in[26] = (CH3_TXDATA[26] !== 1'bz) && CH3_TXDATA_delay[26]; // rv MustConnect
+  assign CH3_TXDATA_in[270] = (CH3_TXDATA[270] !== 1'bz) && CH3_TXDATA_delay[270]; // rv MustConnect
+  assign CH3_TXDATA_in[271] = (CH3_TXDATA[271] !== 1'bz) && CH3_TXDATA_delay[271]; // rv MustConnect
+  assign CH3_TXDATA_in[272] = (CH3_TXDATA[272] !== 1'bz) && CH3_TXDATA_delay[272]; // rv MustConnect
+  assign CH3_TXDATA_in[273] = (CH3_TXDATA[273] !== 1'bz) && CH3_TXDATA_delay[273]; // rv MustConnect
+  assign CH3_TXDATA_in[274] = (CH3_TXDATA[274] !== 1'bz) && CH3_TXDATA_delay[274]; // rv MustConnect
+  assign CH3_TXDATA_in[275] = (CH3_TXDATA[275] !== 1'bz) && CH3_TXDATA_delay[275]; // rv MustConnect
+  assign CH3_TXDATA_in[276] = (CH3_TXDATA[276] !== 1'bz) && CH3_TXDATA_delay[276]; // rv MustConnect
+  assign CH3_TXDATA_in[277] = (CH3_TXDATA[277] !== 1'bz) && CH3_TXDATA_delay[277]; // rv MustConnect
+  assign CH3_TXDATA_in[278] = (CH3_TXDATA[278] !== 1'bz) && CH3_TXDATA_delay[278]; // rv MustConnect
+  assign CH3_TXDATA_in[279] = (CH3_TXDATA[279] !== 1'bz) && CH3_TXDATA_delay[279]; // rv MustConnect
+  assign CH3_TXDATA_in[27] = (CH3_TXDATA[27] !== 1'bz) && CH3_TXDATA_delay[27]; // rv MustConnect
+  assign CH3_TXDATA_in[280] = (CH3_TXDATA[280] !== 1'bz) && CH3_TXDATA_delay[280]; // rv MustConnect
+  assign CH3_TXDATA_in[281] = (CH3_TXDATA[281] !== 1'bz) && CH3_TXDATA_delay[281]; // rv MustConnect
+  assign CH3_TXDATA_in[282] = (CH3_TXDATA[282] !== 1'bz) && CH3_TXDATA_delay[282]; // rv MustConnect
+  assign CH3_TXDATA_in[283] = (CH3_TXDATA[283] !== 1'bz) && CH3_TXDATA_delay[283]; // rv MustConnect
+  assign CH3_TXDATA_in[284] = (CH3_TXDATA[284] !== 1'bz) && CH3_TXDATA_delay[284]; // rv MustConnect
+  assign CH3_TXDATA_in[285] = (CH3_TXDATA[285] !== 1'bz) && CH3_TXDATA_delay[285]; // rv MustConnect
+  assign CH3_TXDATA_in[286] = (CH3_TXDATA[286] !== 1'bz) && CH3_TXDATA_delay[286]; // rv MustConnect
+  assign CH3_TXDATA_in[287] = (CH3_TXDATA[287] !== 1'bz) && CH3_TXDATA_delay[287]; // rv MustConnect
+  assign CH3_TXDATA_in[288] = (CH3_TXDATA[288] !== 1'bz) && CH3_TXDATA_delay[288]; // rv MustConnect
+  assign CH3_TXDATA_in[289] = (CH3_TXDATA[289] !== 1'bz) && CH3_TXDATA_delay[289]; // rv MustConnect
+  assign CH3_TXDATA_in[28] = (CH3_TXDATA[28] !== 1'bz) && CH3_TXDATA_delay[28]; // rv MustConnect
+  assign CH3_TXDATA_in[290] = (CH3_TXDATA[290] !== 1'bz) && CH3_TXDATA_delay[290]; // rv MustConnect
+  assign CH3_TXDATA_in[291] = (CH3_TXDATA[291] !== 1'bz) && CH3_TXDATA_delay[291]; // rv MustConnect
+  assign CH3_TXDATA_in[292] = (CH3_TXDATA[292] !== 1'bz) && CH3_TXDATA_delay[292]; // rv MustConnect
+  assign CH3_TXDATA_in[293] = (CH3_TXDATA[293] !== 1'bz) && CH3_TXDATA_delay[293]; // rv MustConnect
+  assign CH3_TXDATA_in[294] = (CH3_TXDATA[294] !== 1'bz) && CH3_TXDATA_delay[294]; // rv MustConnect
+  assign CH3_TXDATA_in[295] = (CH3_TXDATA[295] !== 1'bz) && CH3_TXDATA_delay[295]; // rv MustConnect
+  assign CH3_TXDATA_in[296] = (CH3_TXDATA[296] !== 1'bz) && CH3_TXDATA_delay[296]; // rv MustConnect
+  assign CH3_TXDATA_in[297] = (CH3_TXDATA[297] !== 1'bz) && CH3_TXDATA_delay[297]; // rv MustConnect
+  assign CH3_TXDATA_in[298] = (CH3_TXDATA[298] !== 1'bz) && CH3_TXDATA_delay[298]; // rv MustConnect
+  assign CH3_TXDATA_in[299] = (CH3_TXDATA[299] !== 1'bz) && CH3_TXDATA_delay[299]; // rv MustConnect
+  assign CH3_TXDATA_in[29] = (CH3_TXDATA[29] !== 1'bz) && CH3_TXDATA_delay[29]; // rv MustConnect
+  assign CH3_TXDATA_in[2] = (CH3_TXDATA[2] !== 1'bz) && CH3_TXDATA_delay[2]; // rv MustConnect
+  assign CH3_TXDATA_in[300] = (CH3_TXDATA[300] !== 1'bz) && CH3_TXDATA_delay[300]; // rv MustConnect
+  assign CH3_TXDATA_in[301] = (CH3_TXDATA[301] !== 1'bz) && CH3_TXDATA_delay[301]; // rv MustConnect
+  assign CH3_TXDATA_in[302] = (CH3_TXDATA[302] !== 1'bz) && CH3_TXDATA_delay[302]; // rv MustConnect
+  assign CH3_TXDATA_in[303] = (CH3_TXDATA[303] !== 1'bz) && CH3_TXDATA_delay[303]; // rv MustConnect
+  assign CH3_TXDATA_in[304] = (CH3_TXDATA[304] !== 1'bz) && CH3_TXDATA_delay[304]; // rv MustConnect
+  assign CH3_TXDATA_in[305] = (CH3_TXDATA[305] !== 1'bz) && CH3_TXDATA_delay[305]; // rv MustConnect
+  assign CH3_TXDATA_in[306] = (CH3_TXDATA[306] !== 1'bz) && CH3_TXDATA_delay[306]; // rv MustConnect
+  assign CH3_TXDATA_in[307] = (CH3_TXDATA[307] !== 1'bz) && CH3_TXDATA_delay[307]; // rv MustConnect
+  assign CH3_TXDATA_in[308] = (CH3_TXDATA[308] !== 1'bz) && CH3_TXDATA_delay[308]; // rv MustConnect
+  assign CH3_TXDATA_in[309] = (CH3_TXDATA[309] !== 1'bz) && CH3_TXDATA_delay[309]; // rv MustConnect
+  assign CH3_TXDATA_in[30] = (CH3_TXDATA[30] !== 1'bz) && CH3_TXDATA_delay[30]; // rv MustConnect
+  assign CH3_TXDATA_in[310] = (CH3_TXDATA[310] !== 1'bz) && CH3_TXDATA_delay[310]; // rv MustConnect
+  assign CH3_TXDATA_in[311] = (CH3_TXDATA[311] !== 1'bz) && CH3_TXDATA_delay[311]; // rv MustConnect
+  assign CH3_TXDATA_in[312] = (CH3_TXDATA[312] !== 1'bz) && CH3_TXDATA_delay[312]; // rv MustConnect
+  assign CH3_TXDATA_in[313] = (CH3_TXDATA[313] !== 1'bz) && CH3_TXDATA_delay[313]; // rv MustConnect
+  assign CH3_TXDATA_in[314] = (CH3_TXDATA[314] !== 1'bz) && CH3_TXDATA_delay[314]; // rv MustConnect
+  assign CH3_TXDATA_in[315] = (CH3_TXDATA[315] !== 1'bz) && CH3_TXDATA_delay[315]; // rv MustConnect
+  assign CH3_TXDATA_in[316] = (CH3_TXDATA[316] !== 1'bz) && CH3_TXDATA_delay[316]; // rv MustConnect
+  assign CH3_TXDATA_in[317] = (CH3_TXDATA[317] !== 1'bz) && CH3_TXDATA_delay[317]; // rv MustConnect
+  assign CH3_TXDATA_in[318] = (CH3_TXDATA[318] !== 1'bz) && CH3_TXDATA_delay[318]; // rv MustConnect
+  assign CH3_TXDATA_in[319] = (CH3_TXDATA[319] !== 1'bz) && CH3_TXDATA_delay[319]; // rv MustConnect
+  assign CH3_TXDATA_in[31] = (CH3_TXDATA[31] !== 1'bz) && CH3_TXDATA_delay[31]; // rv MustConnect
+  assign CH3_TXDATA_in[32] = (CH3_TXDATA[32] !== 1'bz) && CH3_TXDATA_delay[32]; // rv MustConnect
+  assign CH3_TXDATA_in[33] = (CH3_TXDATA[33] !== 1'bz) && CH3_TXDATA_delay[33]; // rv MustConnect
+  assign CH3_TXDATA_in[34] = (CH3_TXDATA[34] !== 1'bz) && CH3_TXDATA_delay[34]; // rv MustConnect
+  assign CH3_TXDATA_in[35] = (CH3_TXDATA[35] !== 1'bz) && CH3_TXDATA_delay[35]; // rv MustConnect
+  assign CH3_TXDATA_in[36] = (CH3_TXDATA[36] !== 1'bz) && CH3_TXDATA_delay[36]; // rv MustConnect
+  assign CH3_TXDATA_in[37] = (CH3_TXDATA[37] !== 1'bz) && CH3_TXDATA_delay[37]; // rv MustConnect
+  assign CH3_TXDATA_in[38] = (CH3_TXDATA[38] !== 1'bz) && CH3_TXDATA_delay[38]; // rv MustConnect
+  assign CH3_TXDATA_in[39] = (CH3_TXDATA[39] !== 1'bz) && CH3_TXDATA_delay[39]; // rv MustConnect
+  assign CH3_TXDATA_in[3] = (CH3_TXDATA[3] !== 1'bz) && CH3_TXDATA_delay[3]; // rv MustConnect
+  assign CH3_TXDATA_in[40] = (CH3_TXDATA[40] !== 1'bz) && CH3_TXDATA_delay[40]; // rv MustConnect
+  assign CH3_TXDATA_in[41] = (CH3_TXDATA[41] !== 1'bz) && CH3_TXDATA_delay[41]; // rv MustConnect
+  assign CH3_TXDATA_in[42] = (CH3_TXDATA[42] !== 1'bz) && CH3_TXDATA_delay[42]; // rv MustConnect
+  assign CH3_TXDATA_in[43] = (CH3_TXDATA[43] !== 1'bz) && CH3_TXDATA_delay[43]; // rv MustConnect
+  assign CH3_TXDATA_in[44] = (CH3_TXDATA[44] !== 1'bz) && CH3_TXDATA_delay[44]; // rv MustConnect
+  assign CH3_TXDATA_in[45] = (CH3_TXDATA[45] !== 1'bz) && CH3_TXDATA_delay[45]; // rv MustConnect
+  assign CH3_TXDATA_in[46] = (CH3_TXDATA[46] !== 1'bz) && CH3_TXDATA_delay[46]; // rv MustConnect
+  assign CH3_TXDATA_in[47] = (CH3_TXDATA[47] !== 1'bz) && CH3_TXDATA_delay[47]; // rv MustConnect
+  assign CH3_TXDATA_in[48] = (CH3_TXDATA[48] !== 1'bz) && CH3_TXDATA_delay[48]; // rv MustConnect
+  assign CH3_TXDATA_in[49] = (CH3_TXDATA[49] !== 1'bz) && CH3_TXDATA_delay[49]; // rv MustConnect
+  assign CH3_TXDATA_in[4] = (CH3_TXDATA[4] !== 1'bz) && CH3_TXDATA_delay[4]; // rv MustConnect
+  assign CH3_TXDATA_in[50] = (CH3_TXDATA[50] !== 1'bz) && CH3_TXDATA_delay[50]; // rv MustConnect
+  assign CH3_TXDATA_in[51] = (CH3_TXDATA[51] !== 1'bz) && CH3_TXDATA_delay[51]; // rv MustConnect
+  assign CH3_TXDATA_in[52] = (CH3_TXDATA[52] !== 1'bz) && CH3_TXDATA_delay[52]; // rv MustConnect
+  assign CH3_TXDATA_in[53] = (CH3_TXDATA[53] !== 1'bz) && CH3_TXDATA_delay[53]; // rv MustConnect
+  assign CH3_TXDATA_in[54] = (CH3_TXDATA[54] !== 1'bz) && CH3_TXDATA_delay[54]; // rv MustConnect
+  assign CH3_TXDATA_in[55] = (CH3_TXDATA[55] !== 1'bz) && CH3_TXDATA_delay[55]; // rv MustConnect
+  assign CH3_TXDATA_in[56] = (CH3_TXDATA[56] !== 1'bz) && CH3_TXDATA_delay[56]; // rv MustConnect
+  assign CH3_TXDATA_in[57] = (CH3_TXDATA[57] !== 1'bz) && CH3_TXDATA_delay[57]; // rv MustConnect
+  assign CH3_TXDATA_in[58] = (CH3_TXDATA[58] !== 1'bz) && CH3_TXDATA_delay[58]; // rv MustConnect
+  assign CH3_TXDATA_in[59] = (CH3_TXDATA[59] !== 1'bz) && CH3_TXDATA_delay[59]; // rv MustConnect
+  assign CH3_TXDATA_in[5] = (CH3_TXDATA[5] !== 1'bz) && CH3_TXDATA_delay[5]; // rv MustConnect
+  assign CH3_TXDATA_in[60] = (CH3_TXDATA[60] !== 1'bz) && CH3_TXDATA_delay[60]; // rv MustConnect
+  assign CH3_TXDATA_in[61] = (CH3_TXDATA[61] !== 1'bz) && CH3_TXDATA_delay[61]; // rv MustConnect
+  assign CH3_TXDATA_in[62] = (CH3_TXDATA[62] !== 1'bz) && CH3_TXDATA_delay[62]; // rv MustConnect
+  assign CH3_TXDATA_in[63] = (CH3_TXDATA[63] !== 1'bz) && CH3_TXDATA_delay[63]; // rv MustConnect
+  assign CH3_TXDATA_in[64] = (CH3_TXDATA[64] !== 1'bz) && CH3_TXDATA_delay[64]; // rv MustConnect
+  assign CH3_TXDATA_in[65] = (CH3_TXDATA[65] !== 1'bz) && CH3_TXDATA_delay[65]; // rv MustConnect
+  assign CH3_TXDATA_in[66] = (CH3_TXDATA[66] !== 1'bz) && CH3_TXDATA_delay[66]; // rv MustConnect
+  assign CH3_TXDATA_in[67] = (CH3_TXDATA[67] !== 1'bz) && CH3_TXDATA_delay[67]; // rv MustConnect
+  assign CH3_TXDATA_in[68] = (CH3_TXDATA[68] !== 1'bz) && CH3_TXDATA_delay[68]; // rv MustConnect
+  assign CH3_TXDATA_in[69] = (CH3_TXDATA[69] !== 1'bz) && CH3_TXDATA_delay[69]; // rv MustConnect
+  assign CH3_TXDATA_in[6] = (CH3_TXDATA[6] !== 1'bz) && CH3_TXDATA_delay[6]; // rv MustConnect
+  assign CH3_TXDATA_in[70] = (CH3_TXDATA[70] !== 1'bz) && CH3_TXDATA_delay[70]; // rv MustConnect
+  assign CH3_TXDATA_in[71] = (CH3_TXDATA[71] !== 1'bz) && CH3_TXDATA_delay[71]; // rv MustConnect
+  assign CH3_TXDATA_in[72] = (CH3_TXDATA[72] !== 1'bz) && CH3_TXDATA_delay[72]; // rv MustConnect
+  assign CH3_TXDATA_in[73] = (CH3_TXDATA[73] !== 1'bz) && CH3_TXDATA_delay[73]; // rv MustConnect
+  assign CH3_TXDATA_in[74] = (CH3_TXDATA[74] !== 1'bz) && CH3_TXDATA_delay[74]; // rv MustConnect
+  assign CH3_TXDATA_in[75] = (CH3_TXDATA[75] !== 1'bz) && CH3_TXDATA_delay[75]; // rv MustConnect
+  assign CH3_TXDATA_in[76] = (CH3_TXDATA[76] !== 1'bz) && CH3_TXDATA_delay[76]; // rv MustConnect
+  assign CH3_TXDATA_in[77] = (CH3_TXDATA[77] !== 1'bz) && CH3_TXDATA_delay[77]; // rv MustConnect
+  assign CH3_TXDATA_in[78] = (CH3_TXDATA[78] !== 1'bz) && CH3_TXDATA_delay[78]; // rv MustConnect
+  assign CH3_TXDATA_in[79] = (CH3_TXDATA[79] !== 1'bz) && CH3_TXDATA_delay[79]; // rv MustConnect
+  assign CH3_TXDATA_in[7] = (CH3_TXDATA[7] !== 1'bz) && CH3_TXDATA_delay[7]; // rv MustConnect
+  assign CH3_TXDATA_in[80] = (CH3_TXDATA[80] !== 1'bz) && CH3_TXDATA_delay[80]; // rv MustConnect
+  assign CH3_TXDATA_in[81] = (CH3_TXDATA[81] !== 1'bz) && CH3_TXDATA_delay[81]; // rv MustConnect
+  assign CH3_TXDATA_in[82] = (CH3_TXDATA[82] !== 1'bz) && CH3_TXDATA_delay[82]; // rv MustConnect
+  assign CH3_TXDATA_in[83] = (CH3_TXDATA[83] !== 1'bz) && CH3_TXDATA_delay[83]; // rv MustConnect
+  assign CH3_TXDATA_in[84] = (CH3_TXDATA[84] !== 1'bz) && CH3_TXDATA_delay[84]; // rv MustConnect
+  assign CH3_TXDATA_in[85] = (CH3_TXDATA[85] !== 1'bz) && CH3_TXDATA_delay[85]; // rv MustConnect
+  assign CH3_TXDATA_in[86] = (CH3_TXDATA[86] !== 1'bz) && CH3_TXDATA_delay[86]; // rv MustConnect
+  assign CH3_TXDATA_in[87] = (CH3_TXDATA[87] !== 1'bz) && CH3_TXDATA_delay[87]; // rv MustConnect
+  assign CH3_TXDATA_in[88] = (CH3_TXDATA[88] !== 1'bz) && CH3_TXDATA_delay[88]; // rv MustConnect
+  assign CH3_TXDATA_in[89] = (CH3_TXDATA[89] !== 1'bz) && CH3_TXDATA_delay[89]; // rv MustConnect
+  assign CH3_TXDATA_in[8] = (CH3_TXDATA[8] !== 1'bz) && CH3_TXDATA_delay[8]; // rv MustConnect
+  assign CH3_TXDATA_in[90] = (CH3_TXDATA[90] !== 1'bz) && CH3_TXDATA_delay[90]; // rv MustConnect
+  assign CH3_TXDATA_in[91] = (CH3_TXDATA[91] !== 1'bz) && CH3_TXDATA_delay[91]; // rv MustConnect
+  assign CH3_TXDATA_in[92] = (CH3_TXDATA[92] !== 1'bz) && CH3_TXDATA_delay[92]; // rv MustConnect
+  assign CH3_TXDATA_in[93] = (CH3_TXDATA[93] !== 1'bz) && CH3_TXDATA_delay[93]; // rv MustConnect
+  assign CH3_TXDATA_in[94] = (CH3_TXDATA[94] !== 1'bz) && CH3_TXDATA_delay[94]; // rv MustConnect
+  assign CH3_TXDATA_in[95] = (CH3_TXDATA[95] !== 1'bz) && CH3_TXDATA_delay[95]; // rv MustConnect
+  assign CH3_TXDATA_in[96] = (CH3_TXDATA[96] !== 1'bz) && CH3_TXDATA_delay[96]; // rv MustConnect
+  assign CH3_TXDATA_in[97] = (CH3_TXDATA[97] !== 1'bz) && CH3_TXDATA_delay[97]; // rv MustConnect
+  assign CH3_TXDATA_in[98] = (CH3_TXDATA[98] !== 1'bz) && CH3_TXDATA_delay[98]; // rv MustConnect
+  assign CH3_TXDATA_in[99] = (CH3_TXDATA[99] !== 1'bz) && CH3_TXDATA_delay[99]; // rv MustConnect
+  assign CH3_TXDATA_in[9] = (CH3_TXDATA[9] !== 1'bz) && CH3_TXDATA_delay[9]; // rv MustConnect
+  assign CH3_TXDETECTRXLOOPBACK_in = CH3_TXDETECTRXLOOPBACK_delay;
+  assign CH3_TXELECIDLE_in = (CH3_TXELECIDLE === 1'bz) || CH3_TXELECIDLE_delay; // rv 1
+  assign CH3_TXPOWERDOWN_in = CH3_TXPOWERDOWN_delay;
+  assign CH3_TXRATE_in = CH3_TXRATE_delay;
+  assign CH3_TXUSRCLK_in = (CH3_TXUSRCLK === 1'bz) || CH3_TXUSRCLK_delay; // rv 1
+  assign RXMARGINCLK_in = RXMARGINCLK_delay;
+  assign RXMARGINREQCMD_in = RXMARGINREQCMD_delay;
+  assign RXMARGINREQLANENUM_in = RXMARGINREQLANENUM_delay;
+  assign RXMARGINREQPAYLOAD_in = RXMARGINREQPAYLOAD_delay;
+  assign RXMARGINREQREQ_in = RXMARGINREQREQ_delay;
+  assign RXMARGINRESACK_in = RXMARGINRESACK_delay;
+  assign SCANCHNLMASKIN_in = SCANCHNLMASKIN_delay;
+  assign SCANCLKB_in = SCANCLKB_delay;
+  assign SCANCNTRLIN_in = SCANCNTRLIN_delay;
+  assign SCANIN_in = SCANIN_delay;
+  assign SCANODCCCHNLMASKIN_in = SCANODCCCHNLMASKIN_delay;
+`else
+  assign CH0_RXGEARBOXSLIP_in = CH0_RXGEARBOXSLIP;
+  assign CH0_RXUSRCLK_in = (CH0_RXUSRCLK === 1'bz) || CH0_RXUSRCLK; // rv 1
+  assign CH0_SCANCHNLMASKIN_in = CH0_SCANCHNLMASKIN;
+  assign CH0_SCANCLKB_in = CH0_SCANCLKB;
+  assign CH0_SCANCNTRLIN_in = CH0_SCANCNTRLIN;
+  assign CH0_SCANIN_in = CH0_SCANIN;
+  assign CH0_SCANODCCCHNLMASK_in = CH0_SCANODCCCHNLMASK;
+  assign CH0_TXDATA_in[0] = (CH0_TXDATA[0] !== 1'bz) && CH0_TXDATA[0]; // rv MustConnect
+  assign CH0_TXDATA_in[100] = (CH0_TXDATA[100] !== 1'bz) && CH0_TXDATA[100]; // rv MustConnect
+  assign CH0_TXDATA_in[101] = (CH0_TXDATA[101] !== 1'bz) && CH0_TXDATA[101]; // rv MustConnect
+  assign CH0_TXDATA_in[102] = (CH0_TXDATA[102] !== 1'bz) && CH0_TXDATA[102]; // rv MustConnect
+  assign CH0_TXDATA_in[103] = (CH0_TXDATA[103] !== 1'bz) && CH0_TXDATA[103]; // rv MustConnect
+  assign CH0_TXDATA_in[104] = (CH0_TXDATA[104] !== 1'bz) && CH0_TXDATA[104]; // rv MustConnect
+  assign CH0_TXDATA_in[105] = (CH0_TXDATA[105] !== 1'bz) && CH0_TXDATA[105]; // rv MustConnect
+  assign CH0_TXDATA_in[106] = (CH0_TXDATA[106] !== 1'bz) && CH0_TXDATA[106]; // rv MustConnect
+  assign CH0_TXDATA_in[107] = (CH0_TXDATA[107] !== 1'bz) && CH0_TXDATA[107]; // rv MustConnect
+  assign CH0_TXDATA_in[108] = (CH0_TXDATA[108] !== 1'bz) && CH0_TXDATA[108]; // rv MustConnect
+  assign CH0_TXDATA_in[109] = (CH0_TXDATA[109] !== 1'bz) && CH0_TXDATA[109]; // rv MustConnect
+  assign CH0_TXDATA_in[10] = (CH0_TXDATA[10] !== 1'bz) && CH0_TXDATA[10]; // rv MustConnect
+  assign CH0_TXDATA_in[110] = (CH0_TXDATA[110] !== 1'bz) && CH0_TXDATA[110]; // rv MustConnect
+  assign CH0_TXDATA_in[111] = (CH0_TXDATA[111] !== 1'bz) && CH0_TXDATA[111]; // rv MustConnect
+  assign CH0_TXDATA_in[112] = (CH0_TXDATA[112] !== 1'bz) && CH0_TXDATA[112]; // rv MustConnect
+  assign CH0_TXDATA_in[113] = (CH0_TXDATA[113] !== 1'bz) && CH0_TXDATA[113]; // rv MustConnect
+  assign CH0_TXDATA_in[114] = (CH0_TXDATA[114] !== 1'bz) && CH0_TXDATA[114]; // rv MustConnect
+  assign CH0_TXDATA_in[115] = (CH0_TXDATA[115] !== 1'bz) && CH0_TXDATA[115]; // rv MustConnect
+  assign CH0_TXDATA_in[116] = (CH0_TXDATA[116] !== 1'bz) && CH0_TXDATA[116]; // rv MustConnect
+  assign CH0_TXDATA_in[117] = (CH0_TXDATA[117] !== 1'bz) && CH0_TXDATA[117]; // rv MustConnect
+  assign CH0_TXDATA_in[118] = (CH0_TXDATA[118] !== 1'bz) && CH0_TXDATA[118]; // rv MustConnect
+  assign CH0_TXDATA_in[119] = (CH0_TXDATA[119] !== 1'bz) && CH0_TXDATA[119]; // rv MustConnect
+  assign CH0_TXDATA_in[11] = (CH0_TXDATA[11] !== 1'bz) && CH0_TXDATA[11]; // rv MustConnect
+  assign CH0_TXDATA_in[120] = (CH0_TXDATA[120] !== 1'bz) && CH0_TXDATA[120]; // rv MustConnect
+  assign CH0_TXDATA_in[121] = (CH0_TXDATA[121] !== 1'bz) && CH0_TXDATA[121]; // rv MustConnect
+  assign CH0_TXDATA_in[122] = (CH0_TXDATA[122] !== 1'bz) && CH0_TXDATA[122]; // rv MustConnect
+  assign CH0_TXDATA_in[123] = (CH0_TXDATA[123] !== 1'bz) && CH0_TXDATA[123]; // rv MustConnect
+  assign CH0_TXDATA_in[124] = (CH0_TXDATA[124] !== 1'bz) && CH0_TXDATA[124]; // rv MustConnect
+  assign CH0_TXDATA_in[125] = (CH0_TXDATA[125] !== 1'bz) && CH0_TXDATA[125]; // rv MustConnect
+  assign CH0_TXDATA_in[126] = (CH0_TXDATA[126] !== 1'bz) && CH0_TXDATA[126]; // rv MustConnect
+  assign CH0_TXDATA_in[127] = (CH0_TXDATA[127] !== 1'bz) && CH0_TXDATA[127]; // rv MustConnect
+  assign CH0_TXDATA_in[128] = (CH0_TXDATA[128] !== 1'bz) && CH0_TXDATA[128]; // rv MustConnect
+  assign CH0_TXDATA_in[129] = (CH0_TXDATA[129] !== 1'bz) && CH0_TXDATA[129]; // rv MustConnect
+  assign CH0_TXDATA_in[12] = (CH0_TXDATA[12] !== 1'bz) && CH0_TXDATA[12]; // rv MustConnect
+  assign CH0_TXDATA_in[130] = (CH0_TXDATA[130] !== 1'bz) && CH0_TXDATA[130]; // rv MustConnect
+  assign CH0_TXDATA_in[131] = (CH0_TXDATA[131] !== 1'bz) && CH0_TXDATA[131]; // rv MustConnect
+  assign CH0_TXDATA_in[132] = (CH0_TXDATA[132] !== 1'bz) && CH0_TXDATA[132]; // rv MustConnect
+  assign CH0_TXDATA_in[133] = (CH0_TXDATA[133] !== 1'bz) && CH0_TXDATA[133]; // rv MustConnect
+  assign CH0_TXDATA_in[134] = (CH0_TXDATA[134] !== 1'bz) && CH0_TXDATA[134]; // rv MustConnect
+  assign CH0_TXDATA_in[135] = (CH0_TXDATA[135] !== 1'bz) && CH0_TXDATA[135]; // rv MustConnect
+  assign CH0_TXDATA_in[136] = (CH0_TXDATA[136] !== 1'bz) && CH0_TXDATA[136]; // rv MustConnect
+  assign CH0_TXDATA_in[137] = (CH0_TXDATA[137] !== 1'bz) && CH0_TXDATA[137]; // rv MustConnect
+  assign CH0_TXDATA_in[138] = (CH0_TXDATA[138] !== 1'bz) && CH0_TXDATA[138]; // rv MustConnect
+  assign CH0_TXDATA_in[139] = (CH0_TXDATA[139] !== 1'bz) && CH0_TXDATA[139]; // rv MustConnect
+  assign CH0_TXDATA_in[13] = (CH0_TXDATA[13] !== 1'bz) && CH0_TXDATA[13]; // rv MustConnect
+  assign CH0_TXDATA_in[140] = (CH0_TXDATA[140] !== 1'bz) && CH0_TXDATA[140]; // rv MustConnect
+  assign CH0_TXDATA_in[141] = (CH0_TXDATA[141] !== 1'bz) && CH0_TXDATA[141]; // rv MustConnect
+  assign CH0_TXDATA_in[142] = (CH0_TXDATA[142] !== 1'bz) && CH0_TXDATA[142]; // rv MustConnect
+  assign CH0_TXDATA_in[143] = (CH0_TXDATA[143] !== 1'bz) && CH0_TXDATA[143]; // rv MustConnect
+  assign CH0_TXDATA_in[144] = (CH0_TXDATA[144] !== 1'bz) && CH0_TXDATA[144]; // rv MustConnect
+  assign CH0_TXDATA_in[145] = (CH0_TXDATA[145] !== 1'bz) && CH0_TXDATA[145]; // rv MustConnect
+  assign CH0_TXDATA_in[146] = (CH0_TXDATA[146] !== 1'bz) && CH0_TXDATA[146]; // rv MustConnect
+  assign CH0_TXDATA_in[147] = (CH0_TXDATA[147] !== 1'bz) && CH0_TXDATA[147]; // rv MustConnect
+  assign CH0_TXDATA_in[148] = (CH0_TXDATA[148] !== 1'bz) && CH0_TXDATA[148]; // rv MustConnect
+  assign CH0_TXDATA_in[149] = (CH0_TXDATA[149] !== 1'bz) && CH0_TXDATA[149]; // rv MustConnect
+  assign CH0_TXDATA_in[14] = (CH0_TXDATA[14] !== 1'bz) && CH0_TXDATA[14]; // rv MustConnect
+  assign CH0_TXDATA_in[150] = (CH0_TXDATA[150] !== 1'bz) && CH0_TXDATA[150]; // rv MustConnect
+  assign CH0_TXDATA_in[151] = (CH0_TXDATA[151] !== 1'bz) && CH0_TXDATA[151]; // rv MustConnect
+  assign CH0_TXDATA_in[152] = (CH0_TXDATA[152] !== 1'bz) && CH0_TXDATA[152]; // rv MustConnect
+  assign CH0_TXDATA_in[153] = (CH0_TXDATA[153] !== 1'bz) && CH0_TXDATA[153]; // rv MustConnect
+  assign CH0_TXDATA_in[154] = (CH0_TXDATA[154] !== 1'bz) && CH0_TXDATA[154]; // rv MustConnect
+  assign CH0_TXDATA_in[155] = (CH0_TXDATA[155] !== 1'bz) && CH0_TXDATA[155]; // rv MustConnect
+  assign CH0_TXDATA_in[156] = (CH0_TXDATA[156] !== 1'bz) && CH0_TXDATA[156]; // rv MustConnect
+  assign CH0_TXDATA_in[157] = (CH0_TXDATA[157] !== 1'bz) && CH0_TXDATA[157]; // rv MustConnect
+  assign CH0_TXDATA_in[158] = (CH0_TXDATA[158] !== 1'bz) && CH0_TXDATA[158]; // rv MustConnect
+  assign CH0_TXDATA_in[159] = (CH0_TXDATA[159] !== 1'bz) && CH0_TXDATA[159]; // rv MustConnect
+  assign CH0_TXDATA_in[15] = (CH0_TXDATA[15] !== 1'bz) && CH0_TXDATA[15]; // rv MustConnect
+  assign CH0_TXDATA_in[160] = (CH0_TXDATA[160] !== 1'bz) && CH0_TXDATA[160]; // rv MustConnect
+  assign CH0_TXDATA_in[161] = (CH0_TXDATA[161] !== 1'bz) && CH0_TXDATA[161]; // rv MustConnect
+  assign CH0_TXDATA_in[162] = (CH0_TXDATA[162] !== 1'bz) && CH0_TXDATA[162]; // rv MustConnect
+  assign CH0_TXDATA_in[163] = (CH0_TXDATA[163] !== 1'bz) && CH0_TXDATA[163]; // rv MustConnect
+  assign CH0_TXDATA_in[164] = (CH0_TXDATA[164] !== 1'bz) && CH0_TXDATA[164]; // rv MustConnect
+  assign CH0_TXDATA_in[165] = (CH0_TXDATA[165] !== 1'bz) && CH0_TXDATA[165]; // rv MustConnect
+  assign CH0_TXDATA_in[166] = (CH0_TXDATA[166] !== 1'bz) && CH0_TXDATA[166]; // rv MustConnect
+  assign CH0_TXDATA_in[167] = (CH0_TXDATA[167] !== 1'bz) && CH0_TXDATA[167]; // rv MustConnect
+  assign CH0_TXDATA_in[168] = (CH0_TXDATA[168] !== 1'bz) && CH0_TXDATA[168]; // rv MustConnect
+  assign CH0_TXDATA_in[169] = (CH0_TXDATA[169] !== 1'bz) && CH0_TXDATA[169]; // rv MustConnect
+  assign CH0_TXDATA_in[16] = (CH0_TXDATA[16] !== 1'bz) && CH0_TXDATA[16]; // rv MustConnect
+  assign CH0_TXDATA_in[170] = (CH0_TXDATA[170] !== 1'bz) && CH0_TXDATA[170]; // rv MustConnect
+  assign CH0_TXDATA_in[171] = (CH0_TXDATA[171] !== 1'bz) && CH0_TXDATA[171]; // rv MustConnect
+  assign CH0_TXDATA_in[172] = (CH0_TXDATA[172] !== 1'bz) && CH0_TXDATA[172]; // rv MustConnect
+  assign CH0_TXDATA_in[173] = (CH0_TXDATA[173] !== 1'bz) && CH0_TXDATA[173]; // rv MustConnect
+  assign CH0_TXDATA_in[174] = (CH0_TXDATA[174] !== 1'bz) && CH0_TXDATA[174]; // rv MustConnect
+  assign CH0_TXDATA_in[175] = (CH0_TXDATA[175] !== 1'bz) && CH0_TXDATA[175]; // rv MustConnect
+  assign CH0_TXDATA_in[176] = (CH0_TXDATA[176] !== 1'bz) && CH0_TXDATA[176]; // rv MustConnect
+  assign CH0_TXDATA_in[177] = (CH0_TXDATA[177] !== 1'bz) && CH0_TXDATA[177]; // rv MustConnect
+  assign CH0_TXDATA_in[178] = (CH0_TXDATA[178] !== 1'bz) && CH0_TXDATA[178]; // rv MustConnect
+  assign CH0_TXDATA_in[179] = (CH0_TXDATA[179] !== 1'bz) && CH0_TXDATA[179]; // rv MustConnect
+  assign CH0_TXDATA_in[17] = (CH0_TXDATA[17] !== 1'bz) && CH0_TXDATA[17]; // rv MustConnect
+  assign CH0_TXDATA_in[180] = (CH0_TXDATA[180] !== 1'bz) && CH0_TXDATA[180]; // rv MustConnect
+  assign CH0_TXDATA_in[181] = (CH0_TXDATA[181] !== 1'bz) && CH0_TXDATA[181]; // rv MustConnect
+  assign CH0_TXDATA_in[182] = (CH0_TXDATA[182] !== 1'bz) && CH0_TXDATA[182]; // rv MustConnect
+  assign CH0_TXDATA_in[183] = (CH0_TXDATA[183] !== 1'bz) && CH0_TXDATA[183]; // rv MustConnect
+  assign CH0_TXDATA_in[184] = (CH0_TXDATA[184] !== 1'bz) && CH0_TXDATA[184]; // rv MustConnect
+  assign CH0_TXDATA_in[185] = (CH0_TXDATA[185] !== 1'bz) && CH0_TXDATA[185]; // rv MustConnect
+  assign CH0_TXDATA_in[186] = (CH0_TXDATA[186] !== 1'bz) && CH0_TXDATA[186]; // rv MustConnect
+  assign CH0_TXDATA_in[187] = (CH0_TXDATA[187] !== 1'bz) && CH0_TXDATA[187]; // rv MustConnect
+  assign CH0_TXDATA_in[188] = (CH0_TXDATA[188] !== 1'bz) && CH0_TXDATA[188]; // rv MustConnect
+  assign CH0_TXDATA_in[189] = (CH0_TXDATA[189] !== 1'bz) && CH0_TXDATA[189]; // rv MustConnect
+  assign CH0_TXDATA_in[18] = (CH0_TXDATA[18] !== 1'bz) && CH0_TXDATA[18]; // rv MustConnect
+  assign CH0_TXDATA_in[190] = (CH0_TXDATA[190] !== 1'bz) && CH0_TXDATA[190]; // rv MustConnect
+  assign CH0_TXDATA_in[191] = (CH0_TXDATA[191] !== 1'bz) && CH0_TXDATA[191]; // rv MustConnect
+  assign CH0_TXDATA_in[192] = (CH0_TXDATA[192] !== 1'bz) && CH0_TXDATA[192]; // rv MustConnect
+  assign CH0_TXDATA_in[193] = (CH0_TXDATA[193] !== 1'bz) && CH0_TXDATA[193]; // rv MustConnect
+  assign CH0_TXDATA_in[194] = (CH0_TXDATA[194] !== 1'bz) && CH0_TXDATA[194]; // rv MustConnect
+  assign CH0_TXDATA_in[195] = (CH0_TXDATA[195] !== 1'bz) && CH0_TXDATA[195]; // rv MustConnect
+  assign CH0_TXDATA_in[196] = (CH0_TXDATA[196] !== 1'bz) && CH0_TXDATA[196]; // rv MustConnect
+  assign CH0_TXDATA_in[197] = (CH0_TXDATA[197] !== 1'bz) && CH0_TXDATA[197]; // rv MustConnect
+  assign CH0_TXDATA_in[198] = (CH0_TXDATA[198] !== 1'bz) && CH0_TXDATA[198]; // rv MustConnect
+  assign CH0_TXDATA_in[199] = (CH0_TXDATA[199] !== 1'bz) && CH0_TXDATA[199]; // rv MustConnect
+  assign CH0_TXDATA_in[19] = (CH0_TXDATA[19] !== 1'bz) && CH0_TXDATA[19]; // rv MustConnect
+  assign CH0_TXDATA_in[1] = (CH0_TXDATA[1] !== 1'bz) && CH0_TXDATA[1]; // rv MustConnect
+  assign CH0_TXDATA_in[200] = (CH0_TXDATA[200] !== 1'bz) && CH0_TXDATA[200]; // rv MustConnect
+  assign CH0_TXDATA_in[201] = (CH0_TXDATA[201] !== 1'bz) && CH0_TXDATA[201]; // rv MustConnect
+  assign CH0_TXDATA_in[202] = (CH0_TXDATA[202] !== 1'bz) && CH0_TXDATA[202]; // rv MustConnect
+  assign CH0_TXDATA_in[203] = (CH0_TXDATA[203] !== 1'bz) && CH0_TXDATA[203]; // rv MustConnect
+  assign CH0_TXDATA_in[204] = (CH0_TXDATA[204] !== 1'bz) && CH0_TXDATA[204]; // rv MustConnect
+  assign CH0_TXDATA_in[205] = (CH0_TXDATA[205] !== 1'bz) && CH0_TXDATA[205]; // rv MustConnect
+  assign CH0_TXDATA_in[206] = (CH0_TXDATA[206] !== 1'bz) && CH0_TXDATA[206]; // rv MustConnect
+  assign CH0_TXDATA_in[207] = (CH0_TXDATA[207] !== 1'bz) && CH0_TXDATA[207]; // rv MustConnect
+  assign CH0_TXDATA_in[208] = (CH0_TXDATA[208] !== 1'bz) && CH0_TXDATA[208]; // rv MustConnect
+  assign CH0_TXDATA_in[209] = (CH0_TXDATA[209] !== 1'bz) && CH0_TXDATA[209]; // rv MustConnect
+  assign CH0_TXDATA_in[20] = (CH0_TXDATA[20] !== 1'bz) && CH0_TXDATA[20]; // rv MustConnect
+  assign CH0_TXDATA_in[210] = (CH0_TXDATA[210] !== 1'bz) && CH0_TXDATA[210]; // rv MustConnect
+  assign CH0_TXDATA_in[211] = (CH0_TXDATA[211] !== 1'bz) && CH0_TXDATA[211]; // rv MustConnect
+  assign CH0_TXDATA_in[212] = (CH0_TXDATA[212] !== 1'bz) && CH0_TXDATA[212]; // rv MustConnect
+  assign CH0_TXDATA_in[213] = (CH0_TXDATA[213] !== 1'bz) && CH0_TXDATA[213]; // rv MustConnect
+  assign CH0_TXDATA_in[214] = (CH0_TXDATA[214] !== 1'bz) && CH0_TXDATA[214]; // rv MustConnect
+  assign CH0_TXDATA_in[215] = (CH0_TXDATA[215] !== 1'bz) && CH0_TXDATA[215]; // rv MustConnect
+  assign CH0_TXDATA_in[216] = (CH0_TXDATA[216] !== 1'bz) && CH0_TXDATA[216]; // rv MustConnect
+  assign CH0_TXDATA_in[217] = (CH0_TXDATA[217] !== 1'bz) && CH0_TXDATA[217]; // rv MustConnect
+  assign CH0_TXDATA_in[218] = (CH0_TXDATA[218] !== 1'bz) && CH0_TXDATA[218]; // rv MustConnect
+  assign CH0_TXDATA_in[219] = (CH0_TXDATA[219] !== 1'bz) && CH0_TXDATA[219]; // rv MustConnect
+  assign CH0_TXDATA_in[21] = (CH0_TXDATA[21] !== 1'bz) && CH0_TXDATA[21]; // rv MustConnect
+  assign CH0_TXDATA_in[220] = (CH0_TXDATA[220] !== 1'bz) && CH0_TXDATA[220]; // rv MustConnect
+  assign CH0_TXDATA_in[221] = (CH0_TXDATA[221] !== 1'bz) && CH0_TXDATA[221]; // rv MustConnect
+  assign CH0_TXDATA_in[222] = (CH0_TXDATA[222] !== 1'bz) && CH0_TXDATA[222]; // rv MustConnect
+  assign CH0_TXDATA_in[223] = (CH0_TXDATA[223] !== 1'bz) && CH0_TXDATA[223]; // rv MustConnect
+  assign CH0_TXDATA_in[224] = (CH0_TXDATA[224] !== 1'bz) && CH0_TXDATA[224]; // rv MustConnect
+  assign CH0_TXDATA_in[225] = (CH0_TXDATA[225] !== 1'bz) && CH0_TXDATA[225]; // rv MustConnect
+  assign CH0_TXDATA_in[226] = (CH0_TXDATA[226] !== 1'bz) && CH0_TXDATA[226]; // rv MustConnect
+  assign CH0_TXDATA_in[227] = (CH0_TXDATA[227] !== 1'bz) && CH0_TXDATA[227]; // rv MustConnect
+  assign CH0_TXDATA_in[228] = (CH0_TXDATA[228] !== 1'bz) && CH0_TXDATA[228]; // rv MustConnect
+  assign CH0_TXDATA_in[229] = (CH0_TXDATA[229] !== 1'bz) && CH0_TXDATA[229]; // rv MustConnect
+  assign CH0_TXDATA_in[22] = (CH0_TXDATA[22] !== 1'bz) && CH0_TXDATA[22]; // rv MustConnect
+  assign CH0_TXDATA_in[230] = (CH0_TXDATA[230] !== 1'bz) && CH0_TXDATA[230]; // rv MustConnect
+  assign CH0_TXDATA_in[231] = (CH0_TXDATA[231] !== 1'bz) && CH0_TXDATA[231]; // rv MustConnect
+  assign CH0_TXDATA_in[232] = (CH0_TXDATA[232] !== 1'bz) && CH0_TXDATA[232]; // rv MustConnect
+  assign CH0_TXDATA_in[233] = (CH0_TXDATA[233] !== 1'bz) && CH0_TXDATA[233]; // rv MustConnect
+  assign CH0_TXDATA_in[234] = (CH0_TXDATA[234] !== 1'bz) && CH0_TXDATA[234]; // rv MustConnect
+  assign CH0_TXDATA_in[235] = (CH0_TXDATA[235] !== 1'bz) && CH0_TXDATA[235]; // rv MustConnect
+  assign CH0_TXDATA_in[236] = (CH0_TXDATA[236] !== 1'bz) && CH0_TXDATA[236]; // rv MustConnect
+  assign CH0_TXDATA_in[237] = (CH0_TXDATA[237] !== 1'bz) && CH0_TXDATA[237]; // rv MustConnect
+  assign CH0_TXDATA_in[238] = (CH0_TXDATA[238] !== 1'bz) && CH0_TXDATA[238]; // rv MustConnect
+  assign CH0_TXDATA_in[239] = (CH0_TXDATA[239] !== 1'bz) && CH0_TXDATA[239]; // rv MustConnect
+  assign CH0_TXDATA_in[23] = (CH0_TXDATA[23] !== 1'bz) && CH0_TXDATA[23]; // rv MustConnect
+  assign CH0_TXDATA_in[240] = (CH0_TXDATA[240] !== 1'bz) && CH0_TXDATA[240]; // rv MustConnect
+  assign CH0_TXDATA_in[241] = (CH0_TXDATA[241] !== 1'bz) && CH0_TXDATA[241]; // rv MustConnect
+  assign CH0_TXDATA_in[242] = (CH0_TXDATA[242] !== 1'bz) && CH0_TXDATA[242]; // rv MustConnect
+  assign CH0_TXDATA_in[243] = (CH0_TXDATA[243] !== 1'bz) && CH0_TXDATA[243]; // rv MustConnect
+  assign CH0_TXDATA_in[244] = (CH0_TXDATA[244] !== 1'bz) && CH0_TXDATA[244]; // rv MustConnect
+  assign CH0_TXDATA_in[245] = (CH0_TXDATA[245] !== 1'bz) && CH0_TXDATA[245]; // rv MustConnect
+  assign CH0_TXDATA_in[246] = (CH0_TXDATA[246] !== 1'bz) && CH0_TXDATA[246]; // rv MustConnect
+  assign CH0_TXDATA_in[247] = (CH0_TXDATA[247] !== 1'bz) && CH0_TXDATA[247]; // rv MustConnect
+  assign CH0_TXDATA_in[248] = (CH0_TXDATA[248] !== 1'bz) && CH0_TXDATA[248]; // rv MustConnect
+  assign CH0_TXDATA_in[249] = (CH0_TXDATA[249] !== 1'bz) && CH0_TXDATA[249]; // rv MustConnect
+  assign CH0_TXDATA_in[24] = (CH0_TXDATA[24] !== 1'bz) && CH0_TXDATA[24]; // rv MustConnect
+  assign CH0_TXDATA_in[250] = (CH0_TXDATA[250] !== 1'bz) && CH0_TXDATA[250]; // rv MustConnect
+  assign CH0_TXDATA_in[251] = (CH0_TXDATA[251] !== 1'bz) && CH0_TXDATA[251]; // rv MustConnect
+  assign CH0_TXDATA_in[252] = (CH0_TXDATA[252] !== 1'bz) && CH0_TXDATA[252]; // rv MustConnect
+  assign CH0_TXDATA_in[253] = (CH0_TXDATA[253] !== 1'bz) && CH0_TXDATA[253]; // rv MustConnect
+  assign CH0_TXDATA_in[254] = (CH0_TXDATA[254] !== 1'bz) && CH0_TXDATA[254]; // rv MustConnect
+  assign CH0_TXDATA_in[255] = (CH0_TXDATA[255] !== 1'bz) && CH0_TXDATA[255]; // rv MustConnect
+  assign CH0_TXDATA_in[256] = (CH0_TXDATA[256] !== 1'bz) && CH0_TXDATA[256]; // rv MustConnect
+  assign CH0_TXDATA_in[257] = (CH0_TXDATA[257] !== 1'bz) && CH0_TXDATA[257]; // rv MustConnect
+  assign CH0_TXDATA_in[258] = (CH0_TXDATA[258] !== 1'bz) && CH0_TXDATA[258]; // rv MustConnect
+  assign CH0_TXDATA_in[259] = (CH0_TXDATA[259] !== 1'bz) && CH0_TXDATA[259]; // rv MustConnect
+  assign CH0_TXDATA_in[25] = (CH0_TXDATA[25] !== 1'bz) && CH0_TXDATA[25]; // rv MustConnect
+  assign CH0_TXDATA_in[260] = (CH0_TXDATA[260] !== 1'bz) && CH0_TXDATA[260]; // rv MustConnect
+  assign CH0_TXDATA_in[261] = (CH0_TXDATA[261] !== 1'bz) && CH0_TXDATA[261]; // rv MustConnect
+  assign CH0_TXDATA_in[262] = (CH0_TXDATA[262] !== 1'bz) && CH0_TXDATA[262]; // rv MustConnect
+  assign CH0_TXDATA_in[263] = (CH0_TXDATA[263] !== 1'bz) && CH0_TXDATA[263]; // rv MustConnect
+  assign CH0_TXDATA_in[264] = (CH0_TXDATA[264] !== 1'bz) && CH0_TXDATA[264]; // rv MustConnect
+  assign CH0_TXDATA_in[265] = (CH0_TXDATA[265] !== 1'bz) && CH0_TXDATA[265]; // rv MustConnect
+  assign CH0_TXDATA_in[266] = (CH0_TXDATA[266] !== 1'bz) && CH0_TXDATA[266]; // rv MustConnect
+  assign CH0_TXDATA_in[267] = (CH0_TXDATA[267] !== 1'bz) && CH0_TXDATA[267]; // rv MustConnect
+  assign CH0_TXDATA_in[268] = (CH0_TXDATA[268] !== 1'bz) && CH0_TXDATA[268]; // rv MustConnect
+  assign CH0_TXDATA_in[269] = (CH0_TXDATA[269] !== 1'bz) && CH0_TXDATA[269]; // rv MustConnect
+  assign CH0_TXDATA_in[26] = (CH0_TXDATA[26] !== 1'bz) && CH0_TXDATA[26]; // rv MustConnect
+  assign CH0_TXDATA_in[270] = (CH0_TXDATA[270] !== 1'bz) && CH0_TXDATA[270]; // rv MustConnect
+  assign CH0_TXDATA_in[271] = (CH0_TXDATA[271] !== 1'bz) && CH0_TXDATA[271]; // rv MustConnect
+  assign CH0_TXDATA_in[272] = (CH0_TXDATA[272] !== 1'bz) && CH0_TXDATA[272]; // rv MustConnect
+  assign CH0_TXDATA_in[273] = (CH0_TXDATA[273] !== 1'bz) && CH0_TXDATA[273]; // rv MustConnect
+  assign CH0_TXDATA_in[274] = (CH0_TXDATA[274] !== 1'bz) && CH0_TXDATA[274]; // rv MustConnect
+  assign CH0_TXDATA_in[275] = (CH0_TXDATA[275] !== 1'bz) && CH0_TXDATA[275]; // rv MustConnect
+  assign CH0_TXDATA_in[276] = (CH0_TXDATA[276] !== 1'bz) && CH0_TXDATA[276]; // rv MustConnect
+  assign CH0_TXDATA_in[277] = (CH0_TXDATA[277] !== 1'bz) && CH0_TXDATA[277]; // rv MustConnect
+  assign CH0_TXDATA_in[278] = (CH0_TXDATA[278] !== 1'bz) && CH0_TXDATA[278]; // rv MustConnect
+  assign CH0_TXDATA_in[279] = (CH0_TXDATA[279] !== 1'bz) && CH0_TXDATA[279]; // rv MustConnect
+  assign CH0_TXDATA_in[27] = (CH0_TXDATA[27] !== 1'bz) && CH0_TXDATA[27]; // rv MustConnect
+  assign CH0_TXDATA_in[280] = (CH0_TXDATA[280] !== 1'bz) && CH0_TXDATA[280]; // rv MustConnect
+  assign CH0_TXDATA_in[281] = (CH0_TXDATA[281] !== 1'bz) && CH0_TXDATA[281]; // rv MustConnect
+  assign CH0_TXDATA_in[282] = (CH0_TXDATA[282] !== 1'bz) && CH0_TXDATA[282]; // rv MustConnect
+  assign CH0_TXDATA_in[283] = (CH0_TXDATA[283] !== 1'bz) && CH0_TXDATA[283]; // rv MustConnect
+  assign CH0_TXDATA_in[284] = (CH0_TXDATA[284] !== 1'bz) && CH0_TXDATA[284]; // rv MustConnect
+  assign CH0_TXDATA_in[285] = (CH0_TXDATA[285] !== 1'bz) && CH0_TXDATA[285]; // rv MustConnect
+  assign CH0_TXDATA_in[286] = (CH0_TXDATA[286] !== 1'bz) && CH0_TXDATA[286]; // rv MustConnect
+  assign CH0_TXDATA_in[287] = (CH0_TXDATA[287] !== 1'bz) && CH0_TXDATA[287]; // rv MustConnect
+  assign CH0_TXDATA_in[288] = (CH0_TXDATA[288] !== 1'bz) && CH0_TXDATA[288]; // rv MustConnect
+  assign CH0_TXDATA_in[289] = (CH0_TXDATA[289] !== 1'bz) && CH0_TXDATA[289]; // rv MustConnect
+  assign CH0_TXDATA_in[28] = (CH0_TXDATA[28] !== 1'bz) && CH0_TXDATA[28]; // rv MustConnect
+  assign CH0_TXDATA_in[290] = (CH0_TXDATA[290] !== 1'bz) && CH0_TXDATA[290]; // rv MustConnect
+  assign CH0_TXDATA_in[291] = (CH0_TXDATA[291] !== 1'bz) && CH0_TXDATA[291]; // rv MustConnect
+  assign CH0_TXDATA_in[292] = (CH0_TXDATA[292] !== 1'bz) && CH0_TXDATA[292]; // rv MustConnect
+  assign CH0_TXDATA_in[293] = (CH0_TXDATA[293] !== 1'bz) && CH0_TXDATA[293]; // rv MustConnect
+  assign CH0_TXDATA_in[294] = (CH0_TXDATA[294] !== 1'bz) && CH0_TXDATA[294]; // rv MustConnect
+  assign CH0_TXDATA_in[295] = (CH0_TXDATA[295] !== 1'bz) && CH0_TXDATA[295]; // rv MustConnect
+  assign CH0_TXDATA_in[296] = (CH0_TXDATA[296] !== 1'bz) && CH0_TXDATA[296]; // rv MustConnect
+  assign CH0_TXDATA_in[297] = (CH0_TXDATA[297] !== 1'bz) && CH0_TXDATA[297]; // rv MustConnect
+  assign CH0_TXDATA_in[298] = (CH0_TXDATA[298] !== 1'bz) && CH0_TXDATA[298]; // rv MustConnect
+  assign CH0_TXDATA_in[299] = (CH0_TXDATA[299] !== 1'bz) && CH0_TXDATA[299]; // rv MustConnect
+  assign CH0_TXDATA_in[29] = (CH0_TXDATA[29] !== 1'bz) && CH0_TXDATA[29]; // rv MustConnect
+  assign CH0_TXDATA_in[2] = (CH0_TXDATA[2] !== 1'bz) && CH0_TXDATA[2]; // rv MustConnect
+  assign CH0_TXDATA_in[300] = (CH0_TXDATA[300] !== 1'bz) && CH0_TXDATA[300]; // rv MustConnect
+  assign CH0_TXDATA_in[301] = (CH0_TXDATA[301] !== 1'bz) && CH0_TXDATA[301]; // rv MustConnect
+  assign CH0_TXDATA_in[302] = (CH0_TXDATA[302] !== 1'bz) && CH0_TXDATA[302]; // rv MustConnect
+  assign CH0_TXDATA_in[303] = (CH0_TXDATA[303] !== 1'bz) && CH0_TXDATA[303]; // rv MustConnect
+  assign CH0_TXDATA_in[304] = (CH0_TXDATA[304] !== 1'bz) && CH0_TXDATA[304]; // rv MustConnect
+  assign CH0_TXDATA_in[305] = (CH0_TXDATA[305] !== 1'bz) && CH0_TXDATA[305]; // rv MustConnect
+  assign CH0_TXDATA_in[306] = (CH0_TXDATA[306] !== 1'bz) && CH0_TXDATA[306]; // rv MustConnect
+  assign CH0_TXDATA_in[307] = (CH0_TXDATA[307] !== 1'bz) && CH0_TXDATA[307]; // rv MustConnect
+  assign CH0_TXDATA_in[308] = (CH0_TXDATA[308] !== 1'bz) && CH0_TXDATA[308]; // rv MustConnect
+  assign CH0_TXDATA_in[309] = (CH0_TXDATA[309] !== 1'bz) && CH0_TXDATA[309]; // rv MustConnect
+  assign CH0_TXDATA_in[30] = (CH0_TXDATA[30] !== 1'bz) && CH0_TXDATA[30]; // rv MustConnect
+  assign CH0_TXDATA_in[310] = (CH0_TXDATA[310] !== 1'bz) && CH0_TXDATA[310]; // rv MustConnect
+  assign CH0_TXDATA_in[311] = (CH0_TXDATA[311] !== 1'bz) && CH0_TXDATA[311]; // rv MustConnect
+  assign CH0_TXDATA_in[312] = (CH0_TXDATA[312] !== 1'bz) && CH0_TXDATA[312]; // rv MustConnect
+  assign CH0_TXDATA_in[313] = (CH0_TXDATA[313] !== 1'bz) && CH0_TXDATA[313]; // rv MustConnect
+  assign CH0_TXDATA_in[314] = (CH0_TXDATA[314] !== 1'bz) && CH0_TXDATA[314]; // rv MustConnect
+  assign CH0_TXDATA_in[315] = (CH0_TXDATA[315] !== 1'bz) && CH0_TXDATA[315]; // rv MustConnect
+  assign CH0_TXDATA_in[316] = (CH0_TXDATA[316] !== 1'bz) && CH0_TXDATA[316]; // rv MustConnect
+  assign CH0_TXDATA_in[317] = (CH0_TXDATA[317] !== 1'bz) && CH0_TXDATA[317]; // rv MustConnect
+  assign CH0_TXDATA_in[318] = (CH0_TXDATA[318] !== 1'bz) && CH0_TXDATA[318]; // rv MustConnect
+  assign CH0_TXDATA_in[319] = (CH0_TXDATA[319] !== 1'bz) && CH0_TXDATA[319]; // rv MustConnect
+  assign CH0_TXDATA_in[31] = (CH0_TXDATA[31] !== 1'bz) && CH0_TXDATA[31]; // rv MustConnect
+  assign CH0_TXDATA_in[32] = (CH0_TXDATA[32] !== 1'bz) && CH0_TXDATA[32]; // rv MustConnect
+  assign CH0_TXDATA_in[33] = (CH0_TXDATA[33] !== 1'bz) && CH0_TXDATA[33]; // rv MustConnect
+  assign CH0_TXDATA_in[34] = (CH0_TXDATA[34] !== 1'bz) && CH0_TXDATA[34]; // rv MustConnect
+  assign CH0_TXDATA_in[35] = (CH0_TXDATA[35] !== 1'bz) && CH0_TXDATA[35]; // rv MustConnect
+  assign CH0_TXDATA_in[36] = (CH0_TXDATA[36] !== 1'bz) && CH0_TXDATA[36]; // rv MustConnect
+  assign CH0_TXDATA_in[37] = (CH0_TXDATA[37] !== 1'bz) && CH0_TXDATA[37]; // rv MustConnect
+  assign CH0_TXDATA_in[38] = (CH0_TXDATA[38] !== 1'bz) && CH0_TXDATA[38]; // rv MustConnect
+  assign CH0_TXDATA_in[39] = (CH0_TXDATA[39] !== 1'bz) && CH0_TXDATA[39]; // rv MustConnect
+  assign CH0_TXDATA_in[3] = (CH0_TXDATA[3] !== 1'bz) && CH0_TXDATA[3]; // rv MustConnect
+  assign CH0_TXDATA_in[40] = (CH0_TXDATA[40] !== 1'bz) && CH0_TXDATA[40]; // rv MustConnect
+  assign CH0_TXDATA_in[41] = (CH0_TXDATA[41] !== 1'bz) && CH0_TXDATA[41]; // rv MustConnect
+  assign CH0_TXDATA_in[42] = (CH0_TXDATA[42] !== 1'bz) && CH0_TXDATA[42]; // rv MustConnect
+  assign CH0_TXDATA_in[43] = (CH0_TXDATA[43] !== 1'bz) && CH0_TXDATA[43]; // rv MustConnect
+  assign CH0_TXDATA_in[44] = (CH0_TXDATA[44] !== 1'bz) && CH0_TXDATA[44]; // rv MustConnect
+  assign CH0_TXDATA_in[45] = (CH0_TXDATA[45] !== 1'bz) && CH0_TXDATA[45]; // rv MustConnect
+  assign CH0_TXDATA_in[46] = (CH0_TXDATA[46] !== 1'bz) && CH0_TXDATA[46]; // rv MustConnect
+  assign CH0_TXDATA_in[47] = (CH0_TXDATA[47] !== 1'bz) && CH0_TXDATA[47]; // rv MustConnect
+  assign CH0_TXDATA_in[48] = (CH0_TXDATA[48] !== 1'bz) && CH0_TXDATA[48]; // rv MustConnect
+  assign CH0_TXDATA_in[49] = (CH0_TXDATA[49] !== 1'bz) && CH0_TXDATA[49]; // rv MustConnect
+  assign CH0_TXDATA_in[4] = (CH0_TXDATA[4] !== 1'bz) && CH0_TXDATA[4]; // rv MustConnect
+  assign CH0_TXDATA_in[50] = (CH0_TXDATA[50] !== 1'bz) && CH0_TXDATA[50]; // rv MustConnect
+  assign CH0_TXDATA_in[51] = (CH0_TXDATA[51] !== 1'bz) && CH0_TXDATA[51]; // rv MustConnect
+  assign CH0_TXDATA_in[52] = (CH0_TXDATA[52] !== 1'bz) && CH0_TXDATA[52]; // rv MustConnect
+  assign CH0_TXDATA_in[53] = (CH0_TXDATA[53] !== 1'bz) && CH0_TXDATA[53]; // rv MustConnect
+  assign CH0_TXDATA_in[54] = (CH0_TXDATA[54] !== 1'bz) && CH0_TXDATA[54]; // rv MustConnect
+  assign CH0_TXDATA_in[55] = (CH0_TXDATA[55] !== 1'bz) && CH0_TXDATA[55]; // rv MustConnect
+  assign CH0_TXDATA_in[56] = (CH0_TXDATA[56] !== 1'bz) && CH0_TXDATA[56]; // rv MustConnect
+  assign CH0_TXDATA_in[57] = (CH0_TXDATA[57] !== 1'bz) && CH0_TXDATA[57]; // rv MustConnect
+  assign CH0_TXDATA_in[58] = (CH0_TXDATA[58] !== 1'bz) && CH0_TXDATA[58]; // rv MustConnect
+  assign CH0_TXDATA_in[59] = (CH0_TXDATA[59] !== 1'bz) && CH0_TXDATA[59]; // rv MustConnect
+  assign CH0_TXDATA_in[5] = (CH0_TXDATA[5] !== 1'bz) && CH0_TXDATA[5]; // rv MustConnect
+  assign CH0_TXDATA_in[60] = (CH0_TXDATA[60] !== 1'bz) && CH0_TXDATA[60]; // rv MustConnect
+  assign CH0_TXDATA_in[61] = (CH0_TXDATA[61] !== 1'bz) && CH0_TXDATA[61]; // rv MustConnect
+  assign CH0_TXDATA_in[62] = (CH0_TXDATA[62] !== 1'bz) && CH0_TXDATA[62]; // rv MustConnect
+  assign CH0_TXDATA_in[63] = (CH0_TXDATA[63] !== 1'bz) && CH0_TXDATA[63]; // rv MustConnect
+  assign CH0_TXDATA_in[64] = (CH0_TXDATA[64] !== 1'bz) && CH0_TXDATA[64]; // rv MustConnect
+  assign CH0_TXDATA_in[65] = (CH0_TXDATA[65] !== 1'bz) && CH0_TXDATA[65]; // rv MustConnect
+  assign CH0_TXDATA_in[66] = (CH0_TXDATA[66] !== 1'bz) && CH0_TXDATA[66]; // rv MustConnect
+  assign CH0_TXDATA_in[67] = (CH0_TXDATA[67] !== 1'bz) && CH0_TXDATA[67]; // rv MustConnect
+  assign CH0_TXDATA_in[68] = (CH0_TXDATA[68] !== 1'bz) && CH0_TXDATA[68]; // rv MustConnect
+  assign CH0_TXDATA_in[69] = (CH0_TXDATA[69] !== 1'bz) && CH0_TXDATA[69]; // rv MustConnect
+  assign CH0_TXDATA_in[6] = (CH0_TXDATA[6] !== 1'bz) && CH0_TXDATA[6]; // rv MustConnect
+  assign CH0_TXDATA_in[70] = (CH0_TXDATA[70] !== 1'bz) && CH0_TXDATA[70]; // rv MustConnect
+  assign CH0_TXDATA_in[71] = (CH0_TXDATA[71] !== 1'bz) && CH0_TXDATA[71]; // rv MustConnect
+  assign CH0_TXDATA_in[72] = (CH0_TXDATA[72] !== 1'bz) && CH0_TXDATA[72]; // rv MustConnect
+  assign CH0_TXDATA_in[73] = (CH0_TXDATA[73] !== 1'bz) && CH0_TXDATA[73]; // rv MustConnect
+  assign CH0_TXDATA_in[74] = (CH0_TXDATA[74] !== 1'bz) && CH0_TXDATA[74]; // rv MustConnect
+  assign CH0_TXDATA_in[75] = (CH0_TXDATA[75] !== 1'bz) && CH0_TXDATA[75]; // rv MustConnect
+  assign CH0_TXDATA_in[76] = (CH0_TXDATA[76] !== 1'bz) && CH0_TXDATA[76]; // rv MustConnect
+  assign CH0_TXDATA_in[77] = (CH0_TXDATA[77] !== 1'bz) && CH0_TXDATA[77]; // rv MustConnect
+  assign CH0_TXDATA_in[78] = (CH0_TXDATA[78] !== 1'bz) && CH0_TXDATA[78]; // rv MustConnect
+  assign CH0_TXDATA_in[79] = (CH0_TXDATA[79] !== 1'bz) && CH0_TXDATA[79]; // rv MustConnect
+  assign CH0_TXDATA_in[7] = (CH0_TXDATA[7] !== 1'bz) && CH0_TXDATA[7]; // rv MustConnect
+  assign CH0_TXDATA_in[80] = (CH0_TXDATA[80] !== 1'bz) && CH0_TXDATA[80]; // rv MustConnect
+  assign CH0_TXDATA_in[81] = (CH0_TXDATA[81] !== 1'bz) && CH0_TXDATA[81]; // rv MustConnect
+  assign CH0_TXDATA_in[82] = (CH0_TXDATA[82] !== 1'bz) && CH0_TXDATA[82]; // rv MustConnect
+  assign CH0_TXDATA_in[83] = (CH0_TXDATA[83] !== 1'bz) && CH0_TXDATA[83]; // rv MustConnect
+  assign CH0_TXDATA_in[84] = (CH0_TXDATA[84] !== 1'bz) && CH0_TXDATA[84]; // rv MustConnect
+  assign CH0_TXDATA_in[85] = (CH0_TXDATA[85] !== 1'bz) && CH0_TXDATA[85]; // rv MustConnect
+  assign CH0_TXDATA_in[86] = (CH0_TXDATA[86] !== 1'bz) && CH0_TXDATA[86]; // rv MustConnect
+  assign CH0_TXDATA_in[87] = (CH0_TXDATA[87] !== 1'bz) && CH0_TXDATA[87]; // rv MustConnect
+  assign CH0_TXDATA_in[88] = (CH0_TXDATA[88] !== 1'bz) && CH0_TXDATA[88]; // rv MustConnect
+  assign CH0_TXDATA_in[89] = (CH0_TXDATA[89] !== 1'bz) && CH0_TXDATA[89]; // rv MustConnect
+  assign CH0_TXDATA_in[8] = (CH0_TXDATA[8] !== 1'bz) && CH0_TXDATA[8]; // rv MustConnect
+  assign CH0_TXDATA_in[90] = (CH0_TXDATA[90] !== 1'bz) && CH0_TXDATA[90]; // rv MustConnect
+  assign CH0_TXDATA_in[91] = (CH0_TXDATA[91] !== 1'bz) && CH0_TXDATA[91]; // rv MustConnect
+  assign CH0_TXDATA_in[92] = (CH0_TXDATA[92] !== 1'bz) && CH0_TXDATA[92]; // rv MustConnect
+  assign CH0_TXDATA_in[93] = (CH0_TXDATA[93] !== 1'bz) && CH0_TXDATA[93]; // rv MustConnect
+  assign CH0_TXDATA_in[94] = (CH0_TXDATA[94] !== 1'bz) && CH0_TXDATA[94]; // rv MustConnect
+  assign CH0_TXDATA_in[95] = (CH0_TXDATA[95] !== 1'bz) && CH0_TXDATA[95]; // rv MustConnect
+  assign CH0_TXDATA_in[96] = (CH0_TXDATA[96] !== 1'bz) && CH0_TXDATA[96]; // rv MustConnect
+  assign CH0_TXDATA_in[97] = (CH0_TXDATA[97] !== 1'bz) && CH0_TXDATA[97]; // rv MustConnect
+  assign CH0_TXDATA_in[98] = (CH0_TXDATA[98] !== 1'bz) && CH0_TXDATA[98]; // rv MustConnect
+  assign CH0_TXDATA_in[99] = (CH0_TXDATA[99] !== 1'bz) && CH0_TXDATA[99]; // rv MustConnect
+  assign CH0_TXDATA_in[9] = (CH0_TXDATA[9] !== 1'bz) && CH0_TXDATA[9]; // rv MustConnect
+  assign CH0_TXDETECTRXLOOPBACK_in = CH0_TXDETECTRXLOOPBACK;
+  assign CH0_TXELECIDLE_in = (CH0_TXELECIDLE === 1'bz) || CH0_TXELECIDLE; // rv 1
+  assign CH0_TXPOWERDOWN_in = CH0_TXPOWERDOWN;
+  assign CH0_TXRATE_in = CH0_TXRATE;
+  assign CH0_TXUSRCLK_in = (CH0_TXUSRCLK === 1'bz) || CH0_TXUSRCLK; // rv 1
+  assign CH1_RXGEARBOXSLIP_in = CH1_RXGEARBOXSLIP;
+  assign CH1_RXUSRCLK_in = (CH1_RXUSRCLK === 1'bz) || CH1_RXUSRCLK; // rv 1
+  assign CH1_SCANCHNLMASKIN_in = CH1_SCANCHNLMASKIN;
+  assign CH1_SCANCLKB_in = CH1_SCANCLKB;
+  assign CH1_SCANCNTRLIN_in = CH1_SCANCNTRLIN;
+  assign CH1_SCANIN_in = CH1_SCANIN;
+  assign CH1_SCANODCCCHNLMASK_in = CH1_SCANODCCCHNLMASK;
+  assign CH1_TXDATA_in[0] = (CH1_TXDATA[0] !== 1'bz) && CH1_TXDATA[0]; // rv MustConnect
+  assign CH1_TXDATA_in[100] = (CH1_TXDATA[100] !== 1'bz) && CH1_TXDATA[100]; // rv MustConnect
+  assign CH1_TXDATA_in[101] = (CH1_TXDATA[101] !== 1'bz) && CH1_TXDATA[101]; // rv MustConnect
+  assign CH1_TXDATA_in[102] = (CH1_TXDATA[102] !== 1'bz) && CH1_TXDATA[102]; // rv MustConnect
+  assign CH1_TXDATA_in[103] = (CH1_TXDATA[103] !== 1'bz) && CH1_TXDATA[103]; // rv MustConnect
+  assign CH1_TXDATA_in[104] = (CH1_TXDATA[104] !== 1'bz) && CH1_TXDATA[104]; // rv MustConnect
+  assign CH1_TXDATA_in[105] = (CH1_TXDATA[105] !== 1'bz) && CH1_TXDATA[105]; // rv MustConnect
+  assign CH1_TXDATA_in[106] = (CH1_TXDATA[106] !== 1'bz) && CH1_TXDATA[106]; // rv MustConnect
+  assign CH1_TXDATA_in[107] = (CH1_TXDATA[107] !== 1'bz) && CH1_TXDATA[107]; // rv MustConnect
+  assign CH1_TXDATA_in[108] = (CH1_TXDATA[108] !== 1'bz) && CH1_TXDATA[108]; // rv MustConnect
+  assign CH1_TXDATA_in[109] = (CH1_TXDATA[109] !== 1'bz) && CH1_TXDATA[109]; // rv MustConnect
+  assign CH1_TXDATA_in[10] = (CH1_TXDATA[10] !== 1'bz) && CH1_TXDATA[10]; // rv MustConnect
+  assign CH1_TXDATA_in[110] = (CH1_TXDATA[110] !== 1'bz) && CH1_TXDATA[110]; // rv MustConnect
+  assign CH1_TXDATA_in[111] = (CH1_TXDATA[111] !== 1'bz) && CH1_TXDATA[111]; // rv MustConnect
+  assign CH1_TXDATA_in[112] = (CH1_TXDATA[112] !== 1'bz) && CH1_TXDATA[112]; // rv MustConnect
+  assign CH1_TXDATA_in[113] = (CH1_TXDATA[113] !== 1'bz) && CH1_TXDATA[113]; // rv MustConnect
+  assign CH1_TXDATA_in[114] = (CH1_TXDATA[114] !== 1'bz) && CH1_TXDATA[114]; // rv MustConnect
+  assign CH1_TXDATA_in[115] = (CH1_TXDATA[115] !== 1'bz) && CH1_TXDATA[115]; // rv MustConnect
+  assign CH1_TXDATA_in[116] = (CH1_TXDATA[116] !== 1'bz) && CH1_TXDATA[116]; // rv MustConnect
+  assign CH1_TXDATA_in[117] = (CH1_TXDATA[117] !== 1'bz) && CH1_TXDATA[117]; // rv MustConnect
+  assign CH1_TXDATA_in[118] = (CH1_TXDATA[118] !== 1'bz) && CH1_TXDATA[118]; // rv MustConnect
+  assign CH1_TXDATA_in[119] = (CH1_TXDATA[119] !== 1'bz) && CH1_TXDATA[119]; // rv MustConnect
+  assign CH1_TXDATA_in[11] = (CH1_TXDATA[11] !== 1'bz) && CH1_TXDATA[11]; // rv MustConnect
+  assign CH1_TXDATA_in[120] = (CH1_TXDATA[120] !== 1'bz) && CH1_TXDATA[120]; // rv MustConnect
+  assign CH1_TXDATA_in[121] = (CH1_TXDATA[121] !== 1'bz) && CH1_TXDATA[121]; // rv MustConnect
+  assign CH1_TXDATA_in[122] = (CH1_TXDATA[122] !== 1'bz) && CH1_TXDATA[122]; // rv MustConnect
+  assign CH1_TXDATA_in[123] = (CH1_TXDATA[123] !== 1'bz) && CH1_TXDATA[123]; // rv MustConnect
+  assign CH1_TXDATA_in[124] = (CH1_TXDATA[124] !== 1'bz) && CH1_TXDATA[124]; // rv MustConnect
+  assign CH1_TXDATA_in[125] = (CH1_TXDATA[125] !== 1'bz) && CH1_TXDATA[125]; // rv MustConnect
+  assign CH1_TXDATA_in[126] = (CH1_TXDATA[126] !== 1'bz) && CH1_TXDATA[126]; // rv MustConnect
+  assign CH1_TXDATA_in[127] = (CH1_TXDATA[127] !== 1'bz) && CH1_TXDATA[127]; // rv MustConnect
+  assign CH1_TXDATA_in[128] = (CH1_TXDATA[128] !== 1'bz) && CH1_TXDATA[128]; // rv MustConnect
+  assign CH1_TXDATA_in[129] = (CH1_TXDATA[129] !== 1'bz) && CH1_TXDATA[129]; // rv MustConnect
+  assign CH1_TXDATA_in[12] = (CH1_TXDATA[12] !== 1'bz) && CH1_TXDATA[12]; // rv MustConnect
+  assign CH1_TXDATA_in[130] = (CH1_TXDATA[130] !== 1'bz) && CH1_TXDATA[130]; // rv MustConnect
+  assign CH1_TXDATA_in[131] = (CH1_TXDATA[131] !== 1'bz) && CH1_TXDATA[131]; // rv MustConnect
+  assign CH1_TXDATA_in[132] = (CH1_TXDATA[132] !== 1'bz) && CH1_TXDATA[132]; // rv MustConnect
+  assign CH1_TXDATA_in[133] = (CH1_TXDATA[133] !== 1'bz) && CH1_TXDATA[133]; // rv MustConnect
+  assign CH1_TXDATA_in[134] = (CH1_TXDATA[134] !== 1'bz) && CH1_TXDATA[134]; // rv MustConnect
+  assign CH1_TXDATA_in[135] = (CH1_TXDATA[135] !== 1'bz) && CH1_TXDATA[135]; // rv MustConnect
+  assign CH1_TXDATA_in[136] = (CH1_TXDATA[136] !== 1'bz) && CH1_TXDATA[136]; // rv MustConnect
+  assign CH1_TXDATA_in[137] = (CH1_TXDATA[137] !== 1'bz) && CH1_TXDATA[137]; // rv MustConnect
+  assign CH1_TXDATA_in[138] = (CH1_TXDATA[138] !== 1'bz) && CH1_TXDATA[138]; // rv MustConnect
+  assign CH1_TXDATA_in[139] = (CH1_TXDATA[139] !== 1'bz) && CH1_TXDATA[139]; // rv MustConnect
+  assign CH1_TXDATA_in[13] = (CH1_TXDATA[13] !== 1'bz) && CH1_TXDATA[13]; // rv MustConnect
+  assign CH1_TXDATA_in[140] = (CH1_TXDATA[140] !== 1'bz) && CH1_TXDATA[140]; // rv MustConnect
+  assign CH1_TXDATA_in[141] = (CH1_TXDATA[141] !== 1'bz) && CH1_TXDATA[141]; // rv MustConnect
+  assign CH1_TXDATA_in[142] = (CH1_TXDATA[142] !== 1'bz) && CH1_TXDATA[142]; // rv MustConnect
+  assign CH1_TXDATA_in[143] = (CH1_TXDATA[143] !== 1'bz) && CH1_TXDATA[143]; // rv MustConnect
+  assign CH1_TXDATA_in[144] = (CH1_TXDATA[144] !== 1'bz) && CH1_TXDATA[144]; // rv MustConnect
+  assign CH1_TXDATA_in[145] = (CH1_TXDATA[145] !== 1'bz) && CH1_TXDATA[145]; // rv MustConnect
+  assign CH1_TXDATA_in[146] = (CH1_TXDATA[146] !== 1'bz) && CH1_TXDATA[146]; // rv MustConnect
+  assign CH1_TXDATA_in[147] = (CH1_TXDATA[147] !== 1'bz) && CH1_TXDATA[147]; // rv MustConnect
+  assign CH1_TXDATA_in[148] = (CH1_TXDATA[148] !== 1'bz) && CH1_TXDATA[148]; // rv MustConnect
+  assign CH1_TXDATA_in[149] = (CH1_TXDATA[149] !== 1'bz) && CH1_TXDATA[149]; // rv MustConnect
+  assign CH1_TXDATA_in[14] = (CH1_TXDATA[14] !== 1'bz) && CH1_TXDATA[14]; // rv MustConnect
+  assign CH1_TXDATA_in[150] = (CH1_TXDATA[150] !== 1'bz) && CH1_TXDATA[150]; // rv MustConnect
+  assign CH1_TXDATA_in[151] = (CH1_TXDATA[151] !== 1'bz) && CH1_TXDATA[151]; // rv MustConnect
+  assign CH1_TXDATA_in[152] = (CH1_TXDATA[152] !== 1'bz) && CH1_TXDATA[152]; // rv MustConnect
+  assign CH1_TXDATA_in[153] = (CH1_TXDATA[153] !== 1'bz) && CH1_TXDATA[153]; // rv MustConnect
+  assign CH1_TXDATA_in[154] = (CH1_TXDATA[154] !== 1'bz) && CH1_TXDATA[154]; // rv MustConnect
+  assign CH1_TXDATA_in[155] = (CH1_TXDATA[155] !== 1'bz) && CH1_TXDATA[155]; // rv MustConnect
+  assign CH1_TXDATA_in[156] = (CH1_TXDATA[156] !== 1'bz) && CH1_TXDATA[156]; // rv MustConnect
+  assign CH1_TXDATA_in[157] = (CH1_TXDATA[157] !== 1'bz) && CH1_TXDATA[157]; // rv MustConnect
+  assign CH1_TXDATA_in[158] = (CH1_TXDATA[158] !== 1'bz) && CH1_TXDATA[158]; // rv MustConnect
+  assign CH1_TXDATA_in[159] = (CH1_TXDATA[159] !== 1'bz) && CH1_TXDATA[159]; // rv MustConnect
+  assign CH1_TXDATA_in[15] = (CH1_TXDATA[15] !== 1'bz) && CH1_TXDATA[15]; // rv MustConnect
+  assign CH1_TXDATA_in[160] = (CH1_TXDATA[160] !== 1'bz) && CH1_TXDATA[160]; // rv MustConnect
+  assign CH1_TXDATA_in[161] = (CH1_TXDATA[161] !== 1'bz) && CH1_TXDATA[161]; // rv MustConnect
+  assign CH1_TXDATA_in[162] = (CH1_TXDATA[162] !== 1'bz) && CH1_TXDATA[162]; // rv MustConnect
+  assign CH1_TXDATA_in[163] = (CH1_TXDATA[163] !== 1'bz) && CH1_TXDATA[163]; // rv MustConnect
+  assign CH1_TXDATA_in[164] = (CH1_TXDATA[164] !== 1'bz) && CH1_TXDATA[164]; // rv MustConnect
+  assign CH1_TXDATA_in[165] = (CH1_TXDATA[165] !== 1'bz) && CH1_TXDATA[165]; // rv MustConnect
+  assign CH1_TXDATA_in[166] = (CH1_TXDATA[166] !== 1'bz) && CH1_TXDATA[166]; // rv MustConnect
+  assign CH1_TXDATA_in[167] = (CH1_TXDATA[167] !== 1'bz) && CH1_TXDATA[167]; // rv MustConnect
+  assign CH1_TXDATA_in[168] = (CH1_TXDATA[168] !== 1'bz) && CH1_TXDATA[168]; // rv MustConnect
+  assign CH1_TXDATA_in[169] = (CH1_TXDATA[169] !== 1'bz) && CH1_TXDATA[169]; // rv MustConnect
+  assign CH1_TXDATA_in[16] = (CH1_TXDATA[16] !== 1'bz) && CH1_TXDATA[16]; // rv MustConnect
+  assign CH1_TXDATA_in[170] = (CH1_TXDATA[170] !== 1'bz) && CH1_TXDATA[170]; // rv MustConnect
+  assign CH1_TXDATA_in[171] = (CH1_TXDATA[171] !== 1'bz) && CH1_TXDATA[171]; // rv MustConnect
+  assign CH1_TXDATA_in[172] = (CH1_TXDATA[172] !== 1'bz) && CH1_TXDATA[172]; // rv MustConnect
+  assign CH1_TXDATA_in[173] = (CH1_TXDATA[173] !== 1'bz) && CH1_TXDATA[173]; // rv MustConnect
+  assign CH1_TXDATA_in[174] = (CH1_TXDATA[174] !== 1'bz) && CH1_TXDATA[174]; // rv MustConnect
+  assign CH1_TXDATA_in[175] = (CH1_TXDATA[175] !== 1'bz) && CH1_TXDATA[175]; // rv MustConnect
+  assign CH1_TXDATA_in[176] = (CH1_TXDATA[176] !== 1'bz) && CH1_TXDATA[176]; // rv MustConnect
+  assign CH1_TXDATA_in[177] = (CH1_TXDATA[177] !== 1'bz) && CH1_TXDATA[177]; // rv MustConnect
+  assign CH1_TXDATA_in[178] = (CH1_TXDATA[178] !== 1'bz) && CH1_TXDATA[178]; // rv MustConnect
+  assign CH1_TXDATA_in[179] = (CH1_TXDATA[179] !== 1'bz) && CH1_TXDATA[179]; // rv MustConnect
+  assign CH1_TXDATA_in[17] = (CH1_TXDATA[17] !== 1'bz) && CH1_TXDATA[17]; // rv MustConnect
+  assign CH1_TXDATA_in[180] = (CH1_TXDATA[180] !== 1'bz) && CH1_TXDATA[180]; // rv MustConnect
+  assign CH1_TXDATA_in[181] = (CH1_TXDATA[181] !== 1'bz) && CH1_TXDATA[181]; // rv MustConnect
+  assign CH1_TXDATA_in[182] = (CH1_TXDATA[182] !== 1'bz) && CH1_TXDATA[182]; // rv MustConnect
+  assign CH1_TXDATA_in[183] = (CH1_TXDATA[183] !== 1'bz) && CH1_TXDATA[183]; // rv MustConnect
+  assign CH1_TXDATA_in[184] = (CH1_TXDATA[184] !== 1'bz) && CH1_TXDATA[184]; // rv MustConnect
+  assign CH1_TXDATA_in[185] = (CH1_TXDATA[185] !== 1'bz) && CH1_TXDATA[185]; // rv MustConnect
+  assign CH1_TXDATA_in[186] = (CH1_TXDATA[186] !== 1'bz) && CH1_TXDATA[186]; // rv MustConnect
+  assign CH1_TXDATA_in[187] = (CH1_TXDATA[187] !== 1'bz) && CH1_TXDATA[187]; // rv MustConnect
+  assign CH1_TXDATA_in[188] = (CH1_TXDATA[188] !== 1'bz) && CH1_TXDATA[188]; // rv MustConnect
+  assign CH1_TXDATA_in[189] = (CH1_TXDATA[189] !== 1'bz) && CH1_TXDATA[189]; // rv MustConnect
+  assign CH1_TXDATA_in[18] = (CH1_TXDATA[18] !== 1'bz) && CH1_TXDATA[18]; // rv MustConnect
+  assign CH1_TXDATA_in[190] = (CH1_TXDATA[190] !== 1'bz) && CH1_TXDATA[190]; // rv MustConnect
+  assign CH1_TXDATA_in[191] = (CH1_TXDATA[191] !== 1'bz) && CH1_TXDATA[191]; // rv MustConnect
+  assign CH1_TXDATA_in[192] = (CH1_TXDATA[192] !== 1'bz) && CH1_TXDATA[192]; // rv MustConnect
+  assign CH1_TXDATA_in[193] = (CH1_TXDATA[193] !== 1'bz) && CH1_TXDATA[193]; // rv MustConnect
+  assign CH1_TXDATA_in[194] = (CH1_TXDATA[194] !== 1'bz) && CH1_TXDATA[194]; // rv MustConnect
+  assign CH1_TXDATA_in[195] = (CH1_TXDATA[195] !== 1'bz) && CH1_TXDATA[195]; // rv MustConnect
+  assign CH1_TXDATA_in[196] = (CH1_TXDATA[196] !== 1'bz) && CH1_TXDATA[196]; // rv MustConnect
+  assign CH1_TXDATA_in[197] = (CH1_TXDATA[197] !== 1'bz) && CH1_TXDATA[197]; // rv MustConnect
+  assign CH1_TXDATA_in[198] = (CH1_TXDATA[198] !== 1'bz) && CH1_TXDATA[198]; // rv MustConnect
+  assign CH1_TXDATA_in[199] = (CH1_TXDATA[199] !== 1'bz) && CH1_TXDATA[199]; // rv MustConnect
+  assign CH1_TXDATA_in[19] = (CH1_TXDATA[19] !== 1'bz) && CH1_TXDATA[19]; // rv MustConnect
+  assign CH1_TXDATA_in[1] = (CH1_TXDATA[1] !== 1'bz) && CH1_TXDATA[1]; // rv MustConnect
+  assign CH1_TXDATA_in[200] = (CH1_TXDATA[200] !== 1'bz) && CH1_TXDATA[200]; // rv MustConnect
+  assign CH1_TXDATA_in[201] = (CH1_TXDATA[201] !== 1'bz) && CH1_TXDATA[201]; // rv MustConnect
+  assign CH1_TXDATA_in[202] = (CH1_TXDATA[202] !== 1'bz) && CH1_TXDATA[202]; // rv MustConnect
+  assign CH1_TXDATA_in[203] = (CH1_TXDATA[203] !== 1'bz) && CH1_TXDATA[203]; // rv MustConnect
+  assign CH1_TXDATA_in[204] = (CH1_TXDATA[204] !== 1'bz) && CH1_TXDATA[204]; // rv MustConnect
+  assign CH1_TXDATA_in[205] = (CH1_TXDATA[205] !== 1'bz) && CH1_TXDATA[205]; // rv MustConnect
+  assign CH1_TXDATA_in[206] = (CH1_TXDATA[206] !== 1'bz) && CH1_TXDATA[206]; // rv MustConnect
+  assign CH1_TXDATA_in[207] = (CH1_TXDATA[207] !== 1'bz) && CH1_TXDATA[207]; // rv MustConnect
+  assign CH1_TXDATA_in[208] = (CH1_TXDATA[208] !== 1'bz) && CH1_TXDATA[208]; // rv MustConnect
+  assign CH1_TXDATA_in[209] = (CH1_TXDATA[209] !== 1'bz) && CH1_TXDATA[209]; // rv MustConnect
+  assign CH1_TXDATA_in[20] = (CH1_TXDATA[20] !== 1'bz) && CH1_TXDATA[20]; // rv MustConnect
+  assign CH1_TXDATA_in[210] = (CH1_TXDATA[210] !== 1'bz) && CH1_TXDATA[210]; // rv MustConnect
+  assign CH1_TXDATA_in[211] = (CH1_TXDATA[211] !== 1'bz) && CH1_TXDATA[211]; // rv MustConnect
+  assign CH1_TXDATA_in[212] = (CH1_TXDATA[212] !== 1'bz) && CH1_TXDATA[212]; // rv MustConnect
+  assign CH1_TXDATA_in[213] = (CH1_TXDATA[213] !== 1'bz) && CH1_TXDATA[213]; // rv MustConnect
+  assign CH1_TXDATA_in[214] = (CH1_TXDATA[214] !== 1'bz) && CH1_TXDATA[214]; // rv MustConnect
+  assign CH1_TXDATA_in[215] = (CH1_TXDATA[215] !== 1'bz) && CH1_TXDATA[215]; // rv MustConnect
+  assign CH1_TXDATA_in[216] = (CH1_TXDATA[216] !== 1'bz) && CH1_TXDATA[216]; // rv MustConnect
+  assign CH1_TXDATA_in[217] = (CH1_TXDATA[217] !== 1'bz) && CH1_TXDATA[217]; // rv MustConnect
+  assign CH1_TXDATA_in[218] = (CH1_TXDATA[218] !== 1'bz) && CH1_TXDATA[218]; // rv MustConnect
+  assign CH1_TXDATA_in[219] = (CH1_TXDATA[219] !== 1'bz) && CH1_TXDATA[219]; // rv MustConnect
+  assign CH1_TXDATA_in[21] = (CH1_TXDATA[21] !== 1'bz) && CH1_TXDATA[21]; // rv MustConnect
+  assign CH1_TXDATA_in[220] = (CH1_TXDATA[220] !== 1'bz) && CH1_TXDATA[220]; // rv MustConnect
+  assign CH1_TXDATA_in[221] = (CH1_TXDATA[221] !== 1'bz) && CH1_TXDATA[221]; // rv MustConnect
+  assign CH1_TXDATA_in[222] = (CH1_TXDATA[222] !== 1'bz) && CH1_TXDATA[222]; // rv MustConnect
+  assign CH1_TXDATA_in[223] = (CH1_TXDATA[223] !== 1'bz) && CH1_TXDATA[223]; // rv MustConnect
+  assign CH1_TXDATA_in[224] = (CH1_TXDATA[224] !== 1'bz) && CH1_TXDATA[224]; // rv MustConnect
+  assign CH1_TXDATA_in[225] = (CH1_TXDATA[225] !== 1'bz) && CH1_TXDATA[225]; // rv MustConnect
+  assign CH1_TXDATA_in[226] = (CH1_TXDATA[226] !== 1'bz) && CH1_TXDATA[226]; // rv MustConnect
+  assign CH1_TXDATA_in[227] = (CH1_TXDATA[227] !== 1'bz) && CH1_TXDATA[227]; // rv MustConnect
+  assign CH1_TXDATA_in[228] = (CH1_TXDATA[228] !== 1'bz) && CH1_TXDATA[228]; // rv MustConnect
+  assign CH1_TXDATA_in[229] = (CH1_TXDATA[229] !== 1'bz) && CH1_TXDATA[229]; // rv MustConnect
+  assign CH1_TXDATA_in[22] = (CH1_TXDATA[22] !== 1'bz) && CH1_TXDATA[22]; // rv MustConnect
+  assign CH1_TXDATA_in[230] = (CH1_TXDATA[230] !== 1'bz) && CH1_TXDATA[230]; // rv MustConnect
+  assign CH1_TXDATA_in[231] = (CH1_TXDATA[231] !== 1'bz) && CH1_TXDATA[231]; // rv MustConnect
+  assign CH1_TXDATA_in[232] = (CH1_TXDATA[232] !== 1'bz) && CH1_TXDATA[232]; // rv MustConnect
+  assign CH1_TXDATA_in[233] = (CH1_TXDATA[233] !== 1'bz) && CH1_TXDATA[233]; // rv MustConnect
+  assign CH1_TXDATA_in[234] = (CH1_TXDATA[234] !== 1'bz) && CH1_TXDATA[234]; // rv MustConnect
+  assign CH1_TXDATA_in[235] = (CH1_TXDATA[235] !== 1'bz) && CH1_TXDATA[235]; // rv MustConnect
+  assign CH1_TXDATA_in[236] = (CH1_TXDATA[236] !== 1'bz) && CH1_TXDATA[236]; // rv MustConnect
+  assign CH1_TXDATA_in[237] = (CH1_TXDATA[237] !== 1'bz) && CH1_TXDATA[237]; // rv MustConnect
+  assign CH1_TXDATA_in[238] = (CH1_TXDATA[238] !== 1'bz) && CH1_TXDATA[238]; // rv MustConnect
+  assign CH1_TXDATA_in[239] = (CH1_TXDATA[239] !== 1'bz) && CH1_TXDATA[239]; // rv MustConnect
+  assign CH1_TXDATA_in[23] = (CH1_TXDATA[23] !== 1'bz) && CH1_TXDATA[23]; // rv MustConnect
+  assign CH1_TXDATA_in[240] = (CH1_TXDATA[240] !== 1'bz) && CH1_TXDATA[240]; // rv MustConnect
+  assign CH1_TXDATA_in[241] = (CH1_TXDATA[241] !== 1'bz) && CH1_TXDATA[241]; // rv MustConnect
+  assign CH1_TXDATA_in[242] = (CH1_TXDATA[242] !== 1'bz) && CH1_TXDATA[242]; // rv MustConnect
+  assign CH1_TXDATA_in[243] = (CH1_TXDATA[243] !== 1'bz) && CH1_TXDATA[243]; // rv MustConnect
+  assign CH1_TXDATA_in[244] = (CH1_TXDATA[244] !== 1'bz) && CH1_TXDATA[244]; // rv MustConnect
+  assign CH1_TXDATA_in[245] = (CH1_TXDATA[245] !== 1'bz) && CH1_TXDATA[245]; // rv MustConnect
+  assign CH1_TXDATA_in[246] = (CH1_TXDATA[246] !== 1'bz) && CH1_TXDATA[246]; // rv MustConnect
+  assign CH1_TXDATA_in[247] = (CH1_TXDATA[247] !== 1'bz) && CH1_TXDATA[247]; // rv MustConnect
+  assign CH1_TXDATA_in[248] = (CH1_TXDATA[248] !== 1'bz) && CH1_TXDATA[248]; // rv MustConnect
+  assign CH1_TXDATA_in[249] = (CH1_TXDATA[249] !== 1'bz) && CH1_TXDATA[249]; // rv MustConnect
+  assign CH1_TXDATA_in[24] = (CH1_TXDATA[24] !== 1'bz) && CH1_TXDATA[24]; // rv MustConnect
+  assign CH1_TXDATA_in[250] = (CH1_TXDATA[250] !== 1'bz) && CH1_TXDATA[250]; // rv MustConnect
+  assign CH1_TXDATA_in[251] = (CH1_TXDATA[251] !== 1'bz) && CH1_TXDATA[251]; // rv MustConnect
+  assign CH1_TXDATA_in[252] = (CH1_TXDATA[252] !== 1'bz) && CH1_TXDATA[252]; // rv MustConnect
+  assign CH1_TXDATA_in[253] = (CH1_TXDATA[253] !== 1'bz) && CH1_TXDATA[253]; // rv MustConnect
+  assign CH1_TXDATA_in[254] = (CH1_TXDATA[254] !== 1'bz) && CH1_TXDATA[254]; // rv MustConnect
+  assign CH1_TXDATA_in[255] = (CH1_TXDATA[255] !== 1'bz) && CH1_TXDATA[255]; // rv MustConnect
+  assign CH1_TXDATA_in[256] = (CH1_TXDATA[256] !== 1'bz) && CH1_TXDATA[256]; // rv MustConnect
+  assign CH1_TXDATA_in[257] = (CH1_TXDATA[257] !== 1'bz) && CH1_TXDATA[257]; // rv MustConnect
+  assign CH1_TXDATA_in[258] = (CH1_TXDATA[258] !== 1'bz) && CH1_TXDATA[258]; // rv MustConnect
+  assign CH1_TXDATA_in[259] = (CH1_TXDATA[259] !== 1'bz) && CH1_TXDATA[259]; // rv MustConnect
+  assign CH1_TXDATA_in[25] = (CH1_TXDATA[25] !== 1'bz) && CH1_TXDATA[25]; // rv MustConnect
+  assign CH1_TXDATA_in[260] = (CH1_TXDATA[260] !== 1'bz) && CH1_TXDATA[260]; // rv MustConnect
+  assign CH1_TXDATA_in[261] = (CH1_TXDATA[261] !== 1'bz) && CH1_TXDATA[261]; // rv MustConnect
+  assign CH1_TXDATA_in[262] = (CH1_TXDATA[262] !== 1'bz) && CH1_TXDATA[262]; // rv MustConnect
+  assign CH1_TXDATA_in[263] = (CH1_TXDATA[263] !== 1'bz) && CH1_TXDATA[263]; // rv MustConnect
+  assign CH1_TXDATA_in[264] = (CH1_TXDATA[264] !== 1'bz) && CH1_TXDATA[264]; // rv MustConnect
+  assign CH1_TXDATA_in[265] = (CH1_TXDATA[265] !== 1'bz) && CH1_TXDATA[265]; // rv MustConnect
+  assign CH1_TXDATA_in[266] = (CH1_TXDATA[266] !== 1'bz) && CH1_TXDATA[266]; // rv MustConnect
+  assign CH1_TXDATA_in[267] = (CH1_TXDATA[267] !== 1'bz) && CH1_TXDATA[267]; // rv MustConnect
+  assign CH1_TXDATA_in[268] = (CH1_TXDATA[268] !== 1'bz) && CH1_TXDATA[268]; // rv MustConnect
+  assign CH1_TXDATA_in[269] = (CH1_TXDATA[269] !== 1'bz) && CH1_TXDATA[269]; // rv MustConnect
+  assign CH1_TXDATA_in[26] = (CH1_TXDATA[26] !== 1'bz) && CH1_TXDATA[26]; // rv MustConnect
+  assign CH1_TXDATA_in[270] = (CH1_TXDATA[270] !== 1'bz) && CH1_TXDATA[270]; // rv MustConnect
+  assign CH1_TXDATA_in[271] = (CH1_TXDATA[271] !== 1'bz) && CH1_TXDATA[271]; // rv MustConnect
+  assign CH1_TXDATA_in[272] = (CH1_TXDATA[272] !== 1'bz) && CH1_TXDATA[272]; // rv MustConnect
+  assign CH1_TXDATA_in[273] = (CH1_TXDATA[273] !== 1'bz) && CH1_TXDATA[273]; // rv MustConnect
+  assign CH1_TXDATA_in[274] = (CH1_TXDATA[274] !== 1'bz) && CH1_TXDATA[274]; // rv MustConnect
+  assign CH1_TXDATA_in[275] = (CH1_TXDATA[275] !== 1'bz) && CH1_TXDATA[275]; // rv MustConnect
+  assign CH1_TXDATA_in[276] = (CH1_TXDATA[276] !== 1'bz) && CH1_TXDATA[276]; // rv MustConnect
+  assign CH1_TXDATA_in[277] = (CH1_TXDATA[277] !== 1'bz) && CH1_TXDATA[277]; // rv MustConnect
+  assign CH1_TXDATA_in[278] = (CH1_TXDATA[278] !== 1'bz) && CH1_TXDATA[278]; // rv MustConnect
+  assign CH1_TXDATA_in[279] = (CH1_TXDATA[279] !== 1'bz) && CH1_TXDATA[279]; // rv MustConnect
+  assign CH1_TXDATA_in[27] = (CH1_TXDATA[27] !== 1'bz) && CH1_TXDATA[27]; // rv MustConnect
+  assign CH1_TXDATA_in[280] = (CH1_TXDATA[280] !== 1'bz) && CH1_TXDATA[280]; // rv MustConnect
+  assign CH1_TXDATA_in[281] = (CH1_TXDATA[281] !== 1'bz) && CH1_TXDATA[281]; // rv MustConnect
+  assign CH1_TXDATA_in[282] = (CH1_TXDATA[282] !== 1'bz) && CH1_TXDATA[282]; // rv MustConnect
+  assign CH1_TXDATA_in[283] = (CH1_TXDATA[283] !== 1'bz) && CH1_TXDATA[283]; // rv MustConnect
+  assign CH1_TXDATA_in[284] = (CH1_TXDATA[284] !== 1'bz) && CH1_TXDATA[284]; // rv MustConnect
+  assign CH1_TXDATA_in[285] = (CH1_TXDATA[285] !== 1'bz) && CH1_TXDATA[285]; // rv MustConnect
+  assign CH1_TXDATA_in[286] = (CH1_TXDATA[286] !== 1'bz) && CH1_TXDATA[286]; // rv MustConnect
+  assign CH1_TXDATA_in[287] = (CH1_TXDATA[287] !== 1'bz) && CH1_TXDATA[287]; // rv MustConnect
+  assign CH1_TXDATA_in[288] = (CH1_TXDATA[288] !== 1'bz) && CH1_TXDATA[288]; // rv MustConnect
+  assign CH1_TXDATA_in[289] = (CH1_TXDATA[289] !== 1'bz) && CH1_TXDATA[289]; // rv MustConnect
+  assign CH1_TXDATA_in[28] = (CH1_TXDATA[28] !== 1'bz) && CH1_TXDATA[28]; // rv MustConnect
+  assign CH1_TXDATA_in[290] = (CH1_TXDATA[290] !== 1'bz) && CH1_TXDATA[290]; // rv MustConnect
+  assign CH1_TXDATA_in[291] = (CH1_TXDATA[291] !== 1'bz) && CH1_TXDATA[291]; // rv MustConnect
+  assign CH1_TXDATA_in[292] = (CH1_TXDATA[292] !== 1'bz) && CH1_TXDATA[292]; // rv MustConnect
+  assign CH1_TXDATA_in[293] = (CH1_TXDATA[293] !== 1'bz) && CH1_TXDATA[293]; // rv MustConnect
+  assign CH1_TXDATA_in[294] = (CH1_TXDATA[294] !== 1'bz) && CH1_TXDATA[294]; // rv MustConnect
+  assign CH1_TXDATA_in[295] = (CH1_TXDATA[295] !== 1'bz) && CH1_TXDATA[295]; // rv MustConnect
+  assign CH1_TXDATA_in[296] = (CH1_TXDATA[296] !== 1'bz) && CH1_TXDATA[296]; // rv MustConnect
+  assign CH1_TXDATA_in[297] = (CH1_TXDATA[297] !== 1'bz) && CH1_TXDATA[297]; // rv MustConnect
+  assign CH1_TXDATA_in[298] = (CH1_TXDATA[298] !== 1'bz) && CH1_TXDATA[298]; // rv MustConnect
+  assign CH1_TXDATA_in[299] = (CH1_TXDATA[299] !== 1'bz) && CH1_TXDATA[299]; // rv MustConnect
+  assign CH1_TXDATA_in[29] = (CH1_TXDATA[29] !== 1'bz) && CH1_TXDATA[29]; // rv MustConnect
+  assign CH1_TXDATA_in[2] = (CH1_TXDATA[2] !== 1'bz) && CH1_TXDATA[2]; // rv MustConnect
+  assign CH1_TXDATA_in[300] = (CH1_TXDATA[300] !== 1'bz) && CH1_TXDATA[300]; // rv MustConnect
+  assign CH1_TXDATA_in[301] = (CH1_TXDATA[301] !== 1'bz) && CH1_TXDATA[301]; // rv MustConnect
+  assign CH1_TXDATA_in[302] = (CH1_TXDATA[302] !== 1'bz) && CH1_TXDATA[302]; // rv MustConnect
+  assign CH1_TXDATA_in[303] = (CH1_TXDATA[303] !== 1'bz) && CH1_TXDATA[303]; // rv MustConnect
+  assign CH1_TXDATA_in[304] = (CH1_TXDATA[304] !== 1'bz) && CH1_TXDATA[304]; // rv MustConnect
+  assign CH1_TXDATA_in[305] = (CH1_TXDATA[305] !== 1'bz) && CH1_TXDATA[305]; // rv MustConnect
+  assign CH1_TXDATA_in[306] = (CH1_TXDATA[306] !== 1'bz) && CH1_TXDATA[306]; // rv MustConnect
+  assign CH1_TXDATA_in[307] = (CH1_TXDATA[307] !== 1'bz) && CH1_TXDATA[307]; // rv MustConnect
+  assign CH1_TXDATA_in[308] = (CH1_TXDATA[308] !== 1'bz) && CH1_TXDATA[308]; // rv MustConnect
+  assign CH1_TXDATA_in[309] = (CH1_TXDATA[309] !== 1'bz) && CH1_TXDATA[309]; // rv MustConnect
+  assign CH1_TXDATA_in[30] = (CH1_TXDATA[30] !== 1'bz) && CH1_TXDATA[30]; // rv MustConnect
+  assign CH1_TXDATA_in[310] = (CH1_TXDATA[310] !== 1'bz) && CH1_TXDATA[310]; // rv MustConnect
+  assign CH1_TXDATA_in[311] = (CH1_TXDATA[311] !== 1'bz) && CH1_TXDATA[311]; // rv MustConnect
+  assign CH1_TXDATA_in[312] = (CH1_TXDATA[312] !== 1'bz) && CH1_TXDATA[312]; // rv MustConnect
+  assign CH1_TXDATA_in[313] = (CH1_TXDATA[313] !== 1'bz) && CH1_TXDATA[313]; // rv MustConnect
+  assign CH1_TXDATA_in[314] = (CH1_TXDATA[314] !== 1'bz) && CH1_TXDATA[314]; // rv MustConnect
+  assign CH1_TXDATA_in[315] = (CH1_TXDATA[315] !== 1'bz) && CH1_TXDATA[315]; // rv MustConnect
+  assign CH1_TXDATA_in[316] = (CH1_TXDATA[316] !== 1'bz) && CH1_TXDATA[316]; // rv MustConnect
+  assign CH1_TXDATA_in[317] = (CH1_TXDATA[317] !== 1'bz) && CH1_TXDATA[317]; // rv MustConnect
+  assign CH1_TXDATA_in[318] = (CH1_TXDATA[318] !== 1'bz) && CH1_TXDATA[318]; // rv MustConnect
+  assign CH1_TXDATA_in[319] = (CH1_TXDATA[319] !== 1'bz) && CH1_TXDATA[319]; // rv MustConnect
+  assign CH1_TXDATA_in[31] = (CH1_TXDATA[31] !== 1'bz) && CH1_TXDATA[31]; // rv MustConnect
+  assign CH1_TXDATA_in[32] = (CH1_TXDATA[32] !== 1'bz) && CH1_TXDATA[32]; // rv MustConnect
+  assign CH1_TXDATA_in[33] = (CH1_TXDATA[33] !== 1'bz) && CH1_TXDATA[33]; // rv MustConnect
+  assign CH1_TXDATA_in[34] = (CH1_TXDATA[34] !== 1'bz) && CH1_TXDATA[34]; // rv MustConnect
+  assign CH1_TXDATA_in[35] = (CH1_TXDATA[35] !== 1'bz) && CH1_TXDATA[35]; // rv MustConnect
+  assign CH1_TXDATA_in[36] = (CH1_TXDATA[36] !== 1'bz) && CH1_TXDATA[36]; // rv MustConnect
+  assign CH1_TXDATA_in[37] = (CH1_TXDATA[37] !== 1'bz) && CH1_TXDATA[37]; // rv MustConnect
+  assign CH1_TXDATA_in[38] = (CH1_TXDATA[38] !== 1'bz) && CH1_TXDATA[38]; // rv MustConnect
+  assign CH1_TXDATA_in[39] = (CH1_TXDATA[39] !== 1'bz) && CH1_TXDATA[39]; // rv MustConnect
+  assign CH1_TXDATA_in[3] = (CH1_TXDATA[3] !== 1'bz) && CH1_TXDATA[3]; // rv MustConnect
+  assign CH1_TXDATA_in[40] = (CH1_TXDATA[40] !== 1'bz) && CH1_TXDATA[40]; // rv MustConnect
+  assign CH1_TXDATA_in[41] = (CH1_TXDATA[41] !== 1'bz) && CH1_TXDATA[41]; // rv MustConnect
+  assign CH1_TXDATA_in[42] = (CH1_TXDATA[42] !== 1'bz) && CH1_TXDATA[42]; // rv MustConnect
+  assign CH1_TXDATA_in[43] = (CH1_TXDATA[43] !== 1'bz) && CH1_TXDATA[43]; // rv MustConnect
+  assign CH1_TXDATA_in[44] = (CH1_TXDATA[44] !== 1'bz) && CH1_TXDATA[44]; // rv MustConnect
+  assign CH1_TXDATA_in[45] = (CH1_TXDATA[45] !== 1'bz) && CH1_TXDATA[45]; // rv MustConnect
+  assign CH1_TXDATA_in[46] = (CH1_TXDATA[46] !== 1'bz) && CH1_TXDATA[46]; // rv MustConnect
+  assign CH1_TXDATA_in[47] = (CH1_TXDATA[47] !== 1'bz) && CH1_TXDATA[47]; // rv MustConnect
+  assign CH1_TXDATA_in[48] = (CH1_TXDATA[48] !== 1'bz) && CH1_TXDATA[48]; // rv MustConnect
+  assign CH1_TXDATA_in[49] = (CH1_TXDATA[49] !== 1'bz) && CH1_TXDATA[49]; // rv MustConnect
+  assign CH1_TXDATA_in[4] = (CH1_TXDATA[4] !== 1'bz) && CH1_TXDATA[4]; // rv MustConnect
+  assign CH1_TXDATA_in[50] = (CH1_TXDATA[50] !== 1'bz) && CH1_TXDATA[50]; // rv MustConnect
+  assign CH1_TXDATA_in[51] = (CH1_TXDATA[51] !== 1'bz) && CH1_TXDATA[51]; // rv MustConnect
+  assign CH1_TXDATA_in[52] = (CH1_TXDATA[52] !== 1'bz) && CH1_TXDATA[52]; // rv MustConnect
+  assign CH1_TXDATA_in[53] = (CH1_TXDATA[53] !== 1'bz) && CH1_TXDATA[53]; // rv MustConnect
+  assign CH1_TXDATA_in[54] = (CH1_TXDATA[54] !== 1'bz) && CH1_TXDATA[54]; // rv MustConnect
+  assign CH1_TXDATA_in[55] = (CH1_TXDATA[55] !== 1'bz) && CH1_TXDATA[55]; // rv MustConnect
+  assign CH1_TXDATA_in[56] = (CH1_TXDATA[56] !== 1'bz) && CH1_TXDATA[56]; // rv MustConnect
+  assign CH1_TXDATA_in[57] = (CH1_TXDATA[57] !== 1'bz) && CH1_TXDATA[57]; // rv MustConnect
+  assign CH1_TXDATA_in[58] = (CH1_TXDATA[58] !== 1'bz) && CH1_TXDATA[58]; // rv MustConnect
+  assign CH1_TXDATA_in[59] = (CH1_TXDATA[59] !== 1'bz) && CH1_TXDATA[59]; // rv MustConnect
+  assign CH1_TXDATA_in[5] = (CH1_TXDATA[5] !== 1'bz) && CH1_TXDATA[5]; // rv MustConnect
+  assign CH1_TXDATA_in[60] = (CH1_TXDATA[60] !== 1'bz) && CH1_TXDATA[60]; // rv MustConnect
+  assign CH1_TXDATA_in[61] = (CH1_TXDATA[61] !== 1'bz) && CH1_TXDATA[61]; // rv MustConnect
+  assign CH1_TXDATA_in[62] = (CH1_TXDATA[62] !== 1'bz) && CH1_TXDATA[62]; // rv MustConnect
+  assign CH1_TXDATA_in[63] = (CH1_TXDATA[63] !== 1'bz) && CH1_TXDATA[63]; // rv MustConnect
+  assign CH1_TXDATA_in[64] = (CH1_TXDATA[64] !== 1'bz) && CH1_TXDATA[64]; // rv MustConnect
+  assign CH1_TXDATA_in[65] = (CH1_TXDATA[65] !== 1'bz) && CH1_TXDATA[65]; // rv MustConnect
+  assign CH1_TXDATA_in[66] = (CH1_TXDATA[66] !== 1'bz) && CH1_TXDATA[66]; // rv MustConnect
+  assign CH1_TXDATA_in[67] = (CH1_TXDATA[67] !== 1'bz) && CH1_TXDATA[67]; // rv MustConnect
+  assign CH1_TXDATA_in[68] = (CH1_TXDATA[68] !== 1'bz) && CH1_TXDATA[68]; // rv MustConnect
+  assign CH1_TXDATA_in[69] = (CH1_TXDATA[69] !== 1'bz) && CH1_TXDATA[69]; // rv MustConnect
+  assign CH1_TXDATA_in[6] = (CH1_TXDATA[6] !== 1'bz) && CH1_TXDATA[6]; // rv MustConnect
+  assign CH1_TXDATA_in[70] = (CH1_TXDATA[70] !== 1'bz) && CH1_TXDATA[70]; // rv MustConnect
+  assign CH1_TXDATA_in[71] = (CH1_TXDATA[71] !== 1'bz) && CH1_TXDATA[71]; // rv MustConnect
+  assign CH1_TXDATA_in[72] = (CH1_TXDATA[72] !== 1'bz) && CH1_TXDATA[72]; // rv MustConnect
+  assign CH1_TXDATA_in[73] = (CH1_TXDATA[73] !== 1'bz) && CH1_TXDATA[73]; // rv MustConnect
+  assign CH1_TXDATA_in[74] = (CH1_TXDATA[74] !== 1'bz) && CH1_TXDATA[74]; // rv MustConnect
+  assign CH1_TXDATA_in[75] = (CH1_TXDATA[75] !== 1'bz) && CH1_TXDATA[75]; // rv MustConnect
+  assign CH1_TXDATA_in[76] = (CH1_TXDATA[76] !== 1'bz) && CH1_TXDATA[76]; // rv MustConnect
+  assign CH1_TXDATA_in[77] = (CH1_TXDATA[77] !== 1'bz) && CH1_TXDATA[77]; // rv MustConnect
+  assign CH1_TXDATA_in[78] = (CH1_TXDATA[78] !== 1'bz) && CH1_TXDATA[78]; // rv MustConnect
+  assign CH1_TXDATA_in[79] = (CH1_TXDATA[79] !== 1'bz) && CH1_TXDATA[79]; // rv MustConnect
+  assign CH1_TXDATA_in[7] = (CH1_TXDATA[7] !== 1'bz) && CH1_TXDATA[7]; // rv MustConnect
+  assign CH1_TXDATA_in[80] = (CH1_TXDATA[80] !== 1'bz) && CH1_TXDATA[80]; // rv MustConnect
+  assign CH1_TXDATA_in[81] = (CH1_TXDATA[81] !== 1'bz) && CH1_TXDATA[81]; // rv MustConnect
+  assign CH1_TXDATA_in[82] = (CH1_TXDATA[82] !== 1'bz) && CH1_TXDATA[82]; // rv MustConnect
+  assign CH1_TXDATA_in[83] = (CH1_TXDATA[83] !== 1'bz) && CH1_TXDATA[83]; // rv MustConnect
+  assign CH1_TXDATA_in[84] = (CH1_TXDATA[84] !== 1'bz) && CH1_TXDATA[84]; // rv MustConnect
+  assign CH1_TXDATA_in[85] = (CH1_TXDATA[85] !== 1'bz) && CH1_TXDATA[85]; // rv MustConnect
+  assign CH1_TXDATA_in[86] = (CH1_TXDATA[86] !== 1'bz) && CH1_TXDATA[86]; // rv MustConnect
+  assign CH1_TXDATA_in[87] = (CH1_TXDATA[87] !== 1'bz) && CH1_TXDATA[87]; // rv MustConnect
+  assign CH1_TXDATA_in[88] = (CH1_TXDATA[88] !== 1'bz) && CH1_TXDATA[88]; // rv MustConnect
+  assign CH1_TXDATA_in[89] = (CH1_TXDATA[89] !== 1'bz) && CH1_TXDATA[89]; // rv MustConnect
+  assign CH1_TXDATA_in[8] = (CH1_TXDATA[8] !== 1'bz) && CH1_TXDATA[8]; // rv MustConnect
+  assign CH1_TXDATA_in[90] = (CH1_TXDATA[90] !== 1'bz) && CH1_TXDATA[90]; // rv MustConnect
+  assign CH1_TXDATA_in[91] = (CH1_TXDATA[91] !== 1'bz) && CH1_TXDATA[91]; // rv MustConnect
+  assign CH1_TXDATA_in[92] = (CH1_TXDATA[92] !== 1'bz) && CH1_TXDATA[92]; // rv MustConnect
+  assign CH1_TXDATA_in[93] = (CH1_TXDATA[93] !== 1'bz) && CH1_TXDATA[93]; // rv MustConnect
+  assign CH1_TXDATA_in[94] = (CH1_TXDATA[94] !== 1'bz) && CH1_TXDATA[94]; // rv MustConnect
+  assign CH1_TXDATA_in[95] = (CH1_TXDATA[95] !== 1'bz) && CH1_TXDATA[95]; // rv MustConnect
+  assign CH1_TXDATA_in[96] = (CH1_TXDATA[96] !== 1'bz) && CH1_TXDATA[96]; // rv MustConnect
+  assign CH1_TXDATA_in[97] = (CH1_TXDATA[97] !== 1'bz) && CH1_TXDATA[97]; // rv MustConnect
+  assign CH1_TXDATA_in[98] = (CH1_TXDATA[98] !== 1'bz) && CH1_TXDATA[98]; // rv MustConnect
+  assign CH1_TXDATA_in[99] = (CH1_TXDATA[99] !== 1'bz) && CH1_TXDATA[99]; // rv MustConnect
+  assign CH1_TXDATA_in[9] = (CH1_TXDATA[9] !== 1'bz) && CH1_TXDATA[9]; // rv MustConnect
+  assign CH1_TXDETECTRXLOOPBACK_in = CH1_TXDETECTRXLOOPBACK;
+  assign CH1_TXELECIDLE_in = (CH1_TXELECIDLE === 1'bz) || CH1_TXELECIDLE; // rv 1
+  assign CH1_TXPOWERDOWN_in = CH1_TXPOWERDOWN;
+  assign CH1_TXRATE_in = CH1_TXRATE;
+  assign CH1_TXUSRCLK_in = (CH1_TXUSRCLK === 1'bz) || CH1_TXUSRCLK; // rv 1
+  assign CH2_RXGEARBOXSLIP_in = CH2_RXGEARBOXSLIP;
+  assign CH2_RXUSRCLK_in = (CH2_RXUSRCLK === 1'bz) || CH2_RXUSRCLK; // rv 1
+  assign CH2_SCANCHNLMASKIN_in = CH2_SCANCHNLMASKIN;
+  assign CH2_SCANCLKB_in = CH2_SCANCLKB;
+  assign CH2_SCANCNTRLIN_in = CH2_SCANCNTRLIN;
+  assign CH2_SCANIN_in = CH2_SCANIN;
+  assign CH2_SCANODCCCHNLMASK_in = CH2_SCANODCCCHNLMASK;
+  assign CH2_TXDATA_in[0] = (CH2_TXDATA[0] !== 1'bz) && CH2_TXDATA[0]; // rv MustConnect
+  assign CH2_TXDATA_in[100] = (CH2_TXDATA[100] !== 1'bz) && CH2_TXDATA[100]; // rv MustConnect
+  assign CH2_TXDATA_in[101] = (CH2_TXDATA[101] !== 1'bz) && CH2_TXDATA[101]; // rv MustConnect
+  assign CH2_TXDATA_in[102] = (CH2_TXDATA[102] !== 1'bz) && CH2_TXDATA[102]; // rv MustConnect
+  assign CH2_TXDATA_in[103] = (CH2_TXDATA[103] !== 1'bz) && CH2_TXDATA[103]; // rv MustConnect
+  assign CH2_TXDATA_in[104] = (CH2_TXDATA[104] !== 1'bz) && CH2_TXDATA[104]; // rv MustConnect
+  assign CH2_TXDATA_in[105] = (CH2_TXDATA[105] !== 1'bz) && CH2_TXDATA[105]; // rv MustConnect
+  assign CH2_TXDATA_in[106] = (CH2_TXDATA[106] !== 1'bz) && CH2_TXDATA[106]; // rv MustConnect
+  assign CH2_TXDATA_in[107] = (CH2_TXDATA[107] !== 1'bz) && CH2_TXDATA[107]; // rv MustConnect
+  assign CH2_TXDATA_in[108] = (CH2_TXDATA[108] !== 1'bz) && CH2_TXDATA[108]; // rv MustConnect
+  assign CH2_TXDATA_in[109] = (CH2_TXDATA[109] !== 1'bz) && CH2_TXDATA[109]; // rv MustConnect
+  assign CH2_TXDATA_in[10] = (CH2_TXDATA[10] !== 1'bz) && CH2_TXDATA[10]; // rv MustConnect
+  assign CH2_TXDATA_in[110] = (CH2_TXDATA[110] !== 1'bz) && CH2_TXDATA[110]; // rv MustConnect
+  assign CH2_TXDATA_in[111] = (CH2_TXDATA[111] !== 1'bz) && CH2_TXDATA[111]; // rv MustConnect
+  assign CH2_TXDATA_in[112] = (CH2_TXDATA[112] !== 1'bz) && CH2_TXDATA[112]; // rv MustConnect
+  assign CH2_TXDATA_in[113] = (CH2_TXDATA[113] !== 1'bz) && CH2_TXDATA[113]; // rv MustConnect
+  assign CH2_TXDATA_in[114] = (CH2_TXDATA[114] !== 1'bz) && CH2_TXDATA[114]; // rv MustConnect
+  assign CH2_TXDATA_in[115] = (CH2_TXDATA[115] !== 1'bz) && CH2_TXDATA[115]; // rv MustConnect
+  assign CH2_TXDATA_in[116] = (CH2_TXDATA[116] !== 1'bz) && CH2_TXDATA[116]; // rv MustConnect
+  assign CH2_TXDATA_in[117] = (CH2_TXDATA[117] !== 1'bz) && CH2_TXDATA[117]; // rv MustConnect
+  assign CH2_TXDATA_in[118] = (CH2_TXDATA[118] !== 1'bz) && CH2_TXDATA[118]; // rv MustConnect
+  assign CH2_TXDATA_in[119] = (CH2_TXDATA[119] !== 1'bz) && CH2_TXDATA[119]; // rv MustConnect
+  assign CH2_TXDATA_in[11] = (CH2_TXDATA[11] !== 1'bz) && CH2_TXDATA[11]; // rv MustConnect
+  assign CH2_TXDATA_in[120] = (CH2_TXDATA[120] !== 1'bz) && CH2_TXDATA[120]; // rv MustConnect
+  assign CH2_TXDATA_in[121] = (CH2_TXDATA[121] !== 1'bz) && CH2_TXDATA[121]; // rv MustConnect
+  assign CH2_TXDATA_in[122] = (CH2_TXDATA[122] !== 1'bz) && CH2_TXDATA[122]; // rv MustConnect
+  assign CH2_TXDATA_in[123] = (CH2_TXDATA[123] !== 1'bz) && CH2_TXDATA[123]; // rv MustConnect
+  assign CH2_TXDATA_in[124] = (CH2_TXDATA[124] !== 1'bz) && CH2_TXDATA[124]; // rv MustConnect
+  assign CH2_TXDATA_in[125] = (CH2_TXDATA[125] !== 1'bz) && CH2_TXDATA[125]; // rv MustConnect
+  assign CH2_TXDATA_in[126] = (CH2_TXDATA[126] !== 1'bz) && CH2_TXDATA[126]; // rv MustConnect
+  assign CH2_TXDATA_in[127] = (CH2_TXDATA[127] !== 1'bz) && CH2_TXDATA[127]; // rv MustConnect
+  assign CH2_TXDATA_in[128] = (CH2_TXDATA[128] !== 1'bz) && CH2_TXDATA[128]; // rv MustConnect
+  assign CH2_TXDATA_in[129] = (CH2_TXDATA[129] !== 1'bz) && CH2_TXDATA[129]; // rv MustConnect
+  assign CH2_TXDATA_in[12] = (CH2_TXDATA[12] !== 1'bz) && CH2_TXDATA[12]; // rv MustConnect
+  assign CH2_TXDATA_in[130] = (CH2_TXDATA[130] !== 1'bz) && CH2_TXDATA[130]; // rv MustConnect
+  assign CH2_TXDATA_in[131] = (CH2_TXDATA[131] !== 1'bz) && CH2_TXDATA[131]; // rv MustConnect
+  assign CH2_TXDATA_in[132] = (CH2_TXDATA[132] !== 1'bz) && CH2_TXDATA[132]; // rv MustConnect
+  assign CH2_TXDATA_in[133] = (CH2_TXDATA[133] !== 1'bz) && CH2_TXDATA[133]; // rv MustConnect
+  assign CH2_TXDATA_in[134] = (CH2_TXDATA[134] !== 1'bz) && CH2_TXDATA[134]; // rv MustConnect
+  assign CH2_TXDATA_in[135] = (CH2_TXDATA[135] !== 1'bz) && CH2_TXDATA[135]; // rv MustConnect
+  assign CH2_TXDATA_in[136] = (CH2_TXDATA[136] !== 1'bz) && CH2_TXDATA[136]; // rv MustConnect
+  assign CH2_TXDATA_in[137] = (CH2_TXDATA[137] !== 1'bz) && CH2_TXDATA[137]; // rv MustConnect
+  assign CH2_TXDATA_in[138] = (CH2_TXDATA[138] !== 1'bz) && CH2_TXDATA[138]; // rv MustConnect
+  assign CH2_TXDATA_in[139] = (CH2_TXDATA[139] !== 1'bz) && CH2_TXDATA[139]; // rv MustConnect
+  assign CH2_TXDATA_in[13] = (CH2_TXDATA[13] !== 1'bz) && CH2_TXDATA[13]; // rv MustConnect
+  assign CH2_TXDATA_in[140] = (CH2_TXDATA[140] !== 1'bz) && CH2_TXDATA[140]; // rv MustConnect
+  assign CH2_TXDATA_in[141] = (CH2_TXDATA[141] !== 1'bz) && CH2_TXDATA[141]; // rv MustConnect
+  assign CH2_TXDATA_in[142] = (CH2_TXDATA[142] !== 1'bz) && CH2_TXDATA[142]; // rv MustConnect
+  assign CH2_TXDATA_in[143] = (CH2_TXDATA[143] !== 1'bz) && CH2_TXDATA[143]; // rv MustConnect
+  assign CH2_TXDATA_in[144] = (CH2_TXDATA[144] !== 1'bz) && CH2_TXDATA[144]; // rv MustConnect
+  assign CH2_TXDATA_in[145] = (CH2_TXDATA[145] !== 1'bz) && CH2_TXDATA[145]; // rv MustConnect
+  assign CH2_TXDATA_in[146] = (CH2_TXDATA[146] !== 1'bz) && CH2_TXDATA[146]; // rv MustConnect
+  assign CH2_TXDATA_in[147] = (CH2_TXDATA[147] !== 1'bz) && CH2_TXDATA[147]; // rv MustConnect
+  assign CH2_TXDATA_in[148] = (CH2_TXDATA[148] !== 1'bz) && CH2_TXDATA[148]; // rv MustConnect
+  assign CH2_TXDATA_in[149] = (CH2_TXDATA[149] !== 1'bz) && CH2_TXDATA[149]; // rv MustConnect
+  assign CH2_TXDATA_in[14] = (CH2_TXDATA[14] !== 1'bz) && CH2_TXDATA[14]; // rv MustConnect
+  assign CH2_TXDATA_in[150] = (CH2_TXDATA[150] !== 1'bz) && CH2_TXDATA[150]; // rv MustConnect
+  assign CH2_TXDATA_in[151] = (CH2_TXDATA[151] !== 1'bz) && CH2_TXDATA[151]; // rv MustConnect
+  assign CH2_TXDATA_in[152] = (CH2_TXDATA[152] !== 1'bz) && CH2_TXDATA[152]; // rv MustConnect
+  assign CH2_TXDATA_in[153] = (CH2_TXDATA[153] !== 1'bz) && CH2_TXDATA[153]; // rv MustConnect
+  assign CH2_TXDATA_in[154] = (CH2_TXDATA[154] !== 1'bz) && CH2_TXDATA[154]; // rv MustConnect
+  assign CH2_TXDATA_in[155] = (CH2_TXDATA[155] !== 1'bz) && CH2_TXDATA[155]; // rv MustConnect
+  assign CH2_TXDATA_in[156] = (CH2_TXDATA[156] !== 1'bz) && CH2_TXDATA[156]; // rv MustConnect
+  assign CH2_TXDATA_in[157] = (CH2_TXDATA[157] !== 1'bz) && CH2_TXDATA[157]; // rv MustConnect
+  assign CH2_TXDATA_in[158] = (CH2_TXDATA[158] !== 1'bz) && CH2_TXDATA[158]; // rv MustConnect
+  assign CH2_TXDATA_in[159] = (CH2_TXDATA[159] !== 1'bz) && CH2_TXDATA[159]; // rv MustConnect
+  assign CH2_TXDATA_in[15] = (CH2_TXDATA[15] !== 1'bz) && CH2_TXDATA[15]; // rv MustConnect
+  assign CH2_TXDATA_in[160] = (CH2_TXDATA[160] !== 1'bz) && CH2_TXDATA[160]; // rv MustConnect
+  assign CH2_TXDATA_in[161] = (CH2_TXDATA[161] !== 1'bz) && CH2_TXDATA[161]; // rv MustConnect
+  assign CH2_TXDATA_in[162] = (CH2_TXDATA[162] !== 1'bz) && CH2_TXDATA[162]; // rv MustConnect
+  assign CH2_TXDATA_in[163] = (CH2_TXDATA[163] !== 1'bz) && CH2_TXDATA[163]; // rv MustConnect
+  assign CH2_TXDATA_in[164] = (CH2_TXDATA[164] !== 1'bz) && CH2_TXDATA[164]; // rv MustConnect
+  assign CH2_TXDATA_in[165] = (CH2_TXDATA[165] !== 1'bz) && CH2_TXDATA[165]; // rv MustConnect
+  assign CH2_TXDATA_in[166] = (CH2_TXDATA[166] !== 1'bz) && CH2_TXDATA[166]; // rv MustConnect
+  assign CH2_TXDATA_in[167] = (CH2_TXDATA[167] !== 1'bz) && CH2_TXDATA[167]; // rv MustConnect
+  assign CH2_TXDATA_in[168] = (CH2_TXDATA[168] !== 1'bz) && CH2_TXDATA[168]; // rv MustConnect
+  assign CH2_TXDATA_in[169] = (CH2_TXDATA[169] !== 1'bz) && CH2_TXDATA[169]; // rv MustConnect
+  assign CH2_TXDATA_in[16] = (CH2_TXDATA[16] !== 1'bz) && CH2_TXDATA[16]; // rv MustConnect
+  assign CH2_TXDATA_in[170] = (CH2_TXDATA[170] !== 1'bz) && CH2_TXDATA[170]; // rv MustConnect
+  assign CH2_TXDATA_in[171] = (CH2_TXDATA[171] !== 1'bz) && CH2_TXDATA[171]; // rv MustConnect
+  assign CH2_TXDATA_in[172] = (CH2_TXDATA[172] !== 1'bz) && CH2_TXDATA[172]; // rv MustConnect
+  assign CH2_TXDATA_in[173] = (CH2_TXDATA[173] !== 1'bz) && CH2_TXDATA[173]; // rv MustConnect
+  assign CH2_TXDATA_in[174] = (CH2_TXDATA[174] !== 1'bz) && CH2_TXDATA[174]; // rv MustConnect
+  assign CH2_TXDATA_in[175] = (CH2_TXDATA[175] !== 1'bz) && CH2_TXDATA[175]; // rv MustConnect
+  assign CH2_TXDATA_in[176] = (CH2_TXDATA[176] !== 1'bz) && CH2_TXDATA[176]; // rv MustConnect
+  assign CH2_TXDATA_in[177] = (CH2_TXDATA[177] !== 1'bz) && CH2_TXDATA[177]; // rv MustConnect
+  assign CH2_TXDATA_in[178] = (CH2_TXDATA[178] !== 1'bz) && CH2_TXDATA[178]; // rv MustConnect
+  assign CH2_TXDATA_in[179] = (CH2_TXDATA[179] !== 1'bz) && CH2_TXDATA[179]; // rv MustConnect
+  assign CH2_TXDATA_in[17] = (CH2_TXDATA[17] !== 1'bz) && CH2_TXDATA[17]; // rv MustConnect
+  assign CH2_TXDATA_in[180] = (CH2_TXDATA[180] !== 1'bz) && CH2_TXDATA[180]; // rv MustConnect
+  assign CH2_TXDATA_in[181] = (CH2_TXDATA[181] !== 1'bz) && CH2_TXDATA[181]; // rv MustConnect
+  assign CH2_TXDATA_in[182] = (CH2_TXDATA[182] !== 1'bz) && CH2_TXDATA[182]; // rv MustConnect
+  assign CH2_TXDATA_in[183] = (CH2_TXDATA[183] !== 1'bz) && CH2_TXDATA[183]; // rv MustConnect
+  assign CH2_TXDATA_in[184] = (CH2_TXDATA[184] !== 1'bz) && CH2_TXDATA[184]; // rv MustConnect
+  assign CH2_TXDATA_in[185] = (CH2_TXDATA[185] !== 1'bz) && CH2_TXDATA[185]; // rv MustConnect
+  assign CH2_TXDATA_in[186] = (CH2_TXDATA[186] !== 1'bz) && CH2_TXDATA[186]; // rv MustConnect
+  assign CH2_TXDATA_in[187] = (CH2_TXDATA[187] !== 1'bz) && CH2_TXDATA[187]; // rv MustConnect
+  assign CH2_TXDATA_in[188] = (CH2_TXDATA[188] !== 1'bz) && CH2_TXDATA[188]; // rv MustConnect
+  assign CH2_TXDATA_in[189] = (CH2_TXDATA[189] !== 1'bz) && CH2_TXDATA[189]; // rv MustConnect
+  assign CH2_TXDATA_in[18] = (CH2_TXDATA[18] !== 1'bz) && CH2_TXDATA[18]; // rv MustConnect
+  assign CH2_TXDATA_in[190] = (CH2_TXDATA[190] !== 1'bz) && CH2_TXDATA[190]; // rv MustConnect
+  assign CH2_TXDATA_in[191] = (CH2_TXDATA[191] !== 1'bz) && CH2_TXDATA[191]; // rv MustConnect
+  assign CH2_TXDATA_in[192] = (CH2_TXDATA[192] !== 1'bz) && CH2_TXDATA[192]; // rv MustConnect
+  assign CH2_TXDATA_in[193] = (CH2_TXDATA[193] !== 1'bz) && CH2_TXDATA[193]; // rv MustConnect
+  assign CH2_TXDATA_in[194] = (CH2_TXDATA[194] !== 1'bz) && CH2_TXDATA[194]; // rv MustConnect
+  assign CH2_TXDATA_in[195] = (CH2_TXDATA[195] !== 1'bz) && CH2_TXDATA[195]; // rv MustConnect
+  assign CH2_TXDATA_in[196] = (CH2_TXDATA[196] !== 1'bz) && CH2_TXDATA[196]; // rv MustConnect
+  assign CH2_TXDATA_in[197] = (CH2_TXDATA[197] !== 1'bz) && CH2_TXDATA[197]; // rv MustConnect
+  assign CH2_TXDATA_in[198] = (CH2_TXDATA[198] !== 1'bz) && CH2_TXDATA[198]; // rv MustConnect
+  assign CH2_TXDATA_in[199] = (CH2_TXDATA[199] !== 1'bz) && CH2_TXDATA[199]; // rv MustConnect
+  assign CH2_TXDATA_in[19] = (CH2_TXDATA[19] !== 1'bz) && CH2_TXDATA[19]; // rv MustConnect
+  assign CH2_TXDATA_in[1] = (CH2_TXDATA[1] !== 1'bz) && CH2_TXDATA[1]; // rv MustConnect
+  assign CH2_TXDATA_in[200] = (CH2_TXDATA[200] !== 1'bz) && CH2_TXDATA[200]; // rv MustConnect
+  assign CH2_TXDATA_in[201] = (CH2_TXDATA[201] !== 1'bz) && CH2_TXDATA[201]; // rv MustConnect
+  assign CH2_TXDATA_in[202] = (CH2_TXDATA[202] !== 1'bz) && CH2_TXDATA[202]; // rv MustConnect
+  assign CH2_TXDATA_in[203] = (CH2_TXDATA[203] !== 1'bz) && CH2_TXDATA[203]; // rv MustConnect
+  assign CH2_TXDATA_in[204] = (CH2_TXDATA[204] !== 1'bz) && CH2_TXDATA[204]; // rv MustConnect
+  assign CH2_TXDATA_in[205] = (CH2_TXDATA[205] !== 1'bz) && CH2_TXDATA[205]; // rv MustConnect
+  assign CH2_TXDATA_in[206] = (CH2_TXDATA[206] !== 1'bz) && CH2_TXDATA[206]; // rv MustConnect
+  assign CH2_TXDATA_in[207] = (CH2_TXDATA[207] !== 1'bz) && CH2_TXDATA[207]; // rv MustConnect
+  assign CH2_TXDATA_in[208] = (CH2_TXDATA[208] !== 1'bz) && CH2_TXDATA[208]; // rv MustConnect
+  assign CH2_TXDATA_in[209] = (CH2_TXDATA[209] !== 1'bz) && CH2_TXDATA[209]; // rv MustConnect
+  assign CH2_TXDATA_in[20] = (CH2_TXDATA[20] !== 1'bz) && CH2_TXDATA[20]; // rv MustConnect
+  assign CH2_TXDATA_in[210] = (CH2_TXDATA[210] !== 1'bz) && CH2_TXDATA[210]; // rv MustConnect
+  assign CH2_TXDATA_in[211] = (CH2_TXDATA[211] !== 1'bz) && CH2_TXDATA[211]; // rv MustConnect
+  assign CH2_TXDATA_in[212] = (CH2_TXDATA[212] !== 1'bz) && CH2_TXDATA[212]; // rv MustConnect
+  assign CH2_TXDATA_in[213] = (CH2_TXDATA[213] !== 1'bz) && CH2_TXDATA[213]; // rv MustConnect
+  assign CH2_TXDATA_in[214] = (CH2_TXDATA[214] !== 1'bz) && CH2_TXDATA[214]; // rv MustConnect
+  assign CH2_TXDATA_in[215] = (CH2_TXDATA[215] !== 1'bz) && CH2_TXDATA[215]; // rv MustConnect
+  assign CH2_TXDATA_in[216] = (CH2_TXDATA[216] !== 1'bz) && CH2_TXDATA[216]; // rv MustConnect
+  assign CH2_TXDATA_in[217] = (CH2_TXDATA[217] !== 1'bz) && CH2_TXDATA[217]; // rv MustConnect
+  assign CH2_TXDATA_in[218] = (CH2_TXDATA[218] !== 1'bz) && CH2_TXDATA[218]; // rv MustConnect
+  assign CH2_TXDATA_in[219] = (CH2_TXDATA[219] !== 1'bz) && CH2_TXDATA[219]; // rv MustConnect
+  assign CH2_TXDATA_in[21] = (CH2_TXDATA[21] !== 1'bz) && CH2_TXDATA[21]; // rv MustConnect
+  assign CH2_TXDATA_in[220] = (CH2_TXDATA[220] !== 1'bz) && CH2_TXDATA[220]; // rv MustConnect
+  assign CH2_TXDATA_in[221] = (CH2_TXDATA[221] !== 1'bz) && CH2_TXDATA[221]; // rv MustConnect
+  assign CH2_TXDATA_in[222] = (CH2_TXDATA[222] !== 1'bz) && CH2_TXDATA[222]; // rv MustConnect
+  assign CH2_TXDATA_in[223] = (CH2_TXDATA[223] !== 1'bz) && CH2_TXDATA[223]; // rv MustConnect
+  assign CH2_TXDATA_in[224] = (CH2_TXDATA[224] !== 1'bz) && CH2_TXDATA[224]; // rv MustConnect
+  assign CH2_TXDATA_in[225] = (CH2_TXDATA[225] !== 1'bz) && CH2_TXDATA[225]; // rv MustConnect
+  assign CH2_TXDATA_in[226] = (CH2_TXDATA[226] !== 1'bz) && CH2_TXDATA[226]; // rv MustConnect
+  assign CH2_TXDATA_in[227] = (CH2_TXDATA[227] !== 1'bz) && CH2_TXDATA[227]; // rv MustConnect
+  assign CH2_TXDATA_in[228] = (CH2_TXDATA[228] !== 1'bz) && CH2_TXDATA[228]; // rv MustConnect
+  assign CH2_TXDATA_in[229] = (CH2_TXDATA[229] !== 1'bz) && CH2_TXDATA[229]; // rv MustConnect
+  assign CH2_TXDATA_in[22] = (CH2_TXDATA[22] !== 1'bz) && CH2_TXDATA[22]; // rv MustConnect
+  assign CH2_TXDATA_in[230] = (CH2_TXDATA[230] !== 1'bz) && CH2_TXDATA[230]; // rv MustConnect
+  assign CH2_TXDATA_in[231] = (CH2_TXDATA[231] !== 1'bz) && CH2_TXDATA[231]; // rv MustConnect
+  assign CH2_TXDATA_in[232] = (CH2_TXDATA[232] !== 1'bz) && CH2_TXDATA[232]; // rv MustConnect
+  assign CH2_TXDATA_in[233] = (CH2_TXDATA[233] !== 1'bz) && CH2_TXDATA[233]; // rv MustConnect
+  assign CH2_TXDATA_in[234] = (CH2_TXDATA[234] !== 1'bz) && CH2_TXDATA[234]; // rv MustConnect
+  assign CH2_TXDATA_in[235] = (CH2_TXDATA[235] !== 1'bz) && CH2_TXDATA[235]; // rv MustConnect
+  assign CH2_TXDATA_in[236] = (CH2_TXDATA[236] !== 1'bz) && CH2_TXDATA[236]; // rv MustConnect
+  assign CH2_TXDATA_in[237] = (CH2_TXDATA[237] !== 1'bz) && CH2_TXDATA[237]; // rv MustConnect
+  assign CH2_TXDATA_in[238] = (CH2_TXDATA[238] !== 1'bz) && CH2_TXDATA[238]; // rv MustConnect
+  assign CH2_TXDATA_in[239] = (CH2_TXDATA[239] !== 1'bz) && CH2_TXDATA[239]; // rv MustConnect
+  assign CH2_TXDATA_in[23] = (CH2_TXDATA[23] !== 1'bz) && CH2_TXDATA[23]; // rv MustConnect
+  assign CH2_TXDATA_in[240] = (CH2_TXDATA[240] !== 1'bz) && CH2_TXDATA[240]; // rv MustConnect
+  assign CH2_TXDATA_in[241] = (CH2_TXDATA[241] !== 1'bz) && CH2_TXDATA[241]; // rv MustConnect
+  assign CH2_TXDATA_in[242] = (CH2_TXDATA[242] !== 1'bz) && CH2_TXDATA[242]; // rv MustConnect
+  assign CH2_TXDATA_in[243] = (CH2_TXDATA[243] !== 1'bz) && CH2_TXDATA[243]; // rv MustConnect
+  assign CH2_TXDATA_in[244] = (CH2_TXDATA[244] !== 1'bz) && CH2_TXDATA[244]; // rv MustConnect
+  assign CH2_TXDATA_in[245] = (CH2_TXDATA[245] !== 1'bz) && CH2_TXDATA[245]; // rv MustConnect
+  assign CH2_TXDATA_in[246] = (CH2_TXDATA[246] !== 1'bz) && CH2_TXDATA[246]; // rv MustConnect
+  assign CH2_TXDATA_in[247] = (CH2_TXDATA[247] !== 1'bz) && CH2_TXDATA[247]; // rv MustConnect
+  assign CH2_TXDATA_in[248] = (CH2_TXDATA[248] !== 1'bz) && CH2_TXDATA[248]; // rv MustConnect
+  assign CH2_TXDATA_in[249] = (CH2_TXDATA[249] !== 1'bz) && CH2_TXDATA[249]; // rv MustConnect
+  assign CH2_TXDATA_in[24] = (CH2_TXDATA[24] !== 1'bz) && CH2_TXDATA[24]; // rv MustConnect
+  assign CH2_TXDATA_in[250] = (CH2_TXDATA[250] !== 1'bz) && CH2_TXDATA[250]; // rv MustConnect
+  assign CH2_TXDATA_in[251] = (CH2_TXDATA[251] !== 1'bz) && CH2_TXDATA[251]; // rv MustConnect
+  assign CH2_TXDATA_in[252] = (CH2_TXDATA[252] !== 1'bz) && CH2_TXDATA[252]; // rv MustConnect
+  assign CH2_TXDATA_in[253] = (CH2_TXDATA[253] !== 1'bz) && CH2_TXDATA[253]; // rv MustConnect
+  assign CH2_TXDATA_in[254] = (CH2_TXDATA[254] !== 1'bz) && CH2_TXDATA[254]; // rv MustConnect
+  assign CH2_TXDATA_in[255] = (CH2_TXDATA[255] !== 1'bz) && CH2_TXDATA[255]; // rv MustConnect
+  assign CH2_TXDATA_in[256] = (CH2_TXDATA[256] !== 1'bz) && CH2_TXDATA[256]; // rv MustConnect
+  assign CH2_TXDATA_in[257] = (CH2_TXDATA[257] !== 1'bz) && CH2_TXDATA[257]; // rv MustConnect
+  assign CH2_TXDATA_in[258] = (CH2_TXDATA[258] !== 1'bz) && CH2_TXDATA[258]; // rv MustConnect
+  assign CH2_TXDATA_in[259] = (CH2_TXDATA[259] !== 1'bz) && CH2_TXDATA[259]; // rv MustConnect
+  assign CH2_TXDATA_in[25] = (CH2_TXDATA[25] !== 1'bz) && CH2_TXDATA[25]; // rv MustConnect
+  assign CH2_TXDATA_in[260] = (CH2_TXDATA[260] !== 1'bz) && CH2_TXDATA[260]; // rv MustConnect
+  assign CH2_TXDATA_in[261] = (CH2_TXDATA[261] !== 1'bz) && CH2_TXDATA[261]; // rv MustConnect
+  assign CH2_TXDATA_in[262] = (CH2_TXDATA[262] !== 1'bz) && CH2_TXDATA[262]; // rv MustConnect
+  assign CH2_TXDATA_in[263] = (CH2_TXDATA[263] !== 1'bz) && CH2_TXDATA[263]; // rv MustConnect
+  assign CH2_TXDATA_in[264] = (CH2_TXDATA[264] !== 1'bz) && CH2_TXDATA[264]; // rv MustConnect
+  assign CH2_TXDATA_in[265] = (CH2_TXDATA[265] !== 1'bz) && CH2_TXDATA[265]; // rv MustConnect
+  assign CH2_TXDATA_in[266] = (CH2_TXDATA[266] !== 1'bz) && CH2_TXDATA[266]; // rv MustConnect
+  assign CH2_TXDATA_in[267] = (CH2_TXDATA[267] !== 1'bz) && CH2_TXDATA[267]; // rv MustConnect
+  assign CH2_TXDATA_in[268] = (CH2_TXDATA[268] !== 1'bz) && CH2_TXDATA[268]; // rv MustConnect
+  assign CH2_TXDATA_in[269] = (CH2_TXDATA[269] !== 1'bz) && CH2_TXDATA[269]; // rv MustConnect
+  assign CH2_TXDATA_in[26] = (CH2_TXDATA[26] !== 1'bz) && CH2_TXDATA[26]; // rv MustConnect
+  assign CH2_TXDATA_in[270] = (CH2_TXDATA[270] !== 1'bz) && CH2_TXDATA[270]; // rv MustConnect
+  assign CH2_TXDATA_in[271] = (CH2_TXDATA[271] !== 1'bz) && CH2_TXDATA[271]; // rv MustConnect
+  assign CH2_TXDATA_in[272] = (CH2_TXDATA[272] !== 1'bz) && CH2_TXDATA[272]; // rv MustConnect
+  assign CH2_TXDATA_in[273] = (CH2_TXDATA[273] !== 1'bz) && CH2_TXDATA[273]; // rv MustConnect
+  assign CH2_TXDATA_in[274] = (CH2_TXDATA[274] !== 1'bz) && CH2_TXDATA[274]; // rv MustConnect
+  assign CH2_TXDATA_in[275] = (CH2_TXDATA[275] !== 1'bz) && CH2_TXDATA[275]; // rv MustConnect
+  assign CH2_TXDATA_in[276] = (CH2_TXDATA[276] !== 1'bz) && CH2_TXDATA[276]; // rv MustConnect
+  assign CH2_TXDATA_in[277] = (CH2_TXDATA[277] !== 1'bz) && CH2_TXDATA[277]; // rv MustConnect
+  assign CH2_TXDATA_in[278] = (CH2_TXDATA[278] !== 1'bz) && CH2_TXDATA[278]; // rv MustConnect
+  assign CH2_TXDATA_in[279] = (CH2_TXDATA[279] !== 1'bz) && CH2_TXDATA[279]; // rv MustConnect
+  assign CH2_TXDATA_in[27] = (CH2_TXDATA[27] !== 1'bz) && CH2_TXDATA[27]; // rv MustConnect
+  assign CH2_TXDATA_in[280] = (CH2_TXDATA[280] !== 1'bz) && CH2_TXDATA[280]; // rv MustConnect
+  assign CH2_TXDATA_in[281] = (CH2_TXDATA[281] !== 1'bz) && CH2_TXDATA[281]; // rv MustConnect
+  assign CH2_TXDATA_in[282] = (CH2_TXDATA[282] !== 1'bz) && CH2_TXDATA[282]; // rv MustConnect
+  assign CH2_TXDATA_in[283] = (CH2_TXDATA[283] !== 1'bz) && CH2_TXDATA[283]; // rv MustConnect
+  assign CH2_TXDATA_in[284] = (CH2_TXDATA[284] !== 1'bz) && CH2_TXDATA[284]; // rv MustConnect
+  assign CH2_TXDATA_in[285] = (CH2_TXDATA[285] !== 1'bz) && CH2_TXDATA[285]; // rv MustConnect
+  assign CH2_TXDATA_in[286] = (CH2_TXDATA[286] !== 1'bz) && CH2_TXDATA[286]; // rv MustConnect
+  assign CH2_TXDATA_in[287] = (CH2_TXDATA[287] !== 1'bz) && CH2_TXDATA[287]; // rv MustConnect
+  assign CH2_TXDATA_in[288] = (CH2_TXDATA[288] !== 1'bz) && CH2_TXDATA[288]; // rv MustConnect
+  assign CH2_TXDATA_in[289] = (CH2_TXDATA[289] !== 1'bz) && CH2_TXDATA[289]; // rv MustConnect
+  assign CH2_TXDATA_in[28] = (CH2_TXDATA[28] !== 1'bz) && CH2_TXDATA[28]; // rv MustConnect
+  assign CH2_TXDATA_in[290] = (CH2_TXDATA[290] !== 1'bz) && CH2_TXDATA[290]; // rv MustConnect
+  assign CH2_TXDATA_in[291] = (CH2_TXDATA[291] !== 1'bz) && CH2_TXDATA[291]; // rv MustConnect
+  assign CH2_TXDATA_in[292] = (CH2_TXDATA[292] !== 1'bz) && CH2_TXDATA[292]; // rv MustConnect
+  assign CH2_TXDATA_in[293] = (CH2_TXDATA[293] !== 1'bz) && CH2_TXDATA[293]; // rv MustConnect
+  assign CH2_TXDATA_in[294] = (CH2_TXDATA[294] !== 1'bz) && CH2_TXDATA[294]; // rv MustConnect
+  assign CH2_TXDATA_in[295] = (CH2_TXDATA[295] !== 1'bz) && CH2_TXDATA[295]; // rv MustConnect
+  assign CH2_TXDATA_in[296] = (CH2_TXDATA[296] !== 1'bz) && CH2_TXDATA[296]; // rv MustConnect
+  assign CH2_TXDATA_in[297] = (CH2_TXDATA[297] !== 1'bz) && CH2_TXDATA[297]; // rv MustConnect
+  assign CH2_TXDATA_in[298] = (CH2_TXDATA[298] !== 1'bz) && CH2_TXDATA[298]; // rv MustConnect
+  assign CH2_TXDATA_in[299] = (CH2_TXDATA[299] !== 1'bz) && CH2_TXDATA[299]; // rv MustConnect
+  assign CH2_TXDATA_in[29] = (CH2_TXDATA[29] !== 1'bz) && CH2_TXDATA[29]; // rv MustConnect
+  assign CH2_TXDATA_in[2] = (CH2_TXDATA[2] !== 1'bz) && CH2_TXDATA[2]; // rv MustConnect
+  assign CH2_TXDATA_in[300] = (CH2_TXDATA[300] !== 1'bz) && CH2_TXDATA[300]; // rv MustConnect
+  assign CH2_TXDATA_in[301] = (CH2_TXDATA[301] !== 1'bz) && CH2_TXDATA[301]; // rv MustConnect
+  assign CH2_TXDATA_in[302] = (CH2_TXDATA[302] !== 1'bz) && CH2_TXDATA[302]; // rv MustConnect
+  assign CH2_TXDATA_in[303] = (CH2_TXDATA[303] !== 1'bz) && CH2_TXDATA[303]; // rv MustConnect
+  assign CH2_TXDATA_in[304] = (CH2_TXDATA[304] !== 1'bz) && CH2_TXDATA[304]; // rv MustConnect
+  assign CH2_TXDATA_in[305] = (CH2_TXDATA[305] !== 1'bz) && CH2_TXDATA[305]; // rv MustConnect
+  assign CH2_TXDATA_in[306] = (CH2_TXDATA[306] !== 1'bz) && CH2_TXDATA[306]; // rv MustConnect
+  assign CH2_TXDATA_in[307] = (CH2_TXDATA[307] !== 1'bz) && CH2_TXDATA[307]; // rv MustConnect
+  assign CH2_TXDATA_in[308] = (CH2_TXDATA[308] !== 1'bz) && CH2_TXDATA[308]; // rv MustConnect
+  assign CH2_TXDATA_in[309] = (CH2_TXDATA[309] !== 1'bz) && CH2_TXDATA[309]; // rv MustConnect
+  assign CH2_TXDATA_in[30] = (CH2_TXDATA[30] !== 1'bz) && CH2_TXDATA[30]; // rv MustConnect
+  assign CH2_TXDATA_in[310] = (CH2_TXDATA[310] !== 1'bz) && CH2_TXDATA[310]; // rv MustConnect
+  assign CH2_TXDATA_in[311] = (CH2_TXDATA[311] !== 1'bz) && CH2_TXDATA[311]; // rv MustConnect
+  assign CH2_TXDATA_in[312] = (CH2_TXDATA[312] !== 1'bz) && CH2_TXDATA[312]; // rv MustConnect
+  assign CH2_TXDATA_in[313] = (CH2_TXDATA[313] !== 1'bz) && CH2_TXDATA[313]; // rv MustConnect
+  assign CH2_TXDATA_in[314] = (CH2_TXDATA[314] !== 1'bz) && CH2_TXDATA[314]; // rv MustConnect
+  assign CH2_TXDATA_in[315] = (CH2_TXDATA[315] !== 1'bz) && CH2_TXDATA[315]; // rv MustConnect
+  assign CH2_TXDATA_in[316] = (CH2_TXDATA[316] !== 1'bz) && CH2_TXDATA[316]; // rv MustConnect
+  assign CH2_TXDATA_in[317] = (CH2_TXDATA[317] !== 1'bz) && CH2_TXDATA[317]; // rv MustConnect
+  assign CH2_TXDATA_in[318] = (CH2_TXDATA[318] !== 1'bz) && CH2_TXDATA[318]; // rv MustConnect
+  assign CH2_TXDATA_in[319] = (CH2_TXDATA[319] !== 1'bz) && CH2_TXDATA[319]; // rv MustConnect
+  assign CH2_TXDATA_in[31] = (CH2_TXDATA[31] !== 1'bz) && CH2_TXDATA[31]; // rv MustConnect
+  assign CH2_TXDATA_in[32] = (CH2_TXDATA[32] !== 1'bz) && CH2_TXDATA[32]; // rv MustConnect
+  assign CH2_TXDATA_in[33] = (CH2_TXDATA[33] !== 1'bz) && CH2_TXDATA[33]; // rv MustConnect
+  assign CH2_TXDATA_in[34] = (CH2_TXDATA[34] !== 1'bz) && CH2_TXDATA[34]; // rv MustConnect
+  assign CH2_TXDATA_in[35] = (CH2_TXDATA[35] !== 1'bz) && CH2_TXDATA[35]; // rv MustConnect
+  assign CH2_TXDATA_in[36] = (CH2_TXDATA[36] !== 1'bz) && CH2_TXDATA[36]; // rv MustConnect
+  assign CH2_TXDATA_in[37] = (CH2_TXDATA[37] !== 1'bz) && CH2_TXDATA[37]; // rv MustConnect
+  assign CH2_TXDATA_in[38] = (CH2_TXDATA[38] !== 1'bz) && CH2_TXDATA[38]; // rv MustConnect
+  assign CH2_TXDATA_in[39] = (CH2_TXDATA[39] !== 1'bz) && CH2_TXDATA[39]; // rv MustConnect
+  assign CH2_TXDATA_in[3] = (CH2_TXDATA[3] !== 1'bz) && CH2_TXDATA[3]; // rv MustConnect
+  assign CH2_TXDATA_in[40] = (CH2_TXDATA[40] !== 1'bz) && CH2_TXDATA[40]; // rv MustConnect
+  assign CH2_TXDATA_in[41] = (CH2_TXDATA[41] !== 1'bz) && CH2_TXDATA[41]; // rv MustConnect
+  assign CH2_TXDATA_in[42] = (CH2_TXDATA[42] !== 1'bz) && CH2_TXDATA[42]; // rv MustConnect
+  assign CH2_TXDATA_in[43] = (CH2_TXDATA[43] !== 1'bz) && CH2_TXDATA[43]; // rv MustConnect
+  assign CH2_TXDATA_in[44] = (CH2_TXDATA[44] !== 1'bz) && CH2_TXDATA[44]; // rv MustConnect
+  assign CH2_TXDATA_in[45] = (CH2_TXDATA[45] !== 1'bz) && CH2_TXDATA[45]; // rv MustConnect
+  assign CH2_TXDATA_in[46] = (CH2_TXDATA[46] !== 1'bz) && CH2_TXDATA[46]; // rv MustConnect
+  assign CH2_TXDATA_in[47] = (CH2_TXDATA[47] !== 1'bz) && CH2_TXDATA[47]; // rv MustConnect
+  assign CH2_TXDATA_in[48] = (CH2_TXDATA[48] !== 1'bz) && CH2_TXDATA[48]; // rv MustConnect
+  assign CH2_TXDATA_in[49] = (CH2_TXDATA[49] !== 1'bz) && CH2_TXDATA[49]; // rv MustConnect
+  assign CH2_TXDATA_in[4] = (CH2_TXDATA[4] !== 1'bz) && CH2_TXDATA[4]; // rv MustConnect
+  assign CH2_TXDATA_in[50] = (CH2_TXDATA[50] !== 1'bz) && CH2_TXDATA[50]; // rv MustConnect
+  assign CH2_TXDATA_in[51] = (CH2_TXDATA[51] !== 1'bz) && CH2_TXDATA[51]; // rv MustConnect
+  assign CH2_TXDATA_in[52] = (CH2_TXDATA[52] !== 1'bz) && CH2_TXDATA[52]; // rv MustConnect
+  assign CH2_TXDATA_in[53] = (CH2_TXDATA[53] !== 1'bz) && CH2_TXDATA[53]; // rv MustConnect
+  assign CH2_TXDATA_in[54] = (CH2_TXDATA[54] !== 1'bz) && CH2_TXDATA[54]; // rv MustConnect
+  assign CH2_TXDATA_in[55] = (CH2_TXDATA[55] !== 1'bz) && CH2_TXDATA[55]; // rv MustConnect
+  assign CH2_TXDATA_in[56] = (CH2_TXDATA[56] !== 1'bz) && CH2_TXDATA[56]; // rv MustConnect
+  assign CH2_TXDATA_in[57] = (CH2_TXDATA[57] !== 1'bz) && CH2_TXDATA[57]; // rv MustConnect
+  assign CH2_TXDATA_in[58] = (CH2_TXDATA[58] !== 1'bz) && CH2_TXDATA[58]; // rv MustConnect
+  assign CH2_TXDATA_in[59] = (CH2_TXDATA[59] !== 1'bz) && CH2_TXDATA[59]; // rv MustConnect
+  assign CH2_TXDATA_in[5] = (CH2_TXDATA[5] !== 1'bz) && CH2_TXDATA[5]; // rv MustConnect
+  assign CH2_TXDATA_in[60] = (CH2_TXDATA[60] !== 1'bz) && CH2_TXDATA[60]; // rv MustConnect
+  assign CH2_TXDATA_in[61] = (CH2_TXDATA[61] !== 1'bz) && CH2_TXDATA[61]; // rv MustConnect
+  assign CH2_TXDATA_in[62] = (CH2_TXDATA[62] !== 1'bz) && CH2_TXDATA[62]; // rv MustConnect
+  assign CH2_TXDATA_in[63] = (CH2_TXDATA[63] !== 1'bz) && CH2_TXDATA[63]; // rv MustConnect
+  assign CH2_TXDATA_in[64] = (CH2_TXDATA[64] !== 1'bz) && CH2_TXDATA[64]; // rv MustConnect
+  assign CH2_TXDATA_in[65] = (CH2_TXDATA[65] !== 1'bz) && CH2_TXDATA[65]; // rv MustConnect
+  assign CH2_TXDATA_in[66] = (CH2_TXDATA[66] !== 1'bz) && CH2_TXDATA[66]; // rv MustConnect
+  assign CH2_TXDATA_in[67] = (CH2_TXDATA[67] !== 1'bz) && CH2_TXDATA[67]; // rv MustConnect
+  assign CH2_TXDATA_in[68] = (CH2_TXDATA[68] !== 1'bz) && CH2_TXDATA[68]; // rv MustConnect
+  assign CH2_TXDATA_in[69] = (CH2_TXDATA[69] !== 1'bz) && CH2_TXDATA[69]; // rv MustConnect
+  assign CH2_TXDATA_in[6] = (CH2_TXDATA[6] !== 1'bz) && CH2_TXDATA[6]; // rv MustConnect
+  assign CH2_TXDATA_in[70] = (CH2_TXDATA[70] !== 1'bz) && CH2_TXDATA[70]; // rv MustConnect
+  assign CH2_TXDATA_in[71] = (CH2_TXDATA[71] !== 1'bz) && CH2_TXDATA[71]; // rv MustConnect
+  assign CH2_TXDATA_in[72] = (CH2_TXDATA[72] !== 1'bz) && CH2_TXDATA[72]; // rv MustConnect
+  assign CH2_TXDATA_in[73] = (CH2_TXDATA[73] !== 1'bz) && CH2_TXDATA[73]; // rv MustConnect
+  assign CH2_TXDATA_in[74] = (CH2_TXDATA[74] !== 1'bz) && CH2_TXDATA[74]; // rv MustConnect
+  assign CH2_TXDATA_in[75] = (CH2_TXDATA[75] !== 1'bz) && CH2_TXDATA[75]; // rv MustConnect
+  assign CH2_TXDATA_in[76] = (CH2_TXDATA[76] !== 1'bz) && CH2_TXDATA[76]; // rv MustConnect
+  assign CH2_TXDATA_in[77] = (CH2_TXDATA[77] !== 1'bz) && CH2_TXDATA[77]; // rv MustConnect
+  assign CH2_TXDATA_in[78] = (CH2_TXDATA[78] !== 1'bz) && CH2_TXDATA[78]; // rv MustConnect
+  assign CH2_TXDATA_in[79] = (CH2_TXDATA[79] !== 1'bz) && CH2_TXDATA[79]; // rv MustConnect
+  assign CH2_TXDATA_in[7] = (CH2_TXDATA[7] !== 1'bz) && CH2_TXDATA[7]; // rv MustConnect
+  assign CH2_TXDATA_in[80] = (CH2_TXDATA[80] !== 1'bz) && CH2_TXDATA[80]; // rv MustConnect
+  assign CH2_TXDATA_in[81] = (CH2_TXDATA[81] !== 1'bz) && CH2_TXDATA[81]; // rv MustConnect
+  assign CH2_TXDATA_in[82] = (CH2_TXDATA[82] !== 1'bz) && CH2_TXDATA[82]; // rv MustConnect
+  assign CH2_TXDATA_in[83] = (CH2_TXDATA[83] !== 1'bz) && CH2_TXDATA[83]; // rv MustConnect
+  assign CH2_TXDATA_in[84] = (CH2_TXDATA[84] !== 1'bz) && CH2_TXDATA[84]; // rv MustConnect
+  assign CH2_TXDATA_in[85] = (CH2_TXDATA[85] !== 1'bz) && CH2_TXDATA[85]; // rv MustConnect
+  assign CH2_TXDATA_in[86] = (CH2_TXDATA[86] !== 1'bz) && CH2_TXDATA[86]; // rv MustConnect
+  assign CH2_TXDATA_in[87] = (CH2_TXDATA[87] !== 1'bz) && CH2_TXDATA[87]; // rv MustConnect
+  assign CH2_TXDATA_in[88] = (CH2_TXDATA[88] !== 1'bz) && CH2_TXDATA[88]; // rv MustConnect
+  assign CH2_TXDATA_in[89] = (CH2_TXDATA[89] !== 1'bz) && CH2_TXDATA[89]; // rv MustConnect
+  assign CH2_TXDATA_in[8] = (CH2_TXDATA[8] !== 1'bz) && CH2_TXDATA[8]; // rv MustConnect
+  assign CH2_TXDATA_in[90] = (CH2_TXDATA[90] !== 1'bz) && CH2_TXDATA[90]; // rv MustConnect
+  assign CH2_TXDATA_in[91] = (CH2_TXDATA[91] !== 1'bz) && CH2_TXDATA[91]; // rv MustConnect
+  assign CH2_TXDATA_in[92] = (CH2_TXDATA[92] !== 1'bz) && CH2_TXDATA[92]; // rv MustConnect
+  assign CH2_TXDATA_in[93] = (CH2_TXDATA[93] !== 1'bz) && CH2_TXDATA[93]; // rv MustConnect
+  assign CH2_TXDATA_in[94] = (CH2_TXDATA[94] !== 1'bz) && CH2_TXDATA[94]; // rv MustConnect
+  assign CH2_TXDATA_in[95] = (CH2_TXDATA[95] !== 1'bz) && CH2_TXDATA[95]; // rv MustConnect
+  assign CH2_TXDATA_in[96] = (CH2_TXDATA[96] !== 1'bz) && CH2_TXDATA[96]; // rv MustConnect
+  assign CH2_TXDATA_in[97] = (CH2_TXDATA[97] !== 1'bz) && CH2_TXDATA[97]; // rv MustConnect
+  assign CH2_TXDATA_in[98] = (CH2_TXDATA[98] !== 1'bz) && CH2_TXDATA[98]; // rv MustConnect
+  assign CH2_TXDATA_in[99] = (CH2_TXDATA[99] !== 1'bz) && CH2_TXDATA[99]; // rv MustConnect
+  assign CH2_TXDATA_in[9] = (CH2_TXDATA[9] !== 1'bz) && CH2_TXDATA[9]; // rv MustConnect
+  assign CH2_TXDETECTRXLOOPBACK_in = CH2_TXDETECTRXLOOPBACK;
+  assign CH2_TXELECIDLE_in = (CH2_TXELECIDLE === 1'bz) || CH2_TXELECIDLE; // rv 1
+  assign CH2_TXPOWERDOWN_in = CH2_TXPOWERDOWN;
+  assign CH2_TXRATE_in = CH2_TXRATE;
+  assign CH2_TXUSRCLK_in = (CH2_TXUSRCLK === 1'bz) || CH2_TXUSRCLK; // rv 1
+  assign CH3_RXGEARBOXSLIP_in = CH3_RXGEARBOXSLIP;
+  assign CH3_RXUSRCLK_in = (CH3_RXUSRCLK === 1'bz) || CH3_RXUSRCLK; // rv 1
+  assign CH3_SCANCHNLMASKIN_in = CH3_SCANCHNLMASKIN;
+  assign CH3_SCANCLKB_in = CH3_SCANCLKB;
+  assign CH3_SCANCNTRLIN_in = CH3_SCANCNTRLIN;
+  assign CH3_SCANIN_in = CH3_SCANIN;
+  assign CH3_SCANODCCCHNLMASK_in = CH3_SCANODCCCHNLMASK;
+  assign CH3_TXDATA_in[0] = (CH3_TXDATA[0] !== 1'bz) && CH3_TXDATA[0]; // rv MustConnect
+  assign CH3_TXDATA_in[100] = (CH3_TXDATA[100] !== 1'bz) && CH3_TXDATA[100]; // rv MustConnect
+  assign CH3_TXDATA_in[101] = (CH3_TXDATA[101] !== 1'bz) && CH3_TXDATA[101]; // rv MustConnect
+  assign CH3_TXDATA_in[102] = (CH3_TXDATA[102] !== 1'bz) && CH3_TXDATA[102]; // rv MustConnect
+  assign CH3_TXDATA_in[103] = (CH3_TXDATA[103] !== 1'bz) && CH3_TXDATA[103]; // rv MustConnect
+  assign CH3_TXDATA_in[104] = (CH3_TXDATA[104] !== 1'bz) && CH3_TXDATA[104]; // rv MustConnect
+  assign CH3_TXDATA_in[105] = (CH3_TXDATA[105] !== 1'bz) && CH3_TXDATA[105]; // rv MustConnect
+  assign CH3_TXDATA_in[106] = (CH3_TXDATA[106] !== 1'bz) && CH3_TXDATA[106]; // rv MustConnect
+  assign CH3_TXDATA_in[107] = (CH3_TXDATA[107] !== 1'bz) && CH3_TXDATA[107]; // rv MustConnect
+  assign CH3_TXDATA_in[108] = (CH3_TXDATA[108] !== 1'bz) && CH3_TXDATA[108]; // rv MustConnect
+  assign CH3_TXDATA_in[109] = (CH3_TXDATA[109] !== 1'bz) && CH3_TXDATA[109]; // rv MustConnect
+  assign CH3_TXDATA_in[10] = (CH3_TXDATA[10] !== 1'bz) && CH3_TXDATA[10]; // rv MustConnect
+  assign CH3_TXDATA_in[110] = (CH3_TXDATA[110] !== 1'bz) && CH3_TXDATA[110]; // rv MustConnect
+  assign CH3_TXDATA_in[111] = (CH3_TXDATA[111] !== 1'bz) && CH3_TXDATA[111]; // rv MustConnect
+  assign CH3_TXDATA_in[112] = (CH3_TXDATA[112] !== 1'bz) && CH3_TXDATA[112]; // rv MustConnect
+  assign CH3_TXDATA_in[113] = (CH3_TXDATA[113] !== 1'bz) && CH3_TXDATA[113]; // rv MustConnect
+  assign CH3_TXDATA_in[114] = (CH3_TXDATA[114] !== 1'bz) && CH3_TXDATA[114]; // rv MustConnect
+  assign CH3_TXDATA_in[115] = (CH3_TXDATA[115] !== 1'bz) && CH3_TXDATA[115]; // rv MustConnect
+  assign CH3_TXDATA_in[116] = (CH3_TXDATA[116] !== 1'bz) && CH3_TXDATA[116]; // rv MustConnect
+  assign CH3_TXDATA_in[117] = (CH3_TXDATA[117] !== 1'bz) && CH3_TXDATA[117]; // rv MustConnect
+  assign CH3_TXDATA_in[118] = (CH3_TXDATA[118] !== 1'bz) && CH3_TXDATA[118]; // rv MustConnect
+  assign CH3_TXDATA_in[119] = (CH3_TXDATA[119] !== 1'bz) && CH3_TXDATA[119]; // rv MustConnect
+  assign CH3_TXDATA_in[11] = (CH3_TXDATA[11] !== 1'bz) && CH3_TXDATA[11]; // rv MustConnect
+  assign CH3_TXDATA_in[120] = (CH3_TXDATA[120] !== 1'bz) && CH3_TXDATA[120]; // rv MustConnect
+  assign CH3_TXDATA_in[121] = (CH3_TXDATA[121] !== 1'bz) && CH3_TXDATA[121]; // rv MustConnect
+  assign CH3_TXDATA_in[122] = (CH3_TXDATA[122] !== 1'bz) && CH3_TXDATA[122]; // rv MustConnect
+  assign CH3_TXDATA_in[123] = (CH3_TXDATA[123] !== 1'bz) && CH3_TXDATA[123]; // rv MustConnect
+  assign CH3_TXDATA_in[124] = (CH3_TXDATA[124] !== 1'bz) && CH3_TXDATA[124]; // rv MustConnect
+  assign CH3_TXDATA_in[125] = (CH3_TXDATA[125] !== 1'bz) && CH3_TXDATA[125]; // rv MustConnect
+  assign CH3_TXDATA_in[126] = (CH3_TXDATA[126] !== 1'bz) && CH3_TXDATA[126]; // rv MustConnect
+  assign CH3_TXDATA_in[127] = (CH3_TXDATA[127] !== 1'bz) && CH3_TXDATA[127]; // rv MustConnect
+  assign CH3_TXDATA_in[128] = (CH3_TXDATA[128] !== 1'bz) && CH3_TXDATA[128]; // rv MustConnect
+  assign CH3_TXDATA_in[129] = (CH3_TXDATA[129] !== 1'bz) && CH3_TXDATA[129]; // rv MustConnect
+  assign CH3_TXDATA_in[12] = (CH3_TXDATA[12] !== 1'bz) && CH3_TXDATA[12]; // rv MustConnect
+  assign CH3_TXDATA_in[130] = (CH3_TXDATA[130] !== 1'bz) && CH3_TXDATA[130]; // rv MustConnect
+  assign CH3_TXDATA_in[131] = (CH3_TXDATA[131] !== 1'bz) && CH3_TXDATA[131]; // rv MustConnect
+  assign CH3_TXDATA_in[132] = (CH3_TXDATA[132] !== 1'bz) && CH3_TXDATA[132]; // rv MustConnect
+  assign CH3_TXDATA_in[133] = (CH3_TXDATA[133] !== 1'bz) && CH3_TXDATA[133]; // rv MustConnect
+  assign CH3_TXDATA_in[134] = (CH3_TXDATA[134] !== 1'bz) && CH3_TXDATA[134]; // rv MustConnect
+  assign CH3_TXDATA_in[135] = (CH3_TXDATA[135] !== 1'bz) && CH3_TXDATA[135]; // rv MustConnect
+  assign CH3_TXDATA_in[136] = (CH3_TXDATA[136] !== 1'bz) && CH3_TXDATA[136]; // rv MustConnect
+  assign CH3_TXDATA_in[137] = (CH3_TXDATA[137] !== 1'bz) && CH3_TXDATA[137]; // rv MustConnect
+  assign CH3_TXDATA_in[138] = (CH3_TXDATA[138] !== 1'bz) && CH3_TXDATA[138]; // rv MustConnect
+  assign CH3_TXDATA_in[139] = (CH3_TXDATA[139] !== 1'bz) && CH3_TXDATA[139]; // rv MustConnect
+  assign CH3_TXDATA_in[13] = (CH3_TXDATA[13] !== 1'bz) && CH3_TXDATA[13]; // rv MustConnect
+  assign CH3_TXDATA_in[140] = (CH3_TXDATA[140] !== 1'bz) && CH3_TXDATA[140]; // rv MustConnect
+  assign CH3_TXDATA_in[141] = (CH3_TXDATA[141] !== 1'bz) && CH3_TXDATA[141]; // rv MustConnect
+  assign CH3_TXDATA_in[142] = (CH3_TXDATA[142] !== 1'bz) && CH3_TXDATA[142]; // rv MustConnect
+  assign CH3_TXDATA_in[143] = (CH3_TXDATA[143] !== 1'bz) && CH3_TXDATA[143]; // rv MustConnect
+  assign CH3_TXDATA_in[144] = (CH3_TXDATA[144] !== 1'bz) && CH3_TXDATA[144]; // rv MustConnect
+  assign CH3_TXDATA_in[145] = (CH3_TXDATA[145] !== 1'bz) && CH3_TXDATA[145]; // rv MustConnect
+  assign CH3_TXDATA_in[146] = (CH3_TXDATA[146] !== 1'bz) && CH3_TXDATA[146]; // rv MustConnect
+  assign CH3_TXDATA_in[147] = (CH3_TXDATA[147] !== 1'bz) && CH3_TXDATA[147]; // rv MustConnect
+  assign CH3_TXDATA_in[148] = (CH3_TXDATA[148] !== 1'bz) && CH3_TXDATA[148]; // rv MustConnect
+  assign CH3_TXDATA_in[149] = (CH3_TXDATA[149] !== 1'bz) && CH3_TXDATA[149]; // rv MustConnect
+  assign CH3_TXDATA_in[14] = (CH3_TXDATA[14] !== 1'bz) && CH3_TXDATA[14]; // rv MustConnect
+  assign CH3_TXDATA_in[150] = (CH3_TXDATA[150] !== 1'bz) && CH3_TXDATA[150]; // rv MustConnect
+  assign CH3_TXDATA_in[151] = (CH3_TXDATA[151] !== 1'bz) && CH3_TXDATA[151]; // rv MustConnect
+  assign CH3_TXDATA_in[152] = (CH3_TXDATA[152] !== 1'bz) && CH3_TXDATA[152]; // rv MustConnect
+  assign CH3_TXDATA_in[153] = (CH3_TXDATA[153] !== 1'bz) && CH3_TXDATA[153]; // rv MustConnect
+  assign CH3_TXDATA_in[154] = (CH3_TXDATA[154] !== 1'bz) && CH3_TXDATA[154]; // rv MustConnect
+  assign CH3_TXDATA_in[155] = (CH3_TXDATA[155] !== 1'bz) && CH3_TXDATA[155]; // rv MustConnect
+  assign CH3_TXDATA_in[156] = (CH3_TXDATA[156] !== 1'bz) && CH3_TXDATA[156]; // rv MustConnect
+  assign CH3_TXDATA_in[157] = (CH3_TXDATA[157] !== 1'bz) && CH3_TXDATA[157]; // rv MustConnect
+  assign CH3_TXDATA_in[158] = (CH3_TXDATA[158] !== 1'bz) && CH3_TXDATA[158]; // rv MustConnect
+  assign CH3_TXDATA_in[159] = (CH3_TXDATA[159] !== 1'bz) && CH3_TXDATA[159]; // rv MustConnect
+  assign CH3_TXDATA_in[15] = (CH3_TXDATA[15] !== 1'bz) && CH3_TXDATA[15]; // rv MustConnect
+  assign CH3_TXDATA_in[160] = (CH3_TXDATA[160] !== 1'bz) && CH3_TXDATA[160]; // rv MustConnect
+  assign CH3_TXDATA_in[161] = (CH3_TXDATA[161] !== 1'bz) && CH3_TXDATA[161]; // rv MustConnect
+  assign CH3_TXDATA_in[162] = (CH3_TXDATA[162] !== 1'bz) && CH3_TXDATA[162]; // rv MustConnect
+  assign CH3_TXDATA_in[163] = (CH3_TXDATA[163] !== 1'bz) && CH3_TXDATA[163]; // rv MustConnect
+  assign CH3_TXDATA_in[164] = (CH3_TXDATA[164] !== 1'bz) && CH3_TXDATA[164]; // rv MustConnect
+  assign CH3_TXDATA_in[165] = (CH3_TXDATA[165] !== 1'bz) && CH3_TXDATA[165]; // rv MustConnect
+  assign CH3_TXDATA_in[166] = (CH3_TXDATA[166] !== 1'bz) && CH3_TXDATA[166]; // rv MustConnect
+  assign CH3_TXDATA_in[167] = (CH3_TXDATA[167] !== 1'bz) && CH3_TXDATA[167]; // rv MustConnect
+  assign CH3_TXDATA_in[168] = (CH3_TXDATA[168] !== 1'bz) && CH3_TXDATA[168]; // rv MustConnect
+  assign CH3_TXDATA_in[169] = (CH3_TXDATA[169] !== 1'bz) && CH3_TXDATA[169]; // rv MustConnect
+  assign CH3_TXDATA_in[16] = (CH3_TXDATA[16] !== 1'bz) && CH3_TXDATA[16]; // rv MustConnect
+  assign CH3_TXDATA_in[170] = (CH3_TXDATA[170] !== 1'bz) && CH3_TXDATA[170]; // rv MustConnect
+  assign CH3_TXDATA_in[171] = (CH3_TXDATA[171] !== 1'bz) && CH3_TXDATA[171]; // rv MustConnect
+  assign CH3_TXDATA_in[172] = (CH3_TXDATA[172] !== 1'bz) && CH3_TXDATA[172]; // rv MustConnect
+  assign CH3_TXDATA_in[173] = (CH3_TXDATA[173] !== 1'bz) && CH3_TXDATA[173]; // rv MustConnect
+  assign CH3_TXDATA_in[174] = (CH3_TXDATA[174] !== 1'bz) && CH3_TXDATA[174]; // rv MustConnect
+  assign CH3_TXDATA_in[175] = (CH3_TXDATA[175] !== 1'bz) && CH3_TXDATA[175]; // rv MustConnect
+  assign CH3_TXDATA_in[176] = (CH3_TXDATA[176] !== 1'bz) && CH3_TXDATA[176]; // rv MustConnect
+  assign CH3_TXDATA_in[177] = (CH3_TXDATA[177] !== 1'bz) && CH3_TXDATA[177]; // rv MustConnect
+  assign CH3_TXDATA_in[178] = (CH3_TXDATA[178] !== 1'bz) && CH3_TXDATA[178]; // rv MustConnect
+  assign CH3_TXDATA_in[179] = (CH3_TXDATA[179] !== 1'bz) && CH3_TXDATA[179]; // rv MustConnect
+  assign CH3_TXDATA_in[17] = (CH3_TXDATA[17] !== 1'bz) && CH3_TXDATA[17]; // rv MustConnect
+  assign CH3_TXDATA_in[180] = (CH3_TXDATA[180] !== 1'bz) && CH3_TXDATA[180]; // rv MustConnect
+  assign CH3_TXDATA_in[181] = (CH3_TXDATA[181] !== 1'bz) && CH3_TXDATA[181]; // rv MustConnect
+  assign CH3_TXDATA_in[182] = (CH3_TXDATA[182] !== 1'bz) && CH3_TXDATA[182]; // rv MustConnect
+  assign CH3_TXDATA_in[183] = (CH3_TXDATA[183] !== 1'bz) && CH3_TXDATA[183]; // rv MustConnect
+  assign CH3_TXDATA_in[184] = (CH3_TXDATA[184] !== 1'bz) && CH3_TXDATA[184]; // rv MustConnect
+  assign CH3_TXDATA_in[185] = (CH3_TXDATA[185] !== 1'bz) && CH3_TXDATA[185]; // rv MustConnect
+  assign CH3_TXDATA_in[186] = (CH3_TXDATA[186] !== 1'bz) && CH3_TXDATA[186]; // rv MustConnect
+  assign CH3_TXDATA_in[187] = (CH3_TXDATA[187] !== 1'bz) && CH3_TXDATA[187]; // rv MustConnect
+  assign CH3_TXDATA_in[188] = (CH3_TXDATA[188] !== 1'bz) && CH3_TXDATA[188]; // rv MustConnect
+  assign CH3_TXDATA_in[189] = (CH3_TXDATA[189] !== 1'bz) && CH3_TXDATA[189]; // rv MustConnect
+  assign CH3_TXDATA_in[18] = (CH3_TXDATA[18] !== 1'bz) && CH3_TXDATA[18]; // rv MustConnect
+  assign CH3_TXDATA_in[190] = (CH3_TXDATA[190] !== 1'bz) && CH3_TXDATA[190]; // rv MustConnect
+  assign CH3_TXDATA_in[191] = (CH3_TXDATA[191] !== 1'bz) && CH3_TXDATA[191]; // rv MustConnect
+  assign CH3_TXDATA_in[192] = (CH3_TXDATA[192] !== 1'bz) && CH3_TXDATA[192]; // rv MustConnect
+  assign CH3_TXDATA_in[193] = (CH3_TXDATA[193] !== 1'bz) && CH3_TXDATA[193]; // rv MustConnect
+  assign CH3_TXDATA_in[194] = (CH3_TXDATA[194] !== 1'bz) && CH3_TXDATA[194]; // rv MustConnect
+  assign CH3_TXDATA_in[195] = (CH3_TXDATA[195] !== 1'bz) && CH3_TXDATA[195]; // rv MustConnect
+  assign CH3_TXDATA_in[196] = (CH3_TXDATA[196] !== 1'bz) && CH3_TXDATA[196]; // rv MustConnect
+  assign CH3_TXDATA_in[197] = (CH3_TXDATA[197] !== 1'bz) && CH3_TXDATA[197]; // rv MustConnect
+  assign CH3_TXDATA_in[198] = (CH3_TXDATA[198] !== 1'bz) && CH3_TXDATA[198]; // rv MustConnect
+  assign CH3_TXDATA_in[199] = (CH3_TXDATA[199] !== 1'bz) && CH3_TXDATA[199]; // rv MustConnect
+  assign CH3_TXDATA_in[19] = (CH3_TXDATA[19] !== 1'bz) && CH3_TXDATA[19]; // rv MustConnect
+  assign CH3_TXDATA_in[1] = (CH3_TXDATA[1] !== 1'bz) && CH3_TXDATA[1]; // rv MustConnect
+  assign CH3_TXDATA_in[200] = (CH3_TXDATA[200] !== 1'bz) && CH3_TXDATA[200]; // rv MustConnect
+  assign CH3_TXDATA_in[201] = (CH3_TXDATA[201] !== 1'bz) && CH3_TXDATA[201]; // rv MustConnect
+  assign CH3_TXDATA_in[202] = (CH3_TXDATA[202] !== 1'bz) && CH3_TXDATA[202]; // rv MustConnect
+  assign CH3_TXDATA_in[203] = (CH3_TXDATA[203] !== 1'bz) && CH3_TXDATA[203]; // rv MustConnect
+  assign CH3_TXDATA_in[204] = (CH3_TXDATA[204] !== 1'bz) && CH3_TXDATA[204]; // rv MustConnect
+  assign CH3_TXDATA_in[205] = (CH3_TXDATA[205] !== 1'bz) && CH3_TXDATA[205]; // rv MustConnect
+  assign CH3_TXDATA_in[206] = (CH3_TXDATA[206] !== 1'bz) && CH3_TXDATA[206]; // rv MustConnect
+  assign CH3_TXDATA_in[207] = (CH3_TXDATA[207] !== 1'bz) && CH3_TXDATA[207]; // rv MustConnect
+  assign CH3_TXDATA_in[208] = (CH3_TXDATA[208] !== 1'bz) && CH3_TXDATA[208]; // rv MustConnect
+  assign CH3_TXDATA_in[209] = (CH3_TXDATA[209] !== 1'bz) && CH3_TXDATA[209]; // rv MustConnect
+  assign CH3_TXDATA_in[20] = (CH3_TXDATA[20] !== 1'bz) && CH3_TXDATA[20]; // rv MustConnect
+  assign CH3_TXDATA_in[210] = (CH3_TXDATA[210] !== 1'bz) && CH3_TXDATA[210]; // rv MustConnect
+  assign CH3_TXDATA_in[211] = (CH3_TXDATA[211] !== 1'bz) && CH3_TXDATA[211]; // rv MustConnect
+  assign CH3_TXDATA_in[212] = (CH3_TXDATA[212] !== 1'bz) && CH3_TXDATA[212]; // rv MustConnect
+  assign CH3_TXDATA_in[213] = (CH3_TXDATA[213] !== 1'bz) && CH3_TXDATA[213]; // rv MustConnect
+  assign CH3_TXDATA_in[214] = (CH3_TXDATA[214] !== 1'bz) && CH3_TXDATA[214]; // rv MustConnect
+  assign CH3_TXDATA_in[215] = (CH3_TXDATA[215] !== 1'bz) && CH3_TXDATA[215]; // rv MustConnect
+  assign CH3_TXDATA_in[216] = (CH3_TXDATA[216] !== 1'bz) && CH3_TXDATA[216]; // rv MustConnect
+  assign CH3_TXDATA_in[217] = (CH3_TXDATA[217] !== 1'bz) && CH3_TXDATA[217]; // rv MustConnect
+  assign CH3_TXDATA_in[218] = (CH3_TXDATA[218] !== 1'bz) && CH3_TXDATA[218]; // rv MustConnect
+  assign CH3_TXDATA_in[219] = (CH3_TXDATA[219] !== 1'bz) && CH3_TXDATA[219]; // rv MustConnect
+  assign CH3_TXDATA_in[21] = (CH3_TXDATA[21] !== 1'bz) && CH3_TXDATA[21]; // rv MustConnect
+  assign CH3_TXDATA_in[220] = (CH3_TXDATA[220] !== 1'bz) && CH3_TXDATA[220]; // rv MustConnect
+  assign CH3_TXDATA_in[221] = (CH3_TXDATA[221] !== 1'bz) && CH3_TXDATA[221]; // rv MustConnect
+  assign CH3_TXDATA_in[222] = (CH3_TXDATA[222] !== 1'bz) && CH3_TXDATA[222]; // rv MustConnect
+  assign CH3_TXDATA_in[223] = (CH3_TXDATA[223] !== 1'bz) && CH3_TXDATA[223]; // rv MustConnect
+  assign CH3_TXDATA_in[224] = (CH3_TXDATA[224] !== 1'bz) && CH3_TXDATA[224]; // rv MustConnect
+  assign CH3_TXDATA_in[225] = (CH3_TXDATA[225] !== 1'bz) && CH3_TXDATA[225]; // rv MustConnect
+  assign CH3_TXDATA_in[226] = (CH3_TXDATA[226] !== 1'bz) && CH3_TXDATA[226]; // rv MustConnect
+  assign CH3_TXDATA_in[227] = (CH3_TXDATA[227] !== 1'bz) && CH3_TXDATA[227]; // rv MustConnect
+  assign CH3_TXDATA_in[228] = (CH3_TXDATA[228] !== 1'bz) && CH3_TXDATA[228]; // rv MustConnect
+  assign CH3_TXDATA_in[229] = (CH3_TXDATA[229] !== 1'bz) && CH3_TXDATA[229]; // rv MustConnect
+  assign CH3_TXDATA_in[22] = (CH3_TXDATA[22] !== 1'bz) && CH3_TXDATA[22]; // rv MustConnect
+  assign CH3_TXDATA_in[230] = (CH3_TXDATA[230] !== 1'bz) && CH3_TXDATA[230]; // rv MustConnect
+  assign CH3_TXDATA_in[231] = (CH3_TXDATA[231] !== 1'bz) && CH3_TXDATA[231]; // rv MustConnect
+  assign CH3_TXDATA_in[232] = (CH3_TXDATA[232] !== 1'bz) && CH3_TXDATA[232]; // rv MustConnect
+  assign CH3_TXDATA_in[233] = (CH3_TXDATA[233] !== 1'bz) && CH3_TXDATA[233]; // rv MustConnect
+  assign CH3_TXDATA_in[234] = (CH3_TXDATA[234] !== 1'bz) && CH3_TXDATA[234]; // rv MustConnect
+  assign CH3_TXDATA_in[235] = (CH3_TXDATA[235] !== 1'bz) && CH3_TXDATA[235]; // rv MustConnect
+  assign CH3_TXDATA_in[236] = (CH3_TXDATA[236] !== 1'bz) && CH3_TXDATA[236]; // rv MustConnect
+  assign CH3_TXDATA_in[237] = (CH3_TXDATA[237] !== 1'bz) && CH3_TXDATA[237]; // rv MustConnect
+  assign CH3_TXDATA_in[238] = (CH3_TXDATA[238] !== 1'bz) && CH3_TXDATA[238]; // rv MustConnect
+  assign CH3_TXDATA_in[239] = (CH3_TXDATA[239] !== 1'bz) && CH3_TXDATA[239]; // rv MustConnect
+  assign CH3_TXDATA_in[23] = (CH3_TXDATA[23] !== 1'bz) && CH3_TXDATA[23]; // rv MustConnect
+  assign CH3_TXDATA_in[240] = (CH3_TXDATA[240] !== 1'bz) && CH3_TXDATA[240]; // rv MustConnect
+  assign CH3_TXDATA_in[241] = (CH3_TXDATA[241] !== 1'bz) && CH3_TXDATA[241]; // rv MustConnect
+  assign CH3_TXDATA_in[242] = (CH3_TXDATA[242] !== 1'bz) && CH3_TXDATA[242]; // rv MustConnect
+  assign CH3_TXDATA_in[243] = (CH3_TXDATA[243] !== 1'bz) && CH3_TXDATA[243]; // rv MustConnect
+  assign CH3_TXDATA_in[244] = (CH3_TXDATA[244] !== 1'bz) && CH3_TXDATA[244]; // rv MustConnect
+  assign CH3_TXDATA_in[245] = (CH3_TXDATA[245] !== 1'bz) && CH3_TXDATA[245]; // rv MustConnect
+  assign CH3_TXDATA_in[246] = (CH3_TXDATA[246] !== 1'bz) && CH3_TXDATA[246]; // rv MustConnect
+  assign CH3_TXDATA_in[247] = (CH3_TXDATA[247] !== 1'bz) && CH3_TXDATA[247]; // rv MustConnect
+  assign CH3_TXDATA_in[248] = (CH3_TXDATA[248] !== 1'bz) && CH3_TXDATA[248]; // rv MustConnect
+  assign CH3_TXDATA_in[249] = (CH3_TXDATA[249] !== 1'bz) && CH3_TXDATA[249]; // rv MustConnect
+  assign CH3_TXDATA_in[24] = (CH3_TXDATA[24] !== 1'bz) && CH3_TXDATA[24]; // rv MustConnect
+  assign CH3_TXDATA_in[250] = (CH3_TXDATA[250] !== 1'bz) && CH3_TXDATA[250]; // rv MustConnect
+  assign CH3_TXDATA_in[251] = (CH3_TXDATA[251] !== 1'bz) && CH3_TXDATA[251]; // rv MustConnect
+  assign CH3_TXDATA_in[252] = (CH3_TXDATA[252] !== 1'bz) && CH3_TXDATA[252]; // rv MustConnect
+  assign CH3_TXDATA_in[253] = (CH3_TXDATA[253] !== 1'bz) && CH3_TXDATA[253]; // rv MustConnect
+  assign CH3_TXDATA_in[254] = (CH3_TXDATA[254] !== 1'bz) && CH3_TXDATA[254]; // rv MustConnect
+  assign CH3_TXDATA_in[255] = (CH3_TXDATA[255] !== 1'bz) && CH3_TXDATA[255]; // rv MustConnect
+  assign CH3_TXDATA_in[256] = (CH3_TXDATA[256] !== 1'bz) && CH3_TXDATA[256]; // rv MustConnect
+  assign CH3_TXDATA_in[257] = (CH3_TXDATA[257] !== 1'bz) && CH3_TXDATA[257]; // rv MustConnect
+  assign CH3_TXDATA_in[258] = (CH3_TXDATA[258] !== 1'bz) && CH3_TXDATA[258]; // rv MustConnect
+  assign CH3_TXDATA_in[259] = (CH3_TXDATA[259] !== 1'bz) && CH3_TXDATA[259]; // rv MustConnect
+  assign CH3_TXDATA_in[25] = (CH3_TXDATA[25] !== 1'bz) && CH3_TXDATA[25]; // rv MustConnect
+  assign CH3_TXDATA_in[260] = (CH3_TXDATA[260] !== 1'bz) && CH3_TXDATA[260]; // rv MustConnect
+  assign CH3_TXDATA_in[261] = (CH3_TXDATA[261] !== 1'bz) && CH3_TXDATA[261]; // rv MustConnect
+  assign CH3_TXDATA_in[262] = (CH3_TXDATA[262] !== 1'bz) && CH3_TXDATA[262]; // rv MustConnect
+  assign CH3_TXDATA_in[263] = (CH3_TXDATA[263] !== 1'bz) && CH3_TXDATA[263]; // rv MustConnect
+  assign CH3_TXDATA_in[264] = (CH3_TXDATA[264] !== 1'bz) && CH3_TXDATA[264]; // rv MustConnect
+  assign CH3_TXDATA_in[265] = (CH3_TXDATA[265] !== 1'bz) && CH3_TXDATA[265]; // rv MustConnect
+  assign CH3_TXDATA_in[266] = (CH3_TXDATA[266] !== 1'bz) && CH3_TXDATA[266]; // rv MustConnect
+  assign CH3_TXDATA_in[267] = (CH3_TXDATA[267] !== 1'bz) && CH3_TXDATA[267]; // rv MustConnect
+  assign CH3_TXDATA_in[268] = (CH3_TXDATA[268] !== 1'bz) && CH3_TXDATA[268]; // rv MustConnect
+  assign CH3_TXDATA_in[269] = (CH3_TXDATA[269] !== 1'bz) && CH3_TXDATA[269]; // rv MustConnect
+  assign CH3_TXDATA_in[26] = (CH3_TXDATA[26] !== 1'bz) && CH3_TXDATA[26]; // rv MustConnect
+  assign CH3_TXDATA_in[270] = (CH3_TXDATA[270] !== 1'bz) && CH3_TXDATA[270]; // rv MustConnect
+  assign CH3_TXDATA_in[271] = (CH3_TXDATA[271] !== 1'bz) && CH3_TXDATA[271]; // rv MustConnect
+  assign CH3_TXDATA_in[272] = (CH3_TXDATA[272] !== 1'bz) && CH3_TXDATA[272]; // rv MustConnect
+  assign CH3_TXDATA_in[273] = (CH3_TXDATA[273] !== 1'bz) && CH3_TXDATA[273]; // rv MustConnect
+  assign CH3_TXDATA_in[274] = (CH3_TXDATA[274] !== 1'bz) && CH3_TXDATA[274]; // rv MustConnect
+  assign CH3_TXDATA_in[275] = (CH3_TXDATA[275] !== 1'bz) && CH3_TXDATA[275]; // rv MustConnect
+  assign CH3_TXDATA_in[276] = (CH3_TXDATA[276] !== 1'bz) && CH3_TXDATA[276]; // rv MustConnect
+  assign CH3_TXDATA_in[277] = (CH3_TXDATA[277] !== 1'bz) && CH3_TXDATA[277]; // rv MustConnect
+  assign CH3_TXDATA_in[278] = (CH3_TXDATA[278] !== 1'bz) && CH3_TXDATA[278]; // rv MustConnect
+  assign CH3_TXDATA_in[279] = (CH3_TXDATA[279] !== 1'bz) && CH3_TXDATA[279]; // rv MustConnect
+  assign CH3_TXDATA_in[27] = (CH3_TXDATA[27] !== 1'bz) && CH3_TXDATA[27]; // rv MustConnect
+  assign CH3_TXDATA_in[280] = (CH3_TXDATA[280] !== 1'bz) && CH3_TXDATA[280]; // rv MustConnect
+  assign CH3_TXDATA_in[281] = (CH3_TXDATA[281] !== 1'bz) && CH3_TXDATA[281]; // rv MustConnect
+  assign CH3_TXDATA_in[282] = (CH3_TXDATA[282] !== 1'bz) && CH3_TXDATA[282]; // rv MustConnect
+  assign CH3_TXDATA_in[283] = (CH3_TXDATA[283] !== 1'bz) && CH3_TXDATA[283]; // rv MustConnect
+  assign CH3_TXDATA_in[284] = (CH3_TXDATA[284] !== 1'bz) && CH3_TXDATA[284]; // rv MustConnect
+  assign CH3_TXDATA_in[285] = (CH3_TXDATA[285] !== 1'bz) && CH3_TXDATA[285]; // rv MustConnect
+  assign CH3_TXDATA_in[286] = (CH3_TXDATA[286] !== 1'bz) && CH3_TXDATA[286]; // rv MustConnect
+  assign CH3_TXDATA_in[287] = (CH3_TXDATA[287] !== 1'bz) && CH3_TXDATA[287]; // rv MustConnect
+  assign CH3_TXDATA_in[288] = (CH3_TXDATA[288] !== 1'bz) && CH3_TXDATA[288]; // rv MustConnect
+  assign CH3_TXDATA_in[289] = (CH3_TXDATA[289] !== 1'bz) && CH3_TXDATA[289]; // rv MustConnect
+  assign CH3_TXDATA_in[28] = (CH3_TXDATA[28] !== 1'bz) && CH3_TXDATA[28]; // rv MustConnect
+  assign CH3_TXDATA_in[290] = (CH3_TXDATA[290] !== 1'bz) && CH3_TXDATA[290]; // rv MustConnect
+  assign CH3_TXDATA_in[291] = (CH3_TXDATA[291] !== 1'bz) && CH3_TXDATA[291]; // rv MustConnect
+  assign CH3_TXDATA_in[292] = (CH3_TXDATA[292] !== 1'bz) && CH3_TXDATA[292]; // rv MustConnect
+  assign CH3_TXDATA_in[293] = (CH3_TXDATA[293] !== 1'bz) && CH3_TXDATA[293]; // rv MustConnect
+  assign CH3_TXDATA_in[294] = (CH3_TXDATA[294] !== 1'bz) && CH3_TXDATA[294]; // rv MustConnect
+  assign CH3_TXDATA_in[295] = (CH3_TXDATA[295] !== 1'bz) && CH3_TXDATA[295]; // rv MustConnect
+  assign CH3_TXDATA_in[296] = (CH3_TXDATA[296] !== 1'bz) && CH3_TXDATA[296]; // rv MustConnect
+  assign CH3_TXDATA_in[297] = (CH3_TXDATA[297] !== 1'bz) && CH3_TXDATA[297]; // rv MustConnect
+  assign CH3_TXDATA_in[298] = (CH3_TXDATA[298] !== 1'bz) && CH3_TXDATA[298]; // rv MustConnect
+  assign CH3_TXDATA_in[299] = (CH3_TXDATA[299] !== 1'bz) && CH3_TXDATA[299]; // rv MustConnect
+  assign CH3_TXDATA_in[29] = (CH3_TXDATA[29] !== 1'bz) && CH3_TXDATA[29]; // rv MustConnect
+  assign CH3_TXDATA_in[2] = (CH3_TXDATA[2] !== 1'bz) && CH3_TXDATA[2]; // rv MustConnect
+  assign CH3_TXDATA_in[300] = (CH3_TXDATA[300] !== 1'bz) && CH3_TXDATA[300]; // rv MustConnect
+  assign CH3_TXDATA_in[301] = (CH3_TXDATA[301] !== 1'bz) && CH3_TXDATA[301]; // rv MustConnect
+  assign CH3_TXDATA_in[302] = (CH3_TXDATA[302] !== 1'bz) && CH3_TXDATA[302]; // rv MustConnect
+  assign CH3_TXDATA_in[303] = (CH3_TXDATA[303] !== 1'bz) && CH3_TXDATA[303]; // rv MustConnect
+  assign CH3_TXDATA_in[304] = (CH3_TXDATA[304] !== 1'bz) && CH3_TXDATA[304]; // rv MustConnect
+  assign CH3_TXDATA_in[305] = (CH3_TXDATA[305] !== 1'bz) && CH3_TXDATA[305]; // rv MustConnect
+  assign CH3_TXDATA_in[306] = (CH3_TXDATA[306] !== 1'bz) && CH3_TXDATA[306]; // rv MustConnect
+  assign CH3_TXDATA_in[307] = (CH3_TXDATA[307] !== 1'bz) && CH3_TXDATA[307]; // rv MustConnect
+  assign CH3_TXDATA_in[308] = (CH3_TXDATA[308] !== 1'bz) && CH3_TXDATA[308]; // rv MustConnect
+  assign CH3_TXDATA_in[309] = (CH3_TXDATA[309] !== 1'bz) && CH3_TXDATA[309]; // rv MustConnect
+  assign CH3_TXDATA_in[30] = (CH3_TXDATA[30] !== 1'bz) && CH3_TXDATA[30]; // rv MustConnect
+  assign CH3_TXDATA_in[310] = (CH3_TXDATA[310] !== 1'bz) && CH3_TXDATA[310]; // rv MustConnect
+  assign CH3_TXDATA_in[311] = (CH3_TXDATA[311] !== 1'bz) && CH3_TXDATA[311]; // rv MustConnect
+  assign CH3_TXDATA_in[312] = (CH3_TXDATA[312] !== 1'bz) && CH3_TXDATA[312]; // rv MustConnect
+  assign CH3_TXDATA_in[313] = (CH3_TXDATA[313] !== 1'bz) && CH3_TXDATA[313]; // rv MustConnect
+  assign CH3_TXDATA_in[314] = (CH3_TXDATA[314] !== 1'bz) && CH3_TXDATA[314]; // rv MustConnect
+  assign CH3_TXDATA_in[315] = (CH3_TXDATA[315] !== 1'bz) && CH3_TXDATA[315]; // rv MustConnect
+  assign CH3_TXDATA_in[316] = (CH3_TXDATA[316] !== 1'bz) && CH3_TXDATA[316]; // rv MustConnect
+  assign CH3_TXDATA_in[317] = (CH3_TXDATA[317] !== 1'bz) && CH3_TXDATA[317]; // rv MustConnect
+  assign CH3_TXDATA_in[318] = (CH3_TXDATA[318] !== 1'bz) && CH3_TXDATA[318]; // rv MustConnect
+  assign CH3_TXDATA_in[319] = (CH3_TXDATA[319] !== 1'bz) && CH3_TXDATA[319]; // rv MustConnect
+  assign CH3_TXDATA_in[31] = (CH3_TXDATA[31] !== 1'bz) && CH3_TXDATA[31]; // rv MustConnect
+  assign CH3_TXDATA_in[32] = (CH3_TXDATA[32] !== 1'bz) && CH3_TXDATA[32]; // rv MustConnect
+  assign CH3_TXDATA_in[33] = (CH3_TXDATA[33] !== 1'bz) && CH3_TXDATA[33]; // rv MustConnect
+  assign CH3_TXDATA_in[34] = (CH3_TXDATA[34] !== 1'bz) && CH3_TXDATA[34]; // rv MustConnect
+  assign CH3_TXDATA_in[35] = (CH3_TXDATA[35] !== 1'bz) && CH3_TXDATA[35]; // rv MustConnect
+  assign CH3_TXDATA_in[36] = (CH3_TXDATA[36] !== 1'bz) && CH3_TXDATA[36]; // rv MustConnect
+  assign CH3_TXDATA_in[37] = (CH3_TXDATA[37] !== 1'bz) && CH3_TXDATA[37]; // rv MustConnect
+  assign CH3_TXDATA_in[38] = (CH3_TXDATA[38] !== 1'bz) && CH3_TXDATA[38]; // rv MustConnect
+  assign CH3_TXDATA_in[39] = (CH3_TXDATA[39] !== 1'bz) && CH3_TXDATA[39]; // rv MustConnect
+  assign CH3_TXDATA_in[3] = (CH3_TXDATA[3] !== 1'bz) && CH3_TXDATA[3]; // rv MustConnect
+  assign CH3_TXDATA_in[40] = (CH3_TXDATA[40] !== 1'bz) && CH3_TXDATA[40]; // rv MustConnect
+  assign CH3_TXDATA_in[41] = (CH3_TXDATA[41] !== 1'bz) && CH3_TXDATA[41]; // rv MustConnect
+  assign CH3_TXDATA_in[42] = (CH3_TXDATA[42] !== 1'bz) && CH3_TXDATA[42]; // rv MustConnect
+  assign CH3_TXDATA_in[43] = (CH3_TXDATA[43] !== 1'bz) && CH3_TXDATA[43]; // rv MustConnect
+  assign CH3_TXDATA_in[44] = (CH3_TXDATA[44] !== 1'bz) && CH3_TXDATA[44]; // rv MustConnect
+  assign CH3_TXDATA_in[45] = (CH3_TXDATA[45] !== 1'bz) && CH3_TXDATA[45]; // rv MustConnect
+  assign CH3_TXDATA_in[46] = (CH3_TXDATA[46] !== 1'bz) && CH3_TXDATA[46]; // rv MustConnect
+  assign CH3_TXDATA_in[47] = (CH3_TXDATA[47] !== 1'bz) && CH3_TXDATA[47]; // rv MustConnect
+  assign CH3_TXDATA_in[48] = (CH3_TXDATA[48] !== 1'bz) && CH3_TXDATA[48]; // rv MustConnect
+  assign CH3_TXDATA_in[49] = (CH3_TXDATA[49] !== 1'bz) && CH3_TXDATA[49]; // rv MustConnect
+  assign CH3_TXDATA_in[4] = (CH3_TXDATA[4] !== 1'bz) && CH3_TXDATA[4]; // rv MustConnect
+  assign CH3_TXDATA_in[50] = (CH3_TXDATA[50] !== 1'bz) && CH3_TXDATA[50]; // rv MustConnect
+  assign CH3_TXDATA_in[51] = (CH3_TXDATA[51] !== 1'bz) && CH3_TXDATA[51]; // rv MustConnect
+  assign CH3_TXDATA_in[52] = (CH3_TXDATA[52] !== 1'bz) && CH3_TXDATA[52]; // rv MustConnect
+  assign CH3_TXDATA_in[53] = (CH3_TXDATA[53] !== 1'bz) && CH3_TXDATA[53]; // rv MustConnect
+  assign CH3_TXDATA_in[54] = (CH3_TXDATA[54] !== 1'bz) && CH3_TXDATA[54]; // rv MustConnect
+  assign CH3_TXDATA_in[55] = (CH3_TXDATA[55] !== 1'bz) && CH3_TXDATA[55]; // rv MustConnect
+  assign CH3_TXDATA_in[56] = (CH3_TXDATA[56] !== 1'bz) && CH3_TXDATA[56]; // rv MustConnect
+  assign CH3_TXDATA_in[57] = (CH3_TXDATA[57] !== 1'bz) && CH3_TXDATA[57]; // rv MustConnect
+  assign CH3_TXDATA_in[58] = (CH3_TXDATA[58] !== 1'bz) && CH3_TXDATA[58]; // rv MustConnect
+  assign CH3_TXDATA_in[59] = (CH3_TXDATA[59] !== 1'bz) && CH3_TXDATA[59]; // rv MustConnect
+  assign CH3_TXDATA_in[5] = (CH3_TXDATA[5] !== 1'bz) && CH3_TXDATA[5]; // rv MustConnect
+  assign CH3_TXDATA_in[60] = (CH3_TXDATA[60] !== 1'bz) && CH3_TXDATA[60]; // rv MustConnect
+  assign CH3_TXDATA_in[61] = (CH3_TXDATA[61] !== 1'bz) && CH3_TXDATA[61]; // rv MustConnect
+  assign CH3_TXDATA_in[62] = (CH3_TXDATA[62] !== 1'bz) && CH3_TXDATA[62]; // rv MustConnect
+  assign CH3_TXDATA_in[63] = (CH3_TXDATA[63] !== 1'bz) && CH3_TXDATA[63]; // rv MustConnect
+  assign CH3_TXDATA_in[64] = (CH3_TXDATA[64] !== 1'bz) && CH3_TXDATA[64]; // rv MustConnect
+  assign CH3_TXDATA_in[65] = (CH3_TXDATA[65] !== 1'bz) && CH3_TXDATA[65]; // rv MustConnect
+  assign CH3_TXDATA_in[66] = (CH3_TXDATA[66] !== 1'bz) && CH3_TXDATA[66]; // rv MustConnect
+  assign CH3_TXDATA_in[67] = (CH3_TXDATA[67] !== 1'bz) && CH3_TXDATA[67]; // rv MustConnect
+  assign CH3_TXDATA_in[68] = (CH3_TXDATA[68] !== 1'bz) && CH3_TXDATA[68]; // rv MustConnect
+  assign CH3_TXDATA_in[69] = (CH3_TXDATA[69] !== 1'bz) && CH3_TXDATA[69]; // rv MustConnect
+  assign CH3_TXDATA_in[6] = (CH3_TXDATA[6] !== 1'bz) && CH3_TXDATA[6]; // rv MustConnect
+  assign CH3_TXDATA_in[70] = (CH3_TXDATA[70] !== 1'bz) && CH3_TXDATA[70]; // rv MustConnect
+  assign CH3_TXDATA_in[71] = (CH3_TXDATA[71] !== 1'bz) && CH3_TXDATA[71]; // rv MustConnect
+  assign CH3_TXDATA_in[72] = (CH3_TXDATA[72] !== 1'bz) && CH3_TXDATA[72]; // rv MustConnect
+  assign CH3_TXDATA_in[73] = (CH3_TXDATA[73] !== 1'bz) && CH3_TXDATA[73]; // rv MustConnect
+  assign CH3_TXDATA_in[74] = (CH3_TXDATA[74] !== 1'bz) && CH3_TXDATA[74]; // rv MustConnect
+  assign CH3_TXDATA_in[75] = (CH3_TXDATA[75] !== 1'bz) && CH3_TXDATA[75]; // rv MustConnect
+  assign CH3_TXDATA_in[76] = (CH3_TXDATA[76] !== 1'bz) && CH3_TXDATA[76]; // rv MustConnect
+  assign CH3_TXDATA_in[77] = (CH3_TXDATA[77] !== 1'bz) && CH3_TXDATA[77]; // rv MustConnect
+  assign CH3_TXDATA_in[78] = (CH3_TXDATA[78] !== 1'bz) && CH3_TXDATA[78]; // rv MustConnect
+  assign CH3_TXDATA_in[79] = (CH3_TXDATA[79] !== 1'bz) && CH3_TXDATA[79]; // rv MustConnect
+  assign CH3_TXDATA_in[7] = (CH3_TXDATA[7] !== 1'bz) && CH3_TXDATA[7]; // rv MustConnect
+  assign CH3_TXDATA_in[80] = (CH3_TXDATA[80] !== 1'bz) && CH3_TXDATA[80]; // rv MustConnect
+  assign CH3_TXDATA_in[81] = (CH3_TXDATA[81] !== 1'bz) && CH3_TXDATA[81]; // rv MustConnect
+  assign CH3_TXDATA_in[82] = (CH3_TXDATA[82] !== 1'bz) && CH3_TXDATA[82]; // rv MustConnect
+  assign CH3_TXDATA_in[83] = (CH3_TXDATA[83] !== 1'bz) && CH3_TXDATA[83]; // rv MustConnect
+  assign CH3_TXDATA_in[84] = (CH3_TXDATA[84] !== 1'bz) && CH3_TXDATA[84]; // rv MustConnect
+  assign CH3_TXDATA_in[85] = (CH3_TXDATA[85] !== 1'bz) && CH3_TXDATA[85]; // rv MustConnect
+  assign CH3_TXDATA_in[86] = (CH3_TXDATA[86] !== 1'bz) && CH3_TXDATA[86]; // rv MustConnect
+  assign CH3_TXDATA_in[87] = (CH3_TXDATA[87] !== 1'bz) && CH3_TXDATA[87]; // rv MustConnect
+  assign CH3_TXDATA_in[88] = (CH3_TXDATA[88] !== 1'bz) && CH3_TXDATA[88]; // rv MustConnect
+  assign CH3_TXDATA_in[89] = (CH3_TXDATA[89] !== 1'bz) && CH3_TXDATA[89]; // rv MustConnect
+  assign CH3_TXDATA_in[8] = (CH3_TXDATA[8] !== 1'bz) && CH3_TXDATA[8]; // rv MustConnect
+  assign CH3_TXDATA_in[90] = (CH3_TXDATA[90] !== 1'bz) && CH3_TXDATA[90]; // rv MustConnect
+  assign CH3_TXDATA_in[91] = (CH3_TXDATA[91] !== 1'bz) && CH3_TXDATA[91]; // rv MustConnect
+  assign CH3_TXDATA_in[92] = (CH3_TXDATA[92] !== 1'bz) && CH3_TXDATA[92]; // rv MustConnect
+  assign CH3_TXDATA_in[93] = (CH3_TXDATA[93] !== 1'bz) && CH3_TXDATA[93]; // rv MustConnect
+  assign CH3_TXDATA_in[94] = (CH3_TXDATA[94] !== 1'bz) && CH3_TXDATA[94]; // rv MustConnect
+  assign CH3_TXDATA_in[95] = (CH3_TXDATA[95] !== 1'bz) && CH3_TXDATA[95]; // rv MustConnect
+  assign CH3_TXDATA_in[96] = (CH3_TXDATA[96] !== 1'bz) && CH3_TXDATA[96]; // rv MustConnect
+  assign CH3_TXDATA_in[97] = (CH3_TXDATA[97] !== 1'bz) && CH3_TXDATA[97]; // rv MustConnect
+  assign CH3_TXDATA_in[98] = (CH3_TXDATA[98] !== 1'bz) && CH3_TXDATA[98]; // rv MustConnect
+  assign CH3_TXDATA_in[99] = (CH3_TXDATA[99] !== 1'bz) && CH3_TXDATA[99]; // rv MustConnect
+  assign CH3_TXDATA_in[9] = (CH3_TXDATA[9] !== 1'bz) && CH3_TXDATA[9]; // rv MustConnect
+  assign CH3_TXDETECTRXLOOPBACK_in = CH3_TXDETECTRXLOOPBACK;
+  assign CH3_TXELECIDLE_in = (CH3_TXELECIDLE === 1'bz) || CH3_TXELECIDLE; // rv 1
+  assign CH3_TXPOWERDOWN_in = CH3_TXPOWERDOWN;
+  assign CH3_TXRATE_in = CH3_TXRATE;
+  assign CH3_TXUSRCLK_in = (CH3_TXUSRCLK === 1'bz) || CH3_TXUSRCLK; // rv 1
+  assign RXMARGINCLK_in = RXMARGINCLK;
+  assign RXMARGINREQCMD_in = RXMARGINREQCMD;
+  assign RXMARGINREQLANENUM_in = RXMARGINREQLANENUM;
+  assign RXMARGINREQPAYLOAD_in = RXMARGINREQPAYLOAD;
+  assign RXMARGINREQREQ_in = RXMARGINREQREQ;
+  assign RXMARGINRESACK_in = RXMARGINRESACK;
+  assign SCANCHNLMASKIN_in = SCANCHNLMASKIN;
+  assign SCANCLKB_in = SCANCLKB;
+  assign SCANCNTRLIN_in = SCANCNTRLIN;
+  assign SCANIN_in = SCANIN;
+  assign SCANODCCCHNLMASKIN_in = SCANODCCCHNLMASKIN;
+`endif
+
+  assign CH0_BSR_SERIAL_in = (CH0_BSR_SERIAL === 1'bz) || CH0_BSR_SERIAL; // rv 1
+  assign CH0_CSSDSTOPCLKB_in = (CH0_CSSDSTOPCLKB === 1'bz) || CH0_CSSDSTOPCLKB; // rv 1
+  assign CH0_DMONFIFORESET_in = (CH0_DMONFIFORESET === 1'bz) || CH0_DMONFIFORESET; // rv 1
+  assign CH0_DMONITORCLK_in = (CH0_DMONITORCLK === 1'bz) || CH0_DMONITORCLK; // rv 1
+  assign CH0_EDTUPDATEB_in = CH0_EDTUPDATEB;
+  assign CH0_GTM2RXN_in = CH0_GTM2RXN;
+  assign CH0_GTM2RXP_in = CH0_GTM2RXP;
+  assign CH0_GTRXRESET_in = (CH0_GTRXRESET === 1'bz) || CH0_GTRXRESET; // rv 1
+  assign CH0_GTTXRESET_in = (CH0_GTTXRESET === 1'bz) || CH0_GTTXRESET; // rv 1
+  assign CH0_HSDPPCSRESET_in = CH0_HSDPPCSRESET;
+  assign CH0_MNGPWRTOKENIN_in = CH0_MNGPWRTOKENIN;
+  assign CH0_PCIE_LTSSM_STATE_in = CH0_PCIE_LTSSM_STATE;
+  assign CH0_RXCDRHOLD_in = (CH0_RXCDRHOLD === 1'bz) || CH0_RXCDRHOLD; // rv 1
+  assign CH0_RXCHBONDI_in = CH0_RXCHBONDI;
+  assign CH0_RXLATCLK_in = CH0_RXLATCLK;
+  assign CH0_RXPOLARITY_in = (CH0_RXPOLARITY === 1'bz) || CH0_RXPOLARITY; // rv 1
+  assign CH0_RXSLIDE_in = CH0_RXSLIDE;
+  assign CH0_RXTERMINATION_in = CH0_RXTERMINATION;
+  assign CH0_SCANENB_in = CH0_SCANENB;
+  assign CH0_SCANRSTB_in = CH0_SCANRSTB;
+  assign CH0_TSTCLK0_in = CH0_TSTCLK0;
+  assign CH0_TSTCLK1_in = CH0_TSTCLK1;
+  assign CH0_TXEMPMAIN_in = CH0_TXEMPMAIN;
+  assign CH0_TXEMPPOS_in = CH0_TXEMPPOS;
+  assign CH0_TXEMPPRE_in = CH0_TXEMPPRE;
+  assign CH0_TXLATCLK_in = CH0_TXLATCLK;
+  assign CH0_UPI2CMDCODE_in[0] = (CH0_UPI2CMDCODE[0] !== 1'bz) && CH0_UPI2CMDCODE[0]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[10] = (CH0_UPI2CMDCODE[10] !== 1'bz) && CH0_UPI2CMDCODE[10]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[11] = (CH0_UPI2CMDCODE[11] !== 1'bz) && CH0_UPI2CMDCODE[11]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[12] = (CH0_UPI2CMDCODE[12] !== 1'bz) && CH0_UPI2CMDCODE[12]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[13] = (CH0_UPI2CMDCODE[13] !== 1'bz) && CH0_UPI2CMDCODE[13]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[14] = (CH0_UPI2CMDCODE[14] !== 1'bz) && CH0_UPI2CMDCODE[14]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[15] = (CH0_UPI2CMDCODE[15] !== 1'bz) && CH0_UPI2CMDCODE[15]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[16] = (CH0_UPI2CMDCODE[16] !== 1'bz) && CH0_UPI2CMDCODE[16]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[17] = (CH0_UPI2CMDCODE[17] !== 1'bz) && CH0_UPI2CMDCODE[17]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[18] = (CH0_UPI2CMDCODE[18] !== 1'bz) && CH0_UPI2CMDCODE[18]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[19] = (CH0_UPI2CMDCODE[19] !== 1'bz) && CH0_UPI2CMDCODE[19]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[1] = (CH0_UPI2CMDCODE[1] !== 1'bz) && CH0_UPI2CMDCODE[1]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[2] = (CH0_UPI2CMDCODE[2] !== 1'bz) && CH0_UPI2CMDCODE[2]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[3] = (CH0_UPI2CMDCODE[3] !== 1'bz) && CH0_UPI2CMDCODE[3]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[4] = (CH0_UPI2CMDCODE[4] !== 1'bz) && CH0_UPI2CMDCODE[4]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[5] = (CH0_UPI2CMDCODE[5] !== 1'bz) && CH0_UPI2CMDCODE[5]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[6] = (CH0_UPI2CMDCODE[6] !== 1'bz) && CH0_UPI2CMDCODE[6]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[7] = (CH0_UPI2CMDCODE[7] !== 1'bz) && CH0_UPI2CMDCODE[7]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[8] = (CH0_UPI2CMDCODE[8] !== 1'bz) && CH0_UPI2CMDCODE[8]; // rv MustConnect
+  assign CH0_UPI2CMDCODE_in[9] = (CH0_UPI2CMDCODE[9] !== 1'bz) && CH0_UPI2CMDCODE[9]; // rv MustConnect
+  assign CH0_UPI2CMDREQ_in = (CH0_UPI2CMDREQ === 1'bz) || CH0_UPI2CMDREQ; // rv 1
+  assign CH1_BSR_SERIAL_in = (CH1_BSR_SERIAL === 1'bz) || CH1_BSR_SERIAL; // rv 1
+  assign CH1_CSSDSTOPCLKB_in = (CH1_CSSDSTOPCLKB === 1'bz) || CH1_CSSDSTOPCLKB; // rv 1
+  assign CH1_DMONFIFORESET_in = (CH1_DMONFIFORESET === 1'bz) || CH1_DMONFIFORESET; // rv 1
+  assign CH1_DMONITORCLK_in = (CH1_DMONITORCLK === 1'bz) || CH1_DMONITORCLK; // rv 1
+  assign CH1_EDTUPDATEB_in = CH1_EDTUPDATEB;
+  assign CH1_GTM2RXN_in = CH1_GTM2RXN;
+  assign CH1_GTM2RXP_in = CH1_GTM2RXP;
+  assign CH1_GTRXRESET_in = (CH1_GTRXRESET === 1'bz) || CH1_GTRXRESET; // rv 1
+  assign CH1_GTTXRESET_in = (CH1_GTTXRESET === 1'bz) || CH1_GTTXRESET; // rv 1
+  assign CH1_HSDPPCSRESET_in = CH1_HSDPPCSRESET;
+  assign CH1_MNGPWRTOKENIN_in = CH1_MNGPWRTOKENIN;
+  assign CH1_PCIE_LTSSM_STATE_in = CH1_PCIE_LTSSM_STATE;
+  assign CH1_RXCDRHOLD_in = (CH1_RXCDRHOLD === 1'bz) || CH1_RXCDRHOLD; // rv 1
+  assign CH1_RXCHBONDI_in = CH1_RXCHBONDI;
+  assign CH1_RXLATCLK_in = CH1_RXLATCLK;
+  assign CH1_RXPOLARITY_in = (CH1_RXPOLARITY === 1'bz) || CH1_RXPOLARITY; // rv 1
+  assign CH1_RXSLIDE_in = CH1_RXSLIDE;
+  assign CH1_RXTERMINATION_in = CH1_RXTERMINATION;
+  assign CH1_SCANENB_in = CH1_SCANENB;
+  assign CH1_SCANRSTB_in = CH1_SCANRSTB;
+  assign CH1_TSTCLK0_in = CH1_TSTCLK0;
+  assign CH1_TSTCLK1_in = CH1_TSTCLK1;
+  assign CH1_TXEMPMAIN_in = CH1_TXEMPMAIN;
+  assign CH1_TXEMPPOS_in = CH1_TXEMPPOS;
+  assign CH1_TXEMPPRE_in = CH1_TXEMPPRE;
+  assign CH1_TXLATCLK_in = CH1_TXLATCLK;
+  assign CH1_UPI2CMDCODE_in[0] = (CH1_UPI2CMDCODE[0] !== 1'bz) && CH1_UPI2CMDCODE[0]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[10] = (CH1_UPI2CMDCODE[10] !== 1'bz) && CH1_UPI2CMDCODE[10]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[11] = (CH1_UPI2CMDCODE[11] !== 1'bz) && CH1_UPI2CMDCODE[11]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[12] = (CH1_UPI2CMDCODE[12] !== 1'bz) && CH1_UPI2CMDCODE[12]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[13] = (CH1_UPI2CMDCODE[13] !== 1'bz) && CH1_UPI2CMDCODE[13]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[14] = (CH1_UPI2CMDCODE[14] !== 1'bz) && CH1_UPI2CMDCODE[14]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[15] = (CH1_UPI2CMDCODE[15] !== 1'bz) && CH1_UPI2CMDCODE[15]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[16] = (CH1_UPI2CMDCODE[16] !== 1'bz) && CH1_UPI2CMDCODE[16]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[17] = (CH1_UPI2CMDCODE[17] !== 1'bz) && CH1_UPI2CMDCODE[17]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[18] = (CH1_UPI2CMDCODE[18] !== 1'bz) && CH1_UPI2CMDCODE[18]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[19] = (CH1_UPI2CMDCODE[19] !== 1'bz) && CH1_UPI2CMDCODE[19]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[1] = (CH1_UPI2CMDCODE[1] !== 1'bz) && CH1_UPI2CMDCODE[1]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[2] = (CH1_UPI2CMDCODE[2] !== 1'bz) && CH1_UPI2CMDCODE[2]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[3] = (CH1_UPI2CMDCODE[3] !== 1'bz) && CH1_UPI2CMDCODE[3]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[4] = (CH1_UPI2CMDCODE[4] !== 1'bz) && CH1_UPI2CMDCODE[4]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[5] = (CH1_UPI2CMDCODE[5] !== 1'bz) && CH1_UPI2CMDCODE[5]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[6] = (CH1_UPI2CMDCODE[6] !== 1'bz) && CH1_UPI2CMDCODE[6]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[7] = (CH1_UPI2CMDCODE[7] !== 1'bz) && CH1_UPI2CMDCODE[7]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[8] = (CH1_UPI2CMDCODE[8] !== 1'bz) && CH1_UPI2CMDCODE[8]; // rv MustConnect
+  assign CH1_UPI2CMDCODE_in[9] = (CH1_UPI2CMDCODE[9] !== 1'bz) && CH1_UPI2CMDCODE[9]; // rv MustConnect
+  assign CH1_UPI2CMDREQ_in = (CH1_UPI2CMDREQ === 1'bz) || CH1_UPI2CMDREQ; // rv 1
+  assign CH2_BSR_SERIAL_in = (CH2_BSR_SERIAL === 1'bz) || CH2_BSR_SERIAL; // rv 1
+  assign CH2_CSSDSTOPCLKB_in = (CH2_CSSDSTOPCLKB === 1'bz) || CH2_CSSDSTOPCLKB; // rv 1
+  assign CH2_DMONFIFORESET_in = (CH2_DMONFIFORESET === 1'bz) || CH2_DMONFIFORESET; // rv 1
+  assign CH2_DMONITORCLK_in = (CH2_DMONITORCLK === 1'bz) || CH2_DMONITORCLK; // rv 1
+  assign CH2_EDTUPDATEB_in = CH2_EDTUPDATEB;
+  assign CH2_GTM2RXN_in = CH2_GTM2RXN;
+  assign CH2_GTM2RXP_in = CH2_GTM2RXP;
+  assign CH2_GTRXRESET_in = (CH2_GTRXRESET === 1'bz) || CH2_GTRXRESET; // rv 1
+  assign CH2_GTTXRESET_in = (CH2_GTTXRESET === 1'bz) || CH2_GTTXRESET; // rv 1
+  assign CH2_HSDPPCSRESET_in = CH2_HSDPPCSRESET;
+  assign CH2_MNGPWRTOKENIN_in = CH2_MNGPWRTOKENIN;
+  assign CH2_PCIE_LTSSM_STATE_in = CH2_PCIE_LTSSM_STATE;
+  assign CH2_RXCDRHOLD_in = (CH2_RXCDRHOLD === 1'bz) || CH2_RXCDRHOLD; // rv 1
+  assign CH2_RXCHBONDI_in = CH2_RXCHBONDI;
+  assign CH2_RXLATCLK_in = CH2_RXLATCLK;
+  assign CH2_RXPOLARITY_in = (CH2_RXPOLARITY === 1'bz) || CH2_RXPOLARITY; // rv 1
+  assign CH2_RXSLIDE_in = CH2_RXSLIDE;
+  assign CH2_RXTERMINATION_in = CH2_RXTERMINATION;
+  assign CH2_SCANENB_in = CH2_SCANENB;
+  assign CH2_SCANRSTB_in = CH2_SCANRSTB;
+  assign CH2_TSTCLK0_in = CH2_TSTCLK0;
+  assign CH2_TSTCLK1_in = CH2_TSTCLK1;
+  assign CH2_TXEMPMAIN_in = CH2_TXEMPMAIN;
+  assign CH2_TXEMPPOS_in = CH2_TXEMPPOS;
+  assign CH2_TXEMPPRE_in = CH2_TXEMPPRE;
+  assign CH2_TXLATCLK_in = CH2_TXLATCLK;
+  assign CH2_UPI2CMDCODE_in[0] = (CH2_UPI2CMDCODE[0] !== 1'bz) && CH2_UPI2CMDCODE[0]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[10] = (CH2_UPI2CMDCODE[10] !== 1'bz) && CH2_UPI2CMDCODE[10]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[11] = (CH2_UPI2CMDCODE[11] !== 1'bz) && CH2_UPI2CMDCODE[11]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[12] = (CH2_UPI2CMDCODE[12] !== 1'bz) && CH2_UPI2CMDCODE[12]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[13] = (CH2_UPI2CMDCODE[13] !== 1'bz) && CH2_UPI2CMDCODE[13]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[14] = (CH2_UPI2CMDCODE[14] !== 1'bz) && CH2_UPI2CMDCODE[14]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[15] = (CH2_UPI2CMDCODE[15] !== 1'bz) && CH2_UPI2CMDCODE[15]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[16] = (CH2_UPI2CMDCODE[16] !== 1'bz) && CH2_UPI2CMDCODE[16]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[17] = (CH2_UPI2CMDCODE[17] !== 1'bz) && CH2_UPI2CMDCODE[17]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[18] = (CH2_UPI2CMDCODE[18] !== 1'bz) && CH2_UPI2CMDCODE[18]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[19] = (CH2_UPI2CMDCODE[19] !== 1'bz) && CH2_UPI2CMDCODE[19]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[1] = (CH2_UPI2CMDCODE[1] !== 1'bz) && CH2_UPI2CMDCODE[1]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[2] = (CH2_UPI2CMDCODE[2] !== 1'bz) && CH2_UPI2CMDCODE[2]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[3] = (CH2_UPI2CMDCODE[3] !== 1'bz) && CH2_UPI2CMDCODE[3]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[4] = (CH2_UPI2CMDCODE[4] !== 1'bz) && CH2_UPI2CMDCODE[4]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[5] = (CH2_UPI2CMDCODE[5] !== 1'bz) && CH2_UPI2CMDCODE[5]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[6] = (CH2_UPI2CMDCODE[6] !== 1'bz) && CH2_UPI2CMDCODE[6]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[7] = (CH2_UPI2CMDCODE[7] !== 1'bz) && CH2_UPI2CMDCODE[7]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[8] = (CH2_UPI2CMDCODE[8] !== 1'bz) && CH2_UPI2CMDCODE[8]; // rv MustConnect
+  assign CH2_UPI2CMDCODE_in[9] = (CH2_UPI2CMDCODE[9] !== 1'bz) && CH2_UPI2CMDCODE[9]; // rv MustConnect
+  assign CH2_UPI2CMDREQ_in = (CH2_UPI2CMDREQ === 1'bz) || CH2_UPI2CMDREQ; // rv 1
+  assign CH3_BSR_SERIAL_in = (CH3_BSR_SERIAL === 1'bz) || CH3_BSR_SERIAL; // rv 1
+  assign CH3_CSSDSTOPCLKB_in = (CH3_CSSDSTOPCLKB === 1'bz) || CH3_CSSDSTOPCLKB; // rv 1
+  assign CH3_DMONFIFORESET_in = (CH3_DMONFIFORESET === 1'bz) || CH3_DMONFIFORESET; // rv 1
+  assign CH3_DMONITORCLK_in = (CH3_DMONITORCLK === 1'bz) || CH3_DMONITORCLK; // rv 1
+  assign CH3_EDTUPDATEB_in = CH3_EDTUPDATEB;
+  assign CH3_GTM2RXN_in = CH3_GTM2RXN;
+  assign CH3_GTM2RXP_in = CH3_GTM2RXP;
+  assign CH3_GTRXRESET_in = (CH3_GTRXRESET === 1'bz) || CH3_GTRXRESET; // rv 1
+  assign CH3_GTTXRESET_in = (CH3_GTTXRESET === 1'bz) || CH3_GTTXRESET; // rv 1
+  assign CH3_HSDPPCSRESET_in = CH3_HSDPPCSRESET;
+  assign CH3_MNGPWRTOKENIN_in = CH3_MNGPWRTOKENIN;
+  assign CH3_PCIE_LTSSM_STATE_in = CH3_PCIE_LTSSM_STATE;
+  assign CH3_RXCDRHOLD_in = (CH3_RXCDRHOLD === 1'bz) || CH3_RXCDRHOLD; // rv 1
+  assign CH3_RXCHBONDI_in = CH3_RXCHBONDI;
+  assign CH3_RXLATCLK_in = CH3_RXLATCLK;
+  assign CH3_RXPOLARITY_in = (CH3_RXPOLARITY === 1'bz) || CH3_RXPOLARITY; // rv 1
+  assign CH3_RXSLIDE_in = CH3_RXSLIDE;
+  assign CH3_RXTERMINATION_in = CH3_RXTERMINATION;
+  assign CH3_SCANENB_in = CH3_SCANENB;
+  assign CH3_SCANRSTB_in = CH3_SCANRSTB;
+  assign CH3_TSTCLK0_in = CH3_TSTCLK0;
+  assign CH3_TSTCLK1_in = CH3_TSTCLK1;
+  assign CH3_TXEMPMAIN_in = CH3_TXEMPMAIN;
+  assign CH3_TXEMPPOS_in = CH3_TXEMPPOS;
+  assign CH3_TXEMPPRE_in = CH3_TXEMPPRE;
+  assign CH3_TXLATCLK_in = CH3_TXLATCLK;
+  assign CH3_UPI2CMDCODE_in[0] = (CH3_UPI2CMDCODE[0] !== 1'bz) && CH3_UPI2CMDCODE[0]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[10] = (CH3_UPI2CMDCODE[10] !== 1'bz) && CH3_UPI2CMDCODE[10]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[11] = (CH3_UPI2CMDCODE[11] !== 1'bz) && CH3_UPI2CMDCODE[11]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[12] = (CH3_UPI2CMDCODE[12] !== 1'bz) && CH3_UPI2CMDCODE[12]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[13] = (CH3_UPI2CMDCODE[13] !== 1'bz) && CH3_UPI2CMDCODE[13]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[14] = (CH3_UPI2CMDCODE[14] !== 1'bz) && CH3_UPI2CMDCODE[14]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[15] = (CH3_UPI2CMDCODE[15] !== 1'bz) && CH3_UPI2CMDCODE[15]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[16] = (CH3_UPI2CMDCODE[16] !== 1'bz) && CH3_UPI2CMDCODE[16]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[17] = (CH3_UPI2CMDCODE[17] !== 1'bz) && CH3_UPI2CMDCODE[17]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[18] = (CH3_UPI2CMDCODE[18] !== 1'bz) && CH3_UPI2CMDCODE[18]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[19] = (CH3_UPI2CMDCODE[19] !== 1'bz) && CH3_UPI2CMDCODE[19]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[1] = (CH3_UPI2CMDCODE[1] !== 1'bz) && CH3_UPI2CMDCODE[1]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[2] = (CH3_UPI2CMDCODE[2] !== 1'bz) && CH3_UPI2CMDCODE[2]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[3] = (CH3_UPI2CMDCODE[3] !== 1'bz) && CH3_UPI2CMDCODE[3]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[4] = (CH3_UPI2CMDCODE[4] !== 1'bz) && CH3_UPI2CMDCODE[4]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[5] = (CH3_UPI2CMDCODE[5] !== 1'bz) && CH3_UPI2CMDCODE[5]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[6] = (CH3_UPI2CMDCODE[6] !== 1'bz) && CH3_UPI2CMDCODE[6]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[7] = (CH3_UPI2CMDCODE[7] !== 1'bz) && CH3_UPI2CMDCODE[7]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[8] = (CH3_UPI2CMDCODE[8] !== 1'bz) && CH3_UPI2CMDCODE[8]; // rv MustConnect
+  assign CH3_UPI2CMDCODE_in[9] = (CH3_UPI2CMDCODE[9] !== 1'bz) && CH3_UPI2CMDCODE[9]; // rv MustConnect
+  assign CH3_UPI2CMDREQ_in = (CH3_UPI2CMDREQ === 1'bz) || CH3_UPI2CMDREQ; // rv 1
+  assign CSSDSTOPCLKB_in = CSSDSTOPCLKB;
+  assign GPI_in[0] = (GPI[0] !== 1'bz) && GPI[0]; // rv MustConnect
+  assign GPI_in[10] = (GPI[10] !== 1'bz) && GPI[10]; // rv MustConnect
+  assign GPI_in[11] = (GPI[11] !== 1'bz) && GPI[11]; // rv MustConnect
+  assign GPI_in[12] = (GPI[12] !== 1'bz) && GPI[12]; // rv MustConnect
+  assign GPI_in[13] = (GPI[13] !== 1'bz) && GPI[13]; // rv MustConnect
+  assign GPI_in[14] = (GPI[14] !== 1'bz) && GPI[14]; // rv MustConnect
+  assign GPI_in[15] = (GPI[15] !== 1'bz) && GPI[15]; // rv MustConnect
+  assign GPI_in[16] = (GPI[16] !== 1'bz) && GPI[16]; // rv MustConnect
+  assign GPI_in[17] = (GPI[17] !== 1'bz) && GPI[17]; // rv MustConnect
+  assign GPI_in[18] = (GPI[18] !== 1'bz) && GPI[18]; // rv MustConnect
+  assign GPI_in[19] = (GPI[19] !== 1'bz) && GPI[19]; // rv MustConnect
+  assign GPI_in[1] = (GPI[1] !== 1'bz) && GPI[1]; // rv MustConnect
+  assign GPI_in[20] = (GPI[20] !== 1'bz) && GPI[20]; // rv MustConnect
+  assign GPI_in[21] = (GPI[21] !== 1'bz) && GPI[21]; // rv MustConnect
+  assign GPI_in[22] = (GPI[22] !== 1'bz) && GPI[22]; // rv MustConnect
+  assign GPI_in[23] = (GPI[23] !== 1'bz) && GPI[23]; // rv MustConnect
+  assign GPI_in[24] = (GPI[24] !== 1'bz) && GPI[24]; // rv MustConnect
+  assign GPI_in[25] = (GPI[25] !== 1'bz) && GPI[25]; // rv MustConnect
+  assign GPI_in[26] = (GPI[26] !== 1'bz) && GPI[26]; // rv MustConnect
+  assign GPI_in[27] = (GPI[27] !== 1'bz) && GPI[27]; // rv MustConnect
+  assign GPI_in[28] = (GPI[28] !== 1'bz) && GPI[28]; // rv MustConnect
+  assign GPI_in[29] = (GPI[29] !== 1'bz) && GPI[29]; // rv MustConnect
+  assign GPI_in[2] = (GPI[2] !== 1'bz) && GPI[2]; // rv MustConnect
+  assign GPI_in[30] = (GPI[30] !== 1'bz) && GPI[30]; // rv MustConnect
+  assign GPI_in[31] = (GPI[31] !== 1'bz) && GPI[31]; // rv MustConnect
+  assign GPI_in[3] = (GPI[3] !== 1'bz) && GPI[3]; // rv MustConnect
+  assign GPI_in[4] = (GPI[4] !== 1'bz) && GPI[4]; // rv MustConnect
+  assign GPI_in[5] = (GPI[5] !== 1'bz) && GPI[5]; // rv MustConnect
+  assign GPI_in[6] = (GPI[6] !== 1'bz) && GPI[6]; // rv MustConnect
+  assign GPI_in[7] = (GPI[7] !== 1'bz) && GPI[7]; // rv MustConnect
+  assign GPI_in[8] = (GPI[8] !== 1'bz) && GPI[8]; // rv MustConnect
+  assign GPI_in[9] = (GPI[9] !== 1'bz) && GPI[9]; // rv MustConnect
+  assign HSCLK0_LCPLLGTGREFCLK_in = HSCLK0_LCPLLGTGREFCLK;
+  assign HSCLK0_LCPLLGTREFCLK0_in = HSCLK0_LCPLLGTREFCLK0;
+  assign HSCLK0_LCPLLGTREFCLK1_in = HSCLK0_LCPLLGTREFCLK1;
+  assign HSCLK0_LCPLLNORTHREFCLK0_in = HSCLK0_LCPLLNORTHREFCLK0;
+  assign HSCLK0_LCPLLNORTHREFCLK1_in = HSCLK0_LCPLLNORTHREFCLK1;
+  assign HSCLK0_LCPLLSDMDATA_in[0] = (HSCLK0_LCPLLSDMDATA[0] !== 1'bz) && HSCLK0_LCPLLSDMDATA[0]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[10] = (HSCLK0_LCPLLSDMDATA[10] !== 1'bz) && HSCLK0_LCPLLSDMDATA[10]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[11] = (HSCLK0_LCPLLSDMDATA[11] !== 1'bz) && HSCLK0_LCPLLSDMDATA[11]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[12] = (HSCLK0_LCPLLSDMDATA[12] !== 1'bz) && HSCLK0_LCPLLSDMDATA[12]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[13] = (HSCLK0_LCPLLSDMDATA[13] !== 1'bz) && HSCLK0_LCPLLSDMDATA[13]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[14] = (HSCLK0_LCPLLSDMDATA[14] !== 1'bz) && HSCLK0_LCPLLSDMDATA[14]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[15] = (HSCLK0_LCPLLSDMDATA[15] !== 1'bz) && HSCLK0_LCPLLSDMDATA[15]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[16] = (HSCLK0_LCPLLSDMDATA[16] !== 1'bz) && HSCLK0_LCPLLSDMDATA[16]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[17] = (HSCLK0_LCPLLSDMDATA[17] !== 1'bz) && HSCLK0_LCPLLSDMDATA[17]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[18] = (HSCLK0_LCPLLSDMDATA[18] !== 1'bz) && HSCLK0_LCPLLSDMDATA[18]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[19] = (HSCLK0_LCPLLSDMDATA[19] !== 1'bz) && HSCLK0_LCPLLSDMDATA[19]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[1] = (HSCLK0_LCPLLSDMDATA[1] !== 1'bz) && HSCLK0_LCPLLSDMDATA[1]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[20] = (HSCLK0_LCPLLSDMDATA[20] !== 1'bz) && HSCLK0_LCPLLSDMDATA[20]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[21] = (HSCLK0_LCPLLSDMDATA[21] !== 1'bz) && HSCLK0_LCPLLSDMDATA[21]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[22] = (HSCLK0_LCPLLSDMDATA[22] !== 1'bz) && HSCLK0_LCPLLSDMDATA[22]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[23] = (HSCLK0_LCPLLSDMDATA[23] !== 1'bz) && HSCLK0_LCPLLSDMDATA[23]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[24] = (HSCLK0_LCPLLSDMDATA[24] !== 1'bz) && HSCLK0_LCPLLSDMDATA[24]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[25] = (HSCLK0_LCPLLSDMDATA[25] !== 1'bz) && HSCLK0_LCPLLSDMDATA[25]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[2] = (HSCLK0_LCPLLSDMDATA[2] !== 1'bz) && HSCLK0_LCPLLSDMDATA[2]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[3] = (HSCLK0_LCPLLSDMDATA[3] !== 1'bz) && HSCLK0_LCPLLSDMDATA[3]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[4] = (HSCLK0_LCPLLSDMDATA[4] !== 1'bz) && HSCLK0_LCPLLSDMDATA[4]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[5] = (HSCLK0_LCPLLSDMDATA[5] !== 1'bz) && HSCLK0_LCPLLSDMDATA[5]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[6] = (HSCLK0_LCPLLSDMDATA[6] !== 1'bz) && HSCLK0_LCPLLSDMDATA[6]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[7] = (HSCLK0_LCPLLSDMDATA[7] !== 1'bz) && HSCLK0_LCPLLSDMDATA[7]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[8] = (HSCLK0_LCPLLSDMDATA[8] !== 1'bz) && HSCLK0_LCPLLSDMDATA[8]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMDATA_in[9] = (HSCLK0_LCPLLSDMDATA[9] !== 1'bz) && HSCLK0_LCPLLSDMDATA[9]; // rv MustConnect
+  assign HSCLK0_LCPLLSDMTOGGLE_in = (HSCLK0_LCPLLSDMTOGGLE === 1'bz) || HSCLK0_LCPLLSDMTOGGLE; // rv 1
+  assign HSCLK0_LCPLLSOUTHREFCLK0_in = HSCLK0_LCPLLSOUTHREFCLK0;
+  assign HSCLK0_LCPLLSOUTHREFCLK1_in = HSCLK0_LCPLLSOUTHREFCLK1;
+  assign HSCLK0_RPLLGTGREFCLK_in = HSCLK0_RPLLGTGREFCLK;
+  assign HSCLK0_RPLLGTREFCLK0_in = HSCLK0_RPLLGTREFCLK0;
+  assign HSCLK0_RPLLGTREFCLK1_in = HSCLK0_RPLLGTREFCLK1;
+  assign HSCLK0_RPLLNORTHREFCLK0_in = HSCLK0_RPLLNORTHREFCLK0;
+  assign HSCLK0_RPLLNORTHREFCLK1_in = HSCLK0_RPLLNORTHREFCLK1;
+  assign HSCLK0_RPLLSOUTHREFCLK0_in = HSCLK0_RPLLSOUTHREFCLK0;
+  assign HSCLK0_RPLLSOUTHREFCLK1_in = HSCLK0_RPLLSOUTHREFCLK1;
+  assign HSCLK1_LCPLLGTGREFCLK_in = HSCLK1_LCPLLGTGREFCLK;
+  assign HSCLK1_LCPLLGTREFCLK0_in = HSCLK1_LCPLLGTREFCLK0;
+  assign HSCLK1_LCPLLGTREFCLK1_in = HSCLK1_LCPLLGTREFCLK1;
+  assign HSCLK1_LCPLLNORTHREFCLK0_in = HSCLK1_LCPLLNORTHREFCLK0;
+  assign HSCLK1_LCPLLNORTHREFCLK1_in = HSCLK1_LCPLLNORTHREFCLK1;
+  assign HSCLK1_LCPLLSDMDATA_in[0] = (HSCLK1_LCPLLSDMDATA[0] !== 1'bz) && HSCLK1_LCPLLSDMDATA[0]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[10] = (HSCLK1_LCPLLSDMDATA[10] !== 1'bz) && HSCLK1_LCPLLSDMDATA[10]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[11] = (HSCLK1_LCPLLSDMDATA[11] !== 1'bz) && HSCLK1_LCPLLSDMDATA[11]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[12] = (HSCLK1_LCPLLSDMDATA[12] !== 1'bz) && HSCLK1_LCPLLSDMDATA[12]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[13] = (HSCLK1_LCPLLSDMDATA[13] !== 1'bz) && HSCLK1_LCPLLSDMDATA[13]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[14] = (HSCLK1_LCPLLSDMDATA[14] !== 1'bz) && HSCLK1_LCPLLSDMDATA[14]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[15] = (HSCLK1_LCPLLSDMDATA[15] !== 1'bz) && HSCLK1_LCPLLSDMDATA[15]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[16] = (HSCLK1_LCPLLSDMDATA[16] !== 1'bz) && HSCLK1_LCPLLSDMDATA[16]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[17] = (HSCLK1_LCPLLSDMDATA[17] !== 1'bz) && HSCLK1_LCPLLSDMDATA[17]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[18] = (HSCLK1_LCPLLSDMDATA[18] !== 1'bz) && HSCLK1_LCPLLSDMDATA[18]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[19] = (HSCLK1_LCPLLSDMDATA[19] !== 1'bz) && HSCLK1_LCPLLSDMDATA[19]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[1] = (HSCLK1_LCPLLSDMDATA[1] !== 1'bz) && HSCLK1_LCPLLSDMDATA[1]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[20] = (HSCLK1_LCPLLSDMDATA[20] !== 1'bz) && HSCLK1_LCPLLSDMDATA[20]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[21] = (HSCLK1_LCPLLSDMDATA[21] !== 1'bz) && HSCLK1_LCPLLSDMDATA[21]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[22] = (HSCLK1_LCPLLSDMDATA[22] !== 1'bz) && HSCLK1_LCPLLSDMDATA[22]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[23] = (HSCLK1_LCPLLSDMDATA[23] !== 1'bz) && HSCLK1_LCPLLSDMDATA[23]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[24] = (HSCLK1_LCPLLSDMDATA[24] !== 1'bz) && HSCLK1_LCPLLSDMDATA[24]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[25] = (HSCLK1_LCPLLSDMDATA[25] !== 1'bz) && HSCLK1_LCPLLSDMDATA[25]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[2] = (HSCLK1_LCPLLSDMDATA[2] !== 1'bz) && HSCLK1_LCPLLSDMDATA[2]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[3] = (HSCLK1_LCPLLSDMDATA[3] !== 1'bz) && HSCLK1_LCPLLSDMDATA[3]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[4] = (HSCLK1_LCPLLSDMDATA[4] !== 1'bz) && HSCLK1_LCPLLSDMDATA[4]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[5] = (HSCLK1_LCPLLSDMDATA[5] !== 1'bz) && HSCLK1_LCPLLSDMDATA[5]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[6] = (HSCLK1_LCPLLSDMDATA[6] !== 1'bz) && HSCLK1_LCPLLSDMDATA[6]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[7] = (HSCLK1_LCPLLSDMDATA[7] !== 1'bz) && HSCLK1_LCPLLSDMDATA[7]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[8] = (HSCLK1_LCPLLSDMDATA[8] !== 1'bz) && HSCLK1_LCPLLSDMDATA[8]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMDATA_in[9] = (HSCLK1_LCPLLSDMDATA[9] !== 1'bz) && HSCLK1_LCPLLSDMDATA[9]; // rv MustConnect
+  assign HSCLK1_LCPLLSDMTOGGLE_in = (HSCLK1_LCPLLSDMTOGGLE === 1'bz) || HSCLK1_LCPLLSDMTOGGLE; // rv 1
+  assign HSCLK1_LCPLLSOUTHREFCLK0_in = HSCLK1_LCPLLSOUTHREFCLK0;
+  assign HSCLK1_LCPLLSOUTHREFCLK1_in = HSCLK1_LCPLLSOUTHREFCLK1;
+  assign HSCLK1_RPLLGTGREFCLK_in = HSCLK1_RPLLGTGREFCLK;
+  assign HSCLK1_RPLLGTREFCLK0_in = HSCLK1_RPLLGTREFCLK0;
+  assign HSCLK1_RPLLGTREFCLK1_in = HSCLK1_RPLLGTREFCLK1;
+  assign HSCLK1_RPLLNORTHREFCLK0_in = HSCLK1_RPLLNORTHREFCLK0;
+  assign HSCLK1_RPLLNORTHREFCLK1_in = HSCLK1_RPLLNORTHREFCLK1;
+  assign HSCLK1_RPLLSOUTHREFCLK0_in = HSCLK1_RPLLSOUTHREFCLK0;
+  assign HSCLK1_RPLLSOUTHREFCLK1_in = HSCLK1_RPLLSOUTHREFCLK1;
+  assign PCIELINKREACHTARGET_in = PCIELINKREACHTARGET;
+  assign REFCLK0_CLKTESTSIG_in = REFCLK0_CLKTESTSIG;
+  assign REFCLK0_ODIV2INT_in = REFCLK0_ODIV2INT;
+  assign REFCLK1_CLKTESTSIG_in = REFCLK1_CLKTESTSIG;
+  assign REFCLK1_ODIV2INT_in = REFCLK1_ODIV2INT;
+  assign SCANEDTUPDTB_in = SCANEDTUPDTB;
+  assign SCANENB_in = SCANENB;
+  assign SCANRSTB_in = SCANRSTB;
+
+`ifndef XIL_XECLIB
+  reg attr_test;
+  reg attr_err;
+  
+  initial begin
+  trig_attr = 1'b0;
+  `ifdef XIL_ATTR_TEST
+    attr_test = 1'b1;
+  `else
+    attr_test = 1'b0;
+  `endif
+    attr_err = 1'b0;
+    #1;
+    trig_attr = ~trig_attr;
+  end
+`endif
+
+`ifdef XIL_XECLIB
+  assign CH0_RXOUTCLK_FREQ_BIN = CH0_RXOUTCLK_FREQ_REG * 1000;
+  
+  assign CH0_RXOUTCLK_REF_FREQ_BIN = CH0_RXOUTCLK_REF_FREQ_REG * 1000;
+  
+  assign CH0_TXOUTCLK_FREQ_BIN = CH0_TXOUTCLK_FREQ_REG * 1000;
+  
+  assign CH0_TXOUTCLK_REF_FREQ_BIN = CH0_TXOUTCLK_REF_FREQ_REG * 1000;
+  
+  assign CH1_RXOUTCLK_FREQ_BIN = CH1_RXOUTCLK_FREQ_REG * 1000;
+  
+  assign CH1_RXOUTCLK_REF_FREQ_BIN = CH1_RXOUTCLK_REF_FREQ_REG * 1000;
+  
+  assign CH1_TXOUTCLK_FREQ_BIN = CH1_TXOUTCLK_FREQ_REG * 1000;
+  
+  assign CH1_TXOUTCLK_REF_FREQ_BIN = CH1_TXOUTCLK_REF_FREQ_REG * 1000;
+  
+  assign CH2_RXOUTCLK_FREQ_BIN = CH2_RXOUTCLK_FREQ_REG * 1000;
+  
+  assign CH2_RXOUTCLK_REF_FREQ_BIN = CH2_RXOUTCLK_REF_FREQ_REG * 1000;
+  
+  assign CH2_TXOUTCLK_FREQ_BIN = CH2_TXOUTCLK_FREQ_REG * 1000;
+  
+  assign CH2_TXOUTCLK_REF_FREQ_BIN = CH2_TXOUTCLK_REF_FREQ_REG * 1000;
+  
+  assign CH3_RXOUTCLK_FREQ_BIN = CH3_RXOUTCLK_FREQ_REG * 1000;
+  
+  assign CH3_RXOUTCLK_REF_FREQ_BIN = CH3_RXOUTCLK_REF_FREQ_REG * 1000;
+  
+  assign CH3_TXOUTCLK_FREQ_BIN = CH3_TXOUTCLK_FREQ_REG * 1000;
+  
+  assign CH3_TXOUTCLK_REF_FREQ_BIN = CH3_TXOUTCLK_REF_FREQ_REG * 1000;
+  
+`else
+  always @ (trig_attr) begin
+  #1;
+  CH0_RXOUTCLK_FREQ_BIN = CH0_RXOUTCLK_FREQ_REG * 1000;
+  
+  CH0_RXOUTCLK_REF_FREQ_BIN = CH0_RXOUTCLK_REF_FREQ_REG * 1000;
+  
+  CH0_TXOUTCLK_FREQ_BIN = CH0_TXOUTCLK_FREQ_REG * 1000;
+  
+  CH0_TXOUTCLK_REF_FREQ_BIN = CH0_TXOUTCLK_REF_FREQ_REG * 1000;
+  
+  CH1_RXOUTCLK_FREQ_BIN = CH1_RXOUTCLK_FREQ_REG * 1000;
+  
+  CH1_RXOUTCLK_REF_FREQ_BIN = CH1_RXOUTCLK_REF_FREQ_REG * 1000;
+  
+  CH1_TXOUTCLK_FREQ_BIN = CH1_TXOUTCLK_FREQ_REG * 1000;
+  
+  CH1_TXOUTCLK_REF_FREQ_BIN = CH1_TXOUTCLK_REF_FREQ_REG * 1000;
+  
+  CH2_RXOUTCLK_FREQ_BIN = CH2_RXOUTCLK_FREQ_REG * 1000;
+  
+  CH2_RXOUTCLK_REF_FREQ_BIN = CH2_RXOUTCLK_REF_FREQ_REG * 1000;
+  
+  CH2_TXOUTCLK_FREQ_BIN = CH2_TXOUTCLK_FREQ_REG * 1000;
+  
+  CH2_TXOUTCLK_REF_FREQ_BIN = CH2_TXOUTCLK_REF_FREQ_REG * 1000;
+  
+  CH3_RXOUTCLK_FREQ_BIN = CH3_RXOUTCLK_FREQ_REG * 1000;
+  
+  CH3_RXOUTCLK_REF_FREQ_BIN = CH3_RXOUTCLK_REF_FREQ_REG * 1000;
+  
+  CH3_TXOUTCLK_FREQ_BIN = CH3_TXOUTCLK_FREQ_REG * 1000;
+  
+  CH3_TXOUTCLK_REF_FREQ_BIN = CH3_TXOUTCLK_REF_FREQ_REG * 1000;
+  
+  end
+`endif
+
+`ifndef XIL_XECLIB
+  always @ (trig_attr) begin
+    #1;
+    if ((attr_test == 1'b1) ||
+        (CH0_RXOUTCLK_FREQ_REG < 0.0000001 || CH0_RXOUTCLK_FREQ_REG > 1000.0000000)) begin
+      $display("Error: [Unisim %s-101] CH0_RXOUTCLK_FREQ attribute is set to %f.  Legal values for this attribute are 0.0000001 to 1000.0000000. Instance: %m", MODULE_NAME, CH0_RXOUTCLK_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH0_RXOUTCLK_REF_FREQ_REG < 60.0000000 || CH0_RXOUTCLK_REF_FREQ_REG > 820.0000000)) begin
+      $display("Error: [Unisim %s-102] CH0_RXOUTCLK_REF_FREQ attribute is set to %f.  Legal values for this attribute are 60.0000000 to 820.0000000. Instance: %m", MODULE_NAME, CH0_RXOUTCLK_REF_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        ((CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTGREFCLK") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK0") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK1") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK0") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK1") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK0") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK1") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTGREFCLK") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK0") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK1") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK0") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK1") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK0") &&
+         (CH0_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK1"))) begin
+      $display("Error: [Unisim %s-103] CH0_RXOUTCLK_REF_SOURCE attribute is set to %s.  Legal values for this attribute are HSCLK0_LCPLLGTGREFCLK, HSCLK0_LCPLLGTREFCLK0, HSCLK0_LCPLLGTREFCLK1, HSCLK0_LCPLLNORTHREFCLK0, HSCLK0_LCPLLNORTHREFCLK1, HSCLK0_LCPLLSOUTHREFCLK0, HSCLK0_LCPLLSOUTHREFCLK1, HSCLK1_LCPLLGTGREFCLK, HSCLK1_LCPLLGTREFCLK0, HSCLK1_LCPLLGTREFCLK1, HSCLK1_LCPLLNORTHREFCLK0, HSCLK1_LCPLLNORTHREFCLK1, HSCLK1_LCPLLSOUTHREFCLK0 or HSCLK1_LCPLLSOUTHREFCLK1. Instance: %m", MODULE_NAME, CH0_RXOUTCLK_REF_SOURCE_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH0_TXOUTCLK_FREQ_REG < 0.0000001 || CH0_TXOUTCLK_FREQ_REG > 1000.0000000)) begin
+      $display("Error: [Unisim %s-104] CH0_TXOUTCLK_FREQ attribute is set to %f.  Legal values for this attribute are 0.0000001 to 1000.0000000. Instance: %m", MODULE_NAME, CH0_TXOUTCLK_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH0_TXOUTCLK_REF_FREQ_REG < 60.0000000 || CH0_TXOUTCLK_REF_FREQ_REG > 820.0000000)) begin
+      $display("Error: [Unisim %s-105] CH0_TXOUTCLK_REF_FREQ attribute is set to %f.  Legal values for this attribute are 60.0000000 to 820.0000000. Instance: %m", MODULE_NAME, CH0_TXOUTCLK_REF_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        ((CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTGREFCLK") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK0") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK1") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK0") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK1") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK0") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK1") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTGREFCLK") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK0") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK1") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK0") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK1") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK0") &&
+         (CH0_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK1"))) begin
+      $display("Error: [Unisim %s-106] CH0_TXOUTCLK_REF_SOURCE attribute is set to %s.  Legal values for this attribute are HSCLK0_LCPLLGTGREFCLK, HSCLK0_LCPLLGTREFCLK0, HSCLK0_LCPLLGTREFCLK1, HSCLK0_LCPLLNORTHREFCLK0, HSCLK0_LCPLLNORTHREFCLK1, HSCLK0_LCPLLSOUTHREFCLK0, HSCLK0_LCPLLSOUTHREFCLK1, HSCLK1_LCPLLGTGREFCLK, HSCLK1_LCPLLGTREFCLK0, HSCLK1_LCPLLGTREFCLK1, HSCLK1_LCPLLNORTHREFCLK0, HSCLK1_LCPLLNORTHREFCLK1, HSCLK1_LCPLLSOUTHREFCLK0 or HSCLK1_LCPLLSOUTHREFCLK1. Instance: %m", MODULE_NAME, CH0_TXOUTCLK_REF_SOURCE_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH1_RXOUTCLK_FREQ_REG < 0.0000001 || CH1_RXOUTCLK_FREQ_REG > 1000.0000000)) begin
+      $display("Error: [Unisim %s-107] CH1_RXOUTCLK_FREQ attribute is set to %f.  Legal values for this attribute are 0.0000001 to 1000.0000000. Instance: %m", MODULE_NAME, CH1_RXOUTCLK_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH1_RXOUTCLK_REF_FREQ_REG < 60.0000000 || CH1_RXOUTCLK_REF_FREQ_REG > 820.0000000)) begin
+      $display("Error: [Unisim %s-108] CH1_RXOUTCLK_REF_FREQ attribute is set to %f.  Legal values for this attribute are 60.0000000 to 820.0000000. Instance: %m", MODULE_NAME, CH1_RXOUTCLK_REF_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        ((CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTGREFCLK") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK0") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK1") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK0") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK1") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK0") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK1") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTGREFCLK") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK0") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK1") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK0") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK1") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK0") &&
+         (CH1_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK1"))) begin
+      $display("Error: [Unisim %s-109] CH1_RXOUTCLK_REF_SOURCE attribute is set to %s.  Legal values for this attribute are HSCLK0_LCPLLGTGREFCLK, HSCLK0_LCPLLGTREFCLK0, HSCLK0_LCPLLGTREFCLK1, HSCLK0_LCPLLNORTHREFCLK0, HSCLK0_LCPLLNORTHREFCLK1, HSCLK0_LCPLLSOUTHREFCLK0, HSCLK0_LCPLLSOUTHREFCLK1, HSCLK1_LCPLLGTGREFCLK, HSCLK1_LCPLLGTREFCLK0, HSCLK1_LCPLLGTREFCLK1, HSCLK1_LCPLLNORTHREFCLK0, HSCLK1_LCPLLNORTHREFCLK1, HSCLK1_LCPLLSOUTHREFCLK0 or HSCLK1_LCPLLSOUTHREFCLK1. Instance: %m", MODULE_NAME, CH1_RXOUTCLK_REF_SOURCE_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH1_TXOUTCLK_FREQ_REG < 0.0000001 || CH1_TXOUTCLK_FREQ_REG > 1000.0000000)) begin
+      $display("Error: [Unisim %s-110] CH1_TXOUTCLK_FREQ attribute is set to %f.  Legal values for this attribute are 0.0000001 to 1000.0000000. Instance: %m", MODULE_NAME, CH1_TXOUTCLK_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH1_TXOUTCLK_REF_FREQ_REG < 60.0000000 || CH1_TXOUTCLK_REF_FREQ_REG > 820.0000000)) begin
+      $display("Error: [Unisim %s-111] CH1_TXOUTCLK_REF_FREQ attribute is set to %f.  Legal values for this attribute are 60.0000000 to 820.0000000. Instance: %m", MODULE_NAME, CH1_TXOUTCLK_REF_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        ((CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTGREFCLK") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK0") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK1") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK0") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK1") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK0") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK1") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTGREFCLK") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK0") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK1") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK0") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK1") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK0") &&
+         (CH1_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK1"))) begin
+      $display("Error: [Unisim %s-112] CH1_TXOUTCLK_REF_SOURCE attribute is set to %s.  Legal values for this attribute are HSCLK0_LCPLLGTGREFCLK, HSCLK0_LCPLLGTREFCLK0, HSCLK0_LCPLLGTREFCLK1, HSCLK0_LCPLLNORTHREFCLK0, HSCLK0_LCPLLNORTHREFCLK1, HSCLK0_LCPLLSOUTHREFCLK0, HSCLK0_LCPLLSOUTHREFCLK1, HSCLK1_LCPLLGTGREFCLK, HSCLK1_LCPLLGTREFCLK0, HSCLK1_LCPLLGTREFCLK1, HSCLK1_LCPLLNORTHREFCLK0, HSCLK1_LCPLLNORTHREFCLK1, HSCLK1_LCPLLSOUTHREFCLK0 or HSCLK1_LCPLLSOUTHREFCLK1. Instance: %m", MODULE_NAME, CH1_TXOUTCLK_REF_SOURCE_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH2_RXOUTCLK_FREQ_REG < 0.0000001 || CH2_RXOUTCLK_FREQ_REG > 1000.0000000)) begin
+      $display("Error: [Unisim %s-113] CH2_RXOUTCLK_FREQ attribute is set to %f.  Legal values for this attribute are 0.0000001 to 1000.0000000. Instance: %m", MODULE_NAME, CH2_RXOUTCLK_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH2_RXOUTCLK_REF_FREQ_REG < 60.0000000 || CH2_RXOUTCLK_REF_FREQ_REG > 820.0000000)) begin
+      $display("Error: [Unisim %s-114] CH2_RXOUTCLK_REF_FREQ attribute is set to %f.  Legal values for this attribute are 60.0000000 to 820.0000000. Instance: %m", MODULE_NAME, CH2_RXOUTCLK_REF_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        ((CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTGREFCLK") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK0") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK1") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK0") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK1") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK0") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK1") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTGREFCLK") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK0") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK1") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK0") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK1") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK0") &&
+         (CH2_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK1"))) begin
+      $display("Error: [Unisim %s-115] CH2_RXOUTCLK_REF_SOURCE attribute is set to %s.  Legal values for this attribute are HSCLK0_LCPLLGTGREFCLK, HSCLK0_LCPLLGTREFCLK0, HSCLK0_LCPLLGTREFCLK1, HSCLK0_LCPLLNORTHREFCLK0, HSCLK0_LCPLLNORTHREFCLK1, HSCLK0_LCPLLSOUTHREFCLK0, HSCLK0_LCPLLSOUTHREFCLK1, HSCLK1_LCPLLGTGREFCLK, HSCLK1_LCPLLGTREFCLK0, HSCLK1_LCPLLGTREFCLK1, HSCLK1_LCPLLNORTHREFCLK0, HSCLK1_LCPLLNORTHREFCLK1, HSCLK1_LCPLLSOUTHREFCLK0 or HSCLK1_LCPLLSOUTHREFCLK1. Instance: %m", MODULE_NAME, CH2_RXOUTCLK_REF_SOURCE_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH2_TXOUTCLK_FREQ_REG < 0.0000001 || CH2_TXOUTCLK_FREQ_REG > 1000.0000000)) begin
+      $display("Error: [Unisim %s-116] CH2_TXOUTCLK_FREQ attribute is set to %f.  Legal values for this attribute are 0.0000001 to 1000.0000000. Instance: %m", MODULE_NAME, CH2_TXOUTCLK_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH2_TXOUTCLK_REF_FREQ_REG < 60.0000000 || CH2_TXOUTCLK_REF_FREQ_REG > 820.0000000)) begin
+      $display("Error: [Unisim %s-117] CH2_TXOUTCLK_REF_FREQ attribute is set to %f.  Legal values for this attribute are 60.0000000 to 820.0000000. Instance: %m", MODULE_NAME, CH2_TXOUTCLK_REF_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        ((CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTGREFCLK") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK0") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK1") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK0") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK1") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK0") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK1") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTGREFCLK") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK0") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK1") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK0") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK1") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK0") &&
+         (CH2_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK1"))) begin
+      $display("Error: [Unisim %s-118] CH2_TXOUTCLK_REF_SOURCE attribute is set to %s.  Legal values for this attribute are HSCLK0_LCPLLGTGREFCLK, HSCLK0_LCPLLGTREFCLK0, HSCLK0_LCPLLGTREFCLK1, HSCLK0_LCPLLNORTHREFCLK0, HSCLK0_LCPLLNORTHREFCLK1, HSCLK0_LCPLLSOUTHREFCLK0, HSCLK0_LCPLLSOUTHREFCLK1, HSCLK1_LCPLLGTGREFCLK, HSCLK1_LCPLLGTREFCLK0, HSCLK1_LCPLLGTREFCLK1, HSCLK1_LCPLLNORTHREFCLK0, HSCLK1_LCPLLNORTHREFCLK1, HSCLK1_LCPLLSOUTHREFCLK0 or HSCLK1_LCPLLSOUTHREFCLK1. Instance: %m", MODULE_NAME, CH2_TXOUTCLK_REF_SOURCE_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH3_RXOUTCLK_FREQ_REG < 0.0000001 || CH3_RXOUTCLK_FREQ_REG > 1000.0000000)) begin
+      $display("Error: [Unisim %s-119] CH3_RXOUTCLK_FREQ attribute is set to %f.  Legal values for this attribute are 0.0000001 to 1000.0000000. Instance: %m", MODULE_NAME, CH3_RXOUTCLK_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH3_RXOUTCLK_REF_FREQ_REG < 60.0000000 || CH3_RXOUTCLK_REF_FREQ_REG > 820.0000000)) begin
+      $display("Error: [Unisim %s-120] CH3_RXOUTCLK_REF_FREQ attribute is set to %f.  Legal values for this attribute are 60.0000000 to 820.0000000. Instance: %m", MODULE_NAME, CH3_RXOUTCLK_REF_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        ((CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTGREFCLK") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK0") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK1") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK0") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK1") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK0") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK1") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTGREFCLK") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK0") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK1") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK0") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK1") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK0") &&
+         (CH3_RXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK1"))) begin
+      $display("Error: [Unisim %s-121] CH3_RXOUTCLK_REF_SOURCE attribute is set to %s.  Legal values for this attribute are HSCLK0_LCPLLGTGREFCLK, HSCLK0_LCPLLGTREFCLK0, HSCLK0_LCPLLGTREFCLK1, HSCLK0_LCPLLNORTHREFCLK0, HSCLK0_LCPLLNORTHREFCLK1, HSCLK0_LCPLLSOUTHREFCLK0, HSCLK0_LCPLLSOUTHREFCLK1, HSCLK1_LCPLLGTGREFCLK, HSCLK1_LCPLLGTREFCLK0, HSCLK1_LCPLLGTREFCLK1, HSCLK1_LCPLLNORTHREFCLK0, HSCLK1_LCPLLNORTHREFCLK1, HSCLK1_LCPLLSOUTHREFCLK0 or HSCLK1_LCPLLSOUTHREFCLK1. Instance: %m", MODULE_NAME, CH3_RXOUTCLK_REF_SOURCE_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH3_TXOUTCLK_FREQ_REG < 0.0000001 || CH3_TXOUTCLK_FREQ_REG > 1000.0000000)) begin
+      $display("Error: [Unisim %s-122] CH3_TXOUTCLK_FREQ attribute is set to %f.  Legal values for this attribute are 0.0000001 to 1000.0000000. Instance: %m", MODULE_NAME, CH3_TXOUTCLK_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        (CH3_TXOUTCLK_REF_FREQ_REG < 60.0000000 || CH3_TXOUTCLK_REF_FREQ_REG > 820.0000000)) begin
+      $display("Error: [Unisim %s-123] CH3_TXOUTCLK_REF_FREQ attribute is set to %f.  Legal values for this attribute are 60.0000000 to 820.0000000. Instance: %m", MODULE_NAME, CH3_TXOUTCLK_REF_FREQ_REG);
+      attr_err = 1'b1;
+    end
+    
+    if ((attr_test == 1'b1) ||
+        ((CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTGREFCLK") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK0") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLGTREFCLK1") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK0") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLNORTHREFCLK1") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK0") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK0_LCPLLSOUTHREFCLK1") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTGREFCLK") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK0") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLGTREFCLK1") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK0") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLNORTHREFCLK1") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK0") &&
+         (CH3_TXOUTCLK_REF_SOURCE_REG != "HSCLK1_LCPLLSOUTHREFCLK1"))) begin
+      $display("Error: [Unisim %s-124] CH3_TXOUTCLK_REF_SOURCE attribute is set to %s.  Legal values for this attribute are HSCLK0_LCPLLGTGREFCLK, HSCLK0_LCPLLGTREFCLK0, HSCLK0_LCPLLGTREFCLK1, HSCLK0_LCPLLNORTHREFCLK0, HSCLK0_LCPLLNORTHREFCLK1, HSCLK0_LCPLLSOUTHREFCLK0, HSCLK0_LCPLLSOUTHREFCLK1, HSCLK1_LCPLLGTGREFCLK, HSCLK1_LCPLLGTREFCLK0, HSCLK1_LCPLLGTREFCLK1, HSCLK1_LCPLLNORTHREFCLK0, HSCLK1_LCPLLNORTHREFCLK1, HSCLK1_LCPLLSOUTHREFCLK0 or HSCLK1_LCPLLSOUTHREFCLK1. Instance: %m", MODULE_NAME, CH3_TXOUTCLK_REF_SOURCE_REG);
+      attr_err = 1'b1;
+    end
+    
+    if (attr_err == 1'b1) #1 $finish;
+  end
+`endif
+
+
+initial begin
+if ($test$plusargs ("GEN_BYPASS")) begin
+		$display("xilinx_hier_bypass_ports:%m XIL_PORT_SPEC:in:integer:CH0_GTM2RXN:CH0_GTM2RXN_integer in:integer:CH0_GTM2RXP:CH0_GTM2RXP_integer in:integer:CH1_GTM2RXN:CH1_GTM2RXN_integer in:integer:CH1_GTM2RXP:CH1_GTM2RXP_integer in:integer:CH2_GTM2RXN:CH2_GTM2RXN_integer in:integer:CH2_GTM2RXP:CH2_GTM2RXP_integer in:integer:CH3_GTM2RXN:CH3_GTM2RXN_integer in:integer:CH3_GTM2RXP:CH3_GTM2RXP_integer out:integer:CH0_GTM2TXN:CH0_GTM2TXN_integer out:integer:CH0_GTM2TXP:CH0_GTM2TXP_integer out:integer:CH1_GTM2TXN:CH1_GTM2TXN_integer out:integer:CH1_GTM2TXP:CH1_GTM2TXP_integer out:integer:CH2_GTM2TXN:CH2_GTM2TXN_integer out:integer:CH2_GTM2TXP:CH2_GTM2TXP_integer out:integer:CH3_GTM2TXN:CH3_GTM2TXN_integer out:integer:CH3_GTM2TXP:CH3_GTM2TXP_integer");
+    #0 $finish;
+  end
+end
+
+  SIP_GTM2_QUAD #(
+    .MEMORY_INIT_FILE (MEMORY_INIT_FILE),
+    .STAT_NPI_REG_LIST (STAT_NPI_REG_LIST)
+) SIP_GTM2_QUAD_INST (
+    .CH0_RXOUTCLK_FREQ (CH0_RXOUTCLK_FREQ_BIN),
+    .CH0_RXOUTCLK_REF_FREQ (CH0_RXOUTCLK_REF_FREQ_BIN),
+    .CH0_RXOUTCLK_REF_SOURCE (CH0_RXOUTCLK_REF_SOURCE_REG),
+    .CH0_TXOUTCLK_FREQ (CH0_TXOUTCLK_FREQ_BIN),
+    .CH0_TXOUTCLK_REF_FREQ (CH0_TXOUTCLK_REF_FREQ_BIN),
+    .CH0_TXOUTCLK_REF_SOURCE (CH0_TXOUTCLK_REF_SOURCE_REG),
+    .CH1_RXOUTCLK_FREQ (CH1_RXOUTCLK_FREQ_BIN),
+    .CH1_RXOUTCLK_REF_FREQ (CH1_RXOUTCLK_REF_FREQ_BIN),
+    .CH1_RXOUTCLK_REF_SOURCE (CH1_RXOUTCLK_REF_SOURCE_REG),
+    .CH1_TXOUTCLK_FREQ (CH1_TXOUTCLK_FREQ_BIN),
+    .CH1_TXOUTCLK_REF_FREQ (CH1_TXOUTCLK_REF_FREQ_BIN),
+    .CH1_TXOUTCLK_REF_SOURCE (CH1_TXOUTCLK_REF_SOURCE_REG),
+    .CH2_RXOUTCLK_FREQ (CH2_RXOUTCLK_FREQ_BIN),
+    .CH2_RXOUTCLK_REF_FREQ (CH2_RXOUTCLK_REF_FREQ_BIN),
+    .CH2_RXOUTCLK_REF_SOURCE (CH2_RXOUTCLK_REF_SOURCE_REG),
+    .CH2_TXOUTCLK_FREQ (CH2_TXOUTCLK_FREQ_BIN),
+    .CH2_TXOUTCLK_REF_FREQ (CH2_TXOUTCLK_REF_FREQ_BIN),
+    .CH2_TXOUTCLK_REF_SOURCE (CH2_TXOUTCLK_REF_SOURCE_REG),
+    .CH3_RXOUTCLK_FREQ (CH3_RXOUTCLK_FREQ_BIN),
+    .CH3_RXOUTCLK_REF_FREQ (CH3_RXOUTCLK_REF_FREQ_BIN),
+    .CH3_RXOUTCLK_REF_SOURCE (CH3_RXOUTCLK_REF_SOURCE_REG),
+    .CH3_TXOUTCLK_FREQ (CH3_TXOUTCLK_FREQ_BIN),
+    .CH3_TXOUTCLK_REF_FREQ (CH3_TXOUTCLK_REF_FREQ_BIN),
+    .CH3_TXOUTCLK_REF_SOURCE (CH3_TXOUTCLK_REF_SOURCE_REG),
+    .CHANNEL_CONNECTIVITY (CHANNEL_CONNECTIVITY_REG),
+    .BUFG_GT_RSVD (BUFG_GT_RSVD_out),
+    .CH0_BUFGTCE (CH0_BUFGTCE_out),
+    .CH0_BUFGTCEMASK (CH0_BUFGTCEMASK_out),
+    .CH0_BUFGTDIV (CH0_BUFGTDIV_out),
+    .CH0_BUFGTRST (CH0_BUFGTRST_out),
+    .CH0_BUFGTRSTMASK (CH0_BUFGTRSTMASK_out),
+    .CH0_DMONITOROUT (CH0_DMONITOROUT_out),
+    .CH0_DMONITOROUTCLK (CH0_DMONITOROUTCLK_out),
+   // .CH0_GTM2TXN (CH0_GTM2TXN_out),
+   // .CH0_GTM2TXP (CH0_GTM2TXP_out),
+    .CH0_GTM2TXN (CH0_GTM2TXN_integer),
+    .CH0_GTM2TXP (CH0_GTM2TXP_integer),
+    .CH0_MNGPWRTOKENOUT (CH0_MNGPWRTOKENOUT_out),
+    .CH0_PHYREADY (CH0_PHYREADY_out),
+    .CH0_PHYSTATUS (CH0_PHYSTATUS_out),
+    .CH0_RXBUFSTATUS (CH0_RXBUFSTATUS_out),
+    .CH0_RXBYTEISALIGNED (CH0_RXBYTEISALIGNED_out),
+    .CH0_RXBYTEREALIGN (CH0_RXBYTEREALIGN_out),
+    .CH0_RXCHANBONDSEQ (CH0_RXCHANBONDSEQ_out),
+    .CH0_RXCHBONDO (CH0_RXCHBONDO_out),
+    .CH0_RXCOMMADET (CH0_RXCOMMADET_out),
+    .CH0_RXDATA (CH0_RXDATA_out),
+    .CH0_RXELECIDLE (CH0_RXELECIDLE_out),
+    .CH0_RXOUTCLK (CH0_RXOUTCLK_out),
+    .CH0_RXOUTCLKVALID (CH0_RXOUTCLKVALID_out),
+    .CH0_RXRESETDONE (CH0_RXRESETDONE_out),
+    .CH0_RXSLIDERDY (CH0_RXSLIDERDY_out),
+    .CH0_RXSLIPDONE (CH0_RXSLIPDONE_out),
+    .CH0_RXSSCLK (CH0_RXSSCLK_out),
+    .CH0_RXSTATUS (CH0_RXSTATUS_out),
+    .CH0_RXVALID (CH0_RXVALID_out),
+    .CH0_SCANCNTRLOUT (CH0_SCANCNTRLOUT_out),
+    .CH0_SCANOUT (CH0_SCANOUT_out),
+    .CH0_TXBUFSTATUS (CH0_TXBUFSTATUS_out),
+    .CH0_TXCOMFINISH (CH0_TXCOMFINISH_out),
+    .CH0_TXOUTCLK (CH0_TXOUTCLK_out),
+    .CH0_TXRESETDONE (CH0_TXRESETDONE_out),
+    .CH0_UPI2CMDERROR (CH0_UPI2CMDERROR_out),
+    .CH0_UPI2CMDREADY (CH0_UPI2CMDREADY_out),
+    .CH0_UPI2CMDRESP (CH0_UPI2CMDRESP_out),
+    .CH0_UPI2MSGREQ (CH0_UPI2MSGREQ_out),
+    .CH1_BUFGTCE (CH1_BUFGTCE_out),
+    .CH1_BUFGTCEMASK (CH1_BUFGTCEMASK_out),
+    .CH1_BUFGTDIV (CH1_BUFGTDIV_out),
+    .CH1_BUFGTRST (CH1_BUFGTRST_out),
+    .CH1_BUFGTRSTMASK (CH1_BUFGTRSTMASK_out),
+    .CH1_DMONITOROUT (CH1_DMONITOROUT_out),
+    .CH1_DMONITOROUTCLK (CH1_DMONITOROUTCLK_out),
+  //  .CH1_GTM2TXN (CH1_GTM2TXN_out),
+  //  .CH1_GTM2TXP (CH1_GTM2TXP_out),
+    .CH1_GTM2TXN (CH1_GTM2TXN_integer),
+    .CH1_GTM2TXP (CH1_GTM2TXP_integer),
+    .CH1_MNGPWRTOKENOUT (CH1_MNGPWRTOKENOUT_out),
+    .CH1_PHYREADY (CH1_PHYREADY_out),
+    .CH1_PHYSTATUS (CH1_PHYSTATUS_out),
+    .CH1_RXBUFSTATUS (CH1_RXBUFSTATUS_out),
+    .CH1_RXBYTEISALIGNED (CH1_RXBYTEISALIGNED_out),
+    .CH1_RXBYTEREALIGN (CH1_RXBYTEREALIGN_out),
+    .CH1_RXCHANBONDSEQ (CH1_RXCHANBONDSEQ_out),
+    .CH1_RXCHBONDO (CH1_RXCHBONDO_out),
+    .CH1_RXCOMMADET (CH1_RXCOMMADET_out),
+    .CH1_RXDATA (CH1_RXDATA_out),
+    .CH1_RXELECIDLE (CH1_RXELECIDLE_out),
+    .CH1_RXOUTCLK (CH1_RXOUTCLK_out),
+    .CH1_RXOUTCLKVALID (CH1_RXOUTCLKVALID_out),
+    .CH1_RXRESETDONE (CH1_RXRESETDONE_out),
+    .CH1_RXSLIDERDY (CH1_RXSLIDERDY_out),
+    .CH1_RXSLIPDONE (CH1_RXSLIPDONE_out),
+    .CH1_RXSSCLK (CH1_RXSSCLK_out),
+    .CH1_RXSTATUS (CH1_RXSTATUS_out),
+    .CH1_RXVALID (CH1_RXVALID_out),
+    .CH1_SCANCNTRLOUT (CH1_SCANCNTRLOUT_out),
+    .CH1_SCANOUT (CH1_SCANOUT_out),
+    .CH1_TXBUFSTATUS (CH1_TXBUFSTATUS_out),
+    .CH1_TXCOMFINISH (CH1_TXCOMFINISH_out),
+    .CH1_TXOUTCLK (CH1_TXOUTCLK_out),
+    .CH1_TXRESETDONE (CH1_TXRESETDONE_out),
+    .CH1_UPI2CMDERROR (CH1_UPI2CMDERROR_out),
+    .CH1_UPI2CMDREADY (CH1_UPI2CMDREADY_out),
+    .CH1_UPI2CMDRESP (CH1_UPI2CMDRESP_out),
+    .CH1_UPI2MSGREQ (CH1_UPI2MSGREQ_out),
+    .CH2_BUFGTCE (CH2_BUFGTCE_out),
+    .CH2_BUFGTCEMASK (CH2_BUFGTCEMASK_out),
+    .CH2_BUFGTDIV (CH2_BUFGTDIV_out),
+    .CH2_BUFGTRST (CH2_BUFGTRST_out),
+    .CH2_BUFGTRSTMASK (CH2_BUFGTRSTMASK_out),
+    .CH2_DMONITOROUT (CH2_DMONITOROUT_out),
+    .CH2_DMONITOROUTCLK (CH2_DMONITOROUTCLK_out),
+  //  .CH2_GTM2TXN (CH2_GTM2TXN_out),
+  //  .CH2_GTM2TXP (CH2_GTM2TXP_out),
+    .CH2_GTM2TXN (CH2_GTM2TXN_integer),
+    .CH2_GTM2TXP (CH2_GTM2TXP_integer),
+    .CH2_MNGPWRTOKENOUT (CH2_MNGPWRTOKENOUT_out),
+    .CH2_PHYREADY (CH2_PHYREADY_out),
+    .CH2_PHYSTATUS (CH2_PHYSTATUS_out),
+    .CH2_RXBUFSTATUS (CH2_RXBUFSTATUS_out),
+    .CH2_RXBYTEISALIGNED (CH2_RXBYTEISALIGNED_out),
+    .CH2_RXBYTEREALIGN (CH2_RXBYTEREALIGN_out),
+    .CH2_RXCHANBONDSEQ (CH2_RXCHANBONDSEQ_out),
+    .CH2_RXCHBONDO (CH2_RXCHBONDO_out),
+    .CH2_RXCOMMADET (CH2_RXCOMMADET_out),
+    .CH2_RXDATA (CH2_RXDATA_out),
+    .CH2_RXELECIDLE (CH2_RXELECIDLE_out),
+    .CH2_RXOUTCLK (CH2_RXOUTCLK_out),
+    .CH2_RXOUTCLKVALID (CH2_RXOUTCLKVALID_out),
+    .CH2_RXRESETDONE (CH2_RXRESETDONE_out),
+    .CH2_RXSLIDERDY (CH2_RXSLIDERDY_out),
+    .CH2_RXSLIPDONE (CH2_RXSLIPDONE_out),
+    .CH2_RXSSCLK (CH2_RXSSCLK_out),
+    .CH2_RXSTATUS (CH2_RXSTATUS_out),
+    .CH2_RXVALID (CH2_RXVALID_out),
+    .CH2_SCANCNTRLOUT (CH2_SCANCNTRLOUT_out),
+    .CH2_SCANOUT (CH2_SCANOUT_out),
+    .CH2_TXBUFSTATUS (CH2_TXBUFSTATUS_out),
+    .CH2_TXCOMFINISH (CH2_TXCOMFINISH_out),
+    .CH2_TXOUTCLK (CH2_TXOUTCLK_out),
+    .CH2_TXRESETDONE (CH2_TXRESETDONE_out),
+    .CH2_UPI2CMDERROR (CH2_UPI2CMDERROR_out),
+    .CH2_UPI2CMDREADY (CH2_UPI2CMDREADY_out),
+    .CH2_UPI2CMDRESP (CH2_UPI2CMDRESP_out),
+    .CH2_UPI2MSGREQ (CH2_UPI2MSGREQ_out),
+    .CH3_BUFGTCE (CH3_BUFGTCE_out),
+    .CH3_BUFGTCEMASK (CH3_BUFGTCEMASK_out),
+    .CH3_BUFGTDIV (CH3_BUFGTDIV_out),
+    .CH3_BUFGTRST (CH3_BUFGTRST_out),
+    .CH3_BUFGTRSTMASK (CH3_BUFGTRSTMASK_out),
+    .CH3_DMONITOROUT (CH3_DMONITOROUT_out),
+    .CH3_DMONITOROUTCLK (CH3_DMONITOROUTCLK_out),
+   // .CH3_GTM2TXN (CH3_GTM2TXN_out),
+   // .CH3_GTM2TXP (CH3_GTM2TXP_out),
+    .CH3_GTM2TXN (CH3_GTM2TXN_integer),
+    .CH3_GTM2TXP (CH3_GTM2TXP_integer),
+    .CH3_MNGPWRTOKENOUT (CH3_MNGPWRTOKENOUT_out),
+    .CH3_PHYREADY (CH3_PHYREADY_out),
+    .CH3_PHYSTATUS (CH3_PHYSTATUS_out),
+    .CH3_RXBUFSTATUS (CH3_RXBUFSTATUS_out),
+    .CH3_RXBYTEISALIGNED (CH3_RXBYTEISALIGNED_out),
+    .CH3_RXBYTEREALIGN (CH3_RXBYTEREALIGN_out),
+    .CH3_RXCHANBONDSEQ (CH3_RXCHANBONDSEQ_out),
+    .CH3_RXCHBONDO (CH3_RXCHBONDO_out),
+    .CH3_RXCOMMADET (CH3_RXCOMMADET_out),
+    .CH3_RXDATA (CH3_RXDATA_out),
+    .CH3_RXELECIDLE (CH3_RXELECIDLE_out),
+    .CH3_RXOUTCLK (CH3_RXOUTCLK_out),
+    .CH3_RXOUTCLKVALID (CH3_RXOUTCLKVALID_out),
+    .CH3_RXRESETDONE (CH3_RXRESETDONE_out),
+    .CH3_RXSLIDERDY (CH3_RXSLIDERDY_out),
+    .CH3_RXSLIPDONE (CH3_RXSLIPDONE_out),
+    .CH3_RXSSCLK (CH3_RXSSCLK_out),
+    .CH3_RXSTATUS (CH3_RXSTATUS_out),
+    .CH3_RXVALID (CH3_RXVALID_out),
+    .CH3_SCANCNTRLOUT (CH3_SCANCNTRLOUT_out),
+    .CH3_SCANOUT (CH3_SCANOUT_out),
+    .CH3_TXBUFSTATUS (CH3_TXBUFSTATUS_out),
+    .CH3_TXCOMFINISH (CH3_TXCOMFINISH_out),
+    .CH3_TXOUTCLK (CH3_TXOUTCLK_out),
+    .CH3_TXRESETDONE (CH3_TXRESETDONE_out),
+    .CH3_UPI2CMDERROR (CH3_UPI2CMDERROR_out),
+    .CH3_UPI2CMDREADY (CH3_UPI2CMDREADY_out),
+    .CH3_UPI2CMDRESP (CH3_UPI2CMDRESP_out),
+    .CH3_UPI2MSGREQ (CH3_UPI2MSGREQ_out),
+    .GPO (GPO_out),
+    .GTPOWERGOOD (GTPOWERGOOD_out),
+    .HSCLK0_LCPLLFREQLOCK (HSCLK0_LCPLLFREQLOCK_out),
+    .HSCLK0_LCPLLREFCLKMONITOR (HSCLK0_LCPLLREFCLKMONITOR_out),
+    .HSCLK0_RPLLFREQLOCK (HSCLK0_RPLLFREQLOCK_out),
+    .HSCLK0_RPLLREFCLKMONITOR (HSCLK0_RPLLREFCLKMONITOR_out),
+    .HSCLK0_RXRECCLKOUT0 (HSCLK0_RXRECCLKOUT0_out),
+    .HSCLK0_RXRECCLKOUT1 (HSCLK0_RXRECCLKOUT1_out),
+    .HSCLK1_LCPLLFREQLOCK (HSCLK1_LCPLLFREQLOCK_out),
+    .HSCLK1_LCPLLREFCLKMONITOR (HSCLK1_LCPLLREFCLKMONITOR_out),
+    .HSCLK1_RPLLFREQLOCK (HSCLK1_RPLLFREQLOCK_out),
+    .HSCLK1_RPLLREFCLKMONITOR (HSCLK1_RPLLREFCLKMONITOR_out),
+    .HSCLK1_RXRECCLKOUT0 (HSCLK1_RXRECCLKOUT0_out),
+    .HSCLK1_RXRECCLKOUT1 (HSCLK1_RXRECCLKOUT1_out),
+    .MCAEVENT (MCAEVENT_out),
+    .MCAEVENTVAL (MCAEVENTVAL_out),
+    .REFCLK0_CLKOUT_SEL (REFCLK0_CLKOUT_SEL_out),
+    .REFCLK0_CLKTESTSIGINT (REFCLK0_CLKTESTSIGINT_out),
+    .REFCLK0_CTL_DRV_EN_CAL (REFCLK0_CTL_DRV_EN_CAL_out),
+    .REFCLK0_CTL_DRV_SWING (REFCLK0_CTL_DRV_SWING_out),
+    .REFCLK0_ENB_VCM_STRONG (REFCLK0_ENB_VCM_STRONG_out),
+    .REFCLK0_EN_BLD (REFCLK0_EN_BLD_out),
+    .REFCLK0_EN_DC_COUP (REFCLK0_EN_DC_COUP_out),
+    .REFCLK0_EN_DRV (REFCLK0_EN_DRV_out),
+    .REFCLK0_EN_FABRIC_CK (REFCLK0_EN_FABRIC_CK_out),
+    .REFCLK0_EN_TX_PATH (REFCLK0_EN_TX_PATH_out),
+    .REFCLK0_GTREFCLKPDBINT (REFCLK0_GTREFCLKPDBINT_out),
+    .REFCLK0_HROW_CK_SEL (REFCLK0_HROW_CK_SEL_out),
+    .REFCLK0_ICNTL_RX (REFCLK0_ICNTL_RX_out),
+    .REFCLK0_ODIV2 (REFCLK0_ODIV2_out),
+    .REFCLK0_RCAL_OFFSET_SIGN (REFCLK0_RCAL_OFFSET_SIGN_out),
+    .REFCLK0_RPLL_CLK_SEL_EN (REFCLK0_RPLL_CLK_SEL_EN_out),
+    .REFCLK0_RXRECCLKSEL (REFCLK0_RXRECCLKSEL_out),
+    .REFCLK0_VCM_HIGH (REFCLK0_VCM_HIGH_out),
+    .REFCLK0_VCM_LOW (REFCLK0_VCM_LOW_out),
+    .REFCLK1_CLKOUT_SEL (REFCLK1_CLKOUT_SEL_out),
+    .REFCLK1_CLKTESTSIGINT (REFCLK1_CLKTESTSIGINT_out),
+    .REFCLK1_CTL_DRV_EN_CAL (REFCLK1_CTL_DRV_EN_CAL_out),
+    .REFCLK1_CTL_DRV_SWING (REFCLK1_CTL_DRV_SWING_out),
+    .REFCLK1_ENB_VCM_STRONG (REFCLK1_ENB_VCM_STRONG_out),
+    .REFCLK1_EN_BLD (REFCLK1_EN_BLD_out),
+    .REFCLK1_EN_DC_COUP (REFCLK1_EN_DC_COUP_out),
+    .REFCLK1_EN_DRV (REFCLK1_EN_DRV_out),
+    .REFCLK1_EN_FABRIC_CK (REFCLK1_EN_FABRIC_CK_out),
+    .REFCLK1_EN_TX_PATH (REFCLK1_EN_TX_PATH_out),
+    .REFCLK1_GTREFCLKPDBINT (REFCLK1_GTREFCLKPDBINT_out),
+    .REFCLK1_HROW_CK_SEL (REFCLK1_HROW_CK_SEL_out),
+    .REFCLK1_ICNTL_RX (REFCLK1_ICNTL_RX_out),
+    .REFCLK1_ODIV2 (REFCLK1_ODIV2_out),
+    .REFCLK1_RCAL_OFFSET_SIGN (REFCLK1_RCAL_OFFSET_SIGN_out),
+    .REFCLK1_RPLL_CLK_SEL_EN (REFCLK1_RPLL_CLK_SEL_EN_out),
+    .REFCLK1_RXRECCLKSEL (REFCLK1_RXRECCLKSEL_out),
+    .REFCLK1_VCM_HIGH (REFCLK1_VCM_HIGH_out),
+    .REFCLK1_VCM_LOW (REFCLK1_VCM_LOW_out),
+    .RXMARGINREQACK (RXMARGINREQACK_out),
+    .RXMARGINRESCMD (RXMARGINRESCMD_out),
+    .RXMARGINRESLANENUM (RXMARGINRESLANENUM_out),
+    .RXMARGINRESPAYLOAD (RXMARGINRESPAYLOAD_out),
+    .RXMARGINRESREQ (RXMARGINRESREQ_out),
+    .SCANCNTRLOUT (SCANCNTRLOUT_out),
+    .SCANOUT (SCANOUT_out),
+    .CH0_BSR_SERIAL (CH0_BSR_SERIAL_in),
+    .CH0_CSSDSTOPCLKB (CH0_CSSDSTOPCLKB_in),
+    .CH0_DMONFIFORESET (CH0_DMONFIFORESET_in),
+    .CH0_DMONITORCLK (CH0_DMONITORCLK_in),
+    .CH0_EDTUPDATEB (CH0_EDTUPDATEB_in),
+   // .CH0_GTM2RXN (CH0_GTM2RXN_in),
+   // .CH0_GTM2RXP (CH0_GTM2RXP_in),
+    .CH0_GTM2RXN (CH0_GTM2RXN_integer),
+    .CH0_GTM2RXP (CH0_GTM2RXP_integer),
+    .CH0_GTRXRESET (CH0_GTRXRESET_in),
+    .CH0_GTTXRESET (CH0_GTTXRESET_in),
+    .CH0_HSDPPCSRESET (CH0_HSDPPCSRESET_in),
+    .CH0_MNGPWRTOKENIN (CH0_MNGPWRTOKENIN_in),
+    .CH0_PCIE_LTSSM_STATE (CH0_PCIE_LTSSM_STATE_in),
+    .CH0_RXCDRHOLD (CH0_RXCDRHOLD_in),
+    .CH0_RXCHBONDI (CH0_RXCHBONDI_in),
+    .CH0_RXGEARBOXSLIP (CH0_RXGEARBOXSLIP_in),
+    .CH0_RXLATCLK (CH0_RXLATCLK_in),
+    .CH0_RXPOLARITY (CH0_RXPOLARITY_in),
+    .CH0_RXSLIDE (CH0_RXSLIDE_in),
+    .CH0_RXTERMINATION (CH0_RXTERMINATION_in),
+    .CH0_RXUSRCLK (CH0_RXUSRCLK_in),
+    .CH0_SCANCHNLMASKIN (CH0_SCANCHNLMASKIN_in),
+    .CH0_SCANCLKB (CH0_SCANCLKB_in),
+    .CH0_SCANCNTRLIN (CH0_SCANCNTRLIN_in),
+    .CH0_SCANENB (CH0_SCANENB_in),
+    .CH0_SCANIN (CH0_SCANIN_in),
+    .CH0_SCANODCCCHNLMASK (CH0_SCANODCCCHNLMASK_in),
+    .CH0_SCANRSTB (CH0_SCANRSTB_in),
+    .CH0_TSTCLK0 (CH0_TSTCLK0_in),
+    .CH0_TSTCLK1 (CH0_TSTCLK1_in),
+    .CH0_TXDATA (CH0_TXDATA_in),
+    .CH0_TXDETECTRXLOOPBACK (CH0_TXDETECTRXLOOPBACK_in),
+    .CH0_TXELECIDLE (CH0_TXELECIDLE_in),
+    .CH0_TXEMPMAIN (CH0_TXEMPMAIN_in),
+    .CH0_TXEMPPOS (CH0_TXEMPPOS_in),
+    .CH0_TXEMPPRE (CH0_TXEMPPRE_in),
+    .CH0_TXLATCLK (CH0_TXLATCLK_in),
+    .CH0_TXPOWERDOWN (CH0_TXPOWERDOWN_in),
+    .CH0_TXRATE (CH0_TXRATE_in),
+    .CH0_TXUSRCLK (CH0_TXUSRCLK_in),
+    .CH0_UPI2CMDCODE (CH0_UPI2CMDCODE_in),
+    .CH0_UPI2CMDREQ (CH0_UPI2CMDREQ_in),
+    .CH1_BSR_SERIAL (CH1_BSR_SERIAL_in),
+    .CH1_CSSDSTOPCLKB (CH1_CSSDSTOPCLKB_in),
+    .CH1_DMONFIFORESET (CH1_DMONFIFORESET_in),
+    .CH1_DMONITORCLK (CH1_DMONITORCLK_in),
+    .CH1_EDTUPDATEB (CH1_EDTUPDATEB_in),
+  //  .CH1_GTM2RXN (CH1_GTM2RXN_in),
+  //  .CH1_GTM2RXP (CH1_GTM2RXP_in),
+    .CH1_GTM2RXN (CH1_GTM2RXN_integer),
+    .CH1_GTM2RXP (CH1_GTM2RXP_integer),
+    .CH1_GTRXRESET (CH1_GTRXRESET_in),
+    .CH1_GTTXRESET (CH1_GTTXRESET_in),
+    .CH1_HSDPPCSRESET (CH1_HSDPPCSRESET_in),
+    .CH1_MNGPWRTOKENIN (CH1_MNGPWRTOKENIN_in),
+    .CH1_PCIE_LTSSM_STATE (CH1_PCIE_LTSSM_STATE_in),
+    .CH1_RXCDRHOLD (CH1_RXCDRHOLD_in),
+    .CH1_RXCHBONDI (CH1_RXCHBONDI_in),
+    .CH1_RXGEARBOXSLIP (CH1_RXGEARBOXSLIP_in),
+    .CH1_RXLATCLK (CH1_RXLATCLK_in),
+    .CH1_RXPOLARITY (CH1_RXPOLARITY_in),
+    .CH1_RXSLIDE (CH1_RXSLIDE_in),
+    .CH1_RXTERMINATION (CH1_RXTERMINATION_in),
+    .CH1_RXUSRCLK (CH1_RXUSRCLK_in),
+    .CH1_SCANCHNLMASKIN (CH1_SCANCHNLMASKIN_in),
+    .CH1_SCANCLKB (CH1_SCANCLKB_in),
+    .CH1_SCANCNTRLIN (CH1_SCANCNTRLIN_in),
+    .CH1_SCANENB (CH1_SCANENB_in),
+    .CH1_SCANIN (CH1_SCANIN_in),
+    .CH1_SCANODCCCHNLMASK (CH1_SCANODCCCHNLMASK_in),
+    .CH1_SCANRSTB (CH1_SCANRSTB_in),
+    .CH1_TSTCLK0 (CH1_TSTCLK0_in),
+    .CH1_TSTCLK1 (CH1_TSTCLK1_in),
+    .CH1_TXDATA (CH1_TXDATA_in),
+    .CH1_TXDETECTRXLOOPBACK (CH1_TXDETECTRXLOOPBACK_in),
+    .CH1_TXELECIDLE (CH1_TXELECIDLE_in),
+    .CH1_TXEMPMAIN (CH1_TXEMPMAIN_in),
+    .CH1_TXEMPPOS (CH1_TXEMPPOS_in),
+    .CH1_TXEMPPRE (CH1_TXEMPPRE_in),
+    .CH1_TXLATCLK (CH1_TXLATCLK_in),
+    .CH1_TXPOWERDOWN (CH1_TXPOWERDOWN_in),
+    .CH1_TXRATE (CH1_TXRATE_in),
+    .CH1_TXUSRCLK (CH1_TXUSRCLK_in),
+    .CH1_UPI2CMDCODE (CH1_UPI2CMDCODE_in),
+    .CH1_UPI2CMDREQ (CH1_UPI2CMDREQ_in),
+    .CH2_BSR_SERIAL (CH2_BSR_SERIAL_in),
+    .CH2_CSSDSTOPCLKB (CH2_CSSDSTOPCLKB_in),
+    .CH2_DMONFIFORESET (CH2_DMONFIFORESET_in),
+    .CH2_DMONITORCLK (CH2_DMONITORCLK_in),
+    .CH2_EDTUPDATEB (CH2_EDTUPDATEB_in),
+  //  .CH2_GTM2RXN (CH2_GTM2RXN_in),
+  //  .CH2_GTM2RXP (CH2_GTM2RXP_in),
+    .CH2_GTM2RXN (CH2_GTM2RXN_integer),
+    .CH2_GTM2RXP (CH2_GTM2RXP_integer),
+    .CH2_GTRXRESET (CH2_GTRXRESET_in),
+    .CH2_GTTXRESET (CH2_GTTXRESET_in),
+    .CH2_HSDPPCSRESET (CH2_HSDPPCSRESET_in),
+    .CH2_MNGPWRTOKENIN (CH2_MNGPWRTOKENIN_in),
+    .CH2_PCIE_LTSSM_STATE (CH2_PCIE_LTSSM_STATE_in),
+    .CH2_RXCDRHOLD (CH2_RXCDRHOLD_in),
+    .CH2_RXCHBONDI (CH2_RXCHBONDI_in),
+    .CH2_RXGEARBOXSLIP (CH2_RXGEARBOXSLIP_in),
+    .CH2_RXLATCLK (CH2_RXLATCLK_in),
+    .CH2_RXPOLARITY (CH2_RXPOLARITY_in),
+    .CH2_RXSLIDE (CH2_RXSLIDE_in),
+    .CH2_RXTERMINATION (CH2_RXTERMINATION_in),
+    .CH2_RXUSRCLK (CH2_RXUSRCLK_in),
+    .CH2_SCANCHNLMASKIN (CH2_SCANCHNLMASKIN_in),
+    .CH2_SCANCLKB (CH2_SCANCLKB_in),
+    .CH2_SCANCNTRLIN (CH2_SCANCNTRLIN_in),
+    .CH2_SCANENB (CH2_SCANENB_in),
+    .CH2_SCANIN (CH2_SCANIN_in),
+    .CH2_SCANODCCCHNLMASK (CH2_SCANODCCCHNLMASK_in),
+    .CH2_SCANRSTB (CH2_SCANRSTB_in),
+    .CH2_TSTCLK0 (CH2_TSTCLK0_in),
+    .CH2_TSTCLK1 (CH2_TSTCLK1_in),
+    .CH2_TXDATA (CH2_TXDATA_in),
+    .CH2_TXDETECTRXLOOPBACK (CH2_TXDETECTRXLOOPBACK_in),
+    .CH2_TXELECIDLE (CH2_TXELECIDLE_in),
+    .CH2_TXEMPMAIN (CH2_TXEMPMAIN_in),
+    .CH2_TXEMPPOS (CH2_TXEMPPOS_in),
+    .CH2_TXEMPPRE (CH2_TXEMPPRE_in),
+    .CH2_TXLATCLK (CH2_TXLATCLK_in),
+    .CH2_TXPOWERDOWN (CH2_TXPOWERDOWN_in),
+    .CH2_TXRATE (CH2_TXRATE_in),
+    .CH2_TXUSRCLK (CH2_TXUSRCLK_in),
+    .CH2_UPI2CMDCODE (CH2_UPI2CMDCODE_in),
+    .CH2_UPI2CMDREQ (CH2_UPI2CMDREQ_in),
+    .CH3_BSR_SERIAL (CH3_BSR_SERIAL_in),
+    .CH3_CSSDSTOPCLKB (CH3_CSSDSTOPCLKB_in),
+    .CH3_DMONFIFORESET (CH3_DMONFIFORESET_in),
+    .CH3_DMONITORCLK (CH3_DMONITORCLK_in),
+    .CH3_EDTUPDATEB (CH3_EDTUPDATEB_in),
+   // .CH3_GTM2RXN (CH3_GTM2RXN_in),
+   // .CH3_GTM2RXP (CH3_GTM2RXP_in),
+    .CH3_GTM2RXN (CH3_GTM2RXN_integer),
+    .CH3_GTM2RXP (CH3_GTM2RXP_integer),
+    .CH3_GTRXRESET (CH3_GTRXRESET_in),
+    .CH3_GTTXRESET (CH3_GTTXRESET_in),
+    .CH3_HSDPPCSRESET (CH3_HSDPPCSRESET_in),
+    .CH3_MNGPWRTOKENIN (CH3_MNGPWRTOKENIN_in),
+    .CH3_PCIE_LTSSM_STATE (CH3_PCIE_LTSSM_STATE_in),
+    .CH3_RXCDRHOLD (CH3_RXCDRHOLD_in),
+    .CH3_RXCHBONDI (CH3_RXCHBONDI_in),
+    .CH3_RXGEARBOXSLIP (CH3_RXGEARBOXSLIP_in),
+    .CH3_RXLATCLK (CH3_RXLATCLK_in),
+    .CH3_RXPOLARITY (CH3_RXPOLARITY_in),
+    .CH3_RXSLIDE (CH3_RXSLIDE_in),
+    .CH3_RXTERMINATION (CH3_RXTERMINATION_in),
+    .CH3_RXUSRCLK (CH3_RXUSRCLK_in),
+    .CH3_SCANCHNLMASKIN (CH3_SCANCHNLMASKIN_in),
+    .CH3_SCANCLKB (CH3_SCANCLKB_in),
+    .CH3_SCANCNTRLIN (CH3_SCANCNTRLIN_in),
+    .CH3_SCANENB (CH3_SCANENB_in),
+    .CH3_SCANIN (CH3_SCANIN_in),
+    .CH3_SCANODCCCHNLMASK (CH3_SCANODCCCHNLMASK_in),
+    .CH3_SCANRSTB (CH3_SCANRSTB_in),
+    .CH3_TSTCLK0 (CH3_TSTCLK0_in),
+    .CH3_TSTCLK1 (CH3_TSTCLK1_in),
+    .CH3_TXDATA (CH3_TXDATA_in),
+    .CH3_TXDETECTRXLOOPBACK (CH3_TXDETECTRXLOOPBACK_in),
+    .CH3_TXELECIDLE (CH3_TXELECIDLE_in),
+    .CH3_TXEMPMAIN (CH3_TXEMPMAIN_in),
+    .CH3_TXEMPPOS (CH3_TXEMPPOS_in),
+    .CH3_TXEMPPRE (CH3_TXEMPPRE_in),
+    .CH3_TXLATCLK (CH3_TXLATCLK_in),
+    .CH3_TXPOWERDOWN (CH3_TXPOWERDOWN_in),
+    .CH3_TXRATE (CH3_TXRATE_in),
+    .CH3_TXUSRCLK (CH3_TXUSRCLK_in),
+    .CH3_UPI2CMDCODE (CH3_UPI2CMDCODE_in),
+    .CH3_UPI2CMDREQ (CH3_UPI2CMDREQ_in),
+    .CSSDSTOPCLKB (CSSDSTOPCLKB_in),
+    .GPI (GPI_in),
+    .HSCLK0_LCPLLGTGREFCLK (HSCLK0_LCPLLGTGREFCLK_in),
+    .HSCLK0_LCPLLGTREFCLK0 (HSCLK0_LCPLLGTREFCLK0_in),
+    .HSCLK0_LCPLLGTREFCLK1 (HSCLK0_LCPLLGTREFCLK1_in),
+    .HSCLK0_LCPLLNORTHREFCLK0 (HSCLK0_LCPLLNORTHREFCLK0_in),
+    .HSCLK0_LCPLLNORTHREFCLK1 (HSCLK0_LCPLLNORTHREFCLK1_in),
+    .HSCLK0_LCPLLSDMDATA (HSCLK0_LCPLLSDMDATA_in),
+    .HSCLK0_LCPLLSDMTOGGLE (HSCLK0_LCPLLSDMTOGGLE_in),
+    .HSCLK0_LCPLLSOUTHREFCLK0 (HSCLK0_LCPLLSOUTHREFCLK0_in),
+    .HSCLK0_LCPLLSOUTHREFCLK1 (HSCLK0_LCPLLSOUTHREFCLK1_in),
+    .HSCLK0_RPLLGTGREFCLK (HSCLK0_RPLLGTGREFCLK_in),
+    .HSCLK0_RPLLGTREFCLK0 (HSCLK0_RPLLGTREFCLK0_in),
+    .HSCLK0_RPLLGTREFCLK1 (HSCLK0_RPLLGTREFCLK1_in),
+    .HSCLK0_RPLLNORTHREFCLK0 (HSCLK0_RPLLNORTHREFCLK0_in),
+    .HSCLK0_RPLLNORTHREFCLK1 (HSCLK0_RPLLNORTHREFCLK1_in),
+    .HSCLK0_RPLLSOUTHREFCLK0 (HSCLK0_RPLLSOUTHREFCLK0_in),
+    .HSCLK0_RPLLSOUTHREFCLK1 (HSCLK0_RPLLSOUTHREFCLK1_in),
+    .HSCLK1_LCPLLGTGREFCLK (HSCLK1_LCPLLGTGREFCLK_in),
+    .HSCLK1_LCPLLGTREFCLK0 (HSCLK1_LCPLLGTREFCLK0_in),
+    .HSCLK1_LCPLLGTREFCLK1 (HSCLK1_LCPLLGTREFCLK1_in),
+    .HSCLK1_LCPLLNORTHREFCLK0 (HSCLK1_LCPLLNORTHREFCLK0_in),
+    .HSCLK1_LCPLLNORTHREFCLK1 (HSCLK1_LCPLLNORTHREFCLK1_in),
+    .HSCLK1_LCPLLSDMDATA (HSCLK1_LCPLLSDMDATA_in),
+    .HSCLK1_LCPLLSDMTOGGLE (HSCLK1_LCPLLSDMTOGGLE_in),
+    .HSCLK1_LCPLLSOUTHREFCLK0 (HSCLK1_LCPLLSOUTHREFCLK0_in),
+    .HSCLK1_LCPLLSOUTHREFCLK1 (HSCLK1_LCPLLSOUTHREFCLK1_in),
+    .HSCLK1_RPLLGTGREFCLK (HSCLK1_RPLLGTGREFCLK_in),
+    .HSCLK1_RPLLGTREFCLK0 (HSCLK1_RPLLGTREFCLK0_in),
+    .HSCLK1_RPLLGTREFCLK1 (HSCLK1_RPLLGTREFCLK1_in),
+    .HSCLK1_RPLLNORTHREFCLK0 (HSCLK1_RPLLNORTHREFCLK0_in),
+    .HSCLK1_RPLLNORTHREFCLK1 (HSCLK1_RPLLNORTHREFCLK1_in),
+    .HSCLK1_RPLLSOUTHREFCLK0 (HSCLK1_RPLLSOUTHREFCLK0_in),
+    .HSCLK1_RPLLSOUTHREFCLK1 (HSCLK1_RPLLSOUTHREFCLK1_in),
+    .PCIELINKREACHTARGET (PCIELINKREACHTARGET_in),
+    .REFCLK0_CLKTESTSIG (REFCLK0_CLKTESTSIG_in),
+    .REFCLK0_ODIV2INT (REFCLK0_ODIV2INT_in),
+    .REFCLK1_CLKTESTSIG (REFCLK1_CLKTESTSIG_in),
+    .REFCLK1_ODIV2INT (REFCLK1_ODIV2INT_in),
+    .RXMARGINCLK (RXMARGINCLK_in),
+    .RXMARGINREQCMD (RXMARGINREQCMD_in),
+    .RXMARGINREQLANENUM (RXMARGINREQLANENUM_in),
+    .RXMARGINREQPAYLOAD (RXMARGINREQPAYLOAD_in),
+    .RXMARGINREQREQ (RXMARGINREQREQ_in),
+    .RXMARGINRESACK (RXMARGINRESACK_in),
+    .SCANCHNLMASKIN (SCANCHNLMASKIN_in),
+    .SCANCLKB (SCANCLKB_in),
+    .SCANCNTRLIN (SCANCNTRLIN_in),
+    .SCANEDTUPDTB (SCANEDTUPDTB_in),
+    .SCANENB (SCANENB_in),
+    .SCANIN (SCANIN_in),
+    .SCANODCCCHNLMASKIN (SCANODCCCHNLMASKIN_in),
+    .SCANRSTB (SCANRSTB_in)
+    //.GSR (glblGSR)
+  );
+
+`ifdef XIL_TIMING
+  reg notifier;
+`endif
+
+`ifndef XIL_XECLIB
+  // begin timing section
+  specify
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[0]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[10]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[11]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[12]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[13]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[14]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[15]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[16]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[17]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[18]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[19]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[1]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[20]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[21]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[22]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[23]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[24]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[25]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[26]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[27]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[28]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[29]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[2]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[30]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[31]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[3]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[4]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[5]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[6]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[7]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[8]) = (0:0:0, 0:0:0);
+    (CH0_DMONITORCLK => CH0_DMONITOROUT[9]) = (0:0:0, 0:0:0);
+    (CH0_RXUSRCLK => CH0_PHYSTATUS) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXBUFSTATUS[0]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXBUFSTATUS[1]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXBUFSTATUS[2]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[0]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[100]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[101]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[102]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[103]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[104]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[105]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[106]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[107]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[108]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[109]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[10]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[110]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[111]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[112]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[113]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[114]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[115]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[116]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[117]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[118]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[119]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[11]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[120]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[121]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[122]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[123]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[124]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[125]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[126]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[127]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[128]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[129]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[12]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[130]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[131]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[132]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[133]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[134]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[135]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[136]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[137]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[138]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[139]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[13]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[140]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[141]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[142]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[143]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[144]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[145]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[146]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[147]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[148]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[149]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[14]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[150]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[151]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[152]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[153]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[154]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[155]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[156]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[157]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[158]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[159]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[15]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[160]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[161]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[162]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[163]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[164]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[165]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[166]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[167]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[168]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[169]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[16]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[170]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[171]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[172]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[173]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[174]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[175]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[176]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[177]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[178]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[179]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[17]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[180]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[181]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[182]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[183]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[184]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[185]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[186]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[187]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[188]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[189]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[18]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[190]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[191]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[192]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[193]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[194]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[195]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[196]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[197]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[198]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[199]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[19]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[1]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[200]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[201]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[202]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[203]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[204]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[205]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[206]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[207]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[208]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[209]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[20]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[210]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[211]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[212]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[213]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[214]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[215]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[216]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[217]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[218]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[219]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[21]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[220]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[221]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[222]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[223]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[224]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[225]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[226]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[227]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[228]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[229]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[22]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[230]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[231]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[232]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[233]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[234]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[235]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[236]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[237]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[238]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[239]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[23]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[240]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[241]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[242]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[243]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[244]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[245]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[246]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[247]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[248]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[249]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[24]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[250]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[251]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[252]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[253]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[254]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[255]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[256]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[257]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[258]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[259]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[25]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[260]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[261]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[262]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[263]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[264]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[265]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[266]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[267]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[268]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[269]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[26]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[270]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[271]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[272]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[273]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[274]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[275]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[276]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[277]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[278]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[279]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[27]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[280]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[281]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[282]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[283]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[284]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[285]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[286]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[287]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[288]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[289]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[28]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[290]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[291]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[292]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[293]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[294]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[295]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[296]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[297]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[298]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[299]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[29]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[2]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[300]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[301]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[302]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[303]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[304]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[305]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[306]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[307]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[308]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[309]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[30]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[310]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[311]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[312]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[313]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[314]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[315]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[316]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[317]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[318]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[319]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[31]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[32]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[33]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[34]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[35]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[36]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[37]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[38]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[39]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[3]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[40]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[41]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[42]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[43]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[44]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[45]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[46]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[47]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[48]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[49]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[4]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[50]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[51]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[52]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[53]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[54]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[55]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[56]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[57]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[58]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[59]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[5]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[60]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[61]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[62]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[63]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[64]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[65]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[66]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[67]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[68]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[69]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[6]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[70]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[71]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[72]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[73]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[74]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[75]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[76]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[77]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[78]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[79]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[7]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[80]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[81]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[82]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[83]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[84]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[85]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[86]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[87]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[88]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[89]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[8]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[90]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[91]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[92]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[93]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[94]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[95]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[96]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[97]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[98]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[99]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXDATA[9]) = (100:100:100, 100:100:100);
+    (CH0_RXUSRCLK => CH0_RXVALID) = (100:100:100, 100:100:100);
+    (CH0_SCANCLKB => CH0_SCANCNTRLOUT) = (100:100:100, 100:100:100);
+    (CH0_SCANCLKB => CH0_SCANOUT[0]) = (100:100:100, 100:100:100);
+    (CH0_SCANCLKB => CH0_SCANOUT[1]) = (100:100:100, 100:100:100);
+    (CH0_SCANCLKB => CH0_SCANOUT[2]) = (100:100:100, 100:100:100);
+    (CH0_TXUSRCLK => CH0_TXBUFSTATUS[0]) = (100:100:100, 100:100:100);
+    (CH0_TXUSRCLK => CH0_TXBUFSTATUS[1]) = (100:100:100, 100:100:100);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[0]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[10]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[11]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[12]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[13]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[14]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[15]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[16]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[17]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[18]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[19]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[1]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[20]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[21]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[22]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[23]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[24]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[25]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[26]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[27]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[28]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[29]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[2]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[30]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[31]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[3]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[4]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[5]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[6]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[7]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[8]) = (0:0:0, 0:0:0);
+    (CH1_DMONITORCLK => CH1_DMONITOROUT[9]) = (0:0:0, 0:0:0);
+    (CH1_RXUSRCLK => CH1_PHYSTATUS) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXBUFSTATUS[0]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXBUFSTATUS[1]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXBUFSTATUS[2]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[0]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[100]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[101]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[102]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[103]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[104]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[105]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[106]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[107]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[108]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[109]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[10]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[110]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[111]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[112]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[113]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[114]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[115]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[116]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[117]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[118]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[119]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[11]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[120]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[121]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[122]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[123]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[124]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[125]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[126]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[127]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[128]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[129]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[12]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[130]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[131]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[132]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[133]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[134]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[135]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[136]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[137]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[138]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[139]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[13]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[140]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[141]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[142]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[143]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[144]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[145]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[146]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[147]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[148]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[149]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[14]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[150]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[151]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[152]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[153]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[154]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[155]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[156]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[157]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[158]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[159]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[15]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[160]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[161]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[162]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[163]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[164]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[165]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[166]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[167]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[168]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[169]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[16]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[170]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[171]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[172]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[173]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[174]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[175]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[176]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[177]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[178]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[179]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[17]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[180]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[181]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[182]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[183]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[184]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[185]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[186]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[187]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[188]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[189]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[18]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[190]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[191]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[192]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[193]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[194]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[195]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[196]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[197]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[198]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[199]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[19]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[1]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[200]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[201]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[202]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[203]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[204]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[205]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[206]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[207]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[208]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[209]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[20]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[210]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[211]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[212]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[213]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[214]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[215]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[216]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[217]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[218]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[219]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[21]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[220]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[221]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[222]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[223]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[224]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[225]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[226]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[227]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[228]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[229]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[22]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[230]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[231]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[232]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[233]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[234]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[235]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[236]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[237]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[238]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[239]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[23]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[240]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[241]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[242]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[243]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[244]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[245]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[246]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[247]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[248]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[249]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[24]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[250]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[251]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[252]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[253]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[254]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[255]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[256]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[257]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[258]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[259]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[25]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[260]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[261]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[262]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[263]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[264]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[265]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[266]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[267]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[268]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[269]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[26]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[270]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[271]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[272]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[273]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[274]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[275]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[276]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[277]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[278]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[279]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[27]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[280]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[281]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[282]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[283]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[284]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[285]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[286]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[287]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[288]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[289]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[28]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[290]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[291]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[292]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[293]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[294]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[295]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[296]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[297]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[298]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[299]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[29]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[2]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[300]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[301]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[302]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[303]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[304]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[305]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[306]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[307]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[308]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[309]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[30]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[310]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[311]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[312]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[313]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[314]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[315]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[316]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[317]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[318]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[319]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[31]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[32]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[33]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[34]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[35]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[36]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[37]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[38]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[39]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[3]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[40]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[41]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[42]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[43]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[44]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[45]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[46]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[47]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[48]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[49]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[4]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[50]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[51]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[52]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[53]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[54]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[55]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[56]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[57]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[58]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[59]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[5]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[60]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[61]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[62]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[63]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[64]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[65]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[66]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[67]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[68]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[69]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[6]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[70]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[71]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[72]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[73]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[74]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[75]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[76]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[77]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[78]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[79]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[7]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[80]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[81]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[82]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[83]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[84]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[85]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[86]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[87]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[88]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[89]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[8]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[90]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[91]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[92]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[93]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[94]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[95]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[96]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[97]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[98]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[99]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXDATA[9]) = (100:100:100, 100:100:100);
+    (CH1_RXUSRCLK => CH1_RXVALID) = (100:100:100, 100:100:100);
+    (CH1_SCANCLKB => CH1_SCANCNTRLOUT) = (100:100:100, 100:100:100);
+    (CH1_SCANCLKB => CH1_SCANOUT[0]) = (100:100:100, 100:100:100);
+    (CH1_SCANCLKB => CH1_SCANOUT[1]) = (100:100:100, 100:100:100);
+    (CH1_SCANCLKB => CH1_SCANOUT[2]) = (100:100:100, 100:100:100);
+    (CH1_TXUSRCLK => CH1_TXBUFSTATUS[0]) = (100:100:100, 100:100:100);
+    (CH1_TXUSRCLK => CH1_TXBUFSTATUS[1]) = (100:100:100, 100:100:100);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[0]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[10]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[11]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[12]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[13]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[14]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[15]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[16]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[17]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[18]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[19]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[1]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[20]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[21]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[22]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[23]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[24]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[25]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[26]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[27]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[28]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[29]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[2]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[30]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[31]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[3]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[4]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[5]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[6]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[7]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[8]) = (0:0:0, 0:0:0);
+    (CH2_DMONITORCLK => CH2_DMONITOROUT[9]) = (0:0:0, 0:0:0);
+    (CH2_RXUSRCLK => CH2_PHYSTATUS) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXBUFSTATUS[0]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXBUFSTATUS[1]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXBUFSTATUS[2]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[0]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[100]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[101]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[102]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[103]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[104]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[105]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[106]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[107]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[108]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[109]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[10]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[110]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[111]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[112]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[113]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[114]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[115]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[116]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[117]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[118]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[119]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[11]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[120]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[121]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[122]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[123]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[124]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[125]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[126]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[127]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[128]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[129]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[12]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[130]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[131]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[132]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[133]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[134]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[135]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[136]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[137]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[138]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[139]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[13]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[140]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[141]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[142]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[143]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[144]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[145]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[146]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[147]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[148]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[149]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[14]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[150]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[151]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[152]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[153]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[154]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[155]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[156]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[157]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[158]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[159]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[15]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[160]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[161]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[162]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[163]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[164]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[165]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[166]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[167]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[168]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[169]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[16]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[170]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[171]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[172]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[173]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[174]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[175]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[176]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[177]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[178]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[179]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[17]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[180]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[181]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[182]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[183]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[184]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[185]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[186]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[187]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[188]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[189]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[18]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[190]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[191]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[192]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[193]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[194]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[195]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[196]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[197]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[198]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[199]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[19]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[1]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[200]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[201]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[202]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[203]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[204]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[205]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[206]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[207]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[208]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[209]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[20]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[210]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[211]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[212]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[213]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[214]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[215]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[216]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[217]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[218]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[219]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[21]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[220]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[221]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[222]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[223]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[224]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[225]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[226]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[227]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[228]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[229]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[22]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[230]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[231]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[232]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[233]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[234]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[235]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[236]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[237]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[238]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[239]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[23]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[240]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[241]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[242]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[243]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[244]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[245]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[246]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[247]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[248]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[249]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[24]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[250]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[251]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[252]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[253]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[254]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[255]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[256]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[257]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[258]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[259]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[25]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[260]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[261]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[262]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[263]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[264]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[265]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[266]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[267]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[268]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[269]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[26]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[270]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[271]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[272]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[273]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[274]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[275]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[276]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[277]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[278]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[279]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[27]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[280]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[281]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[282]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[283]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[284]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[285]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[286]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[287]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[288]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[289]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[28]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[290]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[291]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[292]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[293]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[294]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[295]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[296]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[297]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[298]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[299]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[29]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[2]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[300]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[301]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[302]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[303]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[304]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[305]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[306]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[307]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[308]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[309]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[30]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[310]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[311]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[312]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[313]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[314]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[315]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[316]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[317]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[318]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[319]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[31]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[32]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[33]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[34]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[35]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[36]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[37]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[38]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[39]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[3]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[40]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[41]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[42]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[43]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[44]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[45]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[46]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[47]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[48]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[49]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[4]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[50]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[51]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[52]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[53]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[54]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[55]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[56]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[57]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[58]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[59]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[5]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[60]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[61]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[62]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[63]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[64]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[65]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[66]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[67]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[68]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[69]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[6]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[70]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[71]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[72]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[73]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[74]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[75]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[76]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[77]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[78]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[79]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[7]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[80]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[81]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[82]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[83]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[84]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[85]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[86]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[87]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[88]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[89]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[8]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[90]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[91]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[92]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[93]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[94]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[95]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[96]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[97]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[98]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[99]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXDATA[9]) = (100:100:100, 100:100:100);
+    (CH2_RXUSRCLK => CH2_RXVALID) = (100:100:100, 100:100:100);
+    (CH2_SCANCLKB => CH2_SCANCNTRLOUT) = (100:100:100, 100:100:100);
+    (CH2_SCANCLKB => CH2_SCANOUT[0]) = (100:100:100, 100:100:100);
+    (CH2_SCANCLKB => CH2_SCANOUT[1]) = (100:100:100, 100:100:100);
+    (CH2_SCANCLKB => CH2_SCANOUT[2]) = (100:100:100, 100:100:100);
+    (CH2_TXUSRCLK => CH2_TXBUFSTATUS[0]) = (100:100:100, 100:100:100);
+    (CH2_TXUSRCLK => CH2_TXBUFSTATUS[1]) = (100:100:100, 100:100:100);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[0]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[10]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[11]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[12]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[13]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[14]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[15]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[16]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[17]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[18]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[19]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[1]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[20]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[21]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[22]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[23]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[24]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[25]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[26]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[27]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[28]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[29]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[2]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[30]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[31]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[3]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[4]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[5]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[6]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[7]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[8]) = (0:0:0, 0:0:0);
+    (CH3_DMONITORCLK => CH3_DMONITOROUT[9]) = (0:0:0, 0:0:0);
+    (CH3_RXUSRCLK => CH3_PHYSTATUS) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXBUFSTATUS[0]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXBUFSTATUS[1]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXBUFSTATUS[2]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[0]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[100]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[101]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[102]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[103]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[104]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[105]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[106]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[107]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[108]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[109]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[10]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[110]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[111]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[112]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[113]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[114]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[115]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[116]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[117]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[118]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[119]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[11]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[120]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[121]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[122]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[123]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[124]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[125]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[126]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[127]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[128]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[129]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[12]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[130]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[131]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[132]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[133]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[134]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[135]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[136]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[137]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[138]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[139]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[13]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[140]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[141]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[142]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[143]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[144]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[145]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[146]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[147]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[148]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[149]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[14]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[150]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[151]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[152]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[153]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[154]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[155]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[156]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[157]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[158]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[159]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[15]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[160]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[161]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[162]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[163]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[164]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[165]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[166]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[167]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[168]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[169]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[16]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[170]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[171]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[172]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[173]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[174]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[175]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[176]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[177]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[178]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[179]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[17]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[180]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[181]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[182]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[183]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[184]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[185]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[186]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[187]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[188]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[189]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[18]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[190]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[191]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[192]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[193]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[194]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[195]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[196]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[197]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[198]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[199]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[19]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[1]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[200]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[201]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[202]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[203]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[204]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[205]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[206]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[207]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[208]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[209]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[20]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[210]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[211]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[212]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[213]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[214]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[215]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[216]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[217]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[218]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[219]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[21]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[220]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[221]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[222]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[223]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[224]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[225]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[226]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[227]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[228]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[229]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[22]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[230]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[231]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[232]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[233]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[234]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[235]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[236]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[237]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[238]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[239]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[23]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[240]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[241]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[242]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[243]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[244]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[245]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[246]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[247]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[248]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[249]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[24]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[250]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[251]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[252]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[253]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[254]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[255]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[256]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[257]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[258]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[259]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[25]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[260]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[261]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[262]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[263]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[264]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[265]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[266]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[267]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[268]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[269]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[26]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[270]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[271]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[272]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[273]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[274]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[275]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[276]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[277]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[278]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[279]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[27]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[280]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[281]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[282]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[283]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[284]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[285]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[286]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[287]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[288]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[289]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[28]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[290]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[291]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[292]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[293]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[294]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[295]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[296]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[297]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[298]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[299]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[29]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[2]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[300]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[301]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[302]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[303]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[304]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[305]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[306]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[307]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[308]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[309]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[30]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[310]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[311]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[312]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[313]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[314]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[315]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[316]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[317]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[318]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[319]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[31]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[32]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[33]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[34]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[35]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[36]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[37]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[38]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[39]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[3]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[40]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[41]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[42]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[43]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[44]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[45]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[46]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[47]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[48]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[49]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[4]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[50]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[51]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[52]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[53]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[54]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[55]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[56]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[57]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[58]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[59]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[5]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[60]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[61]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[62]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[63]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[64]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[65]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[66]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[67]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[68]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[69]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[6]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[70]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[71]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[72]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[73]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[74]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[75]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[76]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[77]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[78]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[79]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[7]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[80]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[81]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[82]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[83]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[84]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[85]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[86]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[87]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[88]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[89]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[8]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[90]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[91]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[92]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[93]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[94]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[95]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[96]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[97]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[98]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[99]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXDATA[9]) = (100:100:100, 100:100:100);
+    (CH3_RXUSRCLK => CH3_RXVALID) = (100:100:100, 100:100:100);
+    (CH3_SCANCLKB => CH3_SCANCNTRLOUT) = (100:100:100, 100:100:100);
+    (CH3_SCANCLKB => CH3_SCANOUT[0]) = (100:100:100, 100:100:100);
+    (CH3_SCANCLKB => CH3_SCANOUT[1]) = (100:100:100, 100:100:100);
+    (CH3_SCANCLKB => CH3_SCANOUT[2]) = (100:100:100, 100:100:100);
+    (CH3_TXUSRCLK => CH3_TXBUFSTATUS[0]) = (100:100:100, 100:100:100);
+    (CH3_TXUSRCLK => CH3_TXBUFSTATUS[1]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINREQACK) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESCMD[0]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESCMD[1]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESCMD[2]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESCMD[3]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESLANENUM[0]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESLANENUM[1]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESPAYLOAD[0]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESPAYLOAD[1]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESPAYLOAD[2]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESPAYLOAD[3]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESPAYLOAD[4]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESPAYLOAD[5]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESPAYLOAD[6]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESPAYLOAD[7]) = (100:100:100, 100:100:100);
+    (RXMARGINCLK => RXMARGINRESREQ) = (100:100:100, 100:100:100);
+    (SCANCLKB => SCANCNTRLOUT) = (100:100:100, 100:100:100);
+    (SCANCLKB => SCANOUT[0]) = (100:100:100, 100:100:100);
+    (SCANCLKB => SCANOUT[1]) = (100:100:100, 100:100:100);
+    (SCANCLKB => SCANOUT[2]) = (100:100:100, 100:100:100);
+`ifdef XIL_TIMING
+    $period (negedge CH0_DMONITORCLK, 0:0:0, notifier);
+    $period (negedge CH0_RXLATCLK, 0:0:0, notifier);
+    $period (negedge CH0_RXUSRCLK, 0:0:0, notifier);
+    $period (negedge CH0_SCANCLKB, 0:0:0, notifier);
+    $period (negedge CH0_TXLATCLK, 0:0:0, notifier);
+    $period (negedge CH0_TXUSRCLK, 0:0:0, notifier);
+    $period (negedge CH1_DMONITORCLK, 0:0:0, notifier);
+    $period (negedge CH1_RXLATCLK, 0:0:0, notifier);
+    $period (negedge CH1_RXUSRCLK, 0:0:0, notifier);
+    $period (negedge CH1_SCANCLKB, 0:0:0, notifier);
+    $period (negedge CH1_TXLATCLK, 0:0:0, notifier);
+    $period (negedge CH1_TXUSRCLK, 0:0:0, notifier);
+    $period (negedge CH2_DMONITORCLK, 0:0:0, notifier);
+    $period (negedge CH2_RXLATCLK, 0:0:0, notifier);
+    $period (negedge CH2_RXUSRCLK, 0:0:0, notifier);
+    $period (negedge CH2_SCANCLKB, 0:0:0, notifier);
+    $period (negedge CH2_TXLATCLK, 0:0:0, notifier);
+    $period (negedge CH2_TXUSRCLK, 0:0:0, notifier);
+    $period (negedge CH3_DMONITORCLK, 0:0:0, notifier);
+    $period (negedge CH3_RXLATCLK, 0:0:0, notifier);
+    $period (negedge CH3_RXUSRCLK, 0:0:0, notifier);
+    $period (negedge CH3_SCANCLKB, 0:0:0, notifier);
+    $period (negedge CH3_TXLATCLK, 0:0:0, notifier);
+    $period (negedge CH3_TXUSRCLK, 0:0:0, notifier);
+    $period (negedge HSCLK0_LCPLLGTGREFCLK, 0:0:0, notifier);
+    $period (negedge HSCLK0_RPLLGTGREFCLK, 0:0:0, notifier);
+    $period (negedge HSCLK1_LCPLLGTGREFCLK, 0:0:0, notifier);
+    $period (negedge HSCLK1_RPLLGTGREFCLK, 0:0:0, notifier);
+    $period (negedge REFCLK0_CLKTESTSIG, 0:0:0, notifier);
+    $period (negedge REFCLK1_CLKTESTSIG, 0:0:0, notifier);
+    $period (negedge RXMARGINCLK, 0:0:0, notifier);
+    $period (negedge SCANCLKB, 0:0:0, notifier);
+    $period (posedge CH0_DMONITORCLK, 0:0:0, notifier);
+    $period (posedge CH0_RXLATCLK, 0:0:0, notifier);
+    $period (posedge CH0_RXUSRCLK, 0:0:0, notifier);
+    $period (posedge CH0_SCANCLKB, 0:0:0, notifier);
+    $period (posedge CH0_TXLATCLK, 0:0:0, notifier);
+    $period (posedge CH0_TXUSRCLK, 0:0:0, notifier);
+    $period (posedge CH1_DMONITORCLK, 0:0:0, notifier);
+    $period (posedge CH1_RXLATCLK, 0:0:0, notifier);
+    $period (posedge CH1_RXUSRCLK, 0:0:0, notifier);
+    $period (posedge CH1_SCANCLKB, 0:0:0, notifier);
+    $period (posedge CH1_TXLATCLK, 0:0:0, notifier);
+    $period (posedge CH1_TXUSRCLK, 0:0:0, notifier);
+    $period (posedge CH2_DMONITORCLK, 0:0:0, notifier);
+    $period (posedge CH2_RXLATCLK, 0:0:0, notifier);
+    $period (posedge CH2_RXUSRCLK, 0:0:0, notifier);
+    $period (posedge CH2_SCANCLKB, 0:0:0, notifier);
+    $period (posedge CH2_TXLATCLK, 0:0:0, notifier);
+    $period (posedge CH2_TXUSRCLK, 0:0:0, notifier);
+    $period (posedge CH3_DMONITORCLK, 0:0:0, notifier);
+    $period (posedge CH3_RXLATCLK, 0:0:0, notifier);
+    $period (posedge CH3_RXUSRCLK, 0:0:0, notifier);
+    $period (posedge CH3_SCANCLKB, 0:0:0, notifier);
+    $period (posedge CH3_TXLATCLK, 0:0:0, notifier);
+    $period (posedge CH3_TXUSRCLK, 0:0:0, notifier);
+    $period (posedge HSCLK0_LCPLLGTGREFCLK, 0:0:0, notifier);
+    $period (posedge HSCLK0_RPLLGTGREFCLK, 0:0:0, notifier);
+    $period (posedge HSCLK1_LCPLLGTGREFCLK, 0:0:0, notifier);
+    $period (posedge HSCLK1_RPLLGTGREFCLK, 0:0:0, notifier);
+    $period (posedge REFCLK0_CLKTESTSIG, 0:0:0, notifier);
+    $period (posedge REFCLK1_CLKTESTSIG, 0:0:0, notifier);
+    $period (posedge RXMARGINCLK, 0:0:0, notifier);
+    $period (posedge SCANCLKB, 0:0:0, notifier);
+    $setuphold (negedge CH0_SCANCLKB, negedge CH0_SCANCHNLMASKIN[0], 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANCHNLMASKIN_delay[0]);
+    $setuphold (negedge CH0_SCANCLKB, negedge CH0_SCANCHNLMASKIN[1], 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANCHNLMASKIN_delay[1]);
+    $setuphold (negedge CH0_SCANCLKB, negedge CH0_SCANCHNLMASKIN[2], 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANCHNLMASKIN_delay[2]);
+    $setuphold (negedge CH0_SCANCLKB, negedge CH0_SCANCNTRLIN, 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANCNTRLIN_delay);
+    $setuphold (negedge CH0_SCANCLKB, negedge CH0_SCANIN[0], 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANIN_delay[0]);
+    $setuphold (negedge CH0_SCANCLKB, negedge CH0_SCANIN[1], 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANIN_delay[1]);
+    $setuphold (negedge CH0_SCANCLKB, negedge CH0_SCANIN[2], 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANIN_delay[2]);
+    $setuphold (negedge CH0_SCANCLKB, negedge CH0_SCANODCCCHNLMASK, 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANODCCCHNLMASK_delay);
+    $setuphold (negedge CH0_SCANCLKB, posedge CH0_SCANCHNLMASKIN[0], 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANCHNLMASKIN_delay[0]);
+    $setuphold (negedge CH0_SCANCLKB, posedge CH0_SCANCHNLMASKIN[1], 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANCHNLMASKIN_delay[1]);
+    $setuphold (negedge CH0_SCANCLKB, posedge CH0_SCANCHNLMASKIN[2], 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANCHNLMASKIN_delay[2]);
+    $setuphold (negedge CH0_SCANCLKB, posedge CH0_SCANCNTRLIN, 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANCNTRLIN_delay);
+    $setuphold (negedge CH0_SCANCLKB, posedge CH0_SCANIN[0], 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANIN_delay[0]);
+    $setuphold (negedge CH0_SCANCLKB, posedge CH0_SCANIN[1], 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANIN_delay[1]);
+    $setuphold (negedge CH0_SCANCLKB, posedge CH0_SCANIN[2], 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANIN_delay[2]);
+    $setuphold (negedge CH0_SCANCLKB, posedge CH0_SCANODCCCHNLMASK, 0:0:0, 0:0:0, notifier, , , CH0_SCANCLKB_delay, CH0_SCANODCCCHNLMASK_delay);
+    $setuphold (negedge CH1_SCANCLKB, negedge CH1_SCANCHNLMASKIN[0], 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANCHNLMASKIN_delay[0]);
+    $setuphold (negedge CH1_SCANCLKB, negedge CH1_SCANCHNLMASKIN[1], 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANCHNLMASKIN_delay[1]);
+    $setuphold (negedge CH1_SCANCLKB, negedge CH1_SCANCHNLMASKIN[2], 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANCHNLMASKIN_delay[2]);
+    $setuphold (negedge CH1_SCANCLKB, negedge CH1_SCANCNTRLIN, 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANCNTRLIN_delay);
+    $setuphold (negedge CH1_SCANCLKB, negedge CH1_SCANIN[0], 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANIN_delay[0]);
+    $setuphold (negedge CH1_SCANCLKB, negedge CH1_SCANIN[1], 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANIN_delay[1]);
+    $setuphold (negedge CH1_SCANCLKB, negedge CH1_SCANIN[2], 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANIN_delay[2]);
+    $setuphold (negedge CH1_SCANCLKB, negedge CH1_SCANODCCCHNLMASK, 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANODCCCHNLMASK_delay);
+    $setuphold (negedge CH1_SCANCLKB, posedge CH1_SCANCHNLMASKIN[0], 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANCHNLMASKIN_delay[0]);
+    $setuphold (negedge CH1_SCANCLKB, posedge CH1_SCANCHNLMASKIN[1], 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANCHNLMASKIN_delay[1]);
+    $setuphold (negedge CH1_SCANCLKB, posedge CH1_SCANCHNLMASKIN[2], 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANCHNLMASKIN_delay[2]);
+    $setuphold (negedge CH1_SCANCLKB, posedge CH1_SCANCNTRLIN, 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANCNTRLIN_delay);
+    $setuphold (negedge CH1_SCANCLKB, posedge CH1_SCANIN[0], 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANIN_delay[0]);
+    $setuphold (negedge CH1_SCANCLKB, posedge CH1_SCANIN[1], 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANIN_delay[1]);
+    $setuphold (negedge CH1_SCANCLKB, posedge CH1_SCANIN[2], 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANIN_delay[2]);
+    $setuphold (negedge CH1_SCANCLKB, posedge CH1_SCANODCCCHNLMASK, 0:0:0, 0:0:0, notifier, , , CH1_SCANCLKB_delay, CH1_SCANODCCCHNLMASK_delay);
+    $setuphold (negedge CH2_SCANCLKB, negedge CH2_SCANCHNLMASKIN[0], 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANCHNLMASKIN_delay[0]);
+    $setuphold (negedge CH2_SCANCLKB, negedge CH2_SCANCHNLMASKIN[1], 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANCHNLMASKIN_delay[1]);
+    $setuphold (negedge CH2_SCANCLKB, negedge CH2_SCANCHNLMASKIN[2], 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANCHNLMASKIN_delay[2]);
+    $setuphold (negedge CH2_SCANCLKB, negedge CH2_SCANCNTRLIN, 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANCNTRLIN_delay);
+    $setuphold (negedge CH2_SCANCLKB, negedge CH2_SCANIN[0], 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANIN_delay[0]);
+    $setuphold (negedge CH2_SCANCLKB, negedge CH2_SCANIN[1], 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANIN_delay[1]);
+    $setuphold (negedge CH2_SCANCLKB, negedge CH2_SCANIN[2], 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANIN_delay[2]);
+    $setuphold (negedge CH2_SCANCLKB, negedge CH2_SCANODCCCHNLMASK, 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANODCCCHNLMASK_delay);
+    $setuphold (negedge CH2_SCANCLKB, posedge CH2_SCANCHNLMASKIN[0], 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANCHNLMASKIN_delay[0]);
+    $setuphold (negedge CH2_SCANCLKB, posedge CH2_SCANCHNLMASKIN[1], 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANCHNLMASKIN_delay[1]);
+    $setuphold (negedge CH2_SCANCLKB, posedge CH2_SCANCHNLMASKIN[2], 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANCHNLMASKIN_delay[2]);
+    $setuphold (negedge CH2_SCANCLKB, posedge CH2_SCANCNTRLIN, 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANCNTRLIN_delay);
+    $setuphold (negedge CH2_SCANCLKB, posedge CH2_SCANIN[0], 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANIN_delay[0]);
+    $setuphold (negedge CH2_SCANCLKB, posedge CH2_SCANIN[1], 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANIN_delay[1]);
+    $setuphold (negedge CH2_SCANCLKB, posedge CH2_SCANIN[2], 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANIN_delay[2]);
+    $setuphold (negedge CH2_SCANCLKB, posedge CH2_SCANODCCCHNLMASK, 0:0:0, 0:0:0, notifier, , , CH2_SCANCLKB_delay, CH2_SCANODCCCHNLMASK_delay);
+    $setuphold (negedge CH3_SCANCLKB, negedge CH3_SCANCHNLMASKIN[0], 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANCHNLMASKIN_delay[0]);
+    $setuphold (negedge CH3_SCANCLKB, negedge CH3_SCANCHNLMASKIN[1], 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANCHNLMASKIN_delay[1]);
+    $setuphold (negedge CH3_SCANCLKB, negedge CH3_SCANCHNLMASKIN[2], 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANCHNLMASKIN_delay[2]);
+    $setuphold (negedge CH3_SCANCLKB, negedge CH3_SCANCNTRLIN, 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANCNTRLIN_delay);
+    $setuphold (negedge CH3_SCANCLKB, negedge CH3_SCANIN[0], 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANIN_delay[0]);
+    $setuphold (negedge CH3_SCANCLKB, negedge CH3_SCANIN[1], 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANIN_delay[1]);
+    $setuphold (negedge CH3_SCANCLKB, negedge CH3_SCANIN[2], 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANIN_delay[2]);
+    $setuphold (negedge CH3_SCANCLKB, negedge CH3_SCANODCCCHNLMASK, 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANODCCCHNLMASK_delay);
+    $setuphold (negedge CH3_SCANCLKB, posedge CH3_SCANCHNLMASKIN[0], 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANCHNLMASKIN_delay[0]);
+    $setuphold (negedge CH3_SCANCLKB, posedge CH3_SCANCHNLMASKIN[1], 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANCHNLMASKIN_delay[1]);
+    $setuphold (negedge CH3_SCANCLKB, posedge CH3_SCANCHNLMASKIN[2], 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANCHNLMASKIN_delay[2]);
+    $setuphold (negedge CH3_SCANCLKB, posedge CH3_SCANCNTRLIN, 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANCNTRLIN_delay);
+    $setuphold (negedge CH3_SCANCLKB, posedge CH3_SCANIN[0], 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANIN_delay[0]);
+    $setuphold (negedge CH3_SCANCLKB, posedge CH3_SCANIN[1], 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANIN_delay[1]);
+    $setuphold (negedge CH3_SCANCLKB, posedge CH3_SCANIN[2], 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANIN_delay[2]);
+    $setuphold (negedge CH3_SCANCLKB, posedge CH3_SCANODCCCHNLMASK, 0:0:0, 0:0:0, notifier, , , CH3_SCANCLKB_delay, CH3_SCANODCCCHNLMASK_delay);
+    $setuphold (negedge SCANCLKB, negedge SCANCHNLMASKIN[0], 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANCHNLMASKIN_delay[0]);
+    $setuphold (negedge SCANCLKB, negedge SCANCHNLMASKIN[1], 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANCHNLMASKIN_delay[1]);
+    $setuphold (negedge SCANCLKB, negedge SCANCHNLMASKIN[2], 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANCHNLMASKIN_delay[2]);
+    $setuphold (negedge SCANCLKB, negedge SCANCNTRLIN, 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANCNTRLIN_delay);
+    $setuphold (negedge SCANCLKB, negedge SCANIN[0], 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANIN_delay[0]);
+    $setuphold (negedge SCANCLKB, negedge SCANIN[1], 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANIN_delay[1]);
+    $setuphold (negedge SCANCLKB, negedge SCANIN[2], 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANIN_delay[2]);
+    $setuphold (negedge SCANCLKB, negedge SCANODCCCHNLMASKIN, 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANODCCCHNLMASKIN_delay);
+    $setuphold (negedge SCANCLKB, posedge SCANCHNLMASKIN[0], 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANCHNLMASKIN_delay[0]);
+    $setuphold (negedge SCANCLKB, posedge SCANCHNLMASKIN[1], 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANCHNLMASKIN_delay[1]);
+    $setuphold (negedge SCANCLKB, posedge SCANCHNLMASKIN[2], 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANCHNLMASKIN_delay[2]);
+    $setuphold (negedge SCANCLKB, posedge SCANCNTRLIN, 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANCNTRLIN_delay);
+    $setuphold (negedge SCANCLKB, posedge SCANIN[0], 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANIN_delay[0]);
+    $setuphold (negedge SCANCLKB, posedge SCANIN[1], 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANIN_delay[1]);
+    $setuphold (negedge SCANCLKB, posedge SCANIN[2], 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANIN_delay[2]);
+    $setuphold (negedge SCANCLKB, posedge SCANODCCCHNLMASKIN, 0:0:0, 0:0:0, notifier, , , SCANCLKB_delay, SCANODCCCHNLMASKIN_delay);
+    $setuphold (posedge CH0_RXUSRCLK, negedge CH0_RXGEARBOXSLIP, 0:0:0, 0:0:0, notifier, , , CH0_RXUSRCLK_delay, CH0_RXGEARBOXSLIP_delay);
+    $setuphold (posedge CH0_RXUSRCLK, posedge CH0_RXGEARBOXSLIP, 0:0:0, 0:0:0, notifier, , , CH0_RXUSRCLK_delay, CH0_RXGEARBOXSLIP_delay);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[0], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[0]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[100], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[100]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[101], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[101]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[102], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[102]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[103], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[103]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[104], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[104]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[105], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[105]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[106], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[106]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[107], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[107]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[108], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[108]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[109], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[109]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[10], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[10]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[110], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[110]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[111], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[111]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[112], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[112]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[113], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[113]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[114], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[114]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[115], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[115]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[116], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[116]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[117], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[117]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[118], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[118]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[119], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[119]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[11], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[11]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[120], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[120]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[121], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[121]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[122], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[122]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[123], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[123]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[124], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[124]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[125], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[125]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[126], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[126]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[127], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[127]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[128], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[128]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[129], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[129]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[12], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[12]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[130], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[130]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[131], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[131]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[132], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[132]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[133], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[133]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[134], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[134]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[135], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[135]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[136], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[136]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[137], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[137]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[138], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[138]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[139], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[139]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[13], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[13]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[140], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[140]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[141], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[141]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[142], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[142]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[143], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[143]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[144], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[144]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[145], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[145]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[146], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[146]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[147], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[147]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[148], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[148]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[149], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[149]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[14], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[14]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[150], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[150]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[151], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[151]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[152], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[152]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[153], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[153]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[154], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[154]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[155], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[155]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[156], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[156]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[157], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[157]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[158], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[158]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[159], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[159]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[15], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[15]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[160], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[160]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[161], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[161]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[162], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[162]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[163], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[163]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[164], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[164]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[165], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[165]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[166], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[166]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[167], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[167]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[168], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[168]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[169], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[169]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[16], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[16]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[170], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[170]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[171], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[171]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[172], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[172]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[173], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[173]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[174], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[174]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[175], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[175]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[176], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[176]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[177], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[177]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[178], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[178]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[179], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[179]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[17], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[17]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[180], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[180]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[181], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[181]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[182], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[182]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[183], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[183]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[184], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[184]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[185], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[185]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[186], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[186]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[187], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[187]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[188], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[188]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[189], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[189]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[18], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[18]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[190], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[190]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[191], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[191]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[192], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[192]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[193], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[193]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[194], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[194]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[195], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[195]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[196], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[196]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[197], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[197]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[198], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[198]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[199], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[199]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[19], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[19]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[1], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[1]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[200], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[200]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[201], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[201]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[202], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[202]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[203], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[203]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[204], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[204]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[205], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[205]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[206], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[206]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[207], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[207]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[208], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[208]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[209], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[209]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[20], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[20]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[210], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[210]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[211], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[211]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[212], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[212]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[213], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[213]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[214], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[214]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[215], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[215]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[216], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[216]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[217], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[217]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[218], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[218]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[219], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[219]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[21], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[21]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[220], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[220]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[221], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[221]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[222], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[222]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[223], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[223]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[224], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[224]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[225], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[225]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[226], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[226]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[227], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[227]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[228], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[228]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[229], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[229]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[22], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[22]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[230], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[230]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[231], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[231]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[232], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[232]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[233], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[233]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[234], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[234]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[235], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[235]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[236], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[236]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[237], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[237]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[238], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[238]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[239], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[239]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[23], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[23]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[240], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[240]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[241], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[241]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[242], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[242]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[243], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[243]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[244], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[244]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[245], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[245]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[246], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[246]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[247], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[247]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[248], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[248]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[249], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[249]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[24], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[24]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[250], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[250]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[251], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[251]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[252], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[252]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[253], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[253]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[254], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[254]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[255], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[255]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[256], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[256]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[257], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[257]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[258], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[258]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[259], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[259]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[25], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[25]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[260], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[260]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[261], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[261]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[262], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[262]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[263], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[263]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[264], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[264]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[265], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[265]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[266], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[266]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[267], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[267]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[268], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[268]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[269], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[269]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[26], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[26]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[270], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[270]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[271], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[271]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[272], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[272]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[273], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[273]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[274], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[274]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[275], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[275]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[276], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[276]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[277], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[277]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[278], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[278]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[279], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[279]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[27], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[27]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[280], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[280]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[281], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[281]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[282], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[282]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[283], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[283]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[284], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[284]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[285], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[285]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[286], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[286]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[287], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[287]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[288], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[288]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[289], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[289]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[28], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[28]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[290], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[290]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[291], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[291]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[292], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[292]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[293], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[293]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[294], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[294]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[295], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[295]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[296], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[296]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[297], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[297]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[298], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[298]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[299], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[299]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[29], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[29]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[2], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[2]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[300], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[300]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[301], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[301]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[302], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[302]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[303], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[303]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[304], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[304]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[305], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[305]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[306], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[306]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[307], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[307]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[308], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[308]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[309], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[309]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[30], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[30]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[310], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[310]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[311], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[311]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[312], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[312]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[313], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[313]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[314], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[314]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[315], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[315]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[316], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[316]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[317], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[317]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[318], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[318]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[319], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[319]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[31], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[31]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[32], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[32]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[33], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[33]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[34], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[34]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[35], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[35]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[36], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[36]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[37], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[37]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[38], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[38]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[39], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[39]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[3], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[3]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[40], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[40]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[41], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[41]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[42], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[42]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[43], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[43]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[44], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[44]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[45], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[45]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[46], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[46]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[47], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[47]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[48], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[48]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[49], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[49]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[4], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[4]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[50], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[50]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[51], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[51]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[52], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[52]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[53], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[53]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[54], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[54]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[55], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[55]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[56], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[56]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[57], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[57]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[58], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[58]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[59], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[59]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[5], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[5]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[60], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[60]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[61], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[61]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[62], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[62]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[63], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[63]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[64], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[64]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[65], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[65]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[66], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[66]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[67], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[67]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[68], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[68]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[69], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[69]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[6], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[6]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[70], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[70]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[71], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[71]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[72], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[72]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[73], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[73]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[74], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[74]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[75], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[75]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[76], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[76]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[77], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[77]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[78], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[78]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[79], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[79]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[7], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[7]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[80], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[80]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[81], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[81]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[82], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[82]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[83], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[83]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[84], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[84]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[85], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[85]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[86], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[86]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[87], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[87]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[88], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[88]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[89], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[89]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[8], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[8]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[90], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[90]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[91], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[91]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[92], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[92]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[93], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[93]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[94], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[94]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[95], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[95]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[96], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[96]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[97], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[97]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[98], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[98]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[99], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[99]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDATA[9], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[9]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXDETECTRXLOOPBACK, 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDETECTRXLOOPBACK_delay);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXELECIDLE, 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXELECIDLE_delay);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXPOWERDOWN[0], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXPOWERDOWN_delay[0]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXPOWERDOWN[1], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXPOWERDOWN_delay[1]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXRATE[0], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[0]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXRATE[1], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[1]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXRATE[2], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[2]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXRATE[3], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[3]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXRATE[4], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[4]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXRATE[5], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[5]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXRATE[6], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[6]);
+    $setuphold (posedge CH0_TXUSRCLK, negedge CH0_TXRATE[7], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[7]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[0], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[0]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[100], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[100]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[101], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[101]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[102], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[102]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[103], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[103]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[104], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[104]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[105], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[105]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[106], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[106]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[107], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[107]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[108], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[108]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[109], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[109]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[10], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[10]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[110], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[110]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[111], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[111]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[112], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[112]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[113], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[113]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[114], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[114]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[115], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[115]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[116], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[116]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[117], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[117]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[118], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[118]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[119], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[119]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[11], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[11]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[120], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[120]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[121], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[121]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[122], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[122]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[123], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[123]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[124], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[124]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[125], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[125]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[126], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[126]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[127], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[127]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[128], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[128]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[129], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[129]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[12], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[12]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[130], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[130]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[131], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[131]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[132], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[132]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[133], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[133]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[134], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[134]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[135], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[135]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[136], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[136]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[137], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[137]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[138], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[138]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[139], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[139]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[13], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[13]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[140], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[140]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[141], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[141]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[142], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[142]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[143], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[143]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[144], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[144]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[145], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[145]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[146], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[146]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[147], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[147]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[148], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[148]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[149], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[149]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[14], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[14]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[150], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[150]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[151], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[151]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[152], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[152]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[153], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[153]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[154], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[154]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[155], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[155]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[156], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[156]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[157], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[157]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[158], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[158]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[159], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[159]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[15], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[15]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[160], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[160]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[161], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[161]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[162], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[162]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[163], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[163]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[164], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[164]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[165], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[165]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[166], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[166]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[167], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[167]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[168], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[168]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[169], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[169]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[16], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[16]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[170], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[170]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[171], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[171]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[172], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[172]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[173], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[173]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[174], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[174]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[175], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[175]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[176], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[176]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[177], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[177]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[178], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[178]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[179], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[179]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[17], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[17]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[180], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[180]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[181], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[181]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[182], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[182]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[183], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[183]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[184], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[184]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[185], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[185]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[186], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[186]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[187], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[187]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[188], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[188]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[189], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[189]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[18], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[18]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[190], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[190]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[191], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[191]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[192], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[192]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[193], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[193]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[194], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[194]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[195], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[195]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[196], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[196]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[197], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[197]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[198], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[198]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[199], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[199]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[19], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[19]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[1], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[1]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[200], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[200]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[201], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[201]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[202], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[202]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[203], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[203]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[204], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[204]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[205], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[205]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[206], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[206]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[207], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[207]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[208], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[208]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[209], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[209]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[20], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[20]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[210], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[210]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[211], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[211]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[212], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[212]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[213], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[213]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[214], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[214]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[215], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[215]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[216], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[216]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[217], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[217]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[218], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[218]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[219], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[219]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[21], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[21]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[220], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[220]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[221], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[221]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[222], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[222]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[223], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[223]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[224], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[224]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[225], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[225]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[226], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[226]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[227], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[227]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[228], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[228]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[229], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[229]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[22], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[22]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[230], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[230]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[231], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[231]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[232], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[232]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[233], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[233]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[234], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[234]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[235], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[235]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[236], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[236]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[237], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[237]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[238], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[238]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[239], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[239]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[23], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[23]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[240], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[240]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[241], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[241]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[242], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[242]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[243], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[243]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[244], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[244]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[245], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[245]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[246], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[246]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[247], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[247]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[248], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[248]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[249], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[249]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[24], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[24]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[250], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[250]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[251], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[251]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[252], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[252]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[253], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[253]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[254], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[254]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[255], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[255]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[256], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[256]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[257], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[257]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[258], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[258]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[259], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[259]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[25], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[25]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[260], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[260]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[261], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[261]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[262], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[262]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[263], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[263]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[264], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[264]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[265], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[265]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[266], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[266]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[267], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[267]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[268], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[268]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[269], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[269]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[26], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[26]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[270], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[270]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[271], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[271]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[272], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[272]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[273], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[273]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[274], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[274]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[275], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[275]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[276], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[276]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[277], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[277]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[278], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[278]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[279], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[279]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[27], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[27]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[280], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[280]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[281], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[281]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[282], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[282]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[283], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[283]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[284], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[284]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[285], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[285]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[286], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[286]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[287], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[287]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[288], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[288]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[289], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[289]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[28], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[28]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[290], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[290]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[291], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[291]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[292], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[292]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[293], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[293]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[294], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[294]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[295], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[295]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[296], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[296]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[297], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[297]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[298], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[298]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[299], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[299]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[29], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[29]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[2], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[2]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[300], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[300]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[301], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[301]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[302], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[302]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[303], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[303]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[304], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[304]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[305], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[305]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[306], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[306]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[307], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[307]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[308], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[308]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[309], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[309]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[30], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[30]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[310], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[310]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[311], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[311]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[312], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[312]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[313], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[313]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[314], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[314]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[315], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[315]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[316], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[316]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[317], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[317]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[318], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[318]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[319], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[319]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[31], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[31]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[32], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[32]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[33], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[33]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[34], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[34]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[35], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[35]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[36], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[36]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[37], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[37]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[38], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[38]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[39], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[39]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[3], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[3]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[40], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[40]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[41], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[41]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[42], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[42]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[43], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[43]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[44], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[44]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[45], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[45]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[46], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[46]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[47], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[47]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[48], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[48]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[49], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[49]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[4], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[4]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[50], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[50]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[51], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[51]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[52], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[52]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[53], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[53]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[54], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[54]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[55], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[55]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[56], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[56]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[57], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[57]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[58], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[58]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[59], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[59]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[5], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[5]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[60], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[60]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[61], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[61]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[62], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[62]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[63], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[63]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[64], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[64]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[65], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[65]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[66], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[66]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[67], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[67]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[68], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[68]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[69], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[69]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[6], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[6]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[70], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[70]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[71], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[71]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[72], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[72]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[73], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[73]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[74], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[74]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[75], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[75]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[76], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[76]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[77], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[77]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[78], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[78]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[79], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[79]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[7], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[7]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[80], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[80]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[81], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[81]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[82], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[82]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[83], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[83]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[84], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[84]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[85], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[85]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[86], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[86]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[87], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[87]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[88], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[88]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[89], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[89]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[8], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[8]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[90], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[90]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[91], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[91]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[92], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[92]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[93], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[93]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[94], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[94]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[95], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[95]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[96], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[96]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[97], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[97]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[98], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[98]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[99], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[99]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDATA[9], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDATA_delay[9]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXDETECTRXLOOPBACK, 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXDETECTRXLOOPBACK_delay);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXELECIDLE, 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXELECIDLE_delay);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXPOWERDOWN[0], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXPOWERDOWN_delay[0]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXPOWERDOWN[1], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXPOWERDOWN_delay[1]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXRATE[0], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[0]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXRATE[1], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[1]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXRATE[2], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[2]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXRATE[3], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[3]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXRATE[4], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[4]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXRATE[5], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[5]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXRATE[6], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[6]);
+    $setuphold (posedge CH0_TXUSRCLK, posedge CH0_TXRATE[7], 0:0:0, 0:0:0, notifier, , , CH0_TXUSRCLK_delay, CH0_TXRATE_delay[7]);
+    $setuphold (posedge CH1_RXUSRCLK, negedge CH1_RXGEARBOXSLIP, 0:0:0, 0:0:0, notifier, , , CH1_RXUSRCLK_delay, CH1_RXGEARBOXSLIP_delay);
+    $setuphold (posedge CH1_RXUSRCLK, posedge CH1_RXGEARBOXSLIP, 0:0:0, 0:0:0, notifier, , , CH1_RXUSRCLK_delay, CH1_RXGEARBOXSLIP_delay);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[0], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[0]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[100], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[100]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[101], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[101]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[102], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[102]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[103], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[103]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[104], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[104]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[105], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[105]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[106], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[106]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[107], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[107]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[108], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[108]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[109], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[109]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[10], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[10]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[110], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[110]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[111], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[111]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[112], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[112]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[113], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[113]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[114], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[114]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[115], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[115]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[116], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[116]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[117], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[117]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[118], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[118]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[119], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[119]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[11], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[11]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[120], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[120]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[121], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[121]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[122], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[122]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[123], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[123]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[124], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[124]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[125], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[125]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[126], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[126]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[127], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[127]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[128], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[128]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[129], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[129]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[12], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[12]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[130], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[130]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[131], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[131]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[132], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[132]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[133], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[133]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[134], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[134]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[135], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[135]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[136], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[136]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[137], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[137]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[138], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[138]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[139], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[139]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[13], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[13]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[140], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[140]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[141], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[141]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[142], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[142]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[143], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[143]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[144], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[144]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[145], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[145]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[146], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[146]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[147], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[147]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[148], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[148]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[149], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[149]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[14], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[14]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[150], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[150]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[151], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[151]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[152], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[152]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[153], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[153]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[154], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[154]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[155], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[155]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[156], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[156]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[157], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[157]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[158], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[158]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[159], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[159]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[15], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[15]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[160], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[160]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[161], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[161]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[162], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[162]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[163], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[163]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[164], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[164]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[165], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[165]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[166], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[166]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[167], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[167]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[168], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[168]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[169], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[169]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[16], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[16]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[170], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[170]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[171], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[171]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[172], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[172]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[173], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[173]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[174], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[174]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[175], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[175]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[176], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[176]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[177], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[177]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[178], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[178]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[179], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[179]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[17], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[17]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[180], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[180]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[181], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[181]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[182], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[182]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[183], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[183]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[184], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[184]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[185], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[185]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[186], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[186]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[187], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[187]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[188], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[188]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[189], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[189]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[18], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[18]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[190], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[190]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[191], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[191]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[192], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[192]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[193], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[193]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[194], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[194]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[195], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[195]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[196], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[196]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[197], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[197]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[198], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[198]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[199], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[199]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[19], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[19]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[1], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[1]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[200], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[200]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[201], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[201]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[202], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[202]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[203], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[203]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[204], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[204]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[205], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[205]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[206], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[206]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[207], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[207]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[208], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[208]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[209], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[209]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[20], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[20]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[210], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[210]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[211], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[211]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[212], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[212]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[213], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[213]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[214], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[214]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[215], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[215]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[216], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[216]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[217], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[217]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[218], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[218]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[219], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[219]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[21], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[21]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[220], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[220]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[221], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[221]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[222], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[222]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[223], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[223]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[224], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[224]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[225], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[225]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[226], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[226]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[227], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[227]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[228], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[228]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[229], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[229]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[22], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[22]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[230], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[230]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[231], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[231]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[232], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[232]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[233], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[233]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[234], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[234]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[235], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[235]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[236], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[236]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[237], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[237]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[238], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[238]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[239], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[239]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[23], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[23]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[240], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[240]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[241], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[241]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[242], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[242]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[243], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[243]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[244], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[244]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[245], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[245]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[246], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[246]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[247], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[247]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[248], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[248]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[249], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[249]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[24], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[24]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[250], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[250]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[251], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[251]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[252], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[252]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[253], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[253]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[254], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[254]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[255], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[255]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[256], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[256]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[257], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[257]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[258], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[258]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[259], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[259]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[25], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[25]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[260], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[260]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[261], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[261]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[262], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[262]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[263], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[263]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[264], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[264]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[265], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[265]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[266], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[266]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[267], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[267]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[268], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[268]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[269], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[269]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[26], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[26]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[270], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[270]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[271], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[271]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[272], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[272]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[273], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[273]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[274], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[274]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[275], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[275]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[276], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[276]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[277], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[277]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[278], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[278]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[279], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[279]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[27], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[27]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[280], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[280]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[281], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[281]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[282], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[282]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[283], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[283]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[284], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[284]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[285], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[285]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[286], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[286]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[287], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[287]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[288], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[288]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[289], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[289]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[28], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[28]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[290], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[290]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[291], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[291]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[292], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[292]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[293], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[293]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[294], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[294]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[295], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[295]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[296], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[296]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[297], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[297]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[298], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[298]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[299], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[299]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[29], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[29]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[2], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[2]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[300], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[300]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[301], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[301]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[302], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[302]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[303], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[303]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[304], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[304]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[305], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[305]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[306], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[306]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[307], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[307]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[308], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[308]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[309], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[309]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[30], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[30]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[310], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[310]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[311], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[311]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[312], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[312]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[313], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[313]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[314], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[314]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[315], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[315]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[316], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[316]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[317], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[317]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[318], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[318]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[319], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[319]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[31], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[31]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[32], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[32]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[33], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[33]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[34], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[34]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[35], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[35]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[36], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[36]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[37], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[37]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[38], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[38]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[39], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[39]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[3], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[3]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[40], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[40]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[41], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[41]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[42], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[42]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[43], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[43]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[44], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[44]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[45], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[45]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[46], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[46]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[47], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[47]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[48], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[48]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[49], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[49]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[4], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[4]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[50], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[50]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[51], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[51]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[52], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[52]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[53], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[53]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[54], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[54]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[55], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[55]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[56], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[56]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[57], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[57]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[58], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[58]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[59], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[59]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[5], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[5]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[60], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[60]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[61], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[61]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[62], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[62]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[63], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[63]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[64], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[64]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[65], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[65]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[66], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[66]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[67], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[67]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[68], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[68]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[69], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[69]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[6], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[6]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[70], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[70]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[71], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[71]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[72], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[72]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[73], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[73]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[74], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[74]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[75], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[75]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[76], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[76]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[77], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[77]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[78], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[78]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[79], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[79]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[7], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[7]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[80], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[80]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[81], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[81]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[82], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[82]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[83], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[83]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[84], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[84]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[85], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[85]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[86], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[86]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[87], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[87]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[88], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[88]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[89], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[89]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[8], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[8]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[90], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[90]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[91], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[91]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[92], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[92]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[93], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[93]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[94], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[94]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[95], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[95]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[96], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[96]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[97], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[97]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[98], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[98]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[99], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[99]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDATA[9], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[9]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXDETECTRXLOOPBACK, 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDETECTRXLOOPBACK_delay);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXELECIDLE, 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXELECIDLE_delay);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXPOWERDOWN[0], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXPOWERDOWN_delay[0]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXPOWERDOWN[1], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXPOWERDOWN_delay[1]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXRATE[0], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[0]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXRATE[1], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[1]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXRATE[2], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[2]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXRATE[3], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[3]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXRATE[4], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[4]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXRATE[5], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[5]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXRATE[6], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[6]);
+    $setuphold (posedge CH1_TXUSRCLK, negedge CH1_TXRATE[7], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[7]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[0], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[0]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[100], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[100]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[101], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[101]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[102], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[102]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[103], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[103]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[104], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[104]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[105], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[105]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[106], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[106]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[107], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[107]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[108], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[108]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[109], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[109]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[10], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[10]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[110], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[110]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[111], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[111]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[112], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[112]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[113], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[113]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[114], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[114]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[115], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[115]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[116], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[116]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[117], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[117]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[118], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[118]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[119], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[119]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[11], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[11]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[120], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[120]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[121], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[121]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[122], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[122]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[123], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[123]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[124], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[124]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[125], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[125]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[126], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[126]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[127], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[127]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[128], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[128]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[129], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[129]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[12], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[12]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[130], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[130]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[131], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[131]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[132], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[132]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[133], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[133]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[134], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[134]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[135], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[135]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[136], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[136]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[137], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[137]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[138], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[138]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[139], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[139]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[13], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[13]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[140], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[140]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[141], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[141]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[142], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[142]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[143], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[143]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[144], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[144]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[145], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[145]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[146], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[146]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[147], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[147]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[148], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[148]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[149], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[149]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[14], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[14]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[150], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[150]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[151], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[151]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[152], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[152]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[153], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[153]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[154], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[154]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[155], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[155]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[156], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[156]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[157], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[157]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[158], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[158]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[159], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[159]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[15], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[15]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[160], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[160]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[161], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[161]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[162], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[162]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[163], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[163]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[164], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[164]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[165], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[165]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[166], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[166]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[167], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[167]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[168], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[168]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[169], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[169]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[16], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[16]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[170], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[170]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[171], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[171]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[172], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[172]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[173], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[173]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[174], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[174]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[175], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[175]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[176], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[176]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[177], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[177]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[178], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[178]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[179], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[179]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[17], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[17]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[180], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[180]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[181], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[181]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[182], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[182]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[183], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[183]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[184], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[184]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[185], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[185]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[186], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[186]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[187], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[187]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[188], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[188]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[189], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[189]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[18], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[18]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[190], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[190]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[191], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[191]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[192], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[192]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[193], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[193]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[194], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[194]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[195], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[195]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[196], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[196]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[197], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[197]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[198], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[198]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[199], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[199]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[19], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[19]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[1], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[1]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[200], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[200]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[201], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[201]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[202], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[202]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[203], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[203]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[204], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[204]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[205], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[205]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[206], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[206]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[207], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[207]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[208], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[208]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[209], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[209]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[20], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[20]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[210], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[210]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[211], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[211]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[212], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[212]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[213], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[213]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[214], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[214]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[215], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[215]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[216], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[216]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[217], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[217]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[218], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[218]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[219], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[219]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[21], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[21]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[220], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[220]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[221], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[221]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[222], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[222]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[223], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[223]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[224], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[224]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[225], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[225]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[226], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[226]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[227], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[227]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[228], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[228]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[229], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[229]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[22], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[22]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[230], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[230]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[231], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[231]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[232], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[232]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[233], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[233]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[234], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[234]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[235], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[235]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[236], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[236]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[237], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[237]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[238], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[238]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[239], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[239]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[23], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[23]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[240], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[240]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[241], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[241]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[242], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[242]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[243], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[243]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[244], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[244]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[245], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[245]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[246], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[246]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[247], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[247]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[248], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[248]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[249], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[249]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[24], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[24]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[250], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[250]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[251], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[251]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[252], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[252]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[253], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[253]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[254], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[254]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[255], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[255]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[256], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[256]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[257], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[257]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[258], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[258]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[259], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[259]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[25], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[25]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[260], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[260]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[261], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[261]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[262], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[262]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[263], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[263]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[264], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[264]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[265], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[265]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[266], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[266]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[267], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[267]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[268], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[268]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[269], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[269]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[26], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[26]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[270], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[270]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[271], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[271]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[272], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[272]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[273], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[273]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[274], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[274]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[275], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[275]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[276], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[276]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[277], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[277]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[278], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[278]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[279], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[279]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[27], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[27]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[280], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[280]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[281], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[281]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[282], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[282]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[283], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[283]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[284], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[284]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[285], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[285]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[286], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[286]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[287], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[287]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[288], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[288]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[289], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[289]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[28], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[28]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[290], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[290]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[291], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[291]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[292], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[292]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[293], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[293]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[294], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[294]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[295], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[295]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[296], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[296]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[297], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[297]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[298], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[298]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[299], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[299]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[29], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[29]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[2], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[2]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[300], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[300]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[301], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[301]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[302], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[302]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[303], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[303]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[304], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[304]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[305], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[305]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[306], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[306]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[307], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[307]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[308], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[308]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[309], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[309]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[30], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[30]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[310], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[310]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[311], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[311]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[312], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[312]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[313], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[313]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[314], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[314]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[315], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[315]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[316], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[316]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[317], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[317]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[318], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[318]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[319], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[319]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[31], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[31]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[32], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[32]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[33], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[33]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[34], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[34]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[35], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[35]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[36], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[36]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[37], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[37]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[38], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[38]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[39], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[39]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[3], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[3]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[40], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[40]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[41], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[41]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[42], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[42]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[43], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[43]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[44], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[44]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[45], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[45]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[46], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[46]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[47], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[47]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[48], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[48]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[49], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[49]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[4], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[4]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[50], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[50]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[51], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[51]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[52], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[52]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[53], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[53]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[54], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[54]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[55], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[55]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[56], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[56]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[57], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[57]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[58], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[58]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[59], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[59]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[5], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[5]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[60], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[60]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[61], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[61]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[62], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[62]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[63], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[63]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[64], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[64]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[65], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[65]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[66], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[66]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[67], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[67]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[68], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[68]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[69], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[69]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[6], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[6]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[70], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[70]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[71], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[71]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[72], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[72]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[73], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[73]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[74], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[74]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[75], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[75]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[76], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[76]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[77], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[77]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[78], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[78]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[79], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[79]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[7], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[7]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[80], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[80]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[81], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[81]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[82], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[82]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[83], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[83]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[84], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[84]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[85], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[85]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[86], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[86]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[87], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[87]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[88], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[88]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[89], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[89]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[8], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[8]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[90], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[90]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[91], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[91]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[92], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[92]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[93], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[93]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[94], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[94]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[95], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[95]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[96], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[96]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[97], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[97]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[98], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[98]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[99], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[99]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDATA[9], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDATA_delay[9]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXDETECTRXLOOPBACK, 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXDETECTRXLOOPBACK_delay);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXELECIDLE, 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXELECIDLE_delay);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXPOWERDOWN[0], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXPOWERDOWN_delay[0]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXPOWERDOWN[1], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXPOWERDOWN_delay[1]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXRATE[0], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[0]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXRATE[1], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[1]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXRATE[2], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[2]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXRATE[3], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[3]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXRATE[4], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[4]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXRATE[5], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[5]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXRATE[6], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[6]);
+    $setuphold (posedge CH1_TXUSRCLK, posedge CH1_TXRATE[7], 0:0:0, 0:0:0, notifier, , , CH1_TXUSRCLK_delay, CH1_TXRATE_delay[7]);
+    $setuphold (posedge CH2_RXUSRCLK, negedge CH2_RXGEARBOXSLIP, 0:0:0, 0:0:0, notifier, , , CH2_RXUSRCLK_delay, CH2_RXGEARBOXSLIP_delay);
+    $setuphold (posedge CH2_RXUSRCLK, posedge CH2_RXGEARBOXSLIP, 0:0:0, 0:0:0, notifier, , , CH2_RXUSRCLK_delay, CH2_RXGEARBOXSLIP_delay);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[0], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[0]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[100], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[100]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[101], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[101]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[102], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[102]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[103], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[103]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[104], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[104]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[105], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[105]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[106], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[106]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[107], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[107]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[108], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[108]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[109], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[109]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[10], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[10]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[110], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[110]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[111], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[111]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[112], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[112]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[113], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[113]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[114], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[114]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[115], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[115]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[116], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[116]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[117], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[117]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[118], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[118]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[119], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[119]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[11], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[11]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[120], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[120]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[121], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[121]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[122], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[122]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[123], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[123]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[124], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[124]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[125], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[125]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[126], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[126]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[127], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[127]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[128], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[128]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[129], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[129]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[12], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[12]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[130], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[130]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[131], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[131]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[132], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[132]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[133], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[133]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[134], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[134]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[135], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[135]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[136], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[136]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[137], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[137]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[138], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[138]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[139], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[139]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[13], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[13]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[140], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[140]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[141], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[141]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[142], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[142]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[143], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[143]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[144], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[144]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[145], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[145]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[146], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[146]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[147], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[147]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[148], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[148]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[149], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[149]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[14], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[14]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[150], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[150]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[151], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[151]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[152], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[152]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[153], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[153]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[154], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[154]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[155], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[155]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[156], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[156]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[157], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[157]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[158], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[158]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[159], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[159]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[15], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[15]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[160], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[160]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[161], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[161]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[162], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[162]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[163], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[163]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[164], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[164]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[165], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[165]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[166], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[166]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[167], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[167]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[168], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[168]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[169], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[169]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[16], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[16]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[170], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[170]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[171], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[171]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[172], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[172]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[173], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[173]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[174], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[174]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[175], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[175]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[176], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[176]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[177], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[177]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[178], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[178]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[179], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[179]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[17], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[17]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[180], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[180]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[181], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[181]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[182], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[182]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[183], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[183]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[184], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[184]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[185], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[185]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[186], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[186]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[187], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[187]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[188], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[188]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[189], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[189]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[18], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[18]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[190], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[190]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[191], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[191]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[192], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[192]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[193], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[193]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[194], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[194]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[195], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[195]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[196], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[196]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[197], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[197]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[198], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[198]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[199], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[199]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[19], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[19]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[1], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[1]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[200], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[200]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[201], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[201]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[202], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[202]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[203], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[203]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[204], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[204]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[205], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[205]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[206], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[206]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[207], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[207]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[208], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[208]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[209], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[209]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[20], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[20]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[210], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[210]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[211], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[211]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[212], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[212]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[213], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[213]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[214], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[214]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[215], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[215]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[216], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[216]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[217], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[217]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[218], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[218]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[219], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[219]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[21], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[21]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[220], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[220]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[221], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[221]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[222], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[222]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[223], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[223]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[224], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[224]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[225], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[225]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[226], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[226]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[227], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[227]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[228], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[228]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[229], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[229]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[22], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[22]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[230], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[230]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[231], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[231]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[232], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[232]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[233], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[233]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[234], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[234]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[235], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[235]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[236], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[236]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[237], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[237]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[238], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[238]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[239], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[239]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[23], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[23]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[240], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[240]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[241], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[241]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[242], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[242]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[243], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[243]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[244], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[244]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[245], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[245]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[246], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[246]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[247], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[247]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[248], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[248]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[249], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[249]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[24], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[24]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[250], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[250]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[251], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[251]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[252], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[252]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[253], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[253]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[254], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[254]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[255], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[255]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[256], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[256]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[257], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[257]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[258], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[258]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[259], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[259]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[25], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[25]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[260], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[260]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[261], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[261]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[262], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[262]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[263], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[263]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[264], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[264]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[265], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[265]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[266], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[266]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[267], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[267]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[268], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[268]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[269], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[269]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[26], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[26]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[270], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[270]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[271], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[271]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[272], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[272]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[273], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[273]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[274], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[274]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[275], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[275]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[276], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[276]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[277], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[277]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[278], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[278]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[279], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[279]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[27], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[27]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[280], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[280]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[281], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[281]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[282], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[282]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[283], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[283]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[284], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[284]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[285], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[285]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[286], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[286]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[287], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[287]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[288], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[288]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[289], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[289]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[28], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[28]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[290], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[290]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[291], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[291]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[292], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[292]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[293], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[293]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[294], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[294]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[295], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[295]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[296], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[296]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[297], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[297]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[298], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[298]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[299], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[299]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[29], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[29]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[2], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[2]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[300], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[300]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[301], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[301]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[302], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[302]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[303], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[303]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[304], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[304]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[305], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[305]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[306], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[306]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[307], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[307]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[308], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[308]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[309], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[309]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[30], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[30]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[310], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[310]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[311], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[311]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[312], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[312]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[313], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[313]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[314], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[314]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[315], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[315]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[316], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[316]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[317], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[317]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[318], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[318]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[319], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[319]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[31], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[31]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[32], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[32]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[33], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[33]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[34], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[34]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[35], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[35]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[36], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[36]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[37], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[37]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[38], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[38]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[39], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[39]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[3], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[3]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[40], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[40]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[41], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[41]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[42], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[42]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[43], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[43]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[44], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[44]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[45], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[45]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[46], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[46]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[47], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[47]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[48], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[48]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[49], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[49]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[4], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[4]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[50], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[50]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[51], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[51]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[52], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[52]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[53], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[53]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[54], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[54]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[55], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[55]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[56], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[56]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[57], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[57]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[58], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[58]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[59], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[59]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[5], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[5]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[60], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[60]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[61], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[61]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[62], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[62]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[63], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[63]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[64], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[64]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[65], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[65]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[66], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[66]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[67], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[67]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[68], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[68]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[69], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[69]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[6], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[6]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[70], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[70]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[71], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[71]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[72], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[72]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[73], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[73]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[74], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[74]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[75], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[75]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[76], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[76]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[77], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[77]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[78], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[78]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[79], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[79]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[7], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[7]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[80], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[80]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[81], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[81]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[82], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[82]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[83], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[83]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[84], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[84]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[85], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[85]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[86], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[86]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[87], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[87]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[88], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[88]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[89], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[89]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[8], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[8]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[90], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[90]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[91], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[91]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[92], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[92]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[93], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[93]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[94], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[94]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[95], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[95]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[96], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[96]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[97], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[97]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[98], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[98]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[99], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[99]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDATA[9], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[9]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXDETECTRXLOOPBACK, 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDETECTRXLOOPBACK_delay);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXELECIDLE, 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXELECIDLE_delay);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXPOWERDOWN[0], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXPOWERDOWN_delay[0]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXPOWERDOWN[1], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXPOWERDOWN_delay[1]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXRATE[0], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[0]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXRATE[1], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[1]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXRATE[2], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[2]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXRATE[3], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[3]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXRATE[4], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[4]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXRATE[5], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[5]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXRATE[6], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[6]);
+    $setuphold (posedge CH2_TXUSRCLK, negedge CH2_TXRATE[7], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[7]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[0], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[0]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[100], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[100]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[101], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[101]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[102], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[102]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[103], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[103]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[104], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[104]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[105], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[105]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[106], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[106]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[107], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[107]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[108], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[108]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[109], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[109]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[10], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[10]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[110], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[110]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[111], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[111]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[112], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[112]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[113], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[113]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[114], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[114]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[115], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[115]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[116], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[116]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[117], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[117]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[118], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[118]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[119], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[119]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[11], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[11]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[120], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[120]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[121], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[121]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[122], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[122]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[123], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[123]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[124], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[124]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[125], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[125]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[126], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[126]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[127], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[127]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[128], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[128]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[129], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[129]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[12], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[12]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[130], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[130]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[131], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[131]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[132], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[132]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[133], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[133]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[134], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[134]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[135], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[135]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[136], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[136]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[137], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[137]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[138], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[138]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[139], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[139]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[13], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[13]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[140], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[140]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[141], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[141]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[142], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[142]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[143], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[143]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[144], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[144]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[145], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[145]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[146], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[146]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[147], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[147]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[148], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[148]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[149], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[149]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[14], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[14]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[150], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[150]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[151], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[151]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[152], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[152]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[153], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[153]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[154], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[154]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[155], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[155]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[156], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[156]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[157], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[157]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[158], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[158]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[159], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[159]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[15], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[15]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[160], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[160]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[161], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[161]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[162], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[162]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[163], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[163]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[164], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[164]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[165], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[165]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[166], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[166]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[167], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[167]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[168], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[168]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[169], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[169]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[16], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[16]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[170], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[170]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[171], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[171]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[172], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[172]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[173], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[173]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[174], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[174]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[175], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[175]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[176], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[176]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[177], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[177]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[178], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[178]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[179], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[179]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[17], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[17]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[180], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[180]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[181], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[181]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[182], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[182]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[183], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[183]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[184], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[184]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[185], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[185]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[186], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[186]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[187], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[187]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[188], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[188]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[189], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[189]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[18], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[18]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[190], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[190]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[191], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[191]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[192], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[192]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[193], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[193]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[194], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[194]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[195], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[195]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[196], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[196]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[197], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[197]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[198], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[198]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[199], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[199]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[19], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[19]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[1], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[1]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[200], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[200]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[201], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[201]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[202], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[202]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[203], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[203]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[204], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[204]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[205], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[205]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[206], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[206]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[207], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[207]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[208], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[208]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[209], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[209]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[20], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[20]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[210], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[210]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[211], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[211]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[212], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[212]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[213], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[213]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[214], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[214]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[215], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[215]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[216], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[216]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[217], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[217]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[218], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[218]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[219], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[219]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[21], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[21]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[220], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[220]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[221], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[221]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[222], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[222]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[223], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[223]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[224], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[224]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[225], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[225]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[226], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[226]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[227], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[227]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[228], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[228]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[229], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[229]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[22], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[22]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[230], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[230]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[231], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[231]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[232], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[232]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[233], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[233]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[234], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[234]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[235], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[235]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[236], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[236]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[237], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[237]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[238], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[238]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[239], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[239]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[23], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[23]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[240], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[240]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[241], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[241]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[242], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[242]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[243], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[243]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[244], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[244]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[245], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[245]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[246], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[246]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[247], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[247]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[248], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[248]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[249], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[249]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[24], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[24]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[250], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[250]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[251], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[251]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[252], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[252]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[253], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[253]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[254], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[254]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[255], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[255]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[256], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[256]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[257], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[257]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[258], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[258]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[259], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[259]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[25], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[25]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[260], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[260]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[261], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[261]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[262], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[262]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[263], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[263]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[264], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[264]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[265], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[265]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[266], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[266]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[267], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[267]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[268], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[268]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[269], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[269]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[26], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[26]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[270], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[270]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[271], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[271]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[272], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[272]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[273], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[273]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[274], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[274]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[275], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[275]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[276], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[276]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[277], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[277]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[278], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[278]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[279], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[279]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[27], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[27]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[280], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[280]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[281], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[281]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[282], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[282]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[283], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[283]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[284], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[284]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[285], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[285]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[286], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[286]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[287], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[287]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[288], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[288]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[289], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[289]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[28], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[28]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[290], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[290]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[291], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[291]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[292], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[292]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[293], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[293]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[294], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[294]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[295], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[295]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[296], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[296]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[297], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[297]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[298], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[298]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[299], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[299]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[29], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[29]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[2], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[2]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[300], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[300]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[301], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[301]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[302], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[302]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[303], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[303]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[304], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[304]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[305], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[305]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[306], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[306]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[307], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[307]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[308], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[308]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[309], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[309]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[30], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[30]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[310], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[310]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[311], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[311]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[312], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[312]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[313], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[313]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[314], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[314]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[315], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[315]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[316], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[316]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[317], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[317]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[318], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[318]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[319], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[319]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[31], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[31]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[32], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[32]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[33], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[33]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[34], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[34]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[35], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[35]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[36], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[36]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[37], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[37]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[38], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[38]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[39], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[39]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[3], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[3]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[40], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[40]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[41], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[41]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[42], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[42]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[43], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[43]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[44], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[44]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[45], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[45]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[46], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[46]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[47], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[47]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[48], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[48]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[49], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[49]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[4], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[4]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[50], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[50]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[51], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[51]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[52], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[52]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[53], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[53]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[54], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[54]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[55], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[55]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[56], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[56]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[57], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[57]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[58], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[58]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[59], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[59]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[5], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[5]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[60], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[60]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[61], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[61]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[62], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[62]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[63], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[63]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[64], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[64]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[65], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[65]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[66], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[66]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[67], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[67]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[68], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[68]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[69], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[69]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[6], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[6]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[70], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[70]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[71], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[71]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[72], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[72]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[73], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[73]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[74], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[74]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[75], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[75]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[76], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[76]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[77], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[77]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[78], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[78]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[79], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[79]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[7], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[7]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[80], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[80]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[81], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[81]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[82], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[82]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[83], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[83]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[84], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[84]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[85], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[85]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[86], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[86]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[87], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[87]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[88], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[88]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[89], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[89]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[8], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[8]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[90], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[90]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[91], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[91]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[92], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[92]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[93], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[93]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[94], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[94]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[95], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[95]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[96], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[96]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[97], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[97]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[98], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[98]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[99], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[99]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDATA[9], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDATA_delay[9]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXDETECTRXLOOPBACK, 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXDETECTRXLOOPBACK_delay);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXELECIDLE, 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXELECIDLE_delay);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXPOWERDOWN[0], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXPOWERDOWN_delay[0]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXPOWERDOWN[1], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXPOWERDOWN_delay[1]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXRATE[0], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[0]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXRATE[1], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[1]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXRATE[2], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[2]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXRATE[3], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[3]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXRATE[4], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[4]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXRATE[5], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[5]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXRATE[6], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[6]);
+    $setuphold (posedge CH2_TXUSRCLK, posedge CH2_TXRATE[7], 0:0:0, 0:0:0, notifier, , , CH2_TXUSRCLK_delay, CH2_TXRATE_delay[7]);
+    $setuphold (posedge CH3_RXUSRCLK, negedge CH3_RXGEARBOXSLIP, 0:0:0, 0:0:0, notifier, , , CH3_RXUSRCLK_delay, CH3_RXGEARBOXSLIP_delay);
+    $setuphold (posedge CH3_RXUSRCLK, posedge CH3_RXGEARBOXSLIP, 0:0:0, 0:0:0, notifier, , , CH3_RXUSRCLK_delay, CH3_RXGEARBOXSLIP_delay);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[0], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[0]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[100], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[100]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[101], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[101]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[102], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[102]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[103], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[103]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[104], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[104]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[105], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[105]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[106], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[106]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[107], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[107]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[108], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[108]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[109], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[109]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[10], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[10]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[110], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[110]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[111], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[111]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[112], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[112]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[113], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[113]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[114], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[114]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[115], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[115]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[116], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[116]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[117], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[117]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[118], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[118]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[119], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[119]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[11], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[11]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[120], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[120]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[121], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[121]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[122], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[122]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[123], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[123]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[124], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[124]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[125], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[125]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[126], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[126]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[127], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[127]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[128], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[128]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[129], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[129]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[12], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[12]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[130], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[130]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[131], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[131]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[132], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[132]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[133], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[133]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[134], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[134]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[135], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[135]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[136], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[136]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[137], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[137]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[138], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[138]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[139], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[139]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[13], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[13]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[140], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[140]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[141], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[141]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[142], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[142]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[143], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[143]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[144], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[144]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[145], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[145]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[146], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[146]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[147], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[147]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[148], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[148]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[149], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[149]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[14], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[14]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[150], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[150]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[151], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[151]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[152], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[152]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[153], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[153]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[154], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[154]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[155], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[155]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[156], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[156]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[157], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[157]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[158], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[158]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[159], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[159]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[15], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[15]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[160], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[160]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[161], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[161]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[162], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[162]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[163], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[163]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[164], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[164]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[165], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[165]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[166], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[166]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[167], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[167]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[168], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[168]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[169], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[169]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[16], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[16]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[170], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[170]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[171], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[171]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[172], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[172]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[173], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[173]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[174], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[174]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[175], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[175]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[176], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[176]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[177], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[177]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[178], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[178]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[179], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[179]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[17], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[17]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[180], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[180]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[181], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[181]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[182], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[182]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[183], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[183]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[184], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[184]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[185], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[185]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[186], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[186]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[187], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[187]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[188], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[188]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[189], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[189]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[18], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[18]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[190], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[190]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[191], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[191]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[192], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[192]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[193], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[193]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[194], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[194]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[195], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[195]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[196], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[196]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[197], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[197]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[198], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[198]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[199], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[199]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[19], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[19]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[1], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[1]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[200], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[200]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[201], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[201]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[202], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[202]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[203], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[203]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[204], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[204]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[205], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[205]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[206], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[206]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[207], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[207]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[208], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[208]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[209], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[209]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[20], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[20]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[210], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[210]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[211], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[211]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[212], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[212]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[213], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[213]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[214], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[214]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[215], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[215]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[216], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[216]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[217], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[217]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[218], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[218]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[219], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[219]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[21], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[21]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[220], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[220]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[221], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[221]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[222], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[222]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[223], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[223]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[224], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[224]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[225], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[225]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[226], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[226]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[227], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[227]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[228], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[228]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[229], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[229]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[22], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[22]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[230], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[230]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[231], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[231]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[232], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[232]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[233], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[233]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[234], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[234]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[235], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[235]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[236], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[236]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[237], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[237]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[238], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[238]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[239], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[239]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[23], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[23]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[240], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[240]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[241], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[241]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[242], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[242]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[243], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[243]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[244], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[244]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[245], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[245]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[246], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[246]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[247], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[247]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[248], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[248]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[249], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[249]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[24], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[24]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[250], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[250]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[251], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[251]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[252], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[252]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[253], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[253]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[254], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[254]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[255], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[255]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[256], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[256]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[257], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[257]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[258], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[258]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[259], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[259]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[25], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[25]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[260], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[260]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[261], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[261]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[262], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[262]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[263], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[263]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[264], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[264]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[265], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[265]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[266], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[266]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[267], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[267]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[268], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[268]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[269], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[269]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[26], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[26]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[270], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[270]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[271], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[271]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[272], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[272]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[273], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[273]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[274], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[274]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[275], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[275]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[276], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[276]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[277], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[277]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[278], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[278]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[279], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[279]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[27], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[27]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[280], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[280]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[281], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[281]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[282], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[282]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[283], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[283]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[284], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[284]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[285], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[285]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[286], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[286]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[287], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[287]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[288], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[288]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[289], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[289]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[28], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[28]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[290], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[290]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[291], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[291]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[292], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[292]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[293], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[293]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[294], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[294]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[295], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[295]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[296], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[296]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[297], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[297]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[298], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[298]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[299], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[299]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[29], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[29]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[2], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[2]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[300], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[300]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[301], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[301]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[302], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[302]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[303], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[303]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[304], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[304]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[305], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[305]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[306], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[306]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[307], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[307]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[308], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[308]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[309], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[309]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[30], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[30]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[310], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[310]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[311], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[311]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[312], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[312]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[313], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[313]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[314], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[314]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[315], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[315]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[316], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[316]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[317], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[317]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[318], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[318]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[319], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[319]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[31], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[31]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[32], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[32]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[33], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[33]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[34], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[34]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[35], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[35]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[36], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[36]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[37], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[37]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[38], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[38]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[39], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[39]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[3], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[3]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[40], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[40]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[41], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[41]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[42], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[42]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[43], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[43]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[44], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[44]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[45], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[45]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[46], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[46]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[47], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[47]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[48], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[48]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[49], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[49]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[4], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[4]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[50], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[50]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[51], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[51]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[52], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[52]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[53], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[53]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[54], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[54]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[55], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[55]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[56], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[56]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[57], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[57]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[58], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[58]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[59], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[59]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[5], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[5]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[60], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[60]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[61], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[61]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[62], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[62]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[63], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[63]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[64], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[64]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[65], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[65]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[66], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[66]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[67], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[67]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[68], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[68]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[69], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[69]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[6], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[6]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[70], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[70]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[71], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[71]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[72], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[72]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[73], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[73]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[74], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[74]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[75], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[75]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[76], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[76]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[77], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[77]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[78], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[78]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[79], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[79]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[7], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[7]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[80], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[80]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[81], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[81]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[82], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[82]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[83], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[83]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[84], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[84]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[85], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[85]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[86], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[86]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[87], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[87]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[88], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[88]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[89], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[89]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[8], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[8]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[90], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[90]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[91], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[91]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[92], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[92]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[93], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[93]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[94], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[94]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[95], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[95]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[96], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[96]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[97], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[97]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[98], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[98]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[99], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[99]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDATA[9], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[9]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXDETECTRXLOOPBACK, 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDETECTRXLOOPBACK_delay);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXELECIDLE, 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXELECIDLE_delay);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXPOWERDOWN[0], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXPOWERDOWN_delay[0]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXPOWERDOWN[1], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXPOWERDOWN_delay[1]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXRATE[0], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[0]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXRATE[1], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[1]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXRATE[2], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[2]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXRATE[3], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[3]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXRATE[4], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[4]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXRATE[5], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[5]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXRATE[6], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[6]);
+    $setuphold (posedge CH3_TXUSRCLK, negedge CH3_TXRATE[7], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[7]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[0], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[0]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[100], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[100]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[101], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[101]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[102], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[102]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[103], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[103]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[104], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[104]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[105], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[105]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[106], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[106]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[107], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[107]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[108], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[108]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[109], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[109]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[10], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[10]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[110], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[110]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[111], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[111]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[112], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[112]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[113], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[113]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[114], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[114]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[115], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[115]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[116], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[116]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[117], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[117]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[118], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[118]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[119], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[119]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[11], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[11]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[120], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[120]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[121], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[121]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[122], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[122]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[123], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[123]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[124], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[124]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[125], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[125]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[126], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[126]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[127], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[127]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[128], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[128]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[129], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[129]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[12], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[12]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[130], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[130]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[131], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[131]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[132], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[132]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[133], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[133]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[134], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[134]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[135], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[135]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[136], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[136]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[137], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[137]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[138], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[138]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[139], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[139]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[13], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[13]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[140], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[140]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[141], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[141]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[142], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[142]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[143], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[143]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[144], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[144]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[145], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[145]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[146], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[146]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[147], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[147]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[148], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[148]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[149], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[149]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[14], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[14]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[150], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[150]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[151], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[151]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[152], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[152]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[153], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[153]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[154], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[154]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[155], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[155]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[156], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[156]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[157], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[157]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[158], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[158]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[159], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[159]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[15], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[15]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[160], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[160]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[161], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[161]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[162], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[162]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[163], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[163]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[164], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[164]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[165], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[165]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[166], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[166]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[167], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[167]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[168], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[168]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[169], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[169]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[16], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[16]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[170], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[170]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[171], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[171]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[172], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[172]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[173], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[173]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[174], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[174]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[175], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[175]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[176], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[176]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[177], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[177]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[178], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[178]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[179], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[179]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[17], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[17]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[180], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[180]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[181], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[181]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[182], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[182]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[183], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[183]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[184], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[184]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[185], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[185]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[186], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[186]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[187], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[187]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[188], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[188]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[189], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[189]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[18], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[18]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[190], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[190]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[191], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[191]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[192], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[192]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[193], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[193]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[194], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[194]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[195], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[195]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[196], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[196]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[197], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[197]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[198], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[198]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[199], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[199]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[19], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[19]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[1], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[1]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[200], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[200]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[201], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[201]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[202], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[202]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[203], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[203]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[204], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[204]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[205], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[205]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[206], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[206]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[207], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[207]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[208], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[208]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[209], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[209]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[20], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[20]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[210], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[210]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[211], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[211]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[212], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[212]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[213], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[213]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[214], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[214]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[215], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[215]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[216], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[216]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[217], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[217]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[218], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[218]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[219], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[219]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[21], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[21]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[220], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[220]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[221], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[221]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[222], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[222]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[223], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[223]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[224], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[224]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[225], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[225]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[226], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[226]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[227], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[227]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[228], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[228]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[229], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[229]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[22], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[22]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[230], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[230]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[231], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[231]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[232], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[232]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[233], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[233]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[234], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[234]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[235], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[235]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[236], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[236]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[237], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[237]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[238], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[238]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[239], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[239]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[23], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[23]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[240], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[240]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[241], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[241]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[242], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[242]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[243], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[243]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[244], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[244]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[245], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[245]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[246], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[246]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[247], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[247]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[248], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[248]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[249], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[249]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[24], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[24]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[250], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[250]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[251], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[251]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[252], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[252]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[253], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[253]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[254], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[254]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[255], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[255]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[256], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[256]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[257], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[257]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[258], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[258]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[259], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[259]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[25], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[25]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[260], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[260]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[261], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[261]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[262], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[262]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[263], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[263]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[264], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[264]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[265], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[265]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[266], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[266]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[267], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[267]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[268], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[268]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[269], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[269]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[26], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[26]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[270], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[270]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[271], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[271]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[272], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[272]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[273], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[273]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[274], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[274]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[275], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[275]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[276], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[276]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[277], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[277]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[278], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[278]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[279], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[279]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[27], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[27]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[280], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[280]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[281], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[281]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[282], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[282]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[283], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[283]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[284], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[284]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[285], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[285]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[286], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[286]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[287], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[287]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[288], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[288]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[289], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[289]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[28], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[28]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[290], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[290]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[291], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[291]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[292], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[292]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[293], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[293]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[294], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[294]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[295], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[295]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[296], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[296]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[297], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[297]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[298], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[298]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[299], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[299]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[29], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[29]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[2], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[2]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[300], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[300]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[301], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[301]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[302], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[302]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[303], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[303]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[304], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[304]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[305], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[305]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[306], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[306]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[307], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[307]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[308], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[308]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[309], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[309]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[30], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[30]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[310], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[310]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[311], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[311]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[312], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[312]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[313], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[313]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[314], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[314]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[315], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[315]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[316], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[316]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[317], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[317]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[318], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[318]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[319], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[319]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[31], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[31]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[32], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[32]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[33], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[33]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[34], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[34]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[35], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[35]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[36], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[36]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[37], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[37]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[38], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[38]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[39], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[39]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[3], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[3]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[40], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[40]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[41], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[41]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[42], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[42]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[43], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[43]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[44], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[44]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[45], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[45]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[46], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[46]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[47], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[47]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[48], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[48]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[49], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[49]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[4], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[4]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[50], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[50]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[51], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[51]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[52], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[52]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[53], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[53]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[54], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[54]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[55], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[55]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[56], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[56]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[57], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[57]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[58], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[58]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[59], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[59]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[5], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[5]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[60], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[60]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[61], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[61]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[62], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[62]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[63], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[63]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[64], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[64]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[65], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[65]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[66], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[66]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[67], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[67]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[68], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[68]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[69], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[69]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[6], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[6]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[70], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[70]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[71], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[71]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[72], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[72]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[73], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[73]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[74], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[74]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[75], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[75]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[76], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[76]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[77], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[77]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[78], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[78]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[79], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[79]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[7], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[7]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[80], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[80]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[81], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[81]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[82], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[82]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[83], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[83]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[84], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[84]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[85], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[85]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[86], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[86]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[87], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[87]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[88], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[88]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[89], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[89]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[8], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[8]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[90], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[90]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[91], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[91]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[92], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[92]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[93], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[93]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[94], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[94]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[95], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[95]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[96], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[96]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[97], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[97]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[98], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[98]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[99], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[99]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDATA[9], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDATA_delay[9]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXDETECTRXLOOPBACK, 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXDETECTRXLOOPBACK_delay);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXELECIDLE, 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXELECIDLE_delay);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXPOWERDOWN[0], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXPOWERDOWN_delay[0]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXPOWERDOWN[1], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXPOWERDOWN_delay[1]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXRATE[0], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[0]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXRATE[1], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[1]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXRATE[2], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[2]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXRATE[3], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[3]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXRATE[4], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[4]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXRATE[5], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[5]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXRATE[6], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[6]);
+    $setuphold (posedge CH3_TXUSRCLK, posedge CH3_TXRATE[7], 0:0:0, 0:0:0, notifier, , , CH3_TXUSRCLK_delay, CH3_TXRATE_delay[7]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQCMD[0], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQCMD_delay[0]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQCMD[1], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQCMD_delay[1]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQCMD[2], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQCMD_delay[2]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQCMD[3], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQCMD_delay[3]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQLANENUM[0], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQLANENUM_delay[0]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQLANENUM[1], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQLANENUM_delay[1]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQPAYLOAD[0], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[0]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQPAYLOAD[1], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[1]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQPAYLOAD[2], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[2]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQPAYLOAD[3], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[3]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQPAYLOAD[4], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[4]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQPAYLOAD[5], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[5]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQPAYLOAD[6], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[6]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQPAYLOAD[7], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[7]);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINREQREQ, 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQREQ_delay);
+    $setuphold (posedge RXMARGINCLK, negedge RXMARGINRESACK, 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINRESACK_delay);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQCMD[0], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQCMD_delay[0]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQCMD[1], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQCMD_delay[1]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQCMD[2], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQCMD_delay[2]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQCMD[3], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQCMD_delay[3]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQLANENUM[0], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQLANENUM_delay[0]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQLANENUM[1], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQLANENUM_delay[1]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQPAYLOAD[0], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[0]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQPAYLOAD[1], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[1]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQPAYLOAD[2], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[2]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQPAYLOAD[3], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[3]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQPAYLOAD[4], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[4]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQPAYLOAD[5], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[5]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQPAYLOAD[6], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[6]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQPAYLOAD[7], 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQPAYLOAD_delay[7]);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINREQREQ, 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINREQREQ_delay);
+    $setuphold (posedge RXMARGINCLK, posedge RXMARGINRESACK, 0:0:0, 0:0:0, notifier, , , RXMARGINCLK_delay, RXMARGINRESACK_delay);
+    $width (negedge CH0_DMONITORCLK, 0:0:0, 0, notifier);
+    $width (negedge CH0_RXLATCLK, 0:0:0, 0, notifier);
+    $width (negedge CH0_RXUSRCLK, 0:0:0, 0, notifier);
+    $width (negedge CH0_SCANCLKB, 0:0:0, 0, notifier);
+    $width (negedge CH0_TXLATCLK, 0:0:0, 0, notifier);
+    $width (negedge CH0_TXUSRCLK, 0:0:0, 0, notifier);
+    $width (negedge CH1_DMONITORCLK, 0:0:0, 0, notifier);
+    $width (negedge CH1_RXLATCLK, 0:0:0, 0, notifier);
+    $width (negedge CH1_RXUSRCLK, 0:0:0, 0, notifier);
+    $width (negedge CH1_SCANCLKB, 0:0:0, 0, notifier);
+    $width (negedge CH1_TXLATCLK, 0:0:0, 0, notifier);
+    $width (negedge CH1_TXUSRCLK, 0:0:0, 0, notifier);
+    $width (negedge CH2_DMONITORCLK, 0:0:0, 0, notifier);
+    $width (negedge CH2_RXLATCLK, 0:0:0, 0, notifier);
+    $width (negedge CH2_RXUSRCLK, 0:0:0, 0, notifier);
+    $width (negedge CH2_SCANCLKB, 0:0:0, 0, notifier);
+    $width (negedge CH2_TXLATCLK, 0:0:0, 0, notifier);
+    $width (negedge CH2_TXUSRCLK, 0:0:0, 0, notifier);
+    $width (negedge CH3_DMONITORCLK, 0:0:0, 0, notifier);
+    $width (negedge CH3_RXLATCLK, 0:0:0, 0, notifier);
+    $width (negedge CH3_RXUSRCLK, 0:0:0, 0, notifier);
+    $width (negedge CH3_SCANCLKB, 0:0:0, 0, notifier);
+    $width (negedge CH3_TXLATCLK, 0:0:0, 0, notifier);
+    $width (negedge CH3_TXUSRCLK, 0:0:0, 0, notifier);
+    $width (negedge HSCLK0_LCPLLGTGREFCLK, 0:0:0, 0, notifier);
+    $width (negedge HSCLK0_RPLLGTGREFCLK, 0:0:0, 0, notifier);
+    $width (negedge HSCLK1_LCPLLGTGREFCLK, 0:0:0, 0, notifier);
+    $width (negedge HSCLK1_RPLLGTGREFCLK, 0:0:0, 0, notifier);
+    $width (negedge REFCLK0_CLKTESTSIG, 0:0:0, 0, notifier);
+    $width (negedge REFCLK1_CLKTESTSIG, 0:0:0, 0, notifier);
+    $width (negedge RXMARGINCLK, 0:0:0, 0, notifier);
+    $width (negedge SCANCLKB, 0:0:0, 0, notifier);
+    $width (posedge CH0_DMONITORCLK, 0:0:0, 0, notifier);
+    $width (posedge CH0_RXLATCLK, 0:0:0, 0, notifier);
+    $width (posedge CH0_RXUSRCLK, 0:0:0, 0, notifier);
+    $width (posedge CH0_SCANCLKB, 0:0:0, 0, notifier);
+    $width (posedge CH0_TXLATCLK, 0:0:0, 0, notifier);
+    $width (posedge CH0_TXUSRCLK, 0:0:0, 0, notifier);
+    $width (posedge CH1_DMONITORCLK, 0:0:0, 0, notifier);
+    $width (posedge CH1_RXLATCLK, 0:0:0, 0, notifier);
+    $width (posedge CH1_RXUSRCLK, 0:0:0, 0, notifier);
+    $width (posedge CH1_SCANCLKB, 0:0:0, 0, notifier);
+    $width (posedge CH1_TXLATCLK, 0:0:0, 0, notifier);
+    $width (posedge CH1_TXUSRCLK, 0:0:0, 0, notifier);
+    $width (posedge CH2_DMONITORCLK, 0:0:0, 0, notifier);
+    $width (posedge CH2_RXLATCLK, 0:0:0, 0, notifier);
+    $width (posedge CH2_RXUSRCLK, 0:0:0, 0, notifier);
+    $width (posedge CH2_SCANCLKB, 0:0:0, 0, notifier);
+    $width (posedge CH2_TXLATCLK, 0:0:0, 0, notifier);
+    $width (posedge CH2_TXUSRCLK, 0:0:0, 0, notifier);
+    $width (posedge CH3_DMONITORCLK, 0:0:0, 0, notifier);
+    $width (posedge CH3_RXLATCLK, 0:0:0, 0, notifier);
+    $width (posedge CH3_RXUSRCLK, 0:0:0, 0, notifier);
+    $width (posedge CH3_SCANCLKB, 0:0:0, 0, notifier);
+    $width (posedge CH3_TXLATCLK, 0:0:0, 0, notifier);
+    $width (posedge CH3_TXUSRCLK, 0:0:0, 0, notifier);
+    $width (posedge HSCLK0_LCPLLGTGREFCLK, 0:0:0, 0, notifier);
+    $width (posedge HSCLK0_RPLLGTGREFCLK, 0:0:0, 0, notifier);
+    $width (posedge HSCLK1_LCPLLGTGREFCLK, 0:0:0, 0, notifier);
+    $width (posedge HSCLK1_RPLLGTGREFCLK, 0:0:0, 0, notifier);
+    $width (posedge REFCLK0_CLKTESTSIG, 0:0:0, 0, notifier);
+    $width (posedge REFCLK1_CLKTESTSIG, 0:0:0, 0, notifier);
+    $width (posedge RXMARGINCLK, 0:0:0, 0, notifier);
+    $width (posedge SCANCLKB, 0:0:0, 0, notifier);
+`endif
+    specparam PATHPULSE$ = 0;
+  endspecify
+   // end timing section 
+`endif
+endmodule
+
+`endcelldefine

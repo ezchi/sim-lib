@@ -1,0 +1,35 @@
+///////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 1995/2015 Xilinx, Inc.
+// All Right Reserved.
+///////////////////////////////////////////////////////////////////////////////
+//   ____  ____
+//  /   /\/   /
+// /___/  \  /    Vendor : Xilinx
+// \   \   \/     Version : 2015.4
+//  \   \         Description : Xilinx Formal Library Component
+//  /   /                  INVERTER
+// /___/   /\     Filename : FORMAL_INV.v
+// \   \  /  \
+//  \___\/\___\
+//
+///////////////////////////////////////////////////////////////////////////////
+// Revision:
+// simprim primitive
+// End Revision
+///////////////////////////////////////////////////////////////////////////////
+
+`timescale 1 ps/1 ps
+
+`define XIL_XECLIB
+ `celldefine
+
+module FORMAL_INV (O, I);
+
+  output O;
+  input I;
+
+  not (O, I);
+
+endmodule
+
+`endcelldefine
