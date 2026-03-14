@@ -1,0 +1,60 @@
+// PROTOTYPE System Configuration access point module
+// AXI4-MM 128-bit data width
+// PL manager to hard block subordinate
+
+(*black_box*)
+module AP_AXI4MM_128_PL_HB #(
+	parameter HARD_BLOCK = "",
+	parameter INTERFACE  = ""
+) (
+	input  wire  [63:0] ARADDR,
+	input  wire   [1:0] ARBURST,
+	input  wire   [3:0] ARCACHE,
+	output wire   [3:0] ARCOUNT,
+	input  wire  [15:0] ARID,
+	input  wire   [7:0] ARLEN,
+	input  wire         ARLOCK,
+	input  wire   [2:0] ARPROT,
+	input  wire   [3:0] ARQOS,
+	output wire         ARREADY,
+	input  wire   [3:0] ARREGION,
+	input  wire   [2:0] ARSIZE,
+	input  wire  [15:0] ARUSER,
+	input  wire         ARVALID,
+	input  wire  [63:0] AWADDR,
+	input  wire   [1:0] AWBURST,
+	input  wire   [3:0] AWCACHE,
+	input  wire  [15:0] AWID,
+	input  wire   [7:0] AWLEN,
+	input  wire         AWLOCK,
+	input  wire   [2:0] AWPROT,
+	input  wire   [3:0] AWQOS,
+	output wire         AWREADY,
+	input  wire   [3:0] AWREGION,
+	input  wire   [2:0] AWSIZE,
+	input  wire  [15:0] AWUSER,
+	input  wire         AWVALID,
+	output wire  [15:0] BID,
+	input  wire         BREADY,
+	output wire   [1:0] BRESP,
+	output wire         BUSER,
+	output wire         BVALID,
+	output wire   [7:0] RCOUNT,
+	output wire [127:0] RDATA,
+	output wire  [15:0] RID,
+	output wire         RLAST,
+	input  wire         RREADY,
+	output wire   [1:0] RRESP,
+	output wire  [31:0] RUSER,
+	output wire         RVALID,
+	output wire   [3:0] WACOUNT,
+	output wire   [7:0] WCOUNT,
+	input  wire [127:0] WDATA,
+	input  wire  [15:0] WID,
+	input  wire         WLAST,
+	output wire         WREADY,
+	input  wire  [15:0] WSTRB,
+	input  wire  [31:0] WUSER,
+	input  wire         WVALID
+);
+endmodule
